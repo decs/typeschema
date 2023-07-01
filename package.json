@@ -1,0 +1,64 @@
+{
+  "name": "@decs/typeschema",
+  "version": "0.1.0",
+  "description": "Unified interface for TypeScript schema validations",
+  "keywords": [
+    "typescript",
+    "type",
+    "schema",
+    "validation",
+    "inference",
+    "assert"
+  ],
+  "homepage": "https://github.com/decs/typeschema#readme",
+  "license": "MIT",
+  "author": {
+    "name": "André Costa",
+    "email": "andrefonsecacosta@gmail.com"
+  },
+  "files": [
+    "/dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decs/typeschema.git"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "ts-patch install && yarn build",
+    "lint": "eslint src --fix",
+    "format": "prettier --write src",
+    "test": "jest src"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "arktype": "^1.0.14-alpha",
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jest": "^27.2.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sort-keys": "^2.3.5",
+    "jest": "^29.5.0",
+    "joi": "^17.9.2",
+    "prettier": "^2.8.8",
+    "runtypes": "^6.7.0",
+    "superstruct": "^1.0.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.1",
+    "typescript": "^5.1.6",
+    "typia": "^4.1.2",
+    "webpack": "^5.88.1",
+    "yup": "^1.2.0",
+    "zod": "^3.21.4"
+  }
+}
