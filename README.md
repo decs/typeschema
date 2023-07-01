@@ -2,7 +2,7 @@
 <p align="center">Unified interface for TypeScript schema validations</p>
 <p align="center">
 <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
-<a href="https://www.npmjs.com/package/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/typeschema.svg" alt="NPM Downloads"></a>
+<a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM Downloads"></a>
 </p>
 
 ## Setup
