@@ -1,0 +1,42 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb-typescript/base",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:jest/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "simple-import-sort",
+    "import",
+    "sort-keys",
+    "prettier",
+    "jest"
+  ],
+  "rules": {
+    "@typescript-eslint/consistent-type-imports": "error",
+    "sort-imports": "off",
+    "import/order": "off",
+    "import/no-extraneous-dependencies": "off",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^.*\\u0000$"],
+          ["^\\u0000"],
+          ["^node:"],
+          ["^@?\\w"],
+          ["^"],
+          ["^\\."]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error",
+    "sort-keys/sort-keys-fix": "error"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}
