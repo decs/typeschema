@@ -46,15 +46,17 @@ Install TypeSchema with your package manager of choice:
 import type {Infer, Schema} from '@decs/typeschema';
 import {assert} from '@decs/typeschema';
 
-// Use your favorite validation library, e.g. `zod`
+// Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
 const schema: Schema<string> = z.string();
+const schema: Schema<string> = type('string');
+const schema: Schema<string> = typia.createAssert<string>();
 
 // Extracts the schema type
 type Type = Infer<typeof schema>; // `string`
 
 // Returns the validated data or throws an exception
 await assert(schema, '123'); // '123'
-await assert(schema, 123); // `ZodError`
+await assert(schema, 123); // `Error`
 ```
 
 ## API
