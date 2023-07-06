@@ -5,6 +5,16 @@
 <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM Downloads"></a>
 </p>
 
+<br />
+
+Many libraries rely on some sort of type validation. Their maintainers have the choice of either to:
+
+1. ⁠**Implement their own** validation logic: which leads to more code to maintain, and we already have many good solutions out there (e.g. [zod](https://zod.dev), [arktype](https://arktype.io), [typia](https://typia.io))
+1. **Couple their code** with a specific validation library: which limits adoption by developers who use another
+1. **Support multiple** validation libraries: which is a burden to keep up-to-date ([tRPC](https://trpc.io/) picked this one)
+
+There's no best validation library because there's always a tradeoff. Each developer chooses the library that makes the most sense to them. TypeSchema solves this problem by providing option 3 (support multiple validation libraries) out-of-the-box.
+
 ## Features
 
 - 🚀 Decouple your code from validation libraries
@@ -33,17 +43,28 @@ Install TypeSchema with your package manager of choice:
 ## Usage
 
 ```ts
-import type {Infer} from '@decs/typeschema';
+import type {Infer, Schema} from '@decs/typeschema';
 import {assert} from '@decs/typeschema';
 
-const schema = ... // Use your favorite validation library
+// Use your favorite validation library, e.g. `zod`
+const schema: Schema<string> = z.string();
 
 // Extracts the schema type
-type Type = Infer<typeof schema>;
+type Type = Infer<typeof schema>; // `string`
 
 // Returns the validated value or throws an exception
-await assert(schema, value);
+await assert(schema, '123'); // '123'
+await assert(schema, 123); // `ZodError`
 ```
+
+## API
+
+#### Types
+- `Schema<T>`<br />Generic schema
+- `Infer<T as Schema<unknown>>`<br />Extracts the equivalent TypeScript type of a schema
+
+#### Functions
+- `assert<T>(schema: Schema<T>, data: unknown): Promise<T>`<br />Returns the validated value or throws an exception
 
 ## Coverage
 
@@ -74,6 +95,6 @@ await assert(assertString, '123'); // Returns '123'
 await assert(assertString, 123); // Throws an exception
 ```
 
----
+## Acknowledgement
 
-_Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)._
+* Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
