@@ -13,7 +13,7 @@ Many libraries rely on some sort of type validation. Their maintainers have the 
 1. **Couple their code** with a specific validation library: which limits adoption by developers who use another
 1. **Support multiple** validation libraries: which is a burden to keep up-to-date ([tRPC](https://trpc.io/) picked this one)
 
-There's no best validation library because there's always a tradeoff. Each developer chooses the library that makes the most sense to them. TypeSchema solves this problem by providing option 3 (support multiple validation libraries) out-of-the-box.
+There's no best validation library because there's always a tradeoff. Each developer chooses the library that makes the most sense to them. TypeSchema solves this problem by easily providing option 3: **support multiple validation libraries out-of-the-box.**
 
 ## Features
 
@@ -52,7 +52,7 @@ const schema: Schema<string> = z.string();
 // Extracts the schema type
 type Type = Infer<typeof schema>; // `string`
 
-// Returns the validated value or throws an exception
+// Returns the validated data or throws an exception
 await assert(schema, '123'); // '123'
 await assert(schema, 123); // `ZodError`
 ```
@@ -60,11 +60,11 @@ await assert(schema, 123); // `ZodError`
 ## API
 
 #### Types
-- `Schema<T>`<br />Generic schema
+- `Schema<T>`<br />Generic interface for schemas
 - `Infer<T as Schema<unknown>>`<br />Extracts the equivalent TypeScript type of a schema
 
 #### Functions
-- `assert<T>(schema: Schema<T>, data: unknown): Promise<T>`<br />Returns the validated value or throws an exception
+- `assert<T>(schema: Schema<T>, data: unknown): Promise<T>`<br />Returns the validated data or throws an exception
 
 ## Coverage
 
@@ -84,17 +84,17 @@ await assert(schema, 123); // `ZodError`
 Custom validations are also supported:
 
 ```ts
-export function assertString(value: unknown): string {
-  if (typeof value !== 'string') {
-    throw new Error('Expected a string, got: ' + value);
+export function assertString(data: unknown): string {
+  if (typeof data !== 'string') {
+    throw new Error('Expected a string, got: ' + data);
   }
-  return value;
+  return data;
 }
 
 await assert(assertString, '123'); // Returns '123'
 await assert(assertString, 123); // Throws an exception
 ```
 
-## Acknowledgement
+## Acknowledgements
 
 * Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
