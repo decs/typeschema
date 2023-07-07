@@ -1,7 +1,7 @@
 {
   "name": "@decs/typeschema",
   "version": "0.1.3",
-  "description": "Unified interface for TypeScript schema validations",
+  "description": "Universal adapter for schema validation",
   "keywords": [
     "typescript",
     "type",
@@ -10,7 +10,7 @@
     "inference",
     "assert"
   ],
-  "homepage": "https://github.com/decs/typeschema#readme",
+  "homepage": "https://typeschema.com",
   "license": "MIT",
   "author": {
     "name": "André Costa",
