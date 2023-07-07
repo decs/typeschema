@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <style>
+      #header {
+        display: none;
+      }
+    </style>
     {% if site.google_analytics %}
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
@@ -20,14 +25,15 @@
   <body>
     <div class="container-lg px-3 mt-5 mb-7 markdown-body">
       <h1 align="center">
-        <span style="font-size: 4rem;" class="pr-2">🛵</span>TypeSchema
+        <span style="font-size: 3.5rem;" class="pr-2">🛵</span>TypeSchema
       </h1>
       <p align="center">Universal adapter for schema validation</p>
       <p align="center">
-        <iframe src="https://ghbtns.com/github-btn.html?user=decs&repo=typeschema&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+        <a class="github-button" href="https://github.com/decs/typeschema" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star decs/typeschema on GitHub">Star</a>
       </p>
       {{ content }}
     </div>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
     <script>anchors.add();</script>
   </body>
