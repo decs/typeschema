@@ -1,8 +1,8 @@
-import type {Schema} from './adapter';
+import type {Schema} from './adapters';
 
-import {wrap} from './adapter';
+import {wrap} from './adapters';
 
-export type {Schema} from './adapter';
+export type {Schema} from './adapters';
 export type Infer<TSchema> = TSchema extends Schema<infer T> ? T : never;
 
 export async function assert<T>(schema: Schema<T>, data: unknown): Promise<T> {
