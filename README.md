@@ -20,7 +20,7 @@ There's no best validation library because there's always a tradeoff. Each devel
 ## Features
 
 - 🚀 Decouple your code from validation libraries
-- 🍃 Less than 3 kB, zero dependencies
+- 🍃 Less than [1 kB](https://bundlephobia.com/package/@decs/typeschema), zero dependencies
 - ✨ Easy-to-use, minimal API
 
 ## Setup
