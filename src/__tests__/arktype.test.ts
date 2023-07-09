@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import {type} from 'arktype';
 
-import {assert} from '../assert';
+import {assert} from '..';
 
 describe('arktype', () => {
   test('assert', async () => {

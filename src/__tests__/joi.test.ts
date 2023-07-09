@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import Joi from 'joi';
 
-import {assert} from '../assert';
+import {assert} from '..';
 
 describe('joi', () => {
   test('assert', async () => {

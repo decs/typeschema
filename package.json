@@ -34,6 +34,7 @@
     "test": "jest src"
   },
   "devDependencies": {
+    "@sinclair/typebox": "^0.29.4",
     "@types/node": "^20.3.3",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
@@ -60,5 +61,41 @@
     "webpack": "^5.88.1",
     "yup": "^1.2.0",
     "zod": "^3.21.4"
+  },
+  "peerDependencies": {
+    "@sinclair/typebox": "^0.29.4",
+    "arktype": "^1.0.14-alpha",
+    "joi": "^17.9.2",
+    "runtypes": "^6.7.0",
+    "superstruct": "^1.0.3",
+    "typia": "^4.1.2",
+    "yup": "^1.2.0",
+    "zod": "^3.21.4"
+  },
+  "peerDependenciesMeta": {
+    "@sinclair/typebox": {
+      "optional": true
+    },
+    "arktype": {
+      "optional": true
+    },
+    "joi": {
+      "optional": true
+    },
+    "runtypes": {
+      "optional": true
+    },
+    "superstruct": {
+      "optional": true
+    },
+    "typia": {
+      "optional": true
+    },
+    "yup": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   }
 }

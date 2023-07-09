@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import {String} from 'runtypes';
 
-import {assert} from '../assert';
+import {assert} from '..';
 
 describe('runtypes', () => {
   test('assert', async () => {

@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import typia from 'typia';
 
-import {assert} from '../assert';
+import {assert} from '..';
 
 describe('typia', () => {
   test('assert', async () => {

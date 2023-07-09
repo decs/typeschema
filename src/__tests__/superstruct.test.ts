@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 import {string} from 'superstruct';
 
-import {assert} from '../assert';
+import {assert} from '..';
 
 describe('superstruct', () => {
   test('assert', async () => {

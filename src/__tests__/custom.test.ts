@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 
-import {assert} from '../assert';
+import {assert} from '..';
 
 function assertString(value: unknown): string {
   if (typeof value !== 'string') {
