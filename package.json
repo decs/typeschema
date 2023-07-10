@@ -68,7 +68,6 @@
     "joi": "^17.9.2",
     "runtypes": "^6.7.0",
     "superstruct": "^1.0.3",
-    "typia": "^4.1.2",
     "yup": "^1.2.0",
     "zod": "^3.21.4"
   },
@@ -86,9 +85,6 @@
       "optional": true
     },
     "superstruct": {
-      "optional": true
-    },
-    "typia": {
       "optional": true
     },
     "yup": {
