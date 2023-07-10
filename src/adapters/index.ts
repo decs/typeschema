@@ -1,42 +1,19 @@
-import type {IfDefined} from '../utils';
+import type {Schema, WrappedSchema} from './adapter-registry';
 
-import * as ArkTypeAdapter from './arktype';
-import * as FunctionAdapter from './function';
-import * as JoiAdapter from './joi';
-import * as RuntypesAdapter from './runtypes';
-import * as SuperstructAdapter from './superstruct';
-import * as TypeboxAdapter from './typebox';
-import * as YupAdapter from './yup';
-import * as ZodAdapter from './zod';
+import './arktype';
+import './typebox';
+import './runtypes';
+import './function';
+import './joi';
+import './superstruct';
+import './yup';
+import './zod';
 
-export type Schema<T> =
-  | IfDefined<ArkTypeAdapter.AdapterSchema<T>>
-  | IfDefined<FunctionAdapter.AdapterSchema<T>>
-  | IfDefined<JoiAdapter.AdapterSchema<T>>
-  | IfDefined<RuntypesAdapter.AdapterSchema<T>>
-  | IfDefined<SuperstructAdapter.AdapterSchema<T>>
-  | IfDefined<TypeboxAdapter.AdapterSchema<T>>
-  | IfDefined<YupAdapter.AdapterSchema<T>>
-  | IfDefined<ZodAdapter.AdapterSchema<T>>;
-
-const adapters = [
-  ArkTypeAdapter,
-  FunctionAdapter,
-  JoiAdapter,
-  RuntypesAdapter,
-  SuperstructAdapter,
-  TypeboxAdapter,
-  YupAdapter,
-  ZodAdapter,
-];
-
-export type WrappedSchema<T> = {
-  assert(data: unknown): Promise<T>;
-};
+import {adapters} from './adapter-registry';
 
 export async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T>> {
   const results = (
-    await Promise.all(adapters.map(async adapter => adapter.wrap(schema)))
+    await Promise.all(adapters.map(wrapper => wrapper(schema)))
   ).filter(Boolean) as Array<WrappedSchema<T>>;
   if (results.length === 0) {
     throw new Error('Missing adapters for schema: ' + schema);
@@ -46,3 +23,5 @@ export async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T>> {
   }
   return results[0];
 }
+
+export type {Schema};
