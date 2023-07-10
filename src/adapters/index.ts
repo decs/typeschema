@@ -1,3 +1,5 @@
+import type {IfDefined} from '../utils';
+
 import * as ArkTypeAdapter from './arktype';
 import * as FunctionAdapter from './function';
 import * as JoiAdapter from './joi';
@@ -27,9 +29,6 @@ const adapters = [
   YupAdapter,
   ZodAdapter,
 ];
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type IfDefined<T> = any extends T ? never : T;
 
 export type WrappedSchema<T> = {
   assert(data: unknown): Promise<T>;
