@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {AnySchema, ValidationError} from 'joi';
 
 import {register} from '../registry';
@@ -18,16 +17,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const Joi = await maybe(() => import('joi'));
-  if (Joi == null) {
-    return null;
-  }
-  if (!('_flags' in schema) || 'static' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<JoiResolver, T>;
-  return {
+register<JoiResolver>(
+  async schema => {
+    const Joi = await maybe(() => import('joi'));
+    if (Joi == null) {
+      return null;
+    }
+    if (!('_flags' in schema) || 'static' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => schema.validateAsync(data),
-  };
-});
+  }),
+);

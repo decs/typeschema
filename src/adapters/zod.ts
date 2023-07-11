@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {input, output, ZodError, ZodSchema, ZodTypeAny} from 'zod';
 
 import {register} from '../registry';
@@ -18,16 +17,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const Zod = await maybe(() => import('zod'));
-  if (Zod == null) {
-    return null;
-  }
-  if (!('_def' in schema) || 'static' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<ZodResolver, T>;
-  return {
+register<ZodResolver>(
+  async schema => {
+    const Zod = await maybe(() => import('zod'));
+    if (Zod == null) {
+      return null;
+    }
+    if (!('_def' in schema) || 'static' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => schema.parse(data),
-  };
-});
+  }),
+);

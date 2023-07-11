@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Failure, Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
@@ -18,16 +17,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const Runtypes = await maybe(() => import('runtypes'));
-  if (Runtypes == null) {
-    return null;
-  }
-  if (!('reflect' in schema) || 'static' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<RuntypesResolver, T>;
-  return {
+register<RuntypesResolver>(
+  async schema => {
+    const Runtypes = await maybe(() => import('runtypes'));
+    if (Runtypes == null) {
+      return null;
+    }
+    if (!('reflect' in schema) || 'static' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => schema.check(data),
-  };
-});
+  }),
+);

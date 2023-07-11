@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Infer, Struct, StructError} from 'superstruct';
 
 import {register} from '../registry';
@@ -18,16 +17,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const Superstruct = await maybe(() => import('superstruct'));
-  if (Superstruct == null) {
-    return null;
-  }
-  if (!('refiner' in schema) || 'static' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<SuperstructResolver, T>;
-  return {
+register<SuperstructResolver>(
+  async schema => {
+    const Superstruct = await maybe(() => import('superstruct'));
+    if (Superstruct == null) {
+      return null;
+    }
+    if (!('refiner' in schema) || 'static' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => schema.create(data),
-  };
-});
+  }),
+);

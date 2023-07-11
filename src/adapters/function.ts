@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 
 import {register} from '../registry';
 
@@ -22,12 +21,14 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  if (typeof schema !== 'function' || 'assert' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<FunctionResolver, T>;
-  return {
+register<FunctionResolver>(
+  async schema => {
+    if (typeof schema !== 'function' || 'assert' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => schema(data),
-  };
-});
+  }),
+);
