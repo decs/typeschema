@@ -1,5 +1,5 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 import type {input, output, ZodError, ZodSchema, ZodTypeAny} from 'zod';
 
 import {register} from '../registry';
@@ -26,7 +26,7 @@ register(async <T>(schema: Schema<T>) => {
   if (!('_def' in schema) || 'static' in schema) {
     return null;
   }
-  schema satisfies ZodSchema<T>;
+  schema satisfies InferSchema<ZodResolver, T>;
   return {
     assert: async data => schema.parse(data),
   };

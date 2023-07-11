@@ -1,14 +1,12 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 import type {Infer, Struct, StructError} from 'superstruct';
 
 import {register} from '../registry';
 import {maybe} from '../utils';
 
-type SuperstructSchema<T> = Struct<T>;
-
 interface SuperstructResolver extends TypeSchemaResolver {
-  base: SuperstructSchema<this['type']>;
+  base: Struct<this['type']>;
   input: this['schema'] extends Struct ? Infer<this['schema']> : never;
   output: this['schema'] extends Struct ? Infer<this['schema']> : never;
   error: StructError;
@@ -28,7 +26,7 @@ register(async <T>(schema: Schema<T>) => {
   if (!('refiner' in schema) || 'static' in schema) {
     return null;
   }
-  schema satisfies SuperstructSchema<T>;
+  schema satisfies InferSchema<SuperstructResolver, T>;
   return {
     assert: async data => schema.create(data),
   };

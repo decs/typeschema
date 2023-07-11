@@ -1,11 +1,9 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 import type {Failure, Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
 import {maybe} from '../utils';
-
-type RuntypesSchema<T> = Runtype<T>;
 
 interface RuntypesResolver extends TypeSchemaResolver {
   base: Runtype<this['type']>;
@@ -28,7 +26,7 @@ register(async <T>(schema: Schema<T>) => {
   if (!('reflect' in schema) || 'static' in schema) {
     return null;
   }
-  schema satisfies RuntypesSchema<T>;
+  schema satisfies InferSchema<RuntypesResolver, T>;
   return {
     assert: async data => schema.check(data),
   };

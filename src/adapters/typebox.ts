@@ -1,5 +1,5 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
 import type {TypeCheck} from '@sinclair/typebox/compiler';
 
@@ -29,7 +29,7 @@ register(async <T>(schema: Schema<T>) => {
   if (!(TypeBox.Kind in schema)) {
     return null;
   }
-  schema satisfies TypeBoxSchema<T>;
+  schema satisfies InferSchema<TypeBoxResolver, T>;
   return {
     assert: async data => {
       const {TypeCompiler} = await import('@sinclair/typebox/compiler');

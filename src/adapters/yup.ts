@@ -1,5 +1,5 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 import type {InferType, Schema as YupSchema, ValidationError} from 'yup';
 
 import {register} from '../registry';
@@ -26,7 +26,7 @@ register(async <T>(schema: Schema<T>) => {
   if (!('__isYupSchema__' in schema) || 'static' in schema) {
     return null;
   }
-  schema satisfies YupSchema<T>;
+  schema satisfies InferSchema<YupResolver, T>;
   return {
     assert: async data => schema.validate(data, {strict: true}),
   };

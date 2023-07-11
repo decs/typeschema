@@ -1,5 +1,5 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 
 import {register} from '../registry';
 
@@ -26,7 +26,7 @@ register(async <T>(schema: Schema<T>) => {
   if (typeof schema !== 'function' || 'assert' in schema) {
     return null;
   }
-  schema satisfies FunctionSchema<T>;
+  schema satisfies InferSchema<FunctionResolver, T>;
   return {
     assert: async data => schema(data),
   };

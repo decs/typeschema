@@ -1,14 +1,12 @@
 import type {Schema} from '../registry';
-import type {TypeSchemaResolver} from '../resolver';
+import type {InferSchema, TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
 import {register} from '../registry';
 import {maybe} from '../utils';
 
-type ArkTypeSchema<T> = Type<T>;
-
 interface ArkTypeResolver extends TypeSchemaResolver {
-  base: ArkTypeSchema<this['type']>;
+  base: Type<this['type']>;
   input: this['schema'] extends Type ? this['schema']['inferIn'] : never;
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
   error: Problems;
@@ -28,7 +26,7 @@ register(async <T>(schema: Schema<T>) => {
   if (!('infer' in schema) || 'static' in schema) {
     return null;
   }
-  schema satisfies ArkTypeSchema<T>;
+  schema satisfies InferSchema<ArkTypeResolver, T>;
   return {
     assert: async data => schema.assert(data) as T,
   };
