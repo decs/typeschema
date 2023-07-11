@@ -1,4 +1,5 @@
-import type {Adapter, Schema, TypeSchema} from './registry';
+import type {Adapter, Schema} from './registry';
+import type {TypeSchema} from './schema';
 
 import './adapters';
 
