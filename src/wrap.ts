@@ -1,8 +1,6 @@
 import type {Adapter, Schema} from './registry';
 import type {TypeSchema} from './schema';
 
-import './adapters';
-
 import {adapters} from './registry';
 
 let lastRecentUsedAdapter: Adapter | null = null;
