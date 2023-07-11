@@ -21,7 +21,7 @@ declare global {
   }
 }
 
-register<FunctionResolver>(
+register<'function'>(
   async schema => {
     if (typeof schema !== 'function' || 'assert' in schema) {
       return null;

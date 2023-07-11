@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-register<SuperstructResolver>(
+register<'superstruct'>(
   async schema => {
     const Superstruct = await maybe(() => import('superstruct'));
     if (Superstruct == null) {

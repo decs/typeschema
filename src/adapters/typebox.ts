@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-register<TypeBoxResolver>(
+register<'typebox'>(
   async schema => {
     const TypeBox = await maybe(() => import('@sinclair/typebox'));
     if (TypeBox == null) {

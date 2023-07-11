@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-register<ArkTypeResolver>(
+register<'arktype'>(
   async schema => {
     const ArkType = await maybe(() => import('arktype'));
     if (ArkType == null) {
