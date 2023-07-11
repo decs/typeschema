@@ -8,9 +8,9 @@ export type Schema<T> = {
   >;
 }[keyof TypeSchemaRegistry];
 
-export const adapters: Array<
-  <T>(schema: Schema<T>) => Promise<TypeSchema<T> | null>
-> = [];
+export type Adapter = <T>(schema: Schema<T>) => Promise<TypeSchema<T> | null>;
+
+export const adapters: Array<Adapter> = [];
 
 export function register<TKey extends keyof TypeSchemaRegistry>(
   coerce: <T>(
