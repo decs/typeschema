@@ -1,6 +1,6 @@
-export interface TypeSchemaResolver<Schema = unknown> {
+export interface TypeSchemaResolver<TSchema = unknown> {
   type: unknown;
-  schema: Schema;
+  schema: TSchema;
   input: unknown;
   output: unknown;
   error: unknown;
