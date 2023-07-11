@@ -1,4 +1,4 @@
-import type {Schema, TypeSchema} from '../registry';
+import type {Schema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {InferType, Schema as YupSchema, ValidationError} from 'yup';
 
@@ -12,7 +12,13 @@ interface YupResolver extends TypeSchemaResolver {
   error: ValidationError;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
+declare global {
+  export interface TypeSchemaRegistry {
+    yup: YupResolver;
+  }
+}
+
+register(async <T>(schema: Schema<T>) => {
   const Yup = await maybe(() => import('yup'));
   if (Yup == null) {
     return null;
@@ -24,11 +30,4 @@ async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   return {
     assert: async data => schema.validate(data, {strict: true}),
   };
-}
-
-declare global {
-  export interface TypeSchemaRegistry {
-    yup: YupResolver;
-  }
-}
-register(wrap);
+});

@@ -1,4 +1,4 @@
-import type {Schema, TypeSchema} from '../registry';
+import type {Schema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
 import type {TypeCheck} from '@sinclair/typebox/compiler';
@@ -15,12 +15,18 @@ interface TypeBoxResolver extends TypeSchemaResolver {
   error: ReturnType<TypeCheck<TSchema>['Errors']>;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
-  const Typebox = await maybe(() => import('@sinclair/typebox'));
-  if (Typebox == null) {
+declare global {
+  export interface TypeSchemaRegistry {
+    typebox: TypeBoxResolver;
+  }
+}
+
+register(async <T>(schema: Schema<T>) => {
+  const TypeBox = await maybe(() => import('@sinclair/typebox'));
+  if (TypeBox == null) {
     return null;
   }
-  if (!(Typebox.Kind in schema)) {
+  if (!(TypeBox.Kind in schema)) {
     return null;
   }
   schema satisfies TypeBoxSchema<T>;
@@ -34,11 +40,4 @@ async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
       throw new Error(JSON.stringify([...result.Errors(data)]));
     },
   };
-}
-
-declare global {
-  export interface TypeSchemaRegistry {
-    typebox: TypeBoxResolver;
-  }
-}
-register(wrap);
+});

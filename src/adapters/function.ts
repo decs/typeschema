@@ -1,4 +1,4 @@
-import type {Schema, TypeSchema} from '../registry';
+import type {Schema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 
 import {register} from '../registry';
@@ -16,7 +16,13 @@ interface FunctionResolver extends TypeSchemaResolver {
   error: unknown;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
+declare global {
+  export interface TypeSchemaRegistry {
+    function: FunctionResolver;
+  }
+}
+
+register(async <T>(schema: Schema<T>) => {
   if (typeof schema !== 'function' || 'assert' in schema) {
     return null;
   }
@@ -24,11 +30,4 @@ async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   return {
     assert: async data => schema(data),
   };
-}
-
-declare global {
-  export interface TypeSchemaRegistry {
-    function: FunctionResolver;
-  }
-}
-register(wrap);
+});
