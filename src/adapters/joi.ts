@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-register<JoiResolver>(
+register<'joi'>(
   async schema => {
     const Joi = await maybe(() => import('joi'));
     if (Joi == null) {

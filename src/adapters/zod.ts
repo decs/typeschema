@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-register<ZodResolver>(
+register<'zod'>(
   async schema => {
     const Zod = await maybe(() => import('zod'));
     if (Zod == null) {

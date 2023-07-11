@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-register<YupResolver>(
+register<'yup'>(
   async schema => {
     const Yup = await maybe(() => import('yup'));
     if (Yup == null) {

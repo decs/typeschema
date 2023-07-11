@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-register<RuntypesResolver>(
+register<'runtypes'>(
   async schema => {
     const Runtypes = await maybe(() => import('runtypes'));
     if (Runtypes == null) {
