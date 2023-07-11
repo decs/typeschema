@@ -1,13 +1,20 @@
-import type {Schema, WrappedSchema} from '.';
-import type {Struct} from 'superstruct';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
+import type {Infer, Struct, StructError} from 'superstruct';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
 
-export type AdapterSchema<T> = Struct<T>;
+type SuperStructSchema<T> = Struct<T>;
 
-export async function wrap<T>(
-  schema: Schema<T>,
-): Promise<WrappedSchema<T> | null> {
+interface SuperstructResolver extends TypeSchemaResolver {
+  base: SuperStructSchema<this['type']>;
+  input: this['schema'] extends Struct ? Infer<this['schema']> : never;
+  output: this['schema'] extends Struct ? Infer<this['schema']> : never;
+  error: StructError;
+}
+
+async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   const Superstruct = await maybe(() => import('superstruct'));
   if (Superstruct == null) {
     return null;
@@ -15,8 +22,15 @@ export async function wrap<T>(
   if (!('refiner' in schema) || 'static' in schema) {
     return null;
   }
-  schema satisfies AdapterSchema<T>;
+  schema satisfies SuperStructSchema<T>;
   return {
     assert: async data => schema.create(data),
   };
 }
+
+declare global {
+  export interface TypeSchemaRegistry {
+    superstruct: SuperstructResolver;
+  }
+}
+register(wrap);

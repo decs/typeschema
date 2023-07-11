@@ -1,13 +1,21 @@
-import type {Schema, WrappedSchema} from '.';
-import type {TSchema} from '@sinclair/typebox';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
+import type {Static, TSchema} from '@sinclair/typebox';
+import type {TypeCheck} from '@sinclair/typebox/compiler';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
 
-export type AdapterSchema<T> = TSchema & {static: T};
+type TypeBoxSchema<T> = TSchema & {static: T};
 
-export async function wrap<T>(
-  schema: Schema<T>,
-): Promise<WrappedSchema<T> | null> {
+interface TypeBoxResolver extends TypeSchemaResolver {
+  base: TypeBoxSchema<this['type']>;
+  input: this['schema'] extends TSchema ? Static<this['schema']> : never;
+  output: this['schema'] extends TSchema ? Static<this['schema']> : never;
+  error: ReturnType<TypeCheck<TSchema>['Errors']>;
+}
+
+async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   const Typebox = await maybe(() => import('@sinclair/typebox'));
   if (Typebox == null) {
     return null;
@@ -15,7 +23,7 @@ export async function wrap<T>(
   if (!(Typebox.Kind in schema)) {
     return null;
   }
-  schema satisfies AdapterSchema<T>;
+  schema satisfies TypeBoxSchema<T>;
   return {
     assert: async data => {
       const {TypeCompiler} = await import('@sinclair/typebox/compiler');
@@ -27,3 +35,10 @@ export async function wrap<T>(
     },
   };
 }
+
+declare global {
+  export interface TypeSchemaRegistry {
+    typebox: TypeBoxResolver;
+  }
+}
+register(wrap);
