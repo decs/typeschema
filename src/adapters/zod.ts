@@ -1,4 +1,4 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {input, output, ZodError, ZodSchema, ZodTypeAny} from 'zod';
 
@@ -12,7 +12,7 @@ interface ZodResolver extends TypeSchemaResolver {
   error: ZodError;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
+async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   const Zod = await maybe(() => import('zod'));
   if (Zod == null) {
     return null;

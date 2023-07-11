@@ -1,4 +1,4 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {Infer, Struct, StructError} from 'superstruct';
 
@@ -14,7 +14,7 @@ interface SuperstructResolver extends TypeSchemaResolver {
   error: StructError;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
+async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   const Superstruct = await maybe(() => import('superstruct'));
   if (Superstruct == null) {
     return null;

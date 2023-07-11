@@ -1,4 +1,4 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
 import type {TypeCheck} from '@sinclair/typebox/compiler';
@@ -15,7 +15,7 @@ interface TypeBoxResolver extends TypeSchemaResolver {
   error: ReturnType<TypeCheck<TSchema>['Errors']>;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
+async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   const Typebox = await maybe(() => import('@sinclair/typebox'));
   if (Typebox == null) {
     return null;

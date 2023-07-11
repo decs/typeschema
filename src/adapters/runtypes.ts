@@ -1,4 +1,4 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {Failure, Runtype, Static} from 'runtypes';
 
@@ -12,7 +12,7 @@ interface RuntypeResolver extends TypeSchemaResolver {
   error: Failure;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
+async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   const Runtypes = await maybe(() => import('runtypes'));
   if (Runtypes == null) {
     return null;

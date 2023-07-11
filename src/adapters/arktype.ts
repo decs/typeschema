@@ -1,4 +1,4 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
@@ -14,7 +14,7 @@ interface ArkTypeResolver extends TypeSchemaResolver {
   error: Problems;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
+async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   const ArkType = await maybe(() => import('arktype'));
   if (ArkType == null) {
     return null;

@@ -1,4 +1,4 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 import type {TypeSchemaResolver} from '../resolver';
 import type {AnySchema, ValidationError} from 'joi';
 
@@ -14,7 +14,7 @@ interface JoiResolver extends TypeSchemaResolver {
   error: ValidationError;
 }
 
-async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
+async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T> | null> {
   const Joi = await maybe(() => import('joi'));
   if (Joi == null) {
     return null;

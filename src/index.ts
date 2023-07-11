@@ -1,6 +1,7 @@
 import type {Schema} from './registry';
 
 import {wrap} from './wrap';
+
 export type {Schema} from './registry';
 export type Infer<TSchema> = TSchema extends Schema<infer T> ? T : never;
 

@@ -1,8 +1,6 @@
-import type {Schema, WrappedSchema} from '../registry';
+import type {Schema, TypeSchema} from '../registry';
 
-export type Adapter = <T>(
-  schema: Schema<T>,
-) => Promise<WrappedSchema<T> | null>;
+export type Adapter = <T>(schema: Schema<T>) => Promise<TypeSchema<T> | null>;
 
 import './arktype';
 import './function';
