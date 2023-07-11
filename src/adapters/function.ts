@@ -1,15 +1,10 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 
-import {registerAdapter} from './adapter-registry';
+import {register} from '../registry';
 
 type FunctionSchema<T = unknown> = (data: unknown) => T;
 
-declare global {
-  export interface SchemaAdapterRegistry {
-    function: FunctionResolver;
-  }
-}
 interface FunctionResolver extends TypeSchemaResolver {
   base: FunctionSchema<this['type']>;
   input: this['schema'] extends FunctionSchema
@@ -31,4 +26,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    function: FunctionResolver;
+  }
+}
+register(wrap);

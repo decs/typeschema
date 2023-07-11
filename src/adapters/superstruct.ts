@@ -1,17 +1,11 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Infer, Struct, StructError} from 'superstruct';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
-import {registerAdapter} from './adapter-registry';
 
 type SuperStructSchema<T> = Struct<T>;
-
-declare global {
-  export interface SchemaAdapterRegistry {
-    superstruct: SuperstructResolver;
-  }
-}
 
 interface SuperstructResolver extends TypeSchemaResolver {
   base: SuperStructSchema<this['type']>;
@@ -34,4 +28,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    superstruct: SuperstructResolver;
+  }
+}
+register(wrap);

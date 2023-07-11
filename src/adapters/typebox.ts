@@ -1,18 +1,13 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
 import type {TypeCheck} from '@sinclair/typebox/compiler';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
-import {registerAdapter} from './adapter-registry';
 
 type TypeBoxSchema<T> = TSchema & {static: T};
 
-declare global {
-  export interface SchemaAdapterRegistry {
-    typebox: TypeBoxResolver;
-  }
-}
 interface TypeBoxResolver extends TypeSchemaResolver {
   base: TypeBoxSchema<this['type']>;
   input: this['schema'] extends TSchema ? Static<this['schema']> : never;
@@ -41,4 +36,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    typebox: TypeBoxResolver;
+  }
+}
+register(wrap);

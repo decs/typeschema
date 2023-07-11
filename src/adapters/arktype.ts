@@ -1,17 +1,11 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
-import {registerAdapter} from './adapter-registry';
 
 type ArkTypeSchema<T> = Type<T>;
-
-declare global {
-  export interface SchemaAdapterRegistry {
-    aktype: ArkTypeResolver;
-  }
-}
 
 interface ArkTypeResolver extends TypeSchemaResolver {
   base: ArkTypeSchema<this['type']>;
@@ -34,4 +28,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    arktype: ArkTypeResolver;
+  }
+}
+register(wrap);

@@ -1,15 +1,10 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Failure, Runtype, Static} from 'runtypes';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
-import {registerAdapter} from './adapter-registry';
 
-declare global {
-  export interface SchemaAdapterRegistry {
-    runype: RuntypeResolver;
-  }
-}
 interface RuntypeResolver extends TypeSchemaResolver {
   base: Runtype<this['type']>;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
@@ -31,4 +26,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    runtype: RuntypeResolver;
+  }
+}
+register(wrap);

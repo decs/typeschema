@@ -1,17 +1,12 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 import type {AnySchema, ValidationError} from 'joi';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
-import {registerAdapter} from './adapter-registry';
 
 type JoiSchema<T> = AnySchema<T>;
 
-declare global {
-  export interface SchemaAdapterRegistry {
-    joi: JoiResolver;
-  }
-}
 interface JoiResolver extends TypeSchemaResolver {
   base: JoiSchema<this['type']>;
   input: this['schema'] extends JoiSchema<infer JoiType> ? JoiType : never;
@@ -33,4 +28,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    joi: JoiResolver;
+  }
+}
+register(wrap);

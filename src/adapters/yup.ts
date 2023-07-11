@@ -1,15 +1,9 @@
-import type {Schema, WrappedSchema} from './adapter-registry';
-import type {TypeSchemaResolver} from './type-resolver';
+import type {Schema, WrappedSchema} from '../registry';
+import type {TypeSchemaResolver} from '../resolver';
 import type {InferType, Schema as YupSchema, ValidationError} from 'yup';
 
+import {register} from '../registry';
 import {maybe} from '../utils';
-import {registerAdapter} from './adapter-registry';
-
-declare global {
-  export interface SchemaAdapterRegistry {
-    yup: YupResolver;
-  }
-}
 
 interface YupResolver extends TypeSchemaResolver {
   base: YupSchema<this['type']>;
@@ -32,4 +26,9 @@ async function wrap<T>(schema: Schema<T>): Promise<WrappedSchema<T> | null> {
   };
 }
 
-registerAdapter(wrap);
+declare global {
+  export interface TypeSchemaRegistry {
+    yup: YupResolver;
+  }
+}
+register(wrap);
