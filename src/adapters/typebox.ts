@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
 import type {TypeCheck} from '@sinclair/typebox/compiler';
 
@@ -21,16 +20,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const TypeBox = await maybe(() => import('@sinclair/typebox'));
-  if (TypeBox == null) {
-    return null;
-  }
-  if (!(TypeBox.Kind in schema)) {
-    return null;
-  }
-  schema satisfies InferSchema<TypeBoxResolver, T>;
-  return {
+register<TypeBoxResolver>(
+  async schema => {
+    const TypeBox = await maybe(() => import('@sinclair/typebox'));
+    if (TypeBox == null) {
+      return null;
+    }
+    if (!(TypeBox.Kind in schema)) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => {
       const {TypeCompiler} = await import('@sinclair/typebox/compiler');
       const result = TypeCompiler.Compile(schema);
@@ -39,5 +40,5 @@ register(async <T>(schema: Schema<T>) => {
       }
       throw new Error(JSON.stringify([...result.Errors(data)]));
     },
-  };
-});
+  }),
+);

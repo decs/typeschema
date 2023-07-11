@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {InferType, Schema as YupSchema, ValidationError} from 'yup';
 
 import {register} from '../registry';
@@ -18,16 +17,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const Yup = await maybe(() => import('yup'));
-  if (Yup == null) {
-    return null;
-  }
-  if (!('__isYupSchema__' in schema) || 'static' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<YupResolver, T>;
-  return {
+register<YupResolver>(
+  async schema => {
+    const Yup = await maybe(() => import('yup'));
+    if (Yup == null) {
+      return null;
+    }
+    if (!('__isYupSchema__' in schema) || 'static' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  schema => ({
     assert: async data => schema.validate(data, {strict: true}),
-  };
-});
+  }),
+);

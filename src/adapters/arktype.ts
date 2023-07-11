@@ -1,5 +1,4 @@
-import type {Schema} from '../registry';
-import type {InferSchema, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
 import {register} from '../registry';
@@ -18,16 +17,18 @@ declare global {
   }
 }
 
-register(async <T>(schema: Schema<T>) => {
-  const ArkType = await maybe(() => import('arktype'));
-  if (ArkType == null) {
-    return null;
-  }
-  if (!('infer' in schema) || 'static' in schema) {
-    return null;
-  }
-  schema satisfies InferSchema<ArkTypeResolver, T>;
-  return {
+register<ArkTypeResolver>(
+  async schema => {
+    const ArkType = await maybe(() => import('arktype'));
+    if (ArkType == null) {
+      return null;
+    }
+    if (!('infer' in schema) || 'static' in schema) {
+      return null;
+    }
+    return schema;
+  },
+  <T>(schema: Type<T>) => ({
     assert: async data => schema.assert(data) as T,
-  };
-});
+  }),
+);
