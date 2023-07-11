@@ -1,8 +1,6 @@
 import type {Schema} from './registry';
 import type {TypeSchema} from './schema';
 
-import './adapters';
-
 import {adapters} from './registry';
 
 export async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T>> {
