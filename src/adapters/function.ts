@@ -1,6 +1,7 @@
 import type {TypeSchemaResolver} from '../resolver';
 
 import {register} from '../registry';
+import {ValidationError} from '../schema';
 
 type FunctionSchema<T = unknown> = (data: unknown) => T;
 
@@ -29,6 +30,18 @@ register<'function'>(
     return schema;
   },
   schema => ({
-    assert: async data => schema(data),
+    validate: async data => {
+      try {
+        return {valid: true, value: schema(data)};
+      } catch (error) {
+        if (error instanceof Error) {
+          return {
+            errors: [new ValidationError(error.message)],
+            valid: false,
+          };
+        }
+        throw error;
+      }
+    },
   }),
 );

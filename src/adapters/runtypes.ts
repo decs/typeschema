@@ -2,6 +2,7 @@ import type {TypeSchemaResolver} from '../resolver';
 import type {Failure, Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
+import {ValidationError} from '../schema';
 import {maybe} from '../utils';
 
 interface RuntypesResolver extends TypeSchemaResolver {
@@ -29,6 +30,15 @@ register<'runtypes'>(
     return schema;
   },
   schema => ({
-    assert: async data => schema.check(data),
+    validate: async data => {
+      const result = schema.validate(data);
+      if (result.success) {
+        return {valid: true, value: result.value};
+      }
+      return {
+        errors: [new ValidationError(result.message)],
+        valid: false,
+      };
+    },
   }),
 );

@@ -2,6 +2,7 @@ import type {TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
 import {register} from '../registry';
+import {ValidationError} from '../schema';
 import {maybe} from '../utils';
 
 interface ArkTypeResolver extends TypeSchemaResolver {
@@ -29,6 +30,17 @@ register<'arktype'>(
     return schema;
   },
   <T>(schema: Type<T>) => ({
-    assert: async data => schema.assert(data) as T,
+    validate: async data => {
+      const result = schema(data);
+      if (result.problems == null) {
+        return {valid: true, value: result.data};
+      }
+      return {
+        errors: result.problems.map(
+          ({message, path}) => new ValidationError(message, path),
+        ),
+        valid: false,
+      };
+    },
   }),
 );

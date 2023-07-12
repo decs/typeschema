@@ -1,7 +1,8 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {AnySchema, ValidationError} from 'joi';
+import type {AnySchema} from 'joi';
 
 import {register} from '../registry';
+import {ValidationError} from '../schema';
 import {maybe} from '../utils';
 
 interface JoiResolver extends TypeSchemaResolver {
@@ -29,6 +30,17 @@ register<'joi'>(
     return schema;
   },
   schema => ({
-    assert: async data => schema.validateAsync(data),
+    validate: async data => {
+      const result = schema.validate(data);
+      if (result.error == null) {
+        return {valid: true, value: result.value};
+      }
+      return {
+        errors: result.error.details.map(
+          ({message, path}) => new ValidationError(message, path),
+        ),
+        valid: false,
+      };
+    },
   }),
 );
