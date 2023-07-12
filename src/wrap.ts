@@ -3,7 +3,7 @@ import type {TypeSchema} from './schema';
 
 import {adapters} from './registry';
 
-let lastUsedAdapter: Adapter | undefined = undefined;
+let lastUsedAdapter: Adapter | null = null;
 
 export async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T>> {
   if (lastUsedAdapter != null) {
