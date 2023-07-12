@@ -70,8 +70,8 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 #### Types
 
 - `Schema<T>`<br />Generic interface for schemas<br />An union of the schema types of all supported validation libraries
-- `ValidationIssue`<br />Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
 - `Infer<TSchema>`<br />Extracts the equivalent TypeScript type of a schema
+- `ValidationIssue`<br />Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
 
 #### Functions
 
