@@ -2,6 +2,7 @@ import type {TypeSchemaResolver} from '../resolver';
 import type {Infer, Struct, StructError} from 'superstruct';
 
 import {register} from '../registry';
+import {ValidationError} from '../schema';
 import {maybe} from '../utils';
 
 interface SuperstructResolver extends TypeSchemaResolver {
@@ -29,6 +30,16 @@ register<'superstruct'>(
     return schema;
   },
   schema => ({
-    assert: async data => schema.create(data),
+    validate: async data => {
+      const result = schema.validate(data);
+      if (result[0] == null) {
+        return {valid: true, value: result[1]};
+      }
+      const {message, path} = result[0];
+      return {
+        errors: [new ValidationError(message, path)],
+        valid: false,
+      };
+    },
   }),
 );

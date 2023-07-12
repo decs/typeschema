@@ -2,6 +2,7 @@ import type {TypeSchemaResolver} from '../resolver';
 import type {input, output, ZodError, ZodSchema, ZodTypeAny} from 'zod';
 
 import {register} from '../registry';
+import {ValidationError} from '../schema';
 import {maybe} from '../utils';
 
 interface ZodResolver extends TypeSchemaResolver {
@@ -29,6 +30,17 @@ register<'zod'>(
     return schema;
   },
   schema => ({
-    assert: async data => schema.parse(data),
+    validate: async data => {
+      const result = await schema.safeParseAsync(data);
+      if (result.success) {
+        return {valid: true, value: result.data};
+      }
+      return {
+        errors: result.error.issues.map(
+          ({message, path}) => new ValidationError(message, path),
+        ),
+        valid: false,
+      };
+    },
   }),
 );
