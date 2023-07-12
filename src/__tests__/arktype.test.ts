@@ -1,15 +1,36 @@
 import {describe, expect, jest, test} from '@jest/globals';
 import {type} from 'arktype';
 
-import {assert} from '..';
+import {assert, validate} from '..';
+import {ValidationError} from '../schema';
 
 describe('arktype', () => {
-  test('assert', async () => {
-    expect(await assert(type('string'), '123')).toEqual('123');
-    await expect(assert(type('string'), 123)).rejects.toThrow();
-    jest.mock('arktype', () => {
+  const schema = type('string');
+  const module = 'arktype';
+
+  test('validate', async () => {
+    expect(await validate(schema, '123')).toStrictEqual({
+      valid: true,
+      value: '123',
+    });
+    expect(await validate(schema, 123)).toStrictEqual({
+      errors: [new ValidationError('Must be a string (was number)')],
+      valid: false,
+    });
+    jest.mock(module, () => {
       throw new Error('Cannot find module');
     });
-    await expect(assert(type('string'), '123')).rejects.toThrow();
+    await expect(validate(schema, '123')).rejects.toThrow();
+    jest.unmock(module);
+  });
+
+  test('assert', async () => {
+    expect(await assert(schema, '123')).toStrictEqual('123');
+    await expect(assert(schema, 123)).rejects.toThrow();
+    jest.mock(module, () => {
+      throw new Error('Cannot find module');
+    });
+    await expect(assert(schema, '123')).rejects.toThrow();
+    jest.unmock(module);
   });
 });

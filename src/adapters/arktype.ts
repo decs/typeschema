@@ -36,7 +36,7 @@ register<'arktype'>(
         return {valid: true, value: result.data};
       }
       return {
-        errors: result.problems.map(
+        errors: [...result.problems].map(
           ({message, path}) => new ValidationError(message, path),
         ),
         valid: false,
