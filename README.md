@@ -58,7 +58,7 @@ type Type = Infer<typeof schema>; // `string`
 
 // Returns the validated data or throws a `ValidationIssue`
 await assert(schema, '123'); // '123'
-await assert(schema, 123); // Throws `ValidationIssue`
+await assert(schema, 123); // throws `ValidationIssue`
 
 // Returns the validated data or a list of `ValidationIssue`s
 await validate(schema, '123'); // {data: '123'}
@@ -85,11 +85,13 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 | [zod](https://zod.dev)                             | ![GitHub Stars](https://img.shields.io/github/stars/colinhacks/zod.svg?style=social)             | `z.string()`                   | ✅      |
 | [yup](https://github.com/jquense/yup)              | ![GitHub Stars](https://img.shields.io/github/stars/jquense/yup.svg?style=social)                | `string()`                     | ✅      |
 | [joi](https://joi.dev)                             | ![GitHub Stars](https://img.shields.io/github/stars/hapijs/joi.svg?style=social)                 | `Joi.string()`                 | ✅      |
+| [ajv](https://ajv.js.org)                          | ![GitHub Stars](https://img.shields.io/github/stars/ajv-validator/ajv.svg?style=social)          | `{type: "string"}`             | ❌      |
 | [superstruct](https://docs.superstructjs.org)      | ![GitHub Stars](https://img.shields.io/github/stars/ianstormtaylor/superstruct.svg?style=social) | `string()`                     | ✅      |
 | [io-ts](https://gcanti.github.io/io-ts)            | ![GitHub Stars](https://img.shields.io/github/stars/gcanti/io-ts.svg?style=social)               | `t.string`                     | ❌      |
 | [ow](https://sindresorhus.com/ow)                  | ![GitHub Stars](https://img.shields.io/github/stars/sindresorhus/ow.svg?style=social)            | `ow.string`                    | ❌      |
 | [typebox](https://github.com/sinclairzx81/typebox) | ![GitHub Stars](https://img.shields.io/github/stars/sinclairzx81/typebox.svg?style=social)       | `Type.String()`                | ✅      |
 | [typia](https://typia.io)                          | ![GitHub Stars](https://img.shields.io/github/stars/samchon/typia.svg?style=social)              | `typia.createAssert<string>()` | ✅      |
+| [deepkit](https://deepkit.io)                      | ![GitHub Stars](https://img.shields.io/github/stars/deepkit/deepkit-framework.svg?style=social)  | `is<string>`                   | ❌      |
 | [runtypes](https://github.com/pelotom/runtypes)    | ![GitHub Stars](https://img.shields.io/github/stars/pelotom/runtypes.svg?style=social)           | `String`                       | ✅      |
 | [arktype](https://arktype.io)                      | ![GitHub Stars](https://img.shields.io/github/stars/arktypeio/arktype.svg?style=social)          | `type('string')`               | ✅      |
 
@@ -104,7 +106,7 @@ export function assertString(data: unknown): string {
 }
 
 await assert(assertString, '123'); // '123'
-await assert(assertString, 123); // Throws `ValidationIssue`
+await assert(assertString, 123); // throws `ValidationIssue`
 
 await validate(assertString, '123'); // {data: '123'}
 await validate(assertString, 123); // {issues: [`ValidationIssue`]}
