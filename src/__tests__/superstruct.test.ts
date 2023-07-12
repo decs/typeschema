@@ -2,20 +2,16 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {string} from 'superstruct';
 
 import {assert, validate} from '..';
-import {ValidationError} from '../schema';
+import {ValidationIssue} from '../schema';
 
 describe('superstruct', () => {
   const schema = string();
   const module = 'superstruct';
 
   test('validate', async () => {
-    expect(await validate(schema, '123')).toStrictEqual({
-      valid: true,
-      value: '123',
-    });
+    expect(await validate(schema, '123')).toStrictEqual({data: '123'});
     expect(await validate(schema, 123)).toStrictEqual({
-      errors: [new ValidationError('Expected a string, but received: 123')],
-      valid: false,
+      issues: [new ValidationIssue('Expected a string, but received: 123')],
     });
     jest.mock(module, () => {
       throw new Error('Cannot find module');

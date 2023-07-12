@@ -1,7 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 
 import {assert, validate} from '..';
-import {ValidationError} from '../schema';
+import {ValidationIssue} from '../schema';
 
 function assertString(value: unknown): string {
   if (typeof value !== 'string') {
@@ -14,13 +14,9 @@ describe('custom', () => {
   const schema = assertString;
 
   test('validate', async () => {
-    expect(await validate(schema, '123')).toStrictEqual({
-      valid: true,
-      value: '123',
-    });
+    expect(await validate(schema, '123')).toStrictEqual({data: '123'});
     expect(await validate(schema, 123)).toStrictEqual({
-      errors: [new ValidationError('Not a string')],
-      valid: false,
+      issues: [new ValidationIssue('Not a string')],
     });
   });
 

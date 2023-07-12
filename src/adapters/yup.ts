@@ -1,19 +1,15 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {
-  InferType,
-  Schema as YupSchema,
-  ValidationError as YupValidationError,
-} from 'yup';
+import type {InferType, Schema, ValidationError} from 'yup';
 
 import {register} from '../registry';
-import {ValidationError} from '../schema';
+import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface YupResolver extends TypeSchemaResolver {
-  base: YupSchema<this['type']>;
-  input: this['schema'] extends YupSchema ? InferType<this['schema']> : never;
-  output: this['schema'] extends YupSchema ? InferType<this['schema']> : never;
-  error: YupValidationError;
+  base: Schema<this['type']>;
+  input: this['schema'] extends Schema ? InferType<this['schema']> : never;
+  output: this['schema'] extends Schema ? InferType<this['schema']> : never;
+  error: ValidationError;
 }
 
 declare global {
@@ -36,22 +32,18 @@ register<'yup'>(
   schema => ({
     validate: async data => {
       try {
-        return {
-          valid: true,
-          value: await schema.validate(data, {strict: true}),
-        };
+        return {data: await schema.validate(data, {strict: true})};
       } catch (error) {
         const Yup = await import('yup');
         if (error instanceof Yup.ValidationError) {
           const {message, path} = error;
           return {
-            errors: [
-              new ValidationError(
+            issues: [
+              new ValidationIssue(
                 message,
                 path != null && path !== '' ? [path] : undefined,
               ),
             ],
-            valid: false,
           };
         }
         throw error;
