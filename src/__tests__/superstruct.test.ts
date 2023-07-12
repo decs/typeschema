@@ -1,7 +1,7 @@
 import {describe, expect, jest, test} from '@jest/globals';
 import {string} from 'superstruct';
 
-import {assert, validate} from '..';
+import {assert, clearCache, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('superstruct', () => {
@@ -13,6 +13,7 @@ describe('superstruct', () => {
     expect(await validate(schema, 123)).toStrictEqual({
       issues: [new ValidationIssue('Expected a string, but received: 123')],
     });
+    clearCache();
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });
@@ -23,6 +24,7 @@ describe('superstruct', () => {
   test('assert', async () => {
     expect(await assert(schema, '123')).toStrictEqual('123');
     await expect(assert(schema, 123)).rejects.toThrow();
+    clearCache();
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });

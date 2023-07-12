@@ -1,7 +1,7 @@
 import {describe, expect, jest, test} from '@jest/globals';
 import {type} from 'arktype';
 
-import {assert, validate} from '..';
+import {assert, clearCache, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('arktype', () => {
@@ -13,6 +13,7 @@ describe('arktype', () => {
     expect(await validate(schema, 123)).toStrictEqual({
       issues: [new ValidationIssue('Must be a string (was number)')],
     });
+    clearCache();
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });
@@ -23,6 +24,7 @@ describe('arktype', () => {
   test('assert', async () => {
     expect(await assert(schema, '123')).toStrictEqual('123');
     await expect(assert(schema, 123)).rejects.toThrow();
+    clearCache();
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });

@@ -1,7 +1,7 @@
 import {describe, expect, jest, test} from '@jest/globals';
 import {string} from 'yup';
 
-import {assert, validate} from '..';
+import {assert, clearCache, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('yup', () => {
@@ -17,6 +17,7 @@ describe('yup', () => {
         ),
       ],
     });
+    clearCache();
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });
@@ -27,6 +28,7 @@ describe('yup', () => {
   test('assert', async () => {
     expect(await assert(schema, '123')).toStrictEqual('123');
     await expect(assert(schema, 123)).rejects.toThrow();
+    clearCache();
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });
