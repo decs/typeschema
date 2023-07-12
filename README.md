@@ -46,7 +46,7 @@ Install TypeSchema with your package manager of choice:
 
 ```ts
 import type {Infer, Schema} from '@decs/typeschema';
-import {assert} from '@decs/typeschema';
+import {assert, validate} from '@decs/typeschema';
 
 // Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
 const schema: Schema<string> = z.string();
@@ -56,21 +56,27 @@ const schema: Schema<string> = typia.createAssert<string>();
 // Extracts the schema type
 type Type = Infer<typeof schema>; // `string`
 
-// Returns the validated data or throws an exception
+// Returns the validated data or throws a `ValidationIssue`
 await assert(schema, '123'); // '123'
-await assert(schema, 123); // `Error`
+await assert(schema, 123); // Throws `ValidationIssue`
+
+// Returns the validated data or a list of `ValidationIssue`s
+await validate(schema, '123'); // {data: '123'}
+await validate(schema, 123); // {issues: [`ValidationIssue`]}
 ```
 
 ## API
 
 #### Types
 
-- `Schema<T>`<br />Generic interface for schemas
-- `Infer<T as Schema<unknown>>`<br />Extracts the equivalent TypeScript type of a schema
+- `Schema<T>`<br />Generic interface for schemas<br />An union of the schema types of all supported validation libraries
+- `ValidationIssue`<br />Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+- `Infer<TSchema>`<br />Extracts the equivalent TypeScript type of a schema
 
 #### Functions
 
-- `assert<T>(schema: Schema<T>, data: unknown): Promise<T>`<br />Returns the validated data or throws an exception
+- `assert<T>(schema: Schema<T>, data: unknown): Promise<T>`<br />Returns the validated data or throws a `ValidationIssue`
+- `validate<T>(schema: Schema<T>, data: unknown): Promise<{data: T} | {issues: Array<ValidationIssue>}>`<br />Returns the validated data or a list of `ValidationIssue`s
 
 ## Coverage
 
@@ -97,8 +103,11 @@ export function assertString(data: unknown): string {
   return data;
 }
 
-await assert(assertString, '123'); // Returns '123'
-await assert(assertString, 123); // Throws an exception
+await assert(assertString, '123'); // '123'
+await assert(assertString, 123); // Throws `ValidationIssue`
+
+await validate(assertString, '123'); // {data: '123'}
+await validate(assertString, 123); // {issues: [`ValidationIssue`]}
 ```
 
 ## Acknowledgements
