@@ -2,20 +2,16 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {String} from 'runtypes';
 
 import {assert, validate} from '..';
-import {ValidationError} from '../schema';
+import {ValidationIssue} from '../schema';
 
 describe('runtypes', () => {
   const schema = String;
   const module = 'runtypes';
 
   test('validate', async () => {
-    expect(await validate(schema, '123')).toStrictEqual({
-      valid: true,
-      value: '123',
-    });
+    expect(await validate(schema, '123')).toStrictEqual({data: '123'});
     expect(await validate(schema, 123)).toStrictEqual({
-      errors: [new ValidationError('Expected string, but was number')],
-      valid: false,
+      issues: [new ValidationIssue('Expected string, but was number')],
     });
     jest.mock(module, () => {
       throw new Error('Cannot find module');

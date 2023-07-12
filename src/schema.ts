@@ -1,11 +1,10 @@
 export type TypeSchema<T> = {
   validate(
     data: unknown,
-  ): Promise<
-    {valid: true; value: T} | {valid: false; errors: Array<ValidationError>}
-  >;
+  ): Promise<{data: T} | {issues: Array<ValidationIssue>}>;
 };
-export class ValidationError extends Error {
+
+export class ValidationIssue extends Error {
   constructor(message: string, public path?: Array<string | number | symbol>) {
     super(message);
   }

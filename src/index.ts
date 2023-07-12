@@ -1,24 +1,24 @@
 import type {Schema} from './registry';
-import type {ValidationError} from './schema';
+import type {ValidationIssue} from './schema';
 
 import {wrap} from './wrap';
 
 export type {Schema} from './registry';
+export type {ValidationIssue} from './schema';
+
 export type Infer<TSchema> = TSchema extends Schema<infer T> ? T : never;
 
 export async function validate<T>(
   schema: Schema<T>,
   data: unknown,
-): Promise<
-  {valid: true; value: T} | {valid: false; errors: Array<ValidationError>}
-> {
+): Promise<{data: T} | {issues: Array<ValidationIssue>}> {
   return (await wrap(schema)).validate(data);
 }
 
 export async function assert<T>(schema: Schema<T>, data: unknown): Promise<T> {
   const result = await validate(schema, data);
-  if (result.valid) {
-    return result.value;
+  if ('issues' in result) {
+    throw result.issues[0];
   }
-  throw result.errors[0];
+  return result.data;
 }

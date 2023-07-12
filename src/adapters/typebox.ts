@@ -3,7 +3,7 @@ import type {Static, TSchema} from '@sinclair/typebox';
 import type {TypeCheck} from '@sinclair/typebox/compiler';
 
 import {register} from '../registry';
-import {ValidationError} from '../schema';
+import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 type TypeBoxSchema<T> = TSchema & {static: T};
@@ -37,13 +37,12 @@ register<'typebox'>(
       const {TypeCompiler} = await import('@sinclair/typebox/compiler');
       const result = TypeCompiler.Compile(schema);
       if (result.Check(data)) {
-        return {valid: true, value: data};
+        return {data};
       }
       return {
-        errors: [...result.Errors(data)].map(
-          ({message, path}) => new ValidationError(message, [path]),
+        issues: [...result.Errors(data)].map(
+          ({message, path}) => new ValidationIssue(message, [path]),
         ),
-        valid: false,
       };
     },
   }),

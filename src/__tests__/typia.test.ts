@@ -2,23 +2,19 @@ import {describe, expect, test} from '@jest/globals';
 import typia from 'typia';
 
 import {assert, validate} from '..';
-import {ValidationError} from '../schema';
+import {ValidationIssue} from '../schema';
 
 describe('typia', () => {
   const schema = typia.createAssert<string>();
 
   test('validate', async () => {
-    expect(await validate(schema, '123')).toStrictEqual({
-      valid: true,
-      value: '123',
-    });
+    expect(await validate(schema, '123')).toStrictEqual({data: '123'});
     expect(await validate(schema, 123)).toStrictEqual({
-      errors: [
-        new ValidationError(
+      issues: [
+        new ValidationIssue(
           'Error on typia.assert(): invalid type on $input, expect to be string',
         ),
       ],
-      valid: false,
     });
   });
 
