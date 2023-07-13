@@ -1,7 +1,7 @@
 import type {Schema} from './registry';
 import type {ValidationIssue} from './schema';
 
-import {wrap} from './wrap';
+import {wrap, wrapCached} from './wrap';
 
 export type {Schema} from './registry';
 export type {ValidationIssue} from './schema';
@@ -12,7 +12,8 @@ export async function validate<T>(
   schema: Schema<T>,
   data: unknown,
 ): Promise<{data: T} | {issues: Array<ValidationIssue>}> {
-  return (await wrap(schema)).validate(data);
+  const wrappedSchema = wrapCached(schema) ?? (await wrap(schema));
+  return wrappedSchema.validate(data);
 }
 
 export async function assert<T>(schema: Schema<T>, data: unknown): Promise<T> {
