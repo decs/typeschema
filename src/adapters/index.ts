@@ -1,5 +1,6 @@
 import './arktype';
 import './function';
+import './io-ts';
 import './joi';
 import './runtypes';
 import './superstruct';
