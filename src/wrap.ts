@@ -3,12 +3,20 @@ import type {TypeSchema} from './schema';
 
 import {adapters} from './registry';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const cachedWrappedSchemas = new Map<Schema<any>, TypeSchema<any>>();
+
 let lastUsedAdapter: Adapter | null = null;
+
+export function wrapCached<T>(schema: Schema<T>): TypeSchema<T> | null {
+  return cachedWrappedSchemas.get(schema) as TypeSchema<T> | null;
+}
 
 export async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T>> {
   if (lastUsedAdapter != null) {
     const wrappedSchema = await lastUsedAdapter(schema);
     if (wrappedSchema != null) {
+      cachedWrappedSchemas.set(schema, wrappedSchema);
       return wrappedSchema;
     }
   }
@@ -37,5 +45,6 @@ export async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T>> {
   }
 
   lastUsedAdapter = results[0].adapter;
+  cachedWrappedSchemas.set(schema, results[0].wrappedSchema);
   return results[0].wrappedSchema;
 }
