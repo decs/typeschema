@@ -31,7 +31,8 @@
     "prepare": "ts-patch install && yarn build",
     "lint": "eslint src --fix",
     "format": "prettier --write src",
-    "test": "jest src"
+    "test": "jest src",
+    "benchmark": "for i in src/__tests__/benchmarks/*.ts ; do yarn ts-node \"$i\" ; done"
   },
   "devDependencies": {
     "@sinclair/typebox": "^0.29.4",
@@ -39,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "arktype": "^1.0.14-alpha",
+    "benny": "^3.7.1",
     "eslint": "^8.44.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
