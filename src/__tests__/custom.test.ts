@@ -10,18 +10,40 @@ function assertString(value: unknown): string {
   return value;
 }
 
-describe('custom', () => {
-  const schema = assertString;
+async function assertStringAsync(value: unknown): Promise<string> {
+  return assertString(value);
+}
 
-  test('validate', async () => {
-    expect(await validate(schema, '123')).toStrictEqual({data: '123'});
-    expect(await validate(schema, 123)).toStrictEqual({
-      issues: [new ValidationIssue('Not a string')],
+describe('custom', () => {
+  describe('sync', () => {
+    const schema = assertString;
+
+    test('validate', async () => {
+      expect(await validate(schema, '123')).toStrictEqual({data: '123'});
+      expect(await validate(schema, 123)).toStrictEqual({
+        issues: [new ValidationIssue('Not a string')],
+      });
+    });
+
+    test('assert', async () => {
+      expect(await assert(schema, '123')).toStrictEqual('123');
+      await expect(assert(schema, 123)).rejects.toThrow();
     });
   });
 
-  test('assert', async () => {
-    expect(await assert(schema, '123')).toStrictEqual('123');
-    await expect(assert(schema, 123)).rejects.toThrow();
+  describe('async', () => {
+    const schema = assertStringAsync;
+
+    test('validate', async () => {
+      expect(await validate(schema, '123')).toStrictEqual({data: '123'});
+      expect(await validate(schema, 123)).toStrictEqual({
+        issues: [new ValidationIssue('Not a string')],
+      });
+    });
+
+    test('assert', async () => {
+      expect(await assert(schema, '123')).toStrictEqual('123');
+      await expect(assert(schema, 123)).rejects.toThrow();
+    });
   });
 });

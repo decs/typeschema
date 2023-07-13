@@ -3,7 +3,7 @@ import type {TypeSchemaResolver} from '../resolver';
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
 
-type FunctionSchema<T = unknown> = (data: unknown) => T;
+type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
 interface FunctionResolver extends TypeSchemaResolver {
   base: FunctionSchema<this['type']>;
@@ -32,7 +32,7 @@ register<'function'>(
   schema => ({
     validate: async data => {
       try {
-        return {data: schema(data)};
+        return {data: await schema(data)};
       } catch (error) {
         if (error instanceof Error) {
           return {issues: [new ValidationIssue(error.message)]};
