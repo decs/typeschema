@@ -4,23 +4,38 @@ import {add, complete, cycle, suite} from 'benny';
 
 import {validate} from '../..';
 
-const data = {
+const validData = {
   age: 18,
   email: 'john.doe@test.com',
   id: 1,
   name: 'John Doe',
 };
+const invalidData = {
+  age: 16,
+  email: 'unexpected',
+  id: 2,
+  name: 'John Doe',
+};
 
-export default function benchmark<TSchema extends Schema<typeof data>>(
+export default async function benchmark<
+  TSchema extends Schema<typeof validData>,
+>(
   name: string,
   schema: TSchema,
   validateDirectly: (schema: TSchema, data: unknown) => Promise<void>,
-): void {
-  suite(
-    name,
-    add(name + ' directly', () => validateDirectly(schema, data)),
-    add(name + ' through TypeSchema', () => validate(schema, data)),
+): Promise<void> {
+  await suite(
+    name + ' with valid data',
+    add('directly', () => validateDirectly(schema, validData)),
+    add('through TypeSchema', () => validate(schema, validData)),
     cycle(),
-    complete(),
+    complete(() => console.log()),
+  );
+  await suite(
+    name + ' with invalid data',
+    add('directly', () => validateDirectly(schema, invalidData)),
+    add('through TypeSchema', () => validate(schema, invalidData)),
+    cycle(),
+    complete(() => console.log()),
   );
 }
