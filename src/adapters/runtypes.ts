@@ -6,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface RuntypesResolver extends TypeSchemaResolver {
-  base: Runtype<this['type']>;
+  base: Runtype;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
   error: Failure;
@@ -33,7 +33,7 @@ register<'runtypes'>(
     validate: async data => {
       const result = schema.validate(data);
       if (result.success) {
-        return {data: result.value};
+        return {data: result.value as any};
       }
       return {issues: [new ValidationIssue(result.message)]};
     },

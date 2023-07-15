@@ -6,10 +6,8 @@ import {register} from '../registry';
 import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-type TypeBoxSchema<T> = TSchema & {static: T};
-
 interface TypeBoxResolver extends TypeSchemaResolver {
-  base: TypeBoxSchema<this['type']>;
+  base: TSchema;
   input: this['schema'] extends TSchema ? Static<this['schema']> : never;
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
   error: ReturnType<TypeCheck<TSchema>['Errors']>;
@@ -37,7 +35,7 @@ register<'typebox'>(
       const {TypeCompiler} = await import('@sinclair/typebox/compiler');
       const result = TypeCompiler.Compile(schema);
       if (result.Check(data)) {
-        return {data};
+        return {data: data as any};
       }
       return {
         issues: [...result.Errors(data)].map(

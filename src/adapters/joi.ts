@@ -6,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface JoiResolver extends TypeSchemaResolver {
-  base: AnySchema<this['type']>;
+  base: AnySchema;
   input: this['schema'] extends AnySchema<infer T> ? T : never;
   output: this['schema'] extends AnySchema<infer T> ? T : never;
   error: ValidationError;
@@ -33,7 +33,7 @@ register<'joi'>(
     validate: async data => {
       const result = schema.validate(data);
       if (result.error == null) {
-        return {data: result.value};
+        return {data: result.value as any};
       }
       return {
         issues: result.error.details.map(

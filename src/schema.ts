@@ -1,7 +1,9 @@
-export type TypeSchema<T> = {
+import type {InferOutput} from './registry';
+
+export type TypeSchema<TSchema> = {
   validate(
     data: unknown,
-  ): Promise<{data: T} | {issues: Array<ValidationIssue>}>;
+  ): Promise<{data: InferOutput<TSchema>} | {issues: Array<ValidationIssue>}>;
 };
 
 export class ValidationIssue extends Error {

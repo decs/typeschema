@@ -6,9 +6,9 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface IoTsResolver extends TypeSchemaResolver {
-  base: Type<this['type']>;
-  input: this['schema'] extends Any ? TypeOf<this['schema']> : never;
-  output: this['schema'] extends Any ? OutputOf<this['schema']> : never;
+  base: Type<any>;
+  input: this['schema'] extends Any ? OutputOf<this['schema']> : never; // iots output is output of encoder, so input of decoder
+  output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
   error: Errors;
 }
 
@@ -34,7 +34,7 @@ register<'io-ts'>(
       const {isRight} = await import('fp-ts/Either');
       const result = schema.decode(data);
       if (isRight(result)) {
-        return {data: result.right};
+        return {data: result.right as any};
       }
       return {
         issues: result.left.map(

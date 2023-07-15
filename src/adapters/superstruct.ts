@@ -6,9 +6,13 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface SuperstructResolver extends TypeSchemaResolver {
-  base: Struct<this['type']>;
-  input: this['schema'] extends Struct ? Infer<this['schema']> : never;
-  output: this['schema'] extends Struct ? Infer<this['schema']> : never;
+  base: Struct<any, any>;
+  input: this['schema'] extends Struct<any, any>
+    ? Infer<this['schema']>
+    : never;
+  output: this['schema'] extends Struct<any, any>
+    ? Infer<this['schema']>
+    : never;
   error: StructError;
 }
 
@@ -31,9 +35,9 @@ register<'superstruct'>(
   },
   schema => ({
     validate: async data => {
-      const result = schema.validate(data);
+      const result = schema.validate(data, {coerce: true});
       if (result[0] == null) {
-        return {data: result[1]};
+        return {data: result[1] as any};
       }
       const {message, path} = result[0];
       return {issues: [new ValidationIssue(message, path)]};

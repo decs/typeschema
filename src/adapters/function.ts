@@ -3,15 +3,21 @@ import type {TypeSchemaResolver} from '../resolver';
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
 
-type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
+interface FunctionSchema<T = unknown> {
+  (data: unknown): Promise<T> | T;
+}
 
 interface FunctionResolver extends TypeSchemaResolver {
-  base: FunctionSchema<this['type']>;
-  input: this['schema'] extends FunctionSchema
-    ? ReturnType<this['schema']>
+  base: FunctionSchema<unknown>;
+  input: this['schema'] extends FunctionSchema<infer Type>
+    ? this['schema'] extends FunctionSchema & {inferIn: unknown} // dont infer as function if arktype
+      ? never
+      : Type
     : never;
-  output: this['schema'] extends FunctionSchema
-    ? ReturnType<this['schema']>
+  output: this['schema'] extends FunctionSchema<infer Type>
+    ? this['schema'] extends FunctionSchema & {infer: unknown} // dont infer as function if arktype
+      ? never
+      : Type
     : never;
   error: unknown;
 }
@@ -32,7 +38,7 @@ register<'function'>(
   schema => ({
     validate: async data => {
       try {
-        return {data: await schema(data)};
+        return {data: (await schema(data)) as any};
       } catch (error) {
         if (error instanceof Error) {
           return {issues: [new ValidationIssue(error.message)]};

@@ -6,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface YupResolver extends TypeSchemaResolver {
-  base: Schema<this['type']>;
+  base: Schema;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
   error: ValidationError;

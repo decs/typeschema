@@ -1,22 +1,26 @@
-import type {Schema} from './registry';
+import type {InferInput, InferOutput} from './registry';
 import type {ValidationIssue} from './schema';
 
 import {wrap, wrapCached} from './wrap';
 
-export type {Schema} from './registry';
+export type {InferInput, InferOutput};
 export type {ValidationIssue} from './schema';
 
-export type Infer<TSchema> = TSchema extends Schema<infer T> ? T : never;
+export type Infer<TSchema> = InferOutput<TSchema>;
 
-export async function validate<T>(
-  schema: Schema<T>,
+export async function validate<
+  TSchema extends TypeSchemaRegistry[keyof TypeSchemaRegistry]['base'],
+>(
+  schema: TSchema,
   data: unknown,
-): Promise<{data: T} | {issues: Array<ValidationIssue>}> {
+): Promise<{data: InferOutput<TSchema>} | {issues: Array<ValidationIssue>}> {
   const wrappedSchema = wrapCached(schema) ?? (await wrap(schema));
   return wrappedSchema.validate(data);
 }
 
-export async function assert<T>(schema: Schema<T>, data: unknown): Promise<T> {
+export async function assert<
+  TSchema extends TypeSchemaRegistry[keyof TypeSchemaRegistry]['base'],
+>(schema: TSchema, data: unknown): Promise<InferOutput<TSchema>> {
   const result = await validate(schema, data);
   if ('issues' in result) {
     throw result.issues[0];

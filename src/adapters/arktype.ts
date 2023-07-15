@@ -1,5 +1,4 @@
-import type {TypeSchemaResolver} from '../resolver';
-import type {TypeSchema} from '../schema';
+import type {InferOutput, TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
 import {register} from '../registry';
@@ -7,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface ArkTypeResolver extends TypeSchemaResolver {
-  base: Type<this['type']>;
+  base: Type;
   input: this['schema'] extends Type ? this['schema']['inferIn'] : never;
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
   error: Problems;
@@ -30,11 +29,11 @@ register<'arktype'>(
     }
     return schema;
   },
-  <T>(schema: Type<T>): TypeSchema<T> => ({
+  schema => ({
     validate: async data => {
       const result = schema(data);
       if (result.problems == null) {
-        return {data: result.data as T};
+        return {data: result.data as any};
       }
       return {
         issues: [...result.problems].map(
