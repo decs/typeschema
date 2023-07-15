@@ -5,16 +5,9 @@ import type {
 import type {TypeSchema} from './schema';
 import type {IfDefined} from './utils';
 
-// export type Schema<T> = {
-//   [K in keyof TypeSchemaRegistry]: IfDefined<
-//     InferSchema<TypeSchemaRegistry[K], T>
-//   >;
-// }[keyof TypeSchemaRegistry];
-
 export type InferInput<TSchema> = {
-  [K in keyof TypeSchemaRegistry]: InferInputType<
-    TypeSchemaRegistry[K],
-    TSchema
+  [K in keyof TypeSchemaRegistry]: IfDefined<
+    InferInputType<TypeSchemaRegistry[K], TSchema>
   >;
 }[keyof TypeSchemaRegistry];
 
@@ -24,19 +17,21 @@ export type InferOutput<TSchema> = {
   >;
 }[keyof TypeSchemaRegistry];
 
-export type Adapter = <
-  Schema extends TypeSchemaRegistry[keyof TypeSchemaRegistry]['base'],
->(
+export type RegistryBaseSchema<
+  Key extends keyof TypeSchemaRegistry = keyof TypeSchemaRegistry,
+> = TypeSchemaRegistry[Key]['base'];
+
+export type Adapter = <Schema extends RegistryBaseSchema>(
   schema: Schema,
 ) => Promise<TypeSchema<Schema> | null>;
 
 export const adapters: Array<Adapter> = [];
 
 export function register<TKey extends keyof TypeSchemaRegistry>(
-  coerce: <Schema extends TypeSchemaRegistry[TKey]['base']>(
+  coerce: <Schema extends RegistryBaseSchema<TKey>>(
     schema: Schema,
   ) => Promise<Schema | null>,
-  wrap: <TSchema extends TypeSchemaRegistry[TKey]['base']>(
+  wrap: <TSchema extends RegistryBaseSchema<TKey>>(
     schema: TSchema,
   ) => TypeSchema<TSchema>,
 ) {

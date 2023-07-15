@@ -1,4 +1,4 @@
-import type {Adapter} from './registry';
+import type {Adapter, RegistryBaseSchema} from './registry';
 import type {TypeSchema} from './schema';
 
 import {adapters} from './registry';
@@ -14,9 +14,9 @@ export function wrapCached<TSchema>(
   return cachedWrappedSchemas.get(schema) as TypeSchema<TSchema> | null;
 }
 
-export async function wrap<
-  TSchema extends TypeSchemaRegistry[keyof TypeSchemaRegistry]['base'],
->(schema: TSchema): Promise<TypeSchema<TSchema>> {
+export async function wrap<TSchema extends RegistryBaseSchema>(
+  schema: TSchema,
+): Promise<TypeSchema<TSchema>> {
   if (lastUsedAdapter != null) {
     const wrappedSchema = await lastUsedAdapter(schema);
     if (wrappedSchema != null) {

@@ -19,8 +19,3 @@ export type InferOutput<
 
 export type InferError<TResolver extends TypeSchemaResolver> =
   TResolver['error'];
-
-export type InferSchema<
-  TResolver extends TypeSchemaResolver,
-  T,
-> = (TResolver & {type: T})['base'];
