@@ -1,4 +1,4 @@
-import type {InferOutput, TypeSchemaResolver} from '../resolver';
+import type {TypeSchemaResolver} from '../resolver';
 import type {Problems, Type} from 'arktype';
 
 import {register} from '../registry';
@@ -33,6 +33,7 @@ register<'arktype'>(
     validate: async data => {
       const result = schema(data);
       if (result.problems == null) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
         return {data: result.data as any};
       }
       return {

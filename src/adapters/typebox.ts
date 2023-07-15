@@ -35,6 +35,7 @@ register<'typebox'>(
       const {TypeCompiler} = await import('@sinclair/typebox/compiler');
       const result = TypeCompiler.Compile(schema);
       if (result.Check(data)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
         return {data: data as any};
       }
       return {

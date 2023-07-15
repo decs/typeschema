@@ -38,6 +38,7 @@ register<'function'>(
   schema => ({
     validate: async data => {
       try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
         return {data: (await schema(data)) as any};
       } catch (error) {
         if (error instanceof Error) {

@@ -33,6 +33,7 @@ register<'joi'>(
     validate: async data => {
       const result = schema.validate(data);
       if (result.error == null) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
         return {data: result.value as any};
       }
       return {

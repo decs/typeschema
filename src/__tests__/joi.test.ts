@@ -56,11 +56,13 @@ describe('joi', () => {
     await expect(assert(schema, 123)).rejects.toThrow();
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests -- joi is not really typesafe, re-enable when it is
   test.skip('infer input', () => {
     // @ts-expect-error - joi does not support inferring objects yet
     expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<typeof data>();
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests -- joi is not really typesafe, re-enable when it is
   test.skip('infer output', () => {
     // @ts-expect-error - joi does not support inferring objects yet
     expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<typeof data>();
