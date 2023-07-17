@@ -29,7 +29,7 @@ register<'function'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       try {
         return {data: await schema(data)};

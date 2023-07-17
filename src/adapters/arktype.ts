@@ -30,7 +30,7 @@ register<'arktype'>(
     }
     return schema;
   },
-  <T>(schema: Type<T>): TypeSchema<T> => ({
+  async <T>(schema: Type<T>): Promise<TypeSchema<T>> => ({
     validate: async data => {
       const result = schema(data);
       if (result.problems == null) {

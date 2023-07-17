@@ -29,7 +29,7 @@ register<'io-ts'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const {isRight} = await import('fp-ts/Either');
       const result = schema.decode(data);

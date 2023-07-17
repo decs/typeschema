@@ -16,7 +16,9 @@ export function register<TKey extends keyof TypeSchemaRegistry>(
   coerce: <T>(
     schema: Schema<T>,
   ) => Promise<InferSchema<TypeSchemaRegistry[TKey], T> | null>,
-  wrap: <T>(schema: InferSchema<TypeSchemaRegistry[TKey], T>) => TypeSchema<T>,
+  wrap: <T>(
+    schema: InferSchema<TypeSchemaRegistry[TKey], T>,
+  ) => Promise<TypeSchema<T>>,
 ) {
   adapters.push(async schema => {
     const coercedSchema = await coerce(schema);

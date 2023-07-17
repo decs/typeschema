@@ -29,7 +29,7 @@ register<'superstruct'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = schema.validate(data);
       if (result[0] == null) {

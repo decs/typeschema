@@ -29,7 +29,7 @@ register<'zod'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = await schema.safeParseAsync(data);
       if (result.success) {

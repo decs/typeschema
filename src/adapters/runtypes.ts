@@ -29,7 +29,7 @@ register<'runtypes'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = schema.validate(data);
       if (result.success) {

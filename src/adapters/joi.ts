@@ -29,7 +29,7 @@ register<'joi'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = schema.validate(data);
       if (result.error == null) {

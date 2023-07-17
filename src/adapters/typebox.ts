@@ -32,18 +32,20 @@ register<'typebox'>(
     }
     return schema;
   },
-  schema => ({
-    validate: async data => {
-      const {TypeCompiler} = await import('@sinclair/typebox/compiler');
-      const result = TypeCompiler.Compile(schema);
-      if (result.Check(data)) {
-        return {data};
-      }
-      return {
-        issues: [...result.Errors(data)].map(
-          ({message, path}) => new ValidationIssue(message, [path]),
-        ),
-      };
-    },
-  }),
+  async schema => {
+    const {TypeCompiler} = await import('@sinclair/typebox/compiler');
+    const result = TypeCompiler.Compile(schema);
+    return {
+      validate: async data => {
+        if (result.Check(data)) {
+          return {data};
+        }
+        return {
+          issues: [...result.Errors(data)].map(
+            ({message, path}) => new ValidationIssue(message, [path]),
+          ),
+        };
+      },
+    };
+  },
 );
