@@ -7,7 +7,7 @@ import {maybe} from '../utils';
 
 interface IoTsResolver extends TypeSchemaResolver {
   base: Type<this['type']>;
-  input: this['schema'] extends Any ? OutputOf<this['schema']> : never; // iots output is output of encoder, so input of decoder
+  input: this['schema'] extends Any ? OutputOf<this['schema']> : never;
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
   error: Errors;
 }
