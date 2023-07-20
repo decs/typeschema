@@ -1,4 +1,4 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -21,6 +21,10 @@ describe('custom', () => {
   describe('sync', () => {
     const schema = assertString;
 
+    test('infer', () => {
+      expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<string>();
+    });
+
     test('validate', async () => {
       expect(await validate(schema, '123')).toStrictEqual({data: '123'});
       expect(await validate(schema, 123)).toStrictEqual({
@@ -37,6 +41,10 @@ describe('custom', () => {
   describe('async', () => {
     const schema = assertStringAsync;
 
+    test('infer', () => {
+      expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<string>();
+    });
+
     test('validate', async () => {
       expect(await validate(schema, '123')).toStrictEqual({data: '123'});
       expect(await validate(schema, 123)).toStrictEqual({
@@ -47,22 +55,6 @@ describe('custom', () => {
     test('assert', async () => {
       expect(await assert(schema, '123')).toStrictEqual('123');
       await expect(assert(schema, 123)).rejects.toThrow();
-    });
-  });
-
-  describe('Infer', () => {
-    test('infer input', () => {
-      expectTypeOf<InferInput<typeof assertString>>().toEqualTypeOf<string>();
-      expectTypeOf<
-        InferInput<typeof assertStringAsync>
-      >().toEqualTypeOf<string>();
-    });
-
-    test('infer output', () => {
-      expectTypeOf<InferOutput<typeof assertString>>().toEqualTypeOf<string>();
-      expectTypeOf<
-        InferOutput<typeof assertStringAsync>
-      >().toEqualTypeOf<string>();
     });
   });
 });

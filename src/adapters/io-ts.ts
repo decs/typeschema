@@ -6,8 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface IoTsResolver extends TypeSchemaResolver {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed for assignability
-  base: Type<any>;
+  base: Type<this['type']>;
   input: this['schema'] extends Any ? OutputOf<this['schema']> : never; // iots output is output of encoder, so input of decoder
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
   error: Errors;
@@ -30,13 +29,12 @@ register<'io-ts'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const {isRight} = await import('fp-ts/Either');
       const result = schema.decode(data);
       if (isRight(result)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
-        return {data: result.right as any};
+        return {data: result.right};
       }
       return {
         issues: result.left.map(

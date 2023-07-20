@@ -1,9 +1,7 @@
-import type {InferOutput} from './registry';
-
-export type TypeSchema<TSchema> = {
+export type TypeSchema<T = unknown> = {
   validate(
     data: unknown,
-  ): Promise<{data: InferOutput<TSchema>} | {issues: Array<ValidationIssue>}>;
+  ): Promise<{data: T} | {issues: Array<ValidationIssue>}>;
 };
 
 export class ValidationIssue extends Error {

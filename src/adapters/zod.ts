@@ -1,14 +1,14 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {input, output, ZodError, ZodTypeAny} from 'zod';
+import type {input, output, ZodError, ZodSchema} from 'zod';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface ZodResolver extends TypeSchemaResolver {
-  base: ZodTypeAny;
-  input: this['schema'] extends ZodTypeAny ? input<this['schema']> : never;
-  output: this['schema'] extends ZodTypeAny ? output<this['schema']> : never;
+  base: ZodSchema<this['type']>;
+  input: this['schema'] extends ZodSchema ? input<this['schema']> : never;
+  output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
   error: ZodError;
 }
 
@@ -29,7 +29,7 @@ register<'zod'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = await schema.safeParseAsync(data);
       if (result.success) {

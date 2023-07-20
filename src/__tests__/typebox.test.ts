@@ -1,4 +1,4 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {Type} from '@sinclair/typebox';
@@ -17,6 +17,7 @@ describe('typebox', () => {
     updatedAt: Type.String(),
   });
   const module = '@sinclair/typebox';
+
   const data = {
     age: 123,
     createdAt: '2021-01-01T00:00:00.000Z',
@@ -43,6 +44,10 @@ describe('typebox', () => {
     jest.unmock(module);
   });
 
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+  });
+
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
     expect(await validate(schema, badData)).toStrictEqual({
@@ -53,12 +58,5 @@ describe('typebox', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, badData)).rejects.toThrow();
-  });
-  test('infer input', () => {
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<typeof data>();
-  });
-
-  test('infer output', () => {
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<typeof data>();
   });
 });

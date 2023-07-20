@@ -1,39 +1,28 @@
-import type {
-  InferInput as InferInputType,
-  InferOutput as InferOutputType,
-} from './resolver';
+import type {Infer} from '.';
+import type {InferSchema} from './resolver';
 import type {TypeSchema} from './schema';
 import type {IfDefined} from './utils';
 
-export type InferInput<TSchema> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Schema<T = any> = {
   [K in keyof TypeSchemaRegistry]: IfDefined<
-    InferInputType<TypeSchemaRegistry[K], TSchema>
+    InferSchema<TypeSchemaRegistry[K], T>
   >;
 }[keyof TypeSchemaRegistry];
 
-export type InferOutput<TSchema> = {
-  [K in keyof TypeSchemaRegistry]: IfDefined<
-    InferOutputType<TypeSchemaRegistry[K], TSchema>
-  >;
-}[keyof TypeSchemaRegistry];
-
-export type RegistryBaseSchema<
-  Key extends keyof TypeSchemaRegistry = keyof TypeSchemaRegistry,
-> = TypeSchemaRegistry[Key]['base'];
-
-export type Adapter = <Schema extends RegistryBaseSchema>(
-  schema: Schema,
-) => Promise<TypeSchema<Schema> | null>;
+export type Adapter = <TSchema extends Schema>(
+  schema: TSchema,
+) => Promise<TypeSchema<Infer<TSchema>> | null>;
 
 export const adapters: Array<Adapter> = [];
 
 export function register<TKey extends keyof TypeSchemaRegistry>(
-  coerce: <Schema extends RegistryBaseSchema<TKey>>(
-    schema: Schema,
-  ) => Promise<Schema | null>,
-  wrap: <TSchema extends RegistryBaseSchema<TKey>>(
+  coerce: <TSchema extends Schema>(
     schema: TSchema,
-  ) => TypeSchema<TSchema>,
+  ) => Promise<InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null>,
+  wrap: <T>(
+    schema: InferSchema<TypeSchemaRegistry[TKey], T>,
+  ) => Promise<TypeSchema<T>>,
 ) {
   adapters.push(async schema => {
     const coercedSchema = await coerce(schema);

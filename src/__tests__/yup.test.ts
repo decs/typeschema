@@ -1,22 +1,23 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
-import * as Y from 'yup';
+import {date, number, object, string} from 'yup';
 
 import {assert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('yup', () => {
-  const schema = Y.object({
-    age: Y.number().required(),
-    createdAt: Y.date().required(),
-    email: Y.string().required(),
-    id: Y.string().required(),
-    name: Y.string().required(),
-    updatedAt: Y.date().required(),
+  const schema = object({
+    age: number().required(),
+    createdAt: date().required(),
+    email: string().required(),
+    id: string().required(),
+    name: string().required(),
+    updatedAt: date().required(),
   });
   const module = 'yup';
+
   const data = {
     age: 123,
     createdAt: new Date('2021-01-01T00:00:00.000Z'),
@@ -43,6 +44,10 @@ describe('yup', () => {
     jest.unmock(module);
   });
 
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+  });
+
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
     expect(await validate(schema, badData)).toStrictEqual({
@@ -57,13 +62,5 @@ describe('yup', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, badData)).rejects.toThrow();
-  });
-
-  test('infer input', () => {
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<typeof data>();
-  });
-
-  test('infer output', () => {
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<typeof data>();
   });
 });

@@ -1,22 +1,23 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
-import * as S from 'superstruct';
+import {coerce, date, number, object, string} from 'superstruct';
 
 import {assert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('superstruct', () => {
-  const schema = S.object({
-    age: S.number(),
-    createdAt: S.coerce(S.date(), S.string(), value => new Date(value)),
-    email: S.string(),
-    id: S.string(),
-    name: S.string(),
-    updatedAt: S.coerce(S.date(), S.string(), value => new Date(value)),
+  const schema = object({
+    age: number(),
+    createdAt: coerce(date(), string(), value => new Date(value)),
+    email: string(),
+    id: string(),
+    name: string(),
+    updatedAt: coerce(date(), string(), value => new Date(value)),
   });
   const module = 'superstruct';
+
   const data = {
     age: 123,
     createdAt: '2021-01-01T00:00:00.000Z',
@@ -25,7 +26,7 @@ describe('superstruct', () => {
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
-  const dataOutput = {
+  const outputData = {
     age: 123,
     createdAt: new Date('2021-01-01T00:00:00.000Z'),
     email: 'john.doe@test.com',
@@ -51,8 +52,12 @@ describe('superstruct', () => {
     jest.unmock(module);
   });
 
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
+  });
+
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data: dataOutput});
+    expect(await validate(schema, data)).toStrictEqual({data: outputData});
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         new ValidationIssue(
@@ -63,18 +68,7 @@ describe('superstruct', () => {
   });
 
   test('assert', async () => {
-    expect(await assert(schema, data)).toStrictEqual(dataOutput);
+    expect(await assert(schema, data)).toStrictEqual(outputData);
     await expect(assert(schema, badData)).rejects.toThrow();
-  });
-  test('infer input', () => {
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<
-      typeof dataOutput
-    >();
-  });
-
-  test('infer output', () => {
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<
-      typeof dataOutput
-    >();
   });
 });

@@ -3,21 +3,19 @@ import type {TypeSchemaResolver} from '../resolver';
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
 
-interface FunctionSchema<T = unknown> {
-  (data: unknown): Promise<T> | T;
-}
+type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
 interface FunctionResolver extends TypeSchemaResolver {
-  base: FunctionSchema<unknown>;
-  input: this['schema'] extends FunctionSchema<infer Type>
-    ? this['schema'] extends FunctionSchema & {inferIn: unknown} // dont infer as function if arktype
-      ? never
-      : Type
+  base: FunctionSchema<this['type']>;
+  input: this['schema'] extends FunctionSchema
+    ? keyof this['schema'] extends never
+      ? Awaited<ReturnType<this['schema']>>
+      : never
     : never;
-  output: this['schema'] extends FunctionSchema<infer Type>
-    ? this['schema'] extends FunctionSchema & {infer: unknown} // dont infer as function if arktype
-      ? never
-      : Type
+  output: this['schema'] extends FunctionSchema
+    ? keyof this['schema'] extends never
+      ? Awaited<ReturnType<this['schema']>>
+      : never
     : never;
   error: unknown;
 }
@@ -35,11 +33,10 @@ register<'function'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
-        return {data: (await schema(data)) as any};
+        return {data: await schema(data)};
       } catch (error) {
         if (error instanceof Error) {
           return {issues: [new ValidationIssue(error.message)]};

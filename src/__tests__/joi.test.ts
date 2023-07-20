@@ -1,4 +1,4 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -17,6 +17,7 @@ describe('joi', () => {
     updatedAt: Joi.date().required(),
   });
   const module = 'joi';
+
   const data = {
     age: 123,
     createdAt: new Date('2021-01-01T00:00:00.000Z'),
@@ -44,6 +45,12 @@ describe('joi', () => {
     jest.unmock(module);
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('infer', () => {
+    // @ts-expect-error Joi doesn't support inferring types yet
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+  });
+
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
     expect(await validate(schema, badData)).toStrictEqual({
@@ -54,17 +61,5 @@ describe('joi', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, 123)).rejects.toThrow();
-  });
-
-  // eslint-disable-next-line jest/no-disabled-tests -- joi is not really typesafe, re-enable when it is
-  test.skip('infer input', () => {
-    // @ts-expect-error - joi does not support inferring objects yet
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<typeof data>();
-  });
-
-  // eslint-disable-next-line jest/no-disabled-tests -- joi is not really typesafe, re-enable when it is
-  test.skip('infer output', () => {
-    // @ts-expect-error - joi does not support inferring objects yet
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<typeof data>();
   });
 });

@@ -6,13 +6,12 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface SuperstructResolver extends TypeSchemaResolver {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed for assignability
-  base: Struct<any, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed to match any base schema
+  base: Struct<this['type']>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   input: this['schema'] extends Struct<any, any>
     ? Infer<this['schema']>
     : never;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed to match any base schema
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   output: this['schema'] extends Struct<any, any>
     ? Infer<this['schema']>
     : never;
@@ -36,12 +35,11 @@ register<'superstruct'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = schema.validate(data, {coerce: true});
       if (result[0] == null) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
-        return {data: result[1] as any};
+        return {data: result[1]};
       }
       const {message, path} = result[0];
       return {issues: [new ValidationIssue(message, path)]};

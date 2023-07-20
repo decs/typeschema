@@ -1,4 +1,4 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -17,6 +17,7 @@ describe('zod', () => {
     updatedAt: z.string().transform(value => new Date(value)),
   });
   const module = 'zod';
+
   const data = {
     age: 123,
     createdAt: '2021-01-01T00:00:00.000Z',
@@ -51,6 +52,10 @@ describe('zod', () => {
     jest.unmock(module);
   });
 
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
+  });
+
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
     expect(await validate(schema, badData)).toStrictEqual({
@@ -61,15 +66,5 @@ describe('zod', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(outputData);
     await expect(assert(schema, badData)).rejects.toThrow();
-  });
-
-  test('infer input', () => {
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<typeof data>();
-  });
-
-  test('infer output', () => {
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<
-      typeof outputData
-    >();
   });
 });

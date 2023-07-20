@@ -1,4 +1,4 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -18,6 +18,7 @@ describe('io-ts', () => {
     updatedAt: DateFromISOString,
   });
   const module = 'io-ts';
+
   const data = {
     age: 123,
     createdAt: '2021-01-01T00:00:00.000Z',
@@ -26,7 +27,6 @@ describe('io-ts', () => {
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
-
   const outputData = {
     age: 123,
     createdAt: new Date('2021-01-01T00:00:00.000Z'),
@@ -45,6 +45,10 @@ describe('io-ts', () => {
     jest.unmock(module);
   });
 
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
+  });
+
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
     expect(await validate(schema, outputData)).toStrictEqual({
@@ -55,27 +59,5 @@ describe('io-ts', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(outputData);
     await expect(assert(schema, outputData)).rejects.toThrow();
-  });
-
-  test('inferInput', () => {
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<{
-      email: string;
-      age: number;
-      createdAt: string;
-      id: string;
-      name: string;
-      updatedAt: string;
-    }>();
-  });
-
-  test('inferOutput', () => {
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<{
-      email: string;
-      age: number;
-      createdAt: Date;
-      id: string;
-      name: string;
-      updatedAt: Date;
-    }>();
   });
 });

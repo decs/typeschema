@@ -6,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface YupResolver extends TypeSchemaResolver {
-  base: Schema;
+  base: Schema<this['type']>;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
   error: ValidationError;
@@ -29,7 +29,7 @@ register<'yup'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       try {
         return {data: await schema.validate(data, {strict: true})};

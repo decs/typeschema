@@ -6,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface JoiResolver extends TypeSchemaResolver {
-  base: AnySchema;
+  base: AnySchema<this['type']>;
   input: this['schema'] extends AnySchema<infer T> ? T : never;
   output: this['schema'] extends AnySchema<infer T> ? T : never;
   error: ValidationError;
@@ -29,12 +29,11 @@ register<'joi'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = schema.validate(data);
       if (result.error == null) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
-        return {data: result.value as any};
+        return {data: result.value};
       }
       return {
         issues: result.error.details.map(

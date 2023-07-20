@@ -6,7 +6,7 @@ import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface RuntypesResolver extends TypeSchemaResolver {
-  base: Runtype;
+  base: Runtype<this['type']>;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
   error: Failure;
@@ -29,12 +29,11 @@ register<'runtypes'>(
     }
     return schema;
   },
-  schema => ({
+  async schema => ({
     validate: async data => {
       const result = schema.validate(data);
       if (result.success) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
-        return {data: result.value as any};
+        return {data: result.value};
       }
       return {issues: [new ValidationIssue(result.message)]};
     },

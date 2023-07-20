@@ -1,25 +1,31 @@
-import type {InferInput, InferOutput, RegistryBaseSchema} from './registry';
+import type {Schema} from './registry';
+import type {InferOutput} from './resolver';
 import type {ValidationIssue} from './schema';
+import type {IfDefined} from './utils';
 
 import {wrap, wrapCached} from './wrap';
 
-export type {InferInput, InferOutput};
+export type {Schema} from './registry';
 export type {ValidationIssue} from './schema';
 
-export type Infer<TSchema> = InferOutput<TSchema>;
+export type Infer<TSchema extends Schema> = {
+  [K in keyof TypeSchemaRegistry]: IfDefined<
+    InferOutput<TypeSchemaRegistry[K], TSchema>
+  >;
+}[keyof TypeSchemaRegistry];
 
-export async function validate<TSchema extends RegistryBaseSchema>(
+export async function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
-): Promise<{data: InferOutput<TSchema>} | {issues: Array<ValidationIssue>}> {
+): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> {
   const wrappedSchema = wrapCached(schema) ?? (await wrap(schema));
   return wrappedSchema.validate(data);
 }
 
-export async function assert<TSchema extends RegistryBaseSchema>(
+export async function assert<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
-): Promise<InferOutput<TSchema>> {
+): Promise<Infer<TSchema>> {
   const result = await validate(schema, data);
   if ('issues' in result) {
     throw result.issues[0];

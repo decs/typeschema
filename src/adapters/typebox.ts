@@ -6,8 +6,10 @@ import {register} from '../registry';
 import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
+type TypeBoxSchema<T> = TSchema & {static: T};
+
 interface TypeBoxResolver extends TypeSchemaResolver {
-  base: TSchema;
+  base: TypeBoxSchema<this['type']>;
   input: this['schema'] extends TSchema ? Static<this['schema']> : never;
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
   error: ReturnType<TypeCheck<TSchema>['Errors']>;
@@ -30,19 +32,20 @@ register<'typebox'>(
     }
     return schema;
   },
-  schema => ({
-    validate: async data => {
-      const {TypeCompiler} = await import('@sinclair/typebox/compiler');
-      const result = TypeCompiler.Compile(schema);
-      if (result.Check(data)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed because schema can't be resolved to a specific type
-        return {data: data as any};
-      }
-      return {
-        issues: [...result.Errors(data)].map(
-          ({message, path}) => new ValidationIssue(message, [path]),
-        ),
-      };
-    },
-  }),
+  async schema => {
+    const {TypeCompiler} = await import('@sinclair/typebox/compiler');
+    const result = TypeCompiler.Compile(schema);
+    return {
+      validate: async data => {
+        if (result.Check(data)) {
+          return {data};
+        }
+        return {
+          issues: [...result.Errors(data)].map(
+            ({message, path}) => new ValidationIssue(message, [path]),
+          ),
+        };
+      },
+    };
+  },
 );

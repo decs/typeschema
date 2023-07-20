@@ -1,4 +1,4 @@
-import type {InferInput, InferOutput} from '..';
+import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {type} from 'arktype';
@@ -26,7 +26,6 @@ describe('arktype', () => {
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
-
   const outputData = {
     age: '123 years old',
     createdAt: new Date('2021-01-01T00:00:00.000Z'),
@@ -40,16 +39,20 @@ describe('arktype', () => {
     jest.mock(module, () => {
       throw new Error('Cannot find module');
     });
-    await expect(validate(schema, '123')).rejects.toThrow();
-    await expect(assert(schema, '123')).rejects.toThrow();
+    await expect(validate(schema, structuredClone(data))).rejects.toThrow();
+    await expect(assert(schema, structuredClone(data))).rejects.toThrow();
     jest.unmock(module);
+  });
+
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
   });
 
   test('validate', async () => {
     expect(await validate(schema, structuredClone(data))).toEqual({
       data: outputData,
     });
-    expect(await validate(schema, outputData)).toStrictEqual({
+    expect(await validate(schema, structuredClone(outputData))).toStrictEqual({
       issues: [
         new ValidationIssue('age must be a number (was string)'),
         new ValidationIssue('createdAt must be a string (was object)'),
@@ -60,16 +63,6 @@ describe('arktype', () => {
 
   test('assert', async () => {
     expect(await assert(schema, structuredClone(data))).toEqual(outputData);
-    await expect(assert(schema, outputData)).rejects.toThrow();
-  });
-
-  test('infer input', () => {
-    expectTypeOf<InferInput<typeof schema>>().toEqualTypeOf<typeof data>();
-  });
-
-  test('infer output', () => {
-    expectTypeOf<InferOutput<typeof schema>>().toEqualTypeOf<
-      typeof outputData
-    >();
+    await expect(assert(schema, structuredClone(outputData))).rejects.toThrow();
   });
 });
