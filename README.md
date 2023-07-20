@@ -69,14 +69,41 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 
 #### Types
 
-- `Schema<T>`<br />Generic interface for schemas<br />An union of the schema types of all supported validation libraries
-- `Infer<TSchema>`<br />Extracts the equivalent TypeScript type of a schema
-- `ValidationIssue`<br />Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+- `Schema<T>`
+
+  Generic interface for schemas<br />An union of the schema types of all supported validation libraries
+
+- `Infer<TSchema extends Schema>`
+
+  Extracts the equivalent TypeScript type of a schema
+
+- `ValidationIssue`
+
+  Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
 
 #### Functions
 
-- `assert<T>(schema: Schema<T>, data: unknown): Promise<T>`<br />Returns the validated data or throws a `ValidationIssue`
-- `validate<T>(schema: Schema<T>, data: unknown): Promise<{data: T} | {issues: Array<ValidationIssue>}>`<br />Returns the validated data or a list of `ValidationIssue`s
+- `assert(schema, data)`
+
+  ```ts
+  assert<TSchema extends Schema>(
+    schema: TSchema,
+    data: unknown,
+  ): Promise<Infer<Schema>>
+  ```
+
+  Returns the validated data or throws a `ValidationIssue`
+
+- `validate(schema, data)`
+
+  ```ts
+  validate<TSchema extends Schema>(
+    schema: TSchema,
+    data: unknown,
+  ): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>
+  ```
+
+  Returns the validated data or a list of `ValidationIssue`s
 
 ## Coverage
 

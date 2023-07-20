@@ -7,8 +7,14 @@ import {maybe} from '../utils';
 
 interface SuperstructResolver extends TypeSchemaResolver {
   base: Struct<this['type']>;
-  input: this['schema'] extends Struct ? Infer<this['schema']> : never;
-  output: this['schema'] extends Struct ? Infer<this['schema']> : never;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  input: this['schema'] extends Struct<any, any>
+    ? Infer<this['schema']>
+    : never;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  output: this['schema'] extends Struct<any, any>
+    ? Infer<this['schema']>
+    : never;
   error: StructError;
 }
 
@@ -31,7 +37,7 @@ register<'superstruct'>(
   },
   async schema => ({
     validate: async data => {
-      const result = schema.validate(data);
+      const result = schema.validate(data, {coerce: true});
       if (result[0] == null) {
         return {data: result[1]};
       }

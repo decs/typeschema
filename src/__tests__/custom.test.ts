@@ -1,4 +1,7 @@
+import type {Infer} from '..';
+
 import {describe, expect, test} from '@jest/globals';
+import {expectTypeOf} from 'expect-type';
 
 import {assert, validate} from '..';
 import {ValidationIssue} from '../schema';
@@ -18,6 +21,10 @@ describe('custom', () => {
   describe('sync', () => {
     const schema = assertString;
 
+    test('infer', () => {
+      expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<string>();
+    });
+
     test('validate', async () => {
       expect(await validate(schema, '123')).toStrictEqual({data: '123'});
       expect(await validate(schema, 123)).toStrictEqual({
@@ -33,6 +40,10 @@ describe('custom', () => {
 
   describe('async', () => {
     const schema = assertStringAsync;
+
+    test('infer', () => {
+      expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<string>();
+    });
 
     test('validate', async () => {
       expect(await validate(schema, '123')).toStrictEqual({data: '123'});

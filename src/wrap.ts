@@ -1,18 +1,22 @@
+import type {Infer} from '.';
 import type {Adapter, Schema} from './registry';
 import type {TypeSchema} from './schema';
 
 import {adapters} from './registry';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const cachedWrappedSchemas = new Map<Schema<any>, TypeSchema<any>>();
+export const cachedWrappedSchemas = new Map<Schema, TypeSchema>();
 
 let lastUsedAdapter: Adapter | null = null;
 
-export function wrapCached<T>(schema: Schema<T>): TypeSchema<T> | null {
-  return cachedWrappedSchemas.get(schema) as TypeSchema<T> | null;
+export function wrapCached<TSchema extends Schema>(
+  schema: TSchema,
+): TypeSchema<Infer<TSchema>> | null {
+  return cachedWrappedSchemas.get(schema) as TypeSchema<Infer<TSchema>> | null;
 }
 
-export async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T>> {
+export async function wrap<TSchema extends Schema>(
+  schema: TSchema,
+): Promise<TypeSchema<Infer<TSchema>>> {
   if (lastUsedAdapter != null) {
     const wrappedSchema = await lastUsedAdapter(schema);
     if (wrappedSchema != null) {
@@ -33,7 +37,7 @@ export async function wrap<T>(schema: Schema<T>): Promise<TypeSchema<T>> {
       result,
     ): result is {
       adapter: Adapter;
-      wrappedSchema: TypeSchema<T>;
+      wrappedSchema: TypeSchema<Infer<TSchema>>;
     } => result.wrappedSchema != null,
   );
 

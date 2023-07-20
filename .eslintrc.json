@@ -34,7 +34,13 @@
       }
     ],
     "simple-import-sort/exports": "error",
-    "sort-keys/sort-keys-fix": "error"
+    "sort-keys/sort-keys-fix": "error",
+    "jest/expect-expect": [
+      "warn",
+      {
+        "assertFunctionNames": ["expect", "expectTypeOf"]
+      }
+    ]
   },
   "parserOptions": {
     "project": "./tsconfig.json"

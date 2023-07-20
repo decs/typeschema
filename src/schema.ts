@@ -1,4 +1,4 @@
-export type TypeSchema<T> = {
+export type TypeSchema<T = unknown> = {
   validate(
     data: unknown,
   ): Promise<{data: T} | {issues: Array<ValidationIssue>}>;

@@ -8,10 +8,14 @@ type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 interface FunctionResolver extends TypeSchemaResolver {
   base: FunctionSchema<this['type']>;
   input: this['schema'] extends FunctionSchema
-    ? ReturnType<this['schema']>
+    ? keyof this['schema'] extends never
+      ? Awaited<ReturnType<this['schema']>>
+      : never
     : never;
   output: this['schema'] extends FunctionSchema
-    ? ReturnType<this['schema']>
+    ? keyof this['schema'] extends never
+      ? Awaited<ReturnType<this['schema']>>
+      : never
     : never;
   error: unknown;
 }

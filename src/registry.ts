@@ -1,21 +1,25 @@
+import type {Infer} from '.';
 import type {InferSchema} from './resolver';
 import type {TypeSchema} from './schema';
 import type {IfDefined} from './utils';
 
-export type Schema<T> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Schema<T = any> = {
   [K in keyof TypeSchemaRegistry]: IfDefined<
     InferSchema<TypeSchemaRegistry[K], T>
   >;
 }[keyof TypeSchemaRegistry];
 
-export type Adapter = <T>(schema: Schema<T>) => Promise<TypeSchema<T> | null>;
+export type Adapter = <TSchema extends Schema>(
+  schema: TSchema,
+) => Promise<TypeSchema<Infer<TSchema>> | null>;
 
 export const adapters: Array<Adapter> = [];
 
 export function register<TKey extends keyof TypeSchemaRegistry>(
-  coerce: <T>(
-    schema: Schema<T>,
-  ) => Promise<InferSchema<TypeSchemaRegistry[TKey], T> | null>,
+  coerce: <TSchema extends Schema>(
+    schema: TSchema,
+  ) => Promise<InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null>,
   wrap: <T>(
     schema: InferSchema<TypeSchemaRegistry[TKey], T>,
   ) => Promise<TypeSchema<T>>,
