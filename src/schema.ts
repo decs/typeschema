@@ -1,15 +1,12 @@
 import type {InferSchema} from './resolver';
 import type {IfDefined} from './utils';
 
-export type Schema =
-  | {
-      [K in keyof TypeSchemaRegistry]: IfDefined<
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        InferSchema<TypeSchemaRegistry[K], any>
-      >;
-    }[keyof TypeSchemaRegistry]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | TypeSchema<any>;
+export type Schema = {
+  [K in keyof TypeSchemaRegistry]: IfDefined<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    InferSchema<TypeSchemaRegistry[K], any>
+  >;
+}[keyof TypeSchemaRegistry];
 
 export const Source = Symbol.for('TypeSchema.Source');
 
