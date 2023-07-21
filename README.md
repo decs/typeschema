@@ -87,6 +87,16 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 
 #### Functions
 
+- `wrap(schema)`
+
+  ```ts
+  wrap<TSchema extends Schema>(
+    schema: TSchema,
+  ): Promise<TypeSchema<Infer<TSchema>>>
+  ```
+
+  Returns the schema wrapped as a `TypeSchema`
+
 - `assert(schema, data)`
 
   ```ts
