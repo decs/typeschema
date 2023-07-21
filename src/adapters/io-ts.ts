@@ -1,11 +1,11 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-interface IoTsResolver extends TypeSchemaResolver {
+interface IoTsResolver extends Resolver {
   base: Type<this['type']>;
   input: this['schema'] extends Any ? OutputOf<this['schema']> : never;
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
@@ -29,6 +29,7 @@ register<'io-ts'>(
     return schema;
   },
   async schema => ({
+    [Source]: schema,
     validate: async data => {
       const {isRight} = await import('fp-ts/Either');
       const result = schema.decode(data);

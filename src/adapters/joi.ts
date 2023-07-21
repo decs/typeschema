@@ -1,11 +1,11 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 import type {AnySchema} from 'joi';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-interface JoiResolver extends TypeSchemaResolver {
+interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
   input: this['schema'] extends AnySchema<infer T> ? T : never;
   output: this['schema'] extends AnySchema<infer T> ? T : never;
@@ -29,6 +29,7 @@ register<'joi'>(
     return schema;
   },
   async schema => ({
+    [Source]: schema,
     validate: async data => {
       const result = schema.validate(data);
       if (result.error == null) {

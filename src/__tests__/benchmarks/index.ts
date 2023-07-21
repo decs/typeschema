@@ -17,9 +17,7 @@ const invalidData = {
   name: 'John Doe',
 };
 
-export default async function benchmark<
-  TSchema extends Schema<typeof validData>,
->(
+export default async function benchmark<TSchema extends Schema>(
   name: string,
   schema: TSchema,
   validateDirectly: (schema: TSchema, data: unknown) => Promise<void>,

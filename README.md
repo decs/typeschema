@@ -49,9 +49,9 @@ import type {Infer, Schema} from '@decs/typeschema';
 import {assert, validate} from '@decs/typeschema';
 
 // Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
-const schema: Schema<string> = z.string();
-const schema: Schema<string> = type('string');
-const schema: Schema<string> = typia.createAssert<string>();
+const schema: Schema = z.string();
+const schema: Schema = type('string');
+const schema: Schema = typia.createAssert<string>();
 
 // Extracts the schema type
 type Type = Infer<typeof schema>; // `string`
@@ -69,17 +69,21 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 
 #### Types
 
-- `Schema<T>`
+- `Schema`
 
-  Generic interface for schemas<br />An union of the schema types of all supported validation libraries
+  An union of the schema types of all supported validation libraries
 
-- `Infer<TSchema extends Schema>`
+- `TypeSchema<T>`
 
-  Extracts the equivalent TypeScript type of a schema
+  Unified interface for schemas
 
 - `ValidationIssue`
 
-  Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+  Unified interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+
+- `Infer<TSchema extends Schema>`
+
+  Extracts the output type of a schema
 
 #### Functions
 

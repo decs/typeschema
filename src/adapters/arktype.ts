@@ -1,12 +1,12 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 import type {TypeSchema} from '../schema';
 import type {Type} from 'arktype';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-interface ArkTypeResolver extends TypeSchemaResolver {
+interface ArkTypeResolver extends Resolver {
   base: Type<this['type']>;
   input: this['schema'] extends Type ? this['schema']['inferIn'] : never;
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
@@ -30,6 +30,7 @@ register<'arktype'>(
     return schema;
   },
   async <T>(schema: Type<T>): Promise<TypeSchema<T>> => ({
+    [Source]: schema,
     validate: async data => {
       const result = schema(data);
       if (result.problems == null) {

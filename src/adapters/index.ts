@@ -5,5 +5,6 @@ import './joi';
 import './runtypes';
 import './superstruct';
 import './typebox';
+import './typeschema';
 import './yup';
 import './zod';

@@ -1,22 +1,16 @@
-import type {Schema} from './registry';
 import type {InferOutput} from './resolver';
-import type {ValidationIssue} from './schema';
+import type {Schema, ValidationIssue} from './schema';
 import type {IfDefined} from './utils';
 
 import {wrap, wrapCached} from './wrap';
 
-export type {Schema} from './registry';
-export type {ValidationIssue} from './schema';
+export type {Schema, TypeSchema, ValidationIssue} from './schema';
 
-export type Infer<TSchema extends Schema> = Schema extends TSchema
-  ? TSchema extends Schema<infer T>
-    ? T
-    : never
-  : {
-      [K in keyof TypeSchemaRegistry]: IfDefined<
-        InferOutput<TypeSchemaRegistry[K], TSchema>
-      >;
-    }[keyof TypeSchemaRegistry];
+export type Infer<TSchema extends Schema> = {
+  [K in keyof TypeSchemaRegistry]: IfDefined<
+    InferOutput<TypeSchemaRegistry[K], TSchema>
+  >;
+}[keyof TypeSchemaRegistry];
 
 export async function validate<TSchema extends Schema>(
   schema: TSchema,

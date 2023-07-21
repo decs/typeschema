@@ -1,11 +1,11 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 import type {InferType, Schema} from 'yup';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-interface YupResolver extends TypeSchemaResolver {
+interface YupResolver extends Resolver {
   base: Schema<this['type']>;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
@@ -29,6 +29,7 @@ register<'yup'>(
     return schema;
   },
   async schema => ({
+    [Source]: schema,
     validate: async data => {
       try {
         return {data: await schema.validate(data, {strict: true})};

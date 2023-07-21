@@ -1,11 +1,11 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 
 type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
-interface FunctionResolver extends TypeSchemaResolver {
+interface FunctionResolver extends Resolver {
   base: FunctionSchema<this['type']>;
   input: this['schema'] extends FunctionSchema
     ? keyof this['schema'] extends never
@@ -33,6 +33,7 @@ register<'function'>(
     return schema;
   },
   async schema => ({
+    [Source]: schema,
     validate: async data => {
       try {
         return {data: await schema(data)};

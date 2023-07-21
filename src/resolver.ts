@@ -1,4 +1,4 @@
-export interface TypeSchemaResolver<TSchema = unknown> {
+export interface Resolver<TSchema = unknown> {
   type: unknown;
   schema: TSchema;
   input: unknown;
@@ -6,17 +6,14 @@ export interface TypeSchemaResolver<TSchema = unknown> {
   base: unknown;
 }
 
-export type InferInput<
-  TResolver extends TypeSchemaResolver,
-  TSchema,
-> = (TResolver & {schema: TSchema})['input'];
+export type InferInput<TResolver extends Resolver, TSchema> = (TResolver & {
+  schema: TSchema;
+})['input'];
 
-export type InferOutput<
-  TResolver extends TypeSchemaResolver,
-  TSchema,
-> = (TResolver & {schema: TSchema})['output'];
+export type InferOutput<TResolver extends Resolver, TSchema> = (TResolver & {
+  schema: TSchema;
+})['output'];
 
-export type InferSchema<
-  TResolver extends TypeSchemaResolver,
-  T,
-> = (TResolver & {type: T})['base'];
+export type InferSchema<TResolver extends Resolver, T> = (TResolver & {
+  type: T;
+})['base'];

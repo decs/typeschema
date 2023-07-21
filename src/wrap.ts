@@ -1,6 +1,6 @@
 import type {Infer} from '.';
-import type {Adapter, Schema} from './registry';
-import type {TypeSchema} from './schema';
+import type {Adapter} from './registry';
+import type {Schema, TypeSchema} from './schema';
 
 import {adapters} from './registry';
 

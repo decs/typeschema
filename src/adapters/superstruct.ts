@@ -1,11 +1,11 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 import type {Infer, Struct} from 'superstruct';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-interface SuperstructResolver extends TypeSchemaResolver {
+interface SuperstructResolver extends Resolver {
   base: Struct<this['type']>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   input: this['schema'] extends Struct<any, any>
@@ -35,6 +35,7 @@ register<'superstruct'>(
     return schema;
   },
   async schema => ({
+    [Source]: schema,
     validate: async data => {
       const result = schema.validate(data, {coerce: true});
       if (result[0] == null) {

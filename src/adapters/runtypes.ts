@@ -1,11 +1,11 @@
-import type {TypeSchemaResolver} from '../resolver';
+import type {Resolver} from '../resolver';
 import type {Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
+import {Source, ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
-interface RuntypesResolver extends TypeSchemaResolver {
+interface RuntypesResolver extends Resolver {
   base: Runtype<this['type']>;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
@@ -29,6 +29,7 @@ register<'runtypes'>(
     return schema;
   },
   async schema => ({
+    [Source]: schema,
     validate: async data => {
       const result = schema.validate(data);
       if (result.success) {
