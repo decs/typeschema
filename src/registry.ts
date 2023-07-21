@@ -21,5 +21,3 @@ export function register<TKey extends keyof TypeSchemaRegistry>(
     return coercedSchema != null ? wrap(coercedSchema) : null;
   });
 }
-
-import './adapters';

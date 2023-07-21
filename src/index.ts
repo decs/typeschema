@@ -36,3 +36,5 @@ export async function assert<TSchema extends Schema>(
   }
   return result.data;
 }
+
+import './adapters';
