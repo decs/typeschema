@@ -1,5 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {AnySchema, ValidationError} from 'joi';
+import type {AnySchema} from 'joi';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -9,7 +9,6 @@ interface JoiResolver extends TypeSchemaResolver {
   base: AnySchema<this['type']>;
   input: this['schema'] extends AnySchema<infer T> ? T : never;
   output: this['schema'] extends AnySchema<infer T> ? T : never;
-  error: ValidationError;
 }
 
 declare global {

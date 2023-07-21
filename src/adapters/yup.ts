@@ -1,5 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {InferType, Schema, ValidationError} from 'yup';
+import type {InferType, Schema} from 'yup';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -9,7 +9,6 @@ interface YupResolver extends TypeSchemaResolver {
   base: Schema<this['type']>;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
-  error: ValidationError;
 }
 
 declare global {

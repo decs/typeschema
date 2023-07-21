@@ -1,6 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
-import type {TypeCheck} from '@sinclair/typebox/compiler';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -12,7 +11,6 @@ interface TypeBoxResolver extends TypeSchemaResolver {
   base: TypeBoxSchema<this['type']>;
   input: this['schema'] extends TSchema ? Static<this['schema']> : never;
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
-  error: ReturnType<TypeCheck<TSchema>['Errors']>;
 }
 
 declare global {

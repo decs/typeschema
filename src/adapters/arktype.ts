@@ -1,6 +1,6 @@
 import type {TypeSchemaResolver} from '../resolver';
 import type {TypeSchema} from '../schema';
-import type {Problems, Type} from 'arktype';
+import type {Type} from 'arktype';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -10,7 +10,6 @@ interface ArkTypeResolver extends TypeSchemaResolver {
   base: Type<this['type']>;
   input: this['schema'] extends Type ? this['schema']['inferIn'] : never;
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
-  error: Problems;
 }
 
 declare global {

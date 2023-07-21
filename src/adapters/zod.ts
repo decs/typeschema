@@ -1,5 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {input, output, ZodError, ZodSchema} from 'zod';
+import type {input, output, ZodSchema} from 'zod';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -9,7 +9,6 @@ interface ZodResolver extends TypeSchemaResolver {
   base: ZodSchema<this['type']>;
   input: this['schema'] extends ZodSchema ? input<this['schema']> : never;
   output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
-  error: ZodError;
 }
 
 declare global {

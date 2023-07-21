@@ -3,7 +3,6 @@ export interface TypeSchemaResolver<TSchema = unknown> {
   schema: TSchema;
   input: unknown;
   output: unknown;
-  error: unknown;
   base: unknown;
 }
 
@@ -16,9 +15,6 @@ export type InferOutput<
   TResolver extends TypeSchemaResolver,
   TSchema,
 > = (TResolver & {schema: TSchema})['output'];
-
-export type InferError<TResolver extends TypeSchemaResolver> =
-  TResolver['error'];
 
 export type InferSchema<
   TResolver extends TypeSchemaResolver,

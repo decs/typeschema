@@ -1,5 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {Failure, Runtype, Static} from 'runtypes';
+import type {Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -9,7 +9,6 @@ interface RuntypesResolver extends TypeSchemaResolver {
   base: Runtype<this['type']>;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
-  error: Failure;
 }
 
 declare global {

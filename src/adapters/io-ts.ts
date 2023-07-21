@@ -1,5 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {Any, Errors, OutputOf, Type, TypeOf} from 'io-ts';
+import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -9,7 +9,6 @@ interface IoTsResolver extends TypeSchemaResolver {
   base: Type<this['type']>;
   input: this['schema'] extends Any ? OutputOf<this['schema']> : never;
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
-  error: Errors;
 }
 
 declare global {

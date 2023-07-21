@@ -1,5 +1,5 @@
 import type {TypeSchemaResolver} from '../resolver';
-import type {Infer, Struct, StructError} from 'superstruct';
+import type {Infer, Struct} from 'superstruct';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -15,7 +15,6 @@ interface SuperstructResolver extends TypeSchemaResolver {
   output: this['schema'] extends Struct<any, any>
     ? Infer<this['schema']>
     : never;
-  error: StructError;
 }
 
 declare global {

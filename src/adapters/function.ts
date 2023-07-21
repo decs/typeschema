@@ -17,7 +17,6 @@ interface FunctionResolver extends TypeSchemaResolver {
       ? Awaited<ReturnType<this['schema']>>
       : never
     : never;
-  error: unknown;
 }
 
 declare global {
