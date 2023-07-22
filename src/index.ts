@@ -4,7 +4,7 @@ import type {IfDefined} from './utils';
 
 import {wrap as wrapUncached, wrapCached} from './wrap';
 
-export type {Schema, TypeSchema, ValidationIssue} from './schema';
+export type {Schema, ValidationIssue} from './schema';
 
 export type Infer<TSchema extends Schema> = {
   [K in keyof TypeSchemaRegistry]: IfDefined<

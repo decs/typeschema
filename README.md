@@ -71,15 +71,11 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 
 - `Schema`
 
-  An union of the schema types of all supported libraries
-
-- `TypeSchema<T>`
-
-  Unified interface for schemas
+  Generic interface for schemas<br />An union of the schema types of all supported libraries
 
 - `ValidationIssue`
 
-  Unified interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+  Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
 
 - `Infer<TSchema extends Schema>`
 
@@ -93,7 +89,7 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
   assert<TSchema extends Schema>(
     schema: TSchema,
     data: unknown,
-  ): Promise<Infer<Schema>>
+  ): Promise<Infer<TSchema>>
   ```
 
   Returns the validated data or throws a `ValidationIssue`
