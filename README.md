@@ -63,6 +63,11 @@ await assert(schema, 123); // throws `ValidationIssue`
 // Returns the validated data or a list of `ValidationIssue`s
 await validate(schema, '123'); // {data: '123'}
 await validate(schema, 123); // {issues: [`ValidationIssue`]}
+
+// Returns an assertion function for a specific schema
+const assertString = createAssert(schema);
+await assertString('123'); // '123'
+await assertString(123); // throws `ValidationIssue`
 ```
 
 ## API
