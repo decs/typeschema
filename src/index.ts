@@ -1,5 +1,5 @@
 import type {InferOutput} from './resolver';
-import type {Schema, TypeSchema, ValidationIssue} from './schema';
+import type {Schema, ValidationIssue} from './schema';
 import type {IfDefined} from './utils';
 
 import {wrap as wrapUncached, wrapCached} from './wrap';
@@ -11,12 +11,6 @@ export type Infer<TSchema extends Schema> = {
     InferOutput<TypeSchemaRegistry[K], TSchema>
   >;
 }[keyof TypeSchemaRegistry];
-
-export async function wrap<TSchema extends Schema>(
-  schema: TSchema,
-): Promise<TypeSchema<Infer<TSchema>>> {
-  return wrapCached(schema) ?? (await wrapUncached(schema));
-}
 
 export async function validate<TSchema extends Schema>(
   schema: TSchema,
@@ -35,6 +29,12 @@ export async function assert<TSchema extends Schema>(
     throw result.issues[0];
   }
   return result.data;
+}
+
+export function createAssert<TSchema extends Schema>(
+  schema: TSchema,
+): (data: unknown) => Promise<Infer<TSchema>> {
+  return async data => assert(schema, data);
 }
 
 import './adapters';

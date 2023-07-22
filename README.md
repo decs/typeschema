@@ -71,7 +71,7 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 
 - `Schema`
 
-  An union of the schema types of all supported validation libraries
+  An union of the schema types of all supported libraries
 
 - `TypeSchema<T>`
 
@@ -86,16 +86,6 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
   Extracts the output type of a schema
 
 #### Functions
-
-- `wrap(schema)`
-
-  ```ts
-  wrap<TSchema extends Schema>(
-    schema: TSchema,
-  ): Promise<TypeSchema<Infer<TSchema>>>
-  ```
-
-  Returns the schema wrapped as a `TypeSchema`
 
 - `assert(schema, data)`
 
@@ -118,6 +108,16 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
   ```
 
   Returns the validated data or a list of `ValidationIssue`s
+
+- `createAssert(schema)`
+
+  ```ts
+  createAssert<TSchema extends Schema>(
+    schema: TSchema,
+  ): (data: unknown) => Promise<Infer<TSchema>>
+  ```
+
+  Returns an assertion function for a specific schema
 
 ## Coverage
 
