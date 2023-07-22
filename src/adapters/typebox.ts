@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Static, TSchema} from '@sinclair/typebox';
 
 import {register} from '../registry';
-import {Source, ValidationIssue} from '../schema';
+import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 type TypeBoxSchema<T> = TSchema & {static: T};
@@ -34,7 +34,6 @@ register<'typebox'>(
     const {TypeCompiler} = await import('@sinclair/typebox/compiler');
     const result = TypeCompiler.Compile(schema);
     return {
-      [Source]: schema,
       validate: async data => {
         if (result.Check(data)) {
           return {data};

@@ -8,10 +8,7 @@ export type Schema = {
   >;
 }[keyof TypeSchemaRegistry];
 
-export const Source = Symbol.for('TypeSchema.Source');
-
 export type TypeSchema<T = unknown> = {
-  [Source]: Schema;
   validate(
     data: unknown,
   ): Promise<{data: T} | {issues: Array<ValidationIssue>}>;

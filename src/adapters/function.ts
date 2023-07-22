@@ -1,7 +1,7 @@
 import type {Resolver} from '../resolver';
 
 import {register} from '../registry';
-import {Source, ValidationIssue} from '../schema';
+import {ValidationIssue} from '../schema';
 
 type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
@@ -33,7 +33,6 @@ register<'function'>(
     return schema;
   },
   async schema => ({
-    [Source]: schema,
     validate: async data => {
       try {
         return {data: await schema(data)};

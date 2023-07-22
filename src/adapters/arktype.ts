@@ -3,7 +3,7 @@ import type {TypeSchema} from '../schema';
 import type {Type} from 'arktype';
 
 import {register} from '../registry';
-import {Source, ValidationIssue} from '../schema';
+import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface ArkTypeResolver extends Resolver {
@@ -30,7 +30,6 @@ register<'arktype'>(
     return schema;
   },
   async <T>(schema: Type<T>): Promise<TypeSchema<T>> => ({
-    [Source]: schema,
     validate: async data => {
       const result = schema(data);
       if (result.problems == null) {

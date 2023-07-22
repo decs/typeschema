@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
-import {Source, ValidationIssue} from '../schema';
+import {ValidationIssue} from '../schema';
 import {maybe} from '../utils';
 
 interface RuntypesResolver extends Resolver {
@@ -29,7 +29,6 @@ register<'runtypes'>(
     return schema;
   },
   async schema => ({
-    [Source]: schema,
     validate: async data => {
       const result = schema.validate(data);
       if (result.success) {
