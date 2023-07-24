@@ -2,35 +2,39 @@ import type {Infer} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
-import Joi from 'joi';
 
 import {assert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
-describe('joi', () => {
-  const schema = Joi.object({
-    age: Joi.number().required(),
-    createdAt: Joi.date().required(),
-    email: Joi.string().email().required(),
-    id: Joi.string().required(),
-    name: Joi.string().required(),
-    updatedAt: Joi.date().required(),
-  });
-  const module = 'joi';
+describe('ajv', () => {
+  const schema = {
+    additionalProperties: false,
+    properties: {
+      age: {type: 'integer'},
+      createdAt: {type: 'string'},
+      email: {type: 'string'},
+      id: {type: 'string'},
+      name: {type: 'string'},
+      updatedAt: {type: 'string'},
+    },
+    required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+    type: 'object',
+  } as const;
+  const module = 'ajv';
 
   const data = {
     age: 123,
-    createdAt: new Date('2021-01-01T00:00:00.000Z'),
+    createdAt: '2021-01-01T00:00:00.000Z',
     email: 'john.doe@test.com',
-    id: '123',
+    id: 'c4a760a8-dbcf-4e14-9f39-645a8e933d74',
     name: 'John Doe',
-    updatedAt: new Date('2021-01-01T00:00:00.000Z'),
+    updatedAt: '2021-01-01T00:00:00.000Z',
   };
   const badData = {
-    age: 123,
+    age: '123',
     createdAt: '2021-01-01T00:00:00.000Z',
-    email: 'john.doe',
-    id: '123',
+    email: 'john.doe@test.com',
+    id: 'c4a760a8-dbcf-4e14-9f39-645a8e933d74',
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
@@ -45,16 +49,14 @@ describe('joi', () => {
     jest.unmock(module);
   });
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('infer', () => {
-    // @ts-expect-error Joi doesn't support inferring types yet
+  test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
   });
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
     expect(await validate(schema, badData)).toStrictEqual({
-      issues: [new ValidationIssue('"email" must be a valid email')],
+      issues: [new ValidationIssue('must be integer')],
     });
   });
 

@@ -25,30 +25,30 @@ export async function wrap<TSchema extends Schema>(
     }
   }
 
-  const results = (
+  const results =
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore json-schema-to-ts can slow down type computation
     await Promise.all(
       adapters.map(async adapter => ({
         adapter,
         wrappedSchema: await adapter(schema),
       })),
-    )
-  ).filter(
-    (
-      result,
-    ): result is {
-      adapter: Adapter;
-      wrappedSchema: TypeSchema<Infer<TSchema>>;
-    } => result.wrappedSchema != null,
-  );
+    );
+  const filteredResults = results.filter(
+    result => result.wrappedSchema != null,
+  ) as Array<{
+    adapter: Adapter;
+    wrappedSchema: TypeSchema<Infer<TSchema>>;
+  }>;
 
-  if (results.length === 0) {
+  if (filteredResults.length === 0) {
     throw new Error('Missing adapters for schema: ' + schema);
   }
-  if (results.length > 1) {
+  if (filteredResults.length > 1) {
     throw new Error('Conflicting adapters for schema: ' + schema);
   }
 
-  lastUsedAdapter = results[0].adapter;
-  cachedWrappedSchemas.set(schema, results[0].wrappedSchema);
-  return results[0].wrappedSchema;
+  lastUsedAdapter = filteredResults[0].adapter;
+  cachedWrappedSchemas.set(schema, filteredResults[0].wrappedSchema);
+  return filteredResults[0].wrappedSchema;
 }

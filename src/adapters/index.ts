@@ -1,3 +1,4 @@
+import './ajv';
 import './arktype';
 import './function';
 import './io-ts';

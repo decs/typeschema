@@ -3,7 +3,7 @@ import type {AnySchema} from 'joi';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {maybe} from '../utils';
+import {isJSONSchema, maybe} from '../utils';
 
 interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
@@ -23,7 +23,7 @@ register<'joi'>(
     if (Joi == null) {
       return null;
     }
-    if (!('_flags' in schema) || 'static' in schema) {
+    if (!('_flags' in schema) || 'static' in schema || isJSONSchema(schema)) {
       return null;
     }
     return schema;

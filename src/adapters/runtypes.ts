@@ -3,7 +3,7 @@ import type {Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {maybe} from '../utils';
+import {isJSONSchema, maybe} from '../utils';
 
 interface RuntypesResolver extends Resolver {
   base: Runtype<this['type']>;
@@ -23,7 +23,7 @@ register<'runtypes'>(
     if (Runtypes == null) {
       return null;
     }
-    if (!('reflect' in schema) || 'static' in schema) {
+    if (!('reflect' in schema) || 'static' in schema || isJSONSchema(schema)) {
       return null;
     }
     return schema;

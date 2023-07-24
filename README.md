@@ -20,7 +20,7 @@ There's no best validation library because there's always a tradeoff. Each devel
 ## Features
 
 - 🚀 Decouple your code from validation libraries
-- 🍃 Tiny client footprint, zero dependencies
+- 🍃 Tiny client footprint
 - ✨ Easy-to-use, minimal API
 
 ## Setup
@@ -127,7 +127,7 @@ await assertString(123); // throws `ValidationIssue`
 | [zod](https://zod.dev)                             | ![GitHub Stars](https://img.shields.io/github/stars/colinhacks/zod.svg?style=social)             | `z.string()`                   | ✅      |
 | [yup](https://github.com/jquense/yup)              | ![GitHub Stars](https://img.shields.io/github/stars/jquense/yup.svg?style=social)                | `string()`                     | ✅      |
 | [joi](https://joi.dev)                             | ![GitHub Stars](https://img.shields.io/github/stars/hapijs/joi.svg?style=social)                 | `Joi.string()`                 | ✅      |
-| [ajv](https://ajv.js.org)                          | ![GitHub Stars](https://img.shields.io/github/stars/ajv-validator/ajv.svg?style=social)          | `{type: "string"}`             | ❌      |
+| [ajv](https://ajv.js.org)                          | ![GitHub Stars](https://img.shields.io/github/stars/ajv-validator/ajv.svg?style=social)          | `{type: "string"} as const`    | ✅      |
 | [superstruct](https://docs.superstructjs.org)      | ![GitHub Stars](https://img.shields.io/github/stars/ianstormtaylor/superstruct.svg?style=social) | `string()`                     | ✅      |
 | [io-ts](https://gcanti.github.io/io-ts)            | ![GitHub Stars](https://img.shields.io/github/stars/gcanti/io-ts.svg?style=social)               | `t.string`                     | ✅      |
 | [ow](https://sindresorhus.com/ow)                  | ![GitHub Stars](https://img.shields.io/github/stars/sindresorhus/ow.svg?style=social)            | `ow.string`                    | ❌      |
