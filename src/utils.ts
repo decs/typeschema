@@ -20,7 +20,7 @@ export function isTypeBoxSchema(schema: Schema): schema is TypeBoxSchema {
   return Symbol.for('TypeBox.Kind') in schema;
 }
 
-export type JSONSchema = Exclude<ActualJSONSchema, boolean | IfDefined<TKind>>;
+export type JSONSchema = Exclude<ActualJSONSchema, boolean>;
 
 export type FromJSONSchema<TSchema extends JSONSchema> =
   TSchema extends IfDefined<TKind> ? never : FromSchema<TSchema>;
