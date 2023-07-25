@@ -159,3 +159,4 @@ await validate(assertString, 123); // {issues: [`ValidationIssue`]}
 - Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
 - Adapter architecture inspired by [@ecyrbe](https://github.com/ecyrbe)'s [suggestions](https://github.com/decs/typeschema/issues/1)
 - API definition inspired by [@colinhacks](https://github.com/colinhacks)'s [proposal](https://twitter.com/colinhacks/status/1634284724796661761)
+- JSON Schema type inference uses [`json-schema-to-ts`](https://github.com/ThomasAribart/json-schema-to-ts)
