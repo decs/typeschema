@@ -3,7 +3,7 @@ import type {InferType, Schema} from 'yup';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface YupResolver extends Resolver {
   base: Schema<this['type']>;
@@ -19,10 +19,6 @@ declare global {
 
 register<'yup'>(
   async schema => {
-    const Yup = await maybe(() => import('yup'));
-    if (Yup == null) {
-      return null;
-    }
     if (
       !('__isYupSchema__' in schema) ||
       isTypeBoxSchema(schema) ||
@@ -53,4 +49,5 @@ register<'yup'>(
       }
     },
   }),
+  () => import('yup'),
 );

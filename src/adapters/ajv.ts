@@ -4,7 +4,7 @@ import type {FromJSONSchema, JSONSchema} from '../utils';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema} from '../utils';
 
 interface AjvResolver extends Resolver {
   base: JSONSchema;
@@ -24,10 +24,6 @@ declare global {
 
 register<'ajv'>(
   async schema => {
-    const Ajv = await maybe(() => import('ajv'));
-    if (Ajv == null) {
-      return null;
-    }
     if (!isJSONSchema(schema)) {
       return null;
     }
@@ -51,4 +47,5 @@ register<'ajv'>(
       },
     };
   },
+  () => import('ajv'),
 );

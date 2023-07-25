@@ -3,7 +3,7 @@ import type {Runtype, Static} from 'runtypes';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface RuntypesResolver extends Resolver {
   base: Runtype<this['type']>;
@@ -19,10 +19,6 @@ declare global {
 
 register<'runtypes'>(
   async schema => {
-    const Runtypes = await maybe(() => import('runtypes'));
-    if (Runtypes == null) {
-      return null;
-    }
     if (
       !('reflect' in schema) ||
       isTypeBoxSchema(schema) ||
@@ -41,4 +37,5 @@ register<'runtypes'>(
       return {issues: [new ValidationIssue(result.message)]};
     },
   }),
+  () => import('runtypes'),
 );

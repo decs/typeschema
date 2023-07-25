@@ -4,7 +4,7 @@ import type {Type} from 'arktype';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface ArkTypeResolver extends Resolver {
   base: Type<this['type']>;
@@ -20,10 +20,6 @@ declare global {
 
 register<'arktype'>(
   async schema => {
-    const ArkType = await maybe(() => import('arktype'));
-    if (ArkType == null) {
-      return null;
-    }
     if (
       !('infer' in schema) ||
       isTypeBoxSchema(schema) ||
@@ -40,10 +36,11 @@ register<'arktype'>(
         return {data: result.data as T};
       }
       return {
-        issues: [...result.problems].map(
+        issues: Array.from(result.problems).map(
           ({message, path}) => new ValidationIssue(message, path),
         ),
       };
     },
   }),
+  () => import('arktype'),
 );

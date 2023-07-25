@@ -4,7 +4,7 @@ import type {Static, TSchema} from '@sinclair/typebox';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isTypeBoxSchema, maybe} from '../utils';
+import {isTypeBoxSchema} from '../utils';
 
 interface TypeBoxResolver extends Resolver {
   base: TSchema;
@@ -20,10 +20,6 @@ declare global {
 
 register<'typebox'>(
   async schema => {
-    const TypeBox = await maybe(() => import('@sinclair/typebox'));
-    if (TypeBox == null) {
-      return null;
-    }
     if (!isTypeBoxSchema(schema)) {
       return null;
     }
@@ -45,4 +41,5 @@ register<'typebox'>(
       },
     };
   },
+  () => import('@sinclair/typebox'),
 );

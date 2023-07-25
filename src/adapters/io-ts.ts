@@ -3,7 +3,7 @@ import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface IoTsResolver extends Resolver {
   base: Type<this['type']>;
@@ -19,10 +19,6 @@ declare global {
 
 register<'io-ts'>(
   async schema => {
-    const IoTs = await maybe(() => import('io-ts'));
-    if (IoTs == null) {
-      return null;
-    }
     if (
       !('encode' in schema) ||
       isTypeBoxSchema(schema) ||
@@ -50,4 +46,5 @@ register<'io-ts'>(
       };
     },
   }),
+  () => import('io-ts'),
 );

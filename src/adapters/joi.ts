@@ -3,7 +3,7 @@ import type {AnySchema} from 'joi';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
@@ -19,10 +19,6 @@ declare global {
 
 register<'joi'>(
   async schema => {
-    const Joi = await maybe(() => import('joi'));
-    if (Joi == null) {
-      return null;
-    }
     if (
       !('_flags' in schema) ||
       isTypeBoxSchema(schema) ||
@@ -45,4 +41,5 @@ register<'joi'>(
       };
     },
   }),
+  () => import('joi'),
 );

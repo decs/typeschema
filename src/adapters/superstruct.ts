@@ -3,7 +3,7 @@ import type {Infer, Struct} from 'superstruct';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface SuperstructResolver extends Resolver {
   base: Struct<this['type']>;
@@ -25,10 +25,6 @@ declare global {
 
 register<'superstruct'>(
   async schema => {
-    const Superstruct = await maybe(() => import('superstruct'));
-    if (Superstruct == null) {
-      return null;
-    }
     if (
       !('refiner' in schema) ||
       isTypeBoxSchema(schema) ||
@@ -48,4 +44,5 @@ register<'superstruct'>(
       return {issues: [new ValidationIssue(message, path)]};
     },
   }),
+  () => import('superstruct'),
 );
