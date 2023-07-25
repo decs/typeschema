@@ -4,7 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {type} from 'arktype';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('arktype', () => {
@@ -64,5 +64,11 @@ describe('arktype', () => {
   test('assert', async () => {
     expect(await assert(schema, structuredClone(data))).toEqual(outputData);
     await expect(assert(schema, structuredClone(outputData))).rejects.toThrow();
+  });
+
+  test('createAssert', async () => {
+    const assertSchema = createAssert(schema);
+    expect(await assertSchema(structuredClone(data))).toEqual(outputData);
+    await expect(assertSchema(structuredClone(outputData))).rejects.toThrow();
   });
 });

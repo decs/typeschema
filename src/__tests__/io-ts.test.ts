@@ -5,7 +5,7 @@ import {expectTypeOf} from 'expect-type';
 import * as t from 'io-ts';
 import {DateFromISOString} from 'io-ts-types';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('io-ts', () => {
@@ -59,5 +59,11 @@ describe('io-ts', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(outputData);
     await expect(assert(schema, outputData)).rejects.toThrow();
+  });
+
+  test('createAssert', async () => {
+    const assertSchema = createAssert(schema);
+    expect(await assertSchema(data)).toEqual(outputData);
+    await expect(assertSchema(outputData)).rejects.toThrow();
   });
 });

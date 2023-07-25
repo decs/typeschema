@@ -4,7 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {date, number, object, string} from 'yup';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('yup', () => {
@@ -62,5 +62,11 @@ describe('yup', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, badData)).rejects.toThrow();
+  });
+
+  test('createAssert', async () => {
+    const assertSchema = createAssert(schema);
+    expect(await assertSchema(data)).toEqual(data);
+    await expect(assertSchema(badData)).rejects.toThrow();
   });
 });

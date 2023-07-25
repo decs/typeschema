@@ -4,7 +4,7 @@ import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import typia from 'typia';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('typia', () => {
@@ -52,5 +52,11 @@ describe('typia', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, badData)).rejects.toThrow();
+  });
+
+  test('createAssert', async () => {
+    const assertSchema = createAssert(schema);
+    expect(await assertSchema(data)).toEqual(data);
+    await expect(assertSchema(badData)).rejects.toThrow();
   });
 });

@@ -3,7 +3,7 @@ import type {Infer} from '..';
 import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 function assertString(value: unknown): string {
@@ -55,6 +55,12 @@ describe('custom', () => {
     test('assert', async () => {
       expect(await assert(schema, '123')).toStrictEqual('123');
       await expect(assert(schema, 123)).rejects.toThrow();
+    });
+
+    test('createAssert', async () => {
+      const assertSchema = createAssert(schema);
+      expect(await assertSchema('123')).toEqual('123');
+      await expect(assertSchema(123)).rejects.toThrow();
     });
   });
 });

@@ -4,7 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {Number, Record, String} from 'runtypes';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('runtypes', () => {
@@ -64,5 +64,11 @@ Object should match { age: number; createdAt: string; email: string; id: string;
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, badData)).rejects.toThrow();
+  });
+
+  test('createAssert', async () => {
+    const assertSchema = createAssert(schema);
+    expect(await assertSchema(data)).toEqual(data);
+    await expect(assertSchema(badData)).rejects.toThrow();
   });
 });

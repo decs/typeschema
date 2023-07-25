@@ -4,7 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {Type} from '@sinclair/typebox';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, validate} from '..';
+import {assert, createAssert, validate} from '..';
 import {ValidationIssue} from '../schema';
 
 describe('typebox', () => {
@@ -58,5 +58,11 @@ describe('typebox', () => {
   test('assert', async () => {
     expect(await assert(schema, data)).toStrictEqual(data);
     await expect(assert(schema, badData)).rejects.toThrow();
+  });
+
+  test('createAssert', async () => {
+    const assertSchema = createAssert(schema);
+    expect(await assertSchema(data)).toEqual(data);
+    await expect(assertSchema(badData)).rejects.toThrow();
   });
 });
