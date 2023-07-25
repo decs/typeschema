@@ -11,9 +11,9 @@
 
 Many libraries rely on some sort of type validation. Their maintainers have the choice of either to:
 
-1. ⁠**Implement their own** validation logic: which leads to more code to maintain, and we already have many good solutions out there (e.g. [zod](https://zod.dev), [arktype](https://arktype.io), [typia](https://typia.io))
+1. ⁠**Implement their own** validation logic: which leads to more code to maintain, and we already have many good solutions out there (e.g. [`zod`](https://zod.dev), [`arktype`](https://arktype.io), [`typia`](https://typia.io))
 1. **Couple their code** with a specific validation library: which limits adoption by developers who use another
-1. **Support multiple** validation libraries: which is a burden to keep up-to-date ([tRPC](https://trpc.io/) picked this one)
+1. **Support multiple** validation libraries: which is a burden to keep up-to-date ([`tRPC`](https://trpc.io/) picked this one)
 
 There's no best validation library because there's always a tradeoff. Each developer chooses the library that makes the most sense to them. TypeSchema solves this problem by easily providing option 3: **support multiple validation libraries out-of-the-box.**
 
@@ -156,7 +156,7 @@ await validate(assertString, 123); // {issues: [`ValidationIssue`]}
 
 ## Acknowledgements
 
-- Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
+- Inspired by [`tRPC`](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
 - Adapter architecture inspired by [@ecyrbe](https://github.com/ecyrbe)'s [suggestions](https://github.com/decs/typeschema/issues/1)
 - API definition inspired by [@colinhacks](https://github.com/colinhacks)'s [proposal](https://twitter.com/colinhacks/status/1634284724796661761)
 - JSON Schema type inference uses [`json-schema-to-ts`](https://github.com/ThomasAribart/json-schema-to-ts)
