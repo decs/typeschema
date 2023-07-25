@@ -35,5 +35,5 @@ register<'joi'>(
       };
     },
   }),
-  () => import('joi'),
+  'joi',
 );

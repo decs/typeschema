@@ -38,5 +38,5 @@ register<'superstruct'>(
       return {issues: [new ValidationIssue(message, path)]};
     },
   }),
-  () => import('superstruct'),
+  'superstruct',
 );

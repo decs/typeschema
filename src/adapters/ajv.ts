@@ -47,5 +47,5 @@ register<'ajv'>(
       },
     };
   },
-  () => import('ajv'),
+  'ajv',
 );

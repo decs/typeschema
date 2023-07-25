@@ -31,5 +31,5 @@ register<'runtypes'>(
       return {issues: [new ValidationIssue(result.message)]};
     },
   }),
-  () => import('runtypes'),
+  'runtypes',
 );

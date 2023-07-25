@@ -35,5 +35,5 @@ register<'zod'>(
       };
     },
   }),
-  () => import('zod'),
+  'zod',
 );

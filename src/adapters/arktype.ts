@@ -36,5 +36,5 @@ register<'arktype'>(
       };
     },
   }),
-  () => import('arktype'),
+  'arktype',
 );

@@ -36,5 +36,5 @@ register<'typebox'>(
       },
     };
   },
-  () => import('@sinclair/typebox'),
+  '@sinclair/typebox',
 );

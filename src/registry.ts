@@ -17,12 +17,12 @@ export function register<TKey extends keyof TypeSchemaRegistry>(
   wrap: <T>(
     schema: InferSchema<TypeSchemaRegistry[TKey], T>,
   ) => Promise<TypeSchema<T>>,
-  importModule?: () => Promise<unknown>,
+  module?: string,
 ) {
   adapters.push(async schema => {
-    if (importModule != null) {
-      const module = await maybe(importModule);
-      if (module == null) {
+    if (module != null) {
+      const result = await maybe(() => import(module));
+      if (result == null) {
         return null;
       }
     }

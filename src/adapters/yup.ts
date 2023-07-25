@@ -47,5 +47,5 @@ register<'yup'>(
       },
     };
   },
-  () => import('yup'),
+  'yup',
 );

@@ -42,5 +42,5 @@ register<'io-ts'>(
       },
     };
   },
-  () => import('io-ts'),
+  'io-ts',
 );
