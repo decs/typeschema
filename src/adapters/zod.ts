@@ -3,7 +3,7 @@ import type {input, output, ZodSchema} from 'zod';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
 
 interface ZodResolver extends Resolver {
   base: ZodSchema<this['type']>;
@@ -23,7 +23,11 @@ register<'zod'>(
     if (Zod == null) {
       return null;
     }
-    if (!('_def' in schema) || 'static' in schema || isJSONSchema(schema)) {
+    if (
+      !('_def' in schema) ||
+      isTypeBoxSchema(schema) ||
+      isJSONSchema(schema)
+    ) {
       return null;
     }
     return schema;

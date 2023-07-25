@@ -4,7 +4,7 @@ import type {Static, TSchema} from '@sinclair/typebox';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isTypeBoxSchema, maybe} from '../utils';
 
 interface TypeBoxResolver extends Resolver {
   base: TSchema;
@@ -24,7 +24,7 @@ register<'typebox'>(
     if (TypeBox == null) {
       return null;
     }
-    if (!(TypeBox.Kind in schema) || isJSONSchema(schema)) {
+    if (!isTypeBoxSchema(schema)) {
       return null;
     }
     return schema;

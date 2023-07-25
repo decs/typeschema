@@ -3,7 +3,7 @@ import type {Infer, Struct} from 'superstruct';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
 
 interface SuperstructResolver extends Resolver {
   base: Struct<this['type']>;
@@ -29,7 +29,11 @@ register<'superstruct'>(
     if (Superstruct == null) {
       return null;
     }
-    if (!('refiner' in schema) || 'static' in schema || isJSONSchema(schema)) {
+    if (
+      !('refiner' in schema) ||
+      isTypeBoxSchema(schema) ||
+      isJSONSchema(schema)
+    ) {
       return null;
     }
     return schema;

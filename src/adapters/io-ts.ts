@@ -3,7 +3,7 @@ import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
 
 interface IoTsResolver extends Resolver {
   base: Type<this['type']>;
@@ -23,7 +23,11 @@ register<'io-ts'>(
     if (IoTs == null) {
       return null;
     }
-    if (!('encode' in schema) || 'static' in schema || isJSONSchema(schema)) {
+    if (
+      !('encode' in schema) ||
+      isTypeBoxSchema(schema) ||
+      isJSONSchema(schema)
+    ) {
       return null;
     }
     return schema;

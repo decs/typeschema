@@ -4,7 +4,7 @@ import type {Type} from 'arktype';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
 
 interface ArkTypeResolver extends Resolver {
   base: Type<this['type']>;
@@ -24,7 +24,11 @@ register<'arktype'>(
     if (ArkType == null) {
       return null;
     }
-    if (!('infer' in schema) || 'static' in schema || isJSONSchema(schema)) {
+    if (
+      !('infer' in schema) ||
+      isTypeBoxSchema(schema) ||
+      isJSONSchema(schema)
+    ) {
       return null;
     }
     return schema;

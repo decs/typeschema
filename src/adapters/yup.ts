@@ -3,7 +3,7 @@ import type {InferType, Schema} from 'yup';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
 
 interface YupResolver extends Resolver {
   base: Schema<this['type']>;
@@ -25,7 +25,7 @@ register<'yup'>(
     }
     if (
       !('__isYupSchema__' in schema) ||
-      'static' in schema ||
+      isTypeBoxSchema(schema) ||
       isJSONSchema(schema)
     ) {
       return null;
