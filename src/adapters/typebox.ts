@@ -19,7 +19,7 @@ declare global {
 }
 
 register<'typebox'>(
-  async schema => {
+  schema => {
     if (!isTypeBoxSchema(schema)) {
       return null;
     }

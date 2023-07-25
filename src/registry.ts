@@ -13,7 +13,7 @@ export const adapters: Array<Adapter> = [];
 export function register<TKey extends keyof TypeSchemaRegistry>(
   coerce: <TSchema extends Schema>(
     schema: TSchema,
-  ) => Promise<InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null>,
+  ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null,
   wrap: <T>(
     schema: InferSchema<TypeSchemaRegistry[TKey], T>,
   ) => Promise<TypeSchema<T>>,
@@ -26,7 +26,7 @@ export function register<TKey extends keyof TypeSchemaRegistry>(
         return null;
       }
     }
-    const coercedSchema = await coerce(schema);
+    const coercedSchema = coerce(schema);
     return coercedSchema != null ? wrap(coercedSchema) : null;
   });
 }

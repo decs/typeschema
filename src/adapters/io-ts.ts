@@ -18,7 +18,7 @@ declare global {
 }
 
 register<'io-ts'>(
-  async schema => {
+  schema => {
     if (
       !('encode' in schema) ||
       isTypeBoxSchema(schema) ||

@@ -19,7 +19,7 @@ declare global {
 }
 
 register<'arktype'>(
-  async schema => {
+  schema => {
     if (
       !('infer' in schema) ||
       isTypeBoxSchema(schema) ||

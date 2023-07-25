@@ -18,7 +18,7 @@ declare global {
 }
 
 register<'zod'>(
-  async schema => {
+  schema => {
     if (
       !('_def' in schema) ||
       isTypeBoxSchema(schema) ||

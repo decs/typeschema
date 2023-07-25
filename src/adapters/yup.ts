@@ -18,7 +18,7 @@ declare global {
 }
 
 register<'yup'>(
-  async schema => {
+  schema => {
     if (
       !('__isYupSchema__' in schema) ||
       isTypeBoxSchema(schema) ||

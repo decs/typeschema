@@ -23,7 +23,7 @@ declare global {
 }
 
 register<'ajv'>(
-  async schema => {
+  schema => {
     if (!isJSONSchema(schema)) {
       return null;
     }

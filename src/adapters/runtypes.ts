@@ -18,7 +18,7 @@ declare global {
 }
 
 register<'runtypes'>(
-  async schema => {
+  schema => {
     if (
       !('reflect' in schema) ||
       isTypeBoxSchema(schema) ||

@@ -26,7 +26,7 @@ declare global {
 }
 
 register<'function'>(
-  async schema => {
+  schema => {
     if (typeof schema !== 'function' || 'assert' in schema) {
       return null;
     }

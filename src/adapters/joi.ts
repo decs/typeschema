@@ -18,7 +18,7 @@ declare global {
 }
 
 register<'joi'>(
-  async schema => {
+  schema => {
     if (
       !('_flags' in schema) ||
       isTypeBoxSchema(schema) ||

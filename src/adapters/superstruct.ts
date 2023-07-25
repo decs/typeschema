@@ -24,7 +24,7 @@ declare global {
 }
 
 register<'superstruct'>(
-  async schema => {
+  schema => {
     if (
       !('refiner' in schema) ||
       isTypeBoxSchema(schema) ||
