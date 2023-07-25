@@ -26,12 +26,8 @@ declare global {
 }
 
 register<'function'>(
-  schema => {
-    if (typeof schema !== 'function' || 'assert' in schema) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    typeof schema === 'function' && !('assert' in schema) ? schema : null,
   async schema => ({
     validate: async data => {
       try {

@@ -18,16 +18,10 @@ declare global {
 }
 
 register<'io-ts'>(
-  schema => {
-    if (
-      !('encode' in schema) ||
-      isTypeBoxSchema(schema) ||
-      isJSONSchema(schema)
-    ) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async schema => {
     const {isRight} = await import('fp-ts/Either');
     return {

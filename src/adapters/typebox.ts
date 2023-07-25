@@ -19,12 +19,7 @@ declare global {
 }
 
 register<'typebox'>(
-  schema => {
-    if (!isTypeBoxSchema(schema)) {
-      return null;
-    }
-    return schema;
-  },
+  schema => (isTypeBoxSchema(schema) ? schema : null),
   async <T>(schema: TSchema): Promise<TypeSchema<T>> => {
     const {TypeCompiler} = await import('@sinclair/typebox/compiler');
     const result = TypeCompiler.Compile(schema);

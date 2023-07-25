@@ -18,16 +18,10 @@ declare global {
 }
 
 register<'runtypes'>(
-  schema => {
-    if (
-      !('reflect' in schema) ||
-      isTypeBoxSchema(schema) ||
-      isJSONSchema(schema)
-    ) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    'reflect' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async schema => ({
     validate: async data => {
       const result = schema.validate(data);

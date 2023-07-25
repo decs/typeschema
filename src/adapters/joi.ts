@@ -18,16 +18,10 @@ declare global {
 }
 
 register<'joi'>(
-  schema => {
-    if (
-      !('_flags' in schema) ||
-      isTypeBoxSchema(schema) ||
-      isJSONSchema(schema)
-    ) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async schema => ({
     validate: async data => {
       const result = schema.validate(data);

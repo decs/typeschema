@@ -18,16 +18,12 @@ declare global {
 }
 
 register<'yup'>(
-  schema => {
-    if (
-      !('__isYupSchema__' in schema) ||
-      isTypeBoxSchema(schema) ||
-      isJSONSchema(schema)
-    ) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    '__isYupSchema__' in schema &&
+    !isTypeBoxSchema(schema) &&
+    !isJSONSchema(schema)
+      ? schema
+      : null,
   async schema => {
     const {ValidationError} = await import('yup');
     return {

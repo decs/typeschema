@@ -18,16 +18,10 @@ declare global {
 }
 
 register<'zod'>(
-  schema => {
-    if (
-      !('_def' in schema) ||
-      isTypeBoxSchema(schema) ||
-      isJSONSchema(schema)
-    ) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async schema => ({
     validate: async data => {
       const result = await schema.safeParseAsync(data);

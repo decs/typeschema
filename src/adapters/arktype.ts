@@ -19,16 +19,10 @@ declare global {
 }
 
 register<'arktype'>(
-  schema => {
-    if (
-      !('infer' in schema) ||
-      isTypeBoxSchema(schema) ||
-      isJSONSchema(schema)
-    ) {
-      return null;
-    }
-    return schema;
-  },
+  schema =>
+    'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async <T>(schema: Type<T>): Promise<TypeSchema<T>> => ({
     validate: async data => {
       const result = schema(data);

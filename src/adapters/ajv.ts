@@ -26,12 +26,7 @@ declare global {
 let ajv: Ajv | null = null;
 
 register<'ajv'>(
-  schema => {
-    if (!isJSONSchema(schema)) {
-      return null;
-    }
-    return schema;
-  },
+  schema => (isJSONSchema(schema) ? schema : null),
   async <T>(schema: JSONSchema): Promise<TypeSchema<T>> => {
     if (ajv == null) {
       const Ajv = await import('ajv');
