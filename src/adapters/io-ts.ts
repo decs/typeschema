@@ -28,23 +28,25 @@ register<'io-ts'>(
     }
     return schema;
   },
-  async schema => ({
-    validate: async data => {
-      const {isRight} = await import('fp-ts/Either');
-      const result = schema.decode(data);
-      if (isRight(result)) {
-        return {data: result.right};
-      }
-      return {
-        issues: result.left.map(
-          ({message, context}) =>
-            new ValidationIssue(
-              message ?? '',
-              context.map(({key}) => key),
-            ),
-        ),
-      };
-    },
-  }),
+  async schema => {
+    const {isRight} = await import('fp-ts/Either');
+    return {
+      validate: async data => {
+        const result = schema.decode(data);
+        if (isRight(result)) {
+          return {data: result.right};
+        }
+        return {
+          issues: result.left.map(
+            ({message, context}) =>
+              new ValidationIssue(
+                message ?? '',
+                context.map(({key}) => key),
+              ),
+          ),
+        };
+      },
+    };
+  },
   () => import('io-ts'),
 );

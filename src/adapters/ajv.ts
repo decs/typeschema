@@ -1,6 +1,7 @@
 import type {Resolver} from '../resolver';
 import type {TypeSchema} from '../schema';
 import type {FromJSONSchema, JSONSchema} from '../utils';
+import type Ajv from 'ajv';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -22,6 +23,8 @@ declare global {
   }
 }
 
+let ajv: Ajv | null = null;
+
 register<'ajv'>(
   schema => {
     if (!isJSONSchema(schema)) {
@@ -30,8 +33,10 @@ register<'ajv'>(
     return schema;
   },
   async <T>(schema: JSONSchema): Promise<TypeSchema<T>> => {
-    const Ajv = await import('ajv');
-    const ajv = new Ajv.default();
+    if (ajv == null) {
+      const Ajv = await import('ajv');
+      ajv = new Ajv.default();
+    }
     const validate = ajv.compile(schema);
     return {
       validate: async data => {
