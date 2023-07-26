@@ -59,6 +59,7 @@
     "joi": "^17.9.2",
     "monocle-ts": "^2.3.13",
     "newtype-ts": "^0.3.5",
+    "ow": "^0.28.2",
     "prettier": "^2.8.8",
     "runtypes": "^6.7.0",
     "superstruct": "^1.0.3",
@@ -78,6 +79,7 @@
     "fp-ts": "^2.16.0",
     "io-ts": "^2.2.20",
     "joi": "^17.9.2",
+    "ow": "^0.28.2",
     "runtypes": "^6.7.0",
     "superstruct": "^1.0.3",
     "yup": "^1.2.0",
@@ -100,6 +102,9 @@
       "optional": true
     },
     "joi": {
+      "optional": true
+    },
+    "ow": {
       "optional": true
     },
     "runtypes": {
