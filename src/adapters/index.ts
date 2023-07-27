@@ -1,5 +1,6 @@
 import './ajv';
 import './arktype';
+import './deepkit';
 import './function';
 import './io-ts';
 import './joi';

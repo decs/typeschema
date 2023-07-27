@@ -30,6 +30,7 @@ export function isJSONSchema(schema: Schema): schema is JSONSchema {
     typeof schema === 'object' &&
     !('validate' in schema) &&
     !('parse' in schema) &&
+    !('kind' in schema) &&
     !isTypeBoxSchema(schema)
   );
 }

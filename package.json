@@ -35,6 +35,9 @@
     "benchmark": "for i in src/__tests__/benchmarks/*.ts ; do yarn ts-node \"$i\" ; done"
   },
   "devDependencies": {
+    "@deepkit/core": "^1.0.1-alpha.97",
+    "@deepkit/type": "^1.0.1-alpha.97",
+    "@deepkit/type-compiler": "^1.0.1-alpha.97",
     "@sinclair/typebox": "^0.29.6",
     "@types/node": "^20.3.3",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
@@ -68,11 +71,13 @@
     "ts-patch": "^3.0.1",
     "typescript": "^5.1.6",
     "typia": "^4.1.2",
+    "uuid": "^9.0.0",
     "webpack": "^5.88.1",
     "yup": "^1.2.0",
     "zod": "^3.21.4"
   },
   "peerDependencies": {
+    "@deepkit/type": "^1.0.1-alpha.97",
     "@sinclair/typebox": "^0.29.4",
     "ajv": "^8.12.0",
     "arktype": "^1.0.14-alpha",
@@ -86,6 +91,9 @@
     "zod": "^3.21.4"
   },
   "peerDependenciesMeta": {
+    "@deepkit/type": {
+      "optional": true
+    },
     "@sinclair/typebox": {
       "optional": true
     },
