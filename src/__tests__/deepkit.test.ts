@@ -1,4 +1,4 @@
-import type {Infer} from '..';
+import type {Infer, InferIn} from '..';
 
 import {typeOf} from '@deepkit/type';
 import {describe, expect, test} from '@jest/globals';
@@ -38,6 +38,8 @@ describe('deepkit', () => {
   test.skip('infer', () => {
     // @ts-expect-error Deepkit doesn't support inferring types yet
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+    // @ts-expect-error Deepkit doesn't support inferring types yet
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
   });
 
   test('validate', async () => {

@@ -1,4 +1,4 @@
-import type {Infer} from '..';
+import type {Infer, InferIn} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -54,6 +54,8 @@ describe('superstruct', () => {
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
+    // @ts-expect-error Superstruct doesn't support inferring input types yet
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
   });
 
   test('validate', async () => {

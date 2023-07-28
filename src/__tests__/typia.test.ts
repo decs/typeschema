@@ -1,4 +1,4 @@
-import type {Infer} from '..';
+import type {Infer, InferIn} from '..';
 
 import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -36,6 +36,7 @@ describe('typia', () => {
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
   });
 
   test('validate', async () => {

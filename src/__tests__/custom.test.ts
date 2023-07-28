@@ -1,4 +1,4 @@
-import type {Infer} from '..';
+import type {Infer, InferIn} from '..';
 
 import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -23,6 +23,7 @@ describe('custom', () => {
 
     test('infer', () => {
       expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<string>();
+      expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<string>();
     });
 
     test('validate', async () => {
@@ -43,6 +44,7 @@ describe('custom', () => {
 
     test('infer', () => {
       expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<string>();
+      expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<string>();
     });
 
     test('validate', async () => {

@@ -1,4 +1,4 @@
-import type {Infer} from '..';
+import type {Infer, InferIn} from '..';
 
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
@@ -49,6 +49,8 @@ describe('joi', () => {
   test.skip('infer', () => {
     // @ts-expect-error Joi doesn't support inferring types yet
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+    // @ts-expect-error Joi doesn't support inferring types yet
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
   });
 
   test('validate', async () => {
