@@ -15,13 +15,13 @@ Many libraries rely on some sort of type validation. Their maintainers have the 
 
 1. ⁠**Implement their own** validation logic: which leads to more code to maintain, and we already have many good solutions out there (e.g. [`zod`](https://zod.dev), [`arktype`](https://arktype.io), [`typia`](https://typia.io))
 1. **Couple their code** with a specific validation library: which limits adoption by developers who use another
-1. **Support multiple** validation libraries: which is a burden to keep up-to-date ([tRPC](https://trpc.io/) picked this one)
+1. **Support multiple** validation libraries: which is a burden to keep up-to-date (e.g. [tRPC](https://trpc.io/))
 
 There's no best validation library because there's always a tradeoff. Each developer chooses the library that makes the most sense to them. TypeSchema solves this problem by easily providing option 3: **support multiple validation libraries out-of-the-box.**
 
 ## Features
 
-- 🚀 Decouple your code from validation libraries
+- 🚀 Decouple from validation libraries
 - 🍃 Tiny client footprint
 - ✨ Easy-to-use, minimal API
 
@@ -71,6 +71,46 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 const assertString = createAssert(schema);
 await assertString('123'); // '123'
 await assertString(123); // throws `ValidationIssue`
+```
+
+## Coverage
+
+TypeSchema supports all major schema validation libraries:
+
+| Project                                            | Popularity                                                                                                                                                                            | Example schema                 | Support |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------- |
+| [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | `z.string()`                   | ✅      |
+| [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | `string()`                     | ✅      |
+| [joi](https://joi.dev)                             | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a>                                 | `Joi.string()`                 | ✅[^1]  |
+| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | `{type: "string"} as const`    | ✅      |
+| [superstruct](https://docs.superstructjs.org)      | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | `string()`                     | ✅[^2]  |
+| [io-ts](https://gcanti.github.io/io-ts)            | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a>                             | `t.string`                     | ✅      |
+| [ow](https://sindresorhus.com/ow)                  | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a>                       | `ow.string`                    | ✅[^3]  |
+| [typia](https://typia.io)                          | <a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a>                           | `typia.createAssert<string>()` | ✅      |
+| [typebox](https://github.com/sinclairzx81/typebox) | <a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a>             | `Type.String()`                | ✅      |
+| [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | `typeOf<string>()`             | ✅[^1]  |
+| [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | `String`                       | ✅      |
+| [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | `type('string')`               | ✅      |
+
+[^1]: Type inference is not yet supported for [joi](https://joi.dev) and [deepkit](https://deepkit.io)
+[^2]: Input type inference is not yet supported for [superstruct](https://docs.superstructjs.org)
+[^3]: For [ow](https://sindresorhus.com/ow), only v0.28.2 is supported (sindresorhus/ow#248)
+
+Custom validations are also supported:
+
+```ts
+export function assertString(data: unknown): string {
+  if (typeof data !== 'string') {
+    throw new Error('Expected a string, got: ' + data);
+  }
+  return data;
+}
+
+await assert(assertString, '123'); // '123'
+await assert(assertString, 123); // throws `ValidationIssue`
+
+await validate(assertString, '123'); // {data: '123'}
+await validate(assertString, 123); // {issues: [`ValidationIssue`]}
 ```
 
 ## API
@@ -126,46 +166,6 @@ await assertString(123); // throws `ValidationIssue`
   ```
 
   Returns an assertion function for a specific schema
-
-## Coverage
-
-TypeSchema supports all major schema validation libraries:
-
-| Project                                            | Popularity                                                                                                                                                                            | Example schema                 | Support |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------- |
-| [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | `z.string()`                   | ✅      |
-| [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | `string()`                     | ✅      |
-| [joi](https://joi.dev)                             | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a>                                 | `Joi.string()`                 | ✅[^1]  |
-| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | `{type: "string"} as const`    | ✅      |
-| [superstruct](https://docs.superstructjs.org)      | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | `string()`                     | ✅[^2]  |
-| [io-ts](https://gcanti.github.io/io-ts)            | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a>                             | `t.string`                     | ✅      |
-| [ow](https://sindresorhus.com/ow)                  | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a>                       | `ow.string`                    | ✅[^3]  |
-| [typia](https://typia.io)                          | <a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a>                           | `typia.createAssert<string>()` | ✅      |
-| [typebox](https://github.com/sinclairzx81/typebox) | <a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a>             | `Type.String()`                | ✅      |
-| [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | `typeOf<string>()`             | ✅[^1]  |
-| [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | `String`                       | ✅      |
-| [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | `type('string')`               | ✅      |
-
-[^1]: Type inference is not yet supported for [joi](https://joi.dev) and [deepkit](https://deepkit.io)
-[^2]: Input type inference is not yet supported for [superstruct](https://docs.superstructjs.org)
-[^3]: For [ow](https://sindresorhus.com/ow), only v0.28.2 is supported (sindresorhus/ow#248)
-
-Custom validations are also supported:
-
-```ts
-export function assertString(data: unknown): string {
-  if (typeof data !== 'string') {
-    throw new Error('Expected a string, got: ' + data);
-  }
-  return data;
-}
-
-await assert(assertString, '123'); // '123'
-await assert(assertString, 123); // throws `ValidationIssue`
-
-await validate(assertString, '123'); // {data: '123'}
-await validate(assertString, 123); // {issues: [`ValidationIssue`]}
-```
 
 ## Acknowledgements
 
