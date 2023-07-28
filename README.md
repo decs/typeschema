@@ -3,9 +3,9 @@
   <p align="center">Universal adapter for schema validation</p>
   <p align="center">
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
-  <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
-  <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM downloads"></a>
   <a href="https://bundlephobia.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40decs%2Ftypeschema" alt="Bundle size"></a>
+  <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM downloads"></a>
+  <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
   </p>
 
   <br />
@@ -131,20 +131,20 @@ await assertString(123); // throws `ValidationIssue`
 
 TypeSchema supports all major schema validation libraries:
 
-| Project                                            | Popularity                                                                                       | Example schema                 | Support |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ | ------- |
-| [zod](https://zod.dev)                             | ![GitHub Stars](https://img.shields.io/github/stars/colinhacks/zod.svg?style=social)             | `z.string()`                   | ✅      |
-| [yup](https://github.com/jquense/yup)              | ![GitHub Stars](https://img.shields.io/github/stars/jquense/yup.svg?style=social)                | `string()`                     | ✅      |
-| [joi](https://joi.dev)                             | ![GitHub Stars](https://img.shields.io/github/stars/hapijs/joi.svg?style=social)                 | `Joi.string()`                 | ✅[^1]  |
-| [ajv](https://ajv.js.org)                          | ![GitHub Stars](https://img.shields.io/github/stars/ajv-validator/ajv.svg?style=social)          | `{type: "string"} as const`    | ✅      |
-| [superstruct](https://docs.superstructjs.org)      | ![GitHub Stars](https://img.shields.io/github/stars/ianstormtaylor/superstruct.svg?style=social) | `string()`                     | ✅[^2]  |
-| [io-ts](https://gcanti.github.io/io-ts)            | ![GitHub Stars](https://img.shields.io/github/stars/gcanti/io-ts.svg?style=social)               | `t.string`                     | ✅      |
-| [ow](https://sindresorhus.com/ow)                  | ![GitHub Stars](https://img.shields.io/github/stars/sindresorhus/ow.svg?style=social)            | `ow.string`                    | ✅[^3]  |
-| [typebox](https://github.com/sinclairzx81/typebox) | ![GitHub Stars](https://img.shields.io/github/stars/sinclairzx81/typebox.svg?style=social)       | `Type.String()`                | ✅      |
-| [typia](https://typia.io)                          | ![GitHub Stars](https://img.shields.io/github/stars/samchon/typia.svg?style=social)              | `typia.createAssert<string>()` | ✅      |
-| [deepkit](https://deepkit.io)                      | ![GitHub Stars](https://img.shields.io/github/stars/deepkit/deepkit-framework.svg?style=social)  | `typeOf<string>()`             | ✅[^1]  |
-| [runtypes](https://github.com/pelotom/runtypes)    | ![GitHub Stars](https://img.shields.io/github/stars/pelotom/runtypes.svg?style=social)           | `String`                       | ✅      |
-| [arktype](https://arktype.io)                      | ![GitHub Stars](https://img.shields.io/github/stars/arktypeio/arktype.svg?style=social)          | `type('string')`               | ✅      |
+| Project                                            | Popularity                                                                                                                                                                            | Example schema                 | Support |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------- |
+| [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | `z.string()`                   | ✅      |
+| [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | `string()`                     | ✅      |
+| [joi](https://joi.dev)                             | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a>                                 | `Joi.string()`                 | ✅[^1]  |
+| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | `{type: "string"} as const`    | ✅      |
+| [superstruct](https://docs.superstructjs.org)      | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | `string()`                     | ✅[^2]  |
+| [io-ts](https://gcanti.github.io/io-ts)            | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a>                             | `t.string`                     | ✅      |
+| [ow](https://sindresorhus.com/ow)                  | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a>                       | `ow.string`                    | ✅[^3]  |
+| [typia](https://typia.io)                          | <a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a>                           | `typia.createAssert<string>()` | ✅      |
+| [typebox](https://github.com/sinclairzx81/typebox) | <a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a>             | `Type.String()`                | ✅      |
+| [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | `typeOf<string>()`             | ✅[^1]  |
+| [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | `String`                       | ✅      |
+| [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | `type('string')`               | ✅      |
 
 [^1]: Type inference is not yet supported for [joi](https://joi.dev) and [deepkit](https://deepkit.io)
 [^2]: Input type inference is not yet supported for [superstruct](https://docs.superstructjs.org)
