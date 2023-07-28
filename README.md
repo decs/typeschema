@@ -3,7 +3,9 @@
   <p align="center">Universal adapter for schema validation</p>
   <p align="center">
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
-  <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM Downloads"></a>
+  <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
+  <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM downloads"></a>
+  <a href="https://bundlephobia.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40decs%2Ftypeschema" alt="Bundle size"></a>
   </p>
 
   <br />
@@ -45,8 +47,8 @@ Install TypeSchema with your package manager of choice:
 ## Usage
 
 ```ts
-import type {Infer, Schema} from '@decs/typeschema';
-import {assert, validate} from '@decs/typeschema';
+import type {Infer, InferIn, Schema} from '@decs/typeschema';
+import {assert, createAssert, validate} from '@decs/typeschema';
 
 // Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
 const schema: Schema = z.string();
