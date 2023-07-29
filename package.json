@@ -44,7 +44,7 @@
     "lint": "eslint src --fix",
     "format": "prettier --write src",
     "test": "jest src",
-    "benchmark": "for i in src/__tests__/benchmarks/*.ts ; do yarn ts-node \"$i\" ; done"
+    "benchmark": "for i in src/__tests__/benchmarks/*.ts ; do ts-node --project tsconfig.test.json \"$i\" ; done"
   },
   "devDependencies": {
     "@deepkit/core": "^1.0.1-alpha.97",
