@@ -6,7 +6,10 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
-      {tsconfig: 'tsconfig.test.json'},
+      {
+        compiler: 'ts-patch/compiler',
+        tsconfig: 'tsconfig.test.json'
+      },
     ],
   }
 };
