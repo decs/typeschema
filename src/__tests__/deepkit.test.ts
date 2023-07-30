@@ -34,12 +34,9 @@ describe('deepkit', () => {
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('infer', () => {
-    // @ts-expect-error Deepkit doesn't support inferring types yet
-    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
-    // @ts-expect-error Deepkit doesn't support inferring types yet
-    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
+  test('infer', () => {
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<never>();
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<never>();
   });
 
   test('validate', async () => {

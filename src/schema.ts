@@ -15,7 +15,10 @@ export type TypeSchema<T = unknown> = {
 };
 
 export class ValidationIssue extends Error {
-  constructor(message: string, public path?: Array<string | number | symbol>) {
+  constructor(
+    message: string,
+    public path?: Array<string | number | symbol>,
+  ) {
     super(message);
   }
 }

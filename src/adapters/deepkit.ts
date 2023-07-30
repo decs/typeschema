@@ -1,6 +1,6 @@
 import type {Resolver} from '../resolver';
 import type {TypeSchema} from '../schema';
-import type {ReceiveType, Type} from '@deepkit/type';
+import type {Type} from '@deepkit/type';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
@@ -8,8 +8,6 @@ import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface DeepkitResolver extends Resolver {
   base: Type;
-  input: this['schema'] extends ReceiveType<infer T> ? T : never;
-  output: this['schema'] extends ReceiveType<infer T> ? T : never;
 }
 
 declare global {

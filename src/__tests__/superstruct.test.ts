@@ -54,8 +54,7 @@ describe('superstruct', () => {
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
-    // @ts-expect-error Superstruct doesn't support inferring input types yet
-    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<never>();
   });
 
   test('validate', async () => {

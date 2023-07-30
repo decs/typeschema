@@ -7,8 +7,6 @@ import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
-  input: this['schema'] extends AnySchema<infer T> ? T : never;
-  output: this['schema'] extends AnySchema<infer T> ? T : never;
 }
 
 declare global {
