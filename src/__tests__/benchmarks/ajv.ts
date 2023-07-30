@@ -16,7 +16,7 @@ benchmark(
     },
     required: ['age', 'email', 'id', 'name'],
     type: 'object',
-  } as const,
+  },
   async (schema, data) => {
     ajv.validate(schema, data);
   },

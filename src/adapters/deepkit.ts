@@ -4,7 +4,7 @@ import type {ReceiveType, Type} from '@deepkit/type';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface DeepkitResolver extends Resolver {
   base: Type;
@@ -19,7 +19,10 @@ declare global {
 }
 
 register<'deepkit'>(
-  schema => ('kind' in schema && !isTypeBoxSchema(schema) ? schema : null),
+  schema =>
+    'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async <T>(schema: Type): Promise<TypeSchema<T>> => {
     const {validate} = await import('@deepkit/type');
     return {

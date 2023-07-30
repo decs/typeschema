@@ -4,7 +4,7 @@ import type {Infer, Predicate} from 'ow';
 
 import {register} from '../registry';
 import {ValidationIssue} from '../schema';
-import {isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface OwResolver extends Resolver {
   base: Predicate<this['type']>;
@@ -19,7 +19,10 @@ declare global {
 }
 
 register<'ow'>(
-  schema => ('context' in schema && !isTypeBoxSchema(schema) ? schema : null),
+  schema =>
+    'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? schema
+      : null,
   async <T>(schema: Predicate<T>): Promise<TypeSchema<T>> => {
     const ow = await import('ow');
     const {ArgumentError} = ow;

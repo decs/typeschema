@@ -82,7 +82,7 @@ TypeSchema supports all major schema validation libraries:
 | [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | `z.string()`                   | ✅      |
 | [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | `string()`                     | ✅      |
 | [joi](https://joi.dev)                             | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a>                                 | `Joi.string()`                 | ✅[^1]  |
-| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | `{type: "string"} as const`    | ✅      |
+| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | `{type: "string"}`    | ✅[^1]  |
 | [superstruct](https://docs.superstructjs.org)      | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | `string()`                     | ✅[^2]  |
 | [io-ts](https://gcanti.github.io/io-ts)            | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a>                             | `t.string`                     | ✅      |
 | [ow](https://sindresorhus.com/ow)                  | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a>                       | `ow.string`                    | ✅[^3]  |
@@ -92,7 +92,7 @@ TypeSchema supports all major schema validation libraries:
 | [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | `String`                       | ✅      |
 | [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | `type('string')`               | ✅      |
 
-[^1]: Type inference is not yet supported for [joi](https://joi.dev) and [deepkit](https://deepkit.io)
+[^1]: Type inference is not yet supported for [joi](https://joi.dev), [ajv](https://ajv.js.org), and [deepkit](https://deepkit.io)
 [^2]: Input type inference is not yet supported for [superstruct](https://docs.superstructjs.org)
 [^3]: For [ow](https://sindresorhus.com/ow), only v0.28.2 is supported (sindresorhus/ow#248)
 
@@ -172,4 +172,3 @@ await validate(assertString, 123); // {issues: [`ValidationIssue`]}
 - Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
 - Adapter architecture inspired by [@ecyrbe](https://github.com/ecyrbe)'s [suggestions](https://github.com/decs/typeschema/issues/1)
 - API definition inspired by [@colinhacks](https://github.com/colinhacks)'s [proposal](https://twitter.com/colinhacks/status/1634284724796661761)
-- JSON Schema type inference powered by [`json-schema-to-ts`](https://github.com/ThomasAribart/json-schema-to-ts)

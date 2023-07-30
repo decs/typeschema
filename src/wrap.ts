@@ -25,15 +25,12 @@ export async function wrap<TSchema extends Schema>(
     }
   }
 
-  const results =
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore json-schema-to-ts can slow down type computation
-    await Promise.all(
-      adapters.map(async adapter => ({
-        adapter,
-        wrappedSchema: await adapter(schema),
-      })),
-    );
+  const results = await Promise.all(
+    adapters.map(async adapter => ({
+      adapter,
+      wrappedSchema: await adapter(schema),
+    })),
+  );
   const filteredResults = results.filter(
     result => result.wrappedSchema != null,
   ) as Array<{

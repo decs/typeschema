@@ -22,8 +22,6 @@ export async function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
 ): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore json-schema-to-ts can slow down type computation
   const wrappedSchema = wrapCached(schema) ?? (await wrapUncached(schema));
   return wrappedSchema.validate(data);
 }
