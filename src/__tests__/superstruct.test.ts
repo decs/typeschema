@@ -4,8 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {coerce, date, number, object, string} from 'superstruct';
 
-import {assert, createAssert, validate} from '..';
-import {ValidationIssue} from '../schema';
+import {assert, createAssert, validate, ValidationIssue} from '..';
 
 describe('superstruct', () => {
   const schema = object({

@@ -4,8 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {type} from 'arktype';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, createAssert, validate} from '..';
-import {ValidationIssue} from '../schema';
+import {assert, createAssert, validate, ValidationIssue} from '..';
 
 describe('arktype', () => {
   const schema = type({

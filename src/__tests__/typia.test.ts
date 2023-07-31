@@ -4,8 +4,7 @@ import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import typia from 'typia';
 
-import {assert, createAssert, validate} from '..';
-import {ValidationIssue} from '../schema';
+import {assert, createAssert, validate, ValidationIssue} from '..';
 
 describe('typia', () => {
   const schema = typia.createAssert<{

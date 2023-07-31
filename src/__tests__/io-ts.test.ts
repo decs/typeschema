@@ -5,8 +5,7 @@ import {expectTypeOf} from 'expect-type';
 import * as t from 'io-ts';
 import {DateFromISOString} from 'io-ts-types';
 
-import {assert, createAssert, validate} from '..';
-import {ValidationIssue} from '../schema';
+import {assert, createAssert, validate, ValidationIssue} from '..';
 
 describe('io-ts', () => {
   const schema = t.type({

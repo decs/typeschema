@@ -4,8 +4,7 @@ import {typeOf} from '@deepkit/type';
 import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, createAssert, validate} from '..';
-import {ValidationIssue} from '../schema';
+import {assert, createAssert, validate, ValidationIssue} from '..';
 
 describe('deepkit', () => {
   const schema = typeOf<{

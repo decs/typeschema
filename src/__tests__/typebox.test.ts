@@ -4,8 +4,7 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {Type} from '@sinclair/typebox';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, createAssert, validate} from '..';
-import {ValidationIssue} from '../schema';
+import {assert, createAssert, validate, ValidationIssue} from '..';
 
 describe('typebox', () => {
   const schema = Type.Object({
