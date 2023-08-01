@@ -1,4 +1,4 @@
-import type {Infer} from '.';
+import type {Infer} from './inference';
 import type {Adapter} from './registry';
 import type {Schema, TypeSchema} from './schema';
 

@@ -91,6 +91,7 @@ TypeSchema supports all major schema validation libraries:
 | [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | `typeOf<string>()`             | ✅[^1]  |
 | [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | `String`                       | ✅      |
 | [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | `type('string')`               | ✅      |
+| [valibot](https://valibot.dev)                      | <a href="https://github.com/fabian-hiller/valibot" rel="nofollow"><img src="https://img.shields.io/github/stars/fabian-hiller/valibot?style=social" alt="GitHub stars"></a>                   | `string()`               | ✅      |
 
 [^1]: Type inference is not yet supported for [joi](https://joi.dev), [ajv](https://ajv.js.org), and [deepkit](https://deepkit.io)
 [^2]: Input type inference is not yet supported for [superstruct](https://docs.superstructjs.org)

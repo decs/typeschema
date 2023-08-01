@@ -8,5 +8,6 @@ import './ow';
 import './runtypes';
 import './superstruct';
 import './typebox';
+import './valibot';
 import './yup';
 import './zod';

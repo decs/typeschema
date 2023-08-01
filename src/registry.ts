@@ -1,4 +1,4 @@
-import type {Infer} from '.';
+import type {Infer} from './inference';
 import type {InferSchema} from './resolver';
 import type {Schema, TypeSchema} from './schema';
 
