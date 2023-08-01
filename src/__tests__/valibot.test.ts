@@ -4,7 +4,8 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {email, number, object, string, transform} from 'valibot';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('valibot', () => {
   const schema = object({
@@ -58,9 +59,12 @@ describe('valibot', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [new ValidationIssue('Invalid type')],
-    });
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message: 'Invalid type',
+        path: ['age'],
+      },
+    ]);
   });
 
   test('assert', async () => {

@@ -5,7 +5,8 @@ import {expectTypeOf} from 'expect-type';
 import * as t from 'io-ts';
 import {DateFromISOString} from 'io-ts-types';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('io-ts', () => {
   const schema = t.type({
@@ -51,9 +52,16 @@ describe('io-ts', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(await validate(schema, outputData)).toStrictEqual({
-      issues: [new ValidationIssue(''), new ValidationIssue('')],
-    });
+    expect(extractIssues(await validate(schema, outputData))).toStrictEqual([
+      {
+        message: '',
+        path: ['', 'createdAt'],
+      },
+      {
+        message: '',
+        path: ['', 'updatedAt'],
+      },
+    ]);
   });
 
   test('assert', async () => {

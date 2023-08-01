@@ -4,7 +4,8 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import Joi from 'joi';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('joi', () => {
   const schema = Joi.object({
@@ -51,9 +52,12 @@ describe('joi', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [new ValidationIssue('"email" must be a valid email')],
-    });
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message: '"email" must be a valid email',
+        path: ['email'],
+      },
+    ]);
   });
 
   test('assert', async () => {

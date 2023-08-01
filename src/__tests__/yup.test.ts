@@ -4,7 +4,8 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {date, number, object, string} from 'yup';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('yup', () => {
   const schema = object({
@@ -50,13 +51,13 @@ describe('yup', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [
-        new ValidationIssue(
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message:
           'updatedAt must be a `date` type, but the final value was: `"2021-01-01T00:00:00.000Z"`.',
-        ),
-      ],
-    });
+        path: ['updatedAt'],
+      },
+    ]);
   });
 
   test('assert', async () => {

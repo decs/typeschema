@@ -4,7 +4,8 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import ow from 'ow';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('ow', () => {
   const schema = ow.object.exactShape({
@@ -50,13 +51,12 @@ describe('ow', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [
-        new ValidationIssue(
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message:
           'Expected property `age` to be of type `number` but received type `string` in object',
-        ),
-      ],
-    });
+      },
+    ]);
   });
 
   test('assert', async () => {

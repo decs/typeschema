@@ -4,7 +4,8 @@ import {typeOf} from '@deepkit/type';
 import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('deepkit', () => {
   const schema = typeOf<{
@@ -40,9 +41,12 @@ describe('deepkit', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [new ValidationIssue('Not a number')],
-    });
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message: 'Not a number',
+        path: ['age'],
+      },
+    ]);
   });
 
   test('assert', async () => {

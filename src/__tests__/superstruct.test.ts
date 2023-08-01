@@ -4,7 +4,8 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {coerce, date, number, object, string} from 'superstruct';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('superstruct', () => {
   const schema = object({
@@ -58,13 +59,12 @@ describe('superstruct', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [
-        new ValidationIssue(
-          'At path: age -- Expected a number, but received: "123"',
-        ),
-      ],
-    });
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message: 'At path: age -- Expected a number, but received: "123"',
+        path: ['age'],
+      },
+    ]);
   });
 
   test('assert', async () => {

@@ -3,7 +3,8 @@ import type {Infer, InferIn} from '..';
 import {describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('ajv', () => {
   const schema = {
@@ -54,9 +55,12 @@ describe('ajv', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [new ValidationIssue('must be integer')],
-    });
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message: 'must be integer',
+        path: ['#/properties/age/type'],
+      },
+    ]);
   });
 
   test('assert', async () => {

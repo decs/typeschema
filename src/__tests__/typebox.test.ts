@@ -4,7 +4,8 @@ import {describe, expect, jest, test} from '@jest/globals';
 import {Type} from '@sinclair/typebox';
 import {expectTypeOf} from 'expect-type';
 
-import {assert, createAssert, validate, ValidationIssue} from '..';
+import {assert, createAssert, validate} from '..';
+import {extractIssues} from './utils';
 
 describe('typebox', () => {
   const schema = Type.Object({
@@ -50,9 +51,12 @@ describe('typebox', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(await validate(schema, badData)).toStrictEqual({
-      issues: [new ValidationIssue('Expected number')],
-    });
+    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
+      {
+        message: 'Expected number',
+        path: ['/age'],
+      },
+    ]);
   });
 
   test('assert', async () => {
