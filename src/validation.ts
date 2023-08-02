@@ -17,7 +17,7 @@ export async function assert<TSchema extends Schema>(
 ): Promise<Infer<TSchema>> {
   const result = await validate(schema, data);
   if ('issues' in result) {
-    throw result.issues[0];
+    throw new AggregateError(result.issues, 'Assertion failed');
   }
   return result.data;
 }
