@@ -9,6 +9,7 @@ import {isJSONSchema} from '../utils';
 
 interface AjvResolver extends Resolver {
   base: SchemaObject;
+  module: typeof import('ajv');
 }
 
 declare global {
@@ -21,10 +22,12 @@ let ajv: Ajv | null = null;
 
 register<'ajv'>(
   schema => (isJSONSchema(schema) ? schema : null),
-  async <T>(schema: SchemaObject): Promise<TypeSchema<T>> => {
+  async <T>(
+    schema: SchemaObject,
+    {default: Ajv}: typeof import('ajv'),
+  ): Promise<TypeSchema<T>> => {
     if (ajv == null) {
-      const Ajv = await import('ajv');
-      ajv = new Ajv.default();
+      ajv = new Ajv();
     }
     const validate = ajv.compile(schema);
     return {

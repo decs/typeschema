@@ -10,6 +10,7 @@ interface TypeBoxResolver extends Resolver {
   base: TSchema;
   input: this['schema'] extends TSchema ? Static<this['schema']> : never;
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
+  module: typeof import('@sinclair/typebox/compiler');
 }
 
 declare global {
@@ -20,8 +21,10 @@ declare global {
 
 register<'typebox'>(
   schema => (isTypeBoxSchema(schema) ? schema : null),
-  async <T>(schema: TSchema): Promise<TypeSchema<T>> => {
-    const {TypeCompiler} = await import('@sinclair/typebox/compiler');
+  async <T>(
+    schema: TSchema,
+    {TypeCompiler}: typeof import('@sinclair/typebox/compiler'),
+  ): Promise<TypeSchema<T>> => {
     const result = TypeCompiler.Compile(schema);
     return {
       validate: async data => {
@@ -36,5 +39,5 @@ register<'typebox'>(
       },
     };
   },
-  '@sinclair/typebox',
+  '@sinclair/typebox/compiler',
 );

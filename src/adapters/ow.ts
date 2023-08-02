@@ -10,6 +10,7 @@ interface OwResolver extends Resolver {
   base: Predicate<this['type']>;
   input: this['schema'] extends Predicate ? Infer<this['schema']> : never;
   output: this['schema'] extends Predicate ? Infer<this['schema']> : never;
+  module: typeof import('ow');
 }
 
 declare global {
@@ -23,10 +24,11 @@ register<'ow'>(
     'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
       ? schema
       : null,
-  async <T>(schema: Predicate<T>): Promise<TypeSchema<T>> => {
-    const ow = await import('ow');
-    const {ArgumentError} = ow;
-    const assert = ow.default.create(schema);
+  async <T>(
+    schema: Predicate<T>,
+    {default: ow, ArgumentError}: typeof import('ow'),
+  ): Promise<TypeSchema<T>> => {
+    const assert = ow.create(schema);
     return {
       validate: async data => {
         try {

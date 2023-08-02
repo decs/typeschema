@@ -9,6 +9,7 @@ interface IoTsResolver extends Resolver {
   base: Type<this['type']>;
   input: this['schema'] extends Any ? OutputOf<this['schema']> : never;
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
+  module: typeof import('fp-ts/Either');
 }
 
 declare global {
@@ -22,8 +23,7 @@ register<'io-ts'>(
     'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
       ? schema
       : null,
-  async schema => {
-    const {isRight} = await import('fp-ts/Either');
+  async (schema, {isRight}) => {
     return {
       validate: async data => {
         const result = schema.decode(data);
@@ -42,5 +42,5 @@ register<'io-ts'>(
       },
     };
   },
-  'io-ts',
+  'fp-ts/Either',
 );

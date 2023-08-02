@@ -9,6 +9,7 @@ interface ZodResolver extends Resolver {
   base: ZodSchema<this['type']>;
   input: this['schema'] extends ZodSchema ? input<this['schema']> : never;
   output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
+  module: typeof import('zod');
 }
 
 declare global {

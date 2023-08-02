@@ -10,6 +10,7 @@ interface ArkTypeResolver extends Resolver {
   base: Type<this['type']>;
   input: this['schema'] extends Type ? this['schema']['inferIn'] : never;
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
+  module: typeof import('arktype');
 }
 
 declare global {

@@ -16,7 +16,7 @@ describe('typebox', () => {
     name: Type.String(),
     updatedAt: Type.String(),
   });
-  const module = '@sinclair/typebox';
+  const module = '@sinclair/typebox/compiler';
 
   const data = {
     age: 123,

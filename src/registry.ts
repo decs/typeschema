@@ -1,8 +1,6 @@
 import type {Infer} from './inference';
-import type {InferSchema} from './resolver';
+import type {InferModule, InferSchema} from './resolver';
 import type {Schema, TypeSchema} from './schema';
-
-import {maybe} from './utils';
 
 export type Adapter = <TSchema extends Schema>(
   schema: TSchema,
@@ -16,17 +14,20 @@ export function register<TKey extends keyof TypeSchemaRegistry>(
   ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null,
   wrap: <T>(
     schema: InferSchema<TypeSchemaRegistry[TKey], T>,
+    module: InferModule<TypeSchemaRegistry[TKey]>,
   ) => Promise<TypeSchema<T>>,
-  module?: string,
+  moduleName?: string,
 ) {
   adapters.push(async schema => {
-    if (module != null) {
-      const result = await maybe(() => import(module));
-      if (result == null) {
+    let module = null;
+    if (moduleName != null) {
+      try {
+        module = await import(moduleName);
+      } catch (_e) {
         return null;
       }
     }
     const coercedSchema = coerce(schema);
-    return coercedSchema != null ? wrap(coercedSchema) : null;
+    return coercedSchema != null ? wrap(coercedSchema, module) : null;
   });
 }

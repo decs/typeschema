@@ -16,7 +16,12 @@
     "jest"
   ],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "disallowTypeAnnotations": false
+      }
+    ],
     "sort-imports": "off",
     "import/order": "off",
     "import/no-extraneous-dependencies": "off",

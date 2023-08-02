@@ -9,6 +9,7 @@ interface YupResolver extends Resolver {
   base: Schema<this['type']>;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
+  module: typeof import('yup');
 }
 
 declare global {
@@ -24,28 +25,25 @@ register<'yup'>(
     !isJSONSchema(schema)
       ? schema
       : null,
-  async schema => {
-    const {ValidationError} = await import('yup');
-    return {
-      validate: async data => {
-        try {
-          return {data: await schema.validate(data, {strict: true})};
-        } catch (error) {
-          if (error instanceof ValidationError) {
-            const {message, path} = error;
-            return {
-              issues: [
-                new ValidationIssue(
-                  message,
-                  path != null && path !== '' ? [path] : undefined,
-                ),
-              ],
-            };
-          }
-          throw error;
+  async (schema, {ValidationError}) => ({
+    validate: async data => {
+      try {
+        return {data: await schema.validate(data, {strict: true})};
+      } catch (error) {
+        if (error instanceof ValidationError) {
+          const {message, path} = error;
+          return {
+            issues: [
+              new ValidationIssue(
+                message,
+                path != null && path !== '' ? [path] : undefined,
+              ),
+            ],
+          };
         }
-      },
-    };
-  },
+        throw error;
+      }
+    },
+  }),
   'yup',
 );

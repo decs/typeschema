@@ -13,6 +13,7 @@ interface ValibotResolver extends Resolver {
   output: this['schema'] extends BaseSchema | BaseSchemaAsync
     ? Output<this['schema']>
     : never;
+  module: typeof import('valibot');
 }
 
 declare global {
@@ -26,22 +27,19 @@ register<'valibot'>(
     'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
       ? schema
       : null,
-  async schema => {
-    const {safeParseAsync} = await import('valibot');
-    return {
-      validate: async data => {
-        const result = await safeParseAsync(schema, data);
-        if (result.success) {
-          return {data: result.data};
-        }
-        return {
-          issues: result.error.issues.map(
-            ({message, path}) =>
-              new ValidationIssue(message, path?.map(({key}) => key)),
-          ),
-        };
-      },
-    };
-  },
+  async (schema, {safeParseAsync}) => ({
+    validate: async data => {
+      const result = await safeParseAsync(schema, data);
+      if (result.success) {
+        return {data: result.data};
+      }
+      return {
+        issues: result.error.issues.map(
+          ({message, path}) =>
+            new ValidationIssue(message, path?.map(({key}) => key)),
+        ),
+      };
+    },
+  }),
   'valibot',
 );

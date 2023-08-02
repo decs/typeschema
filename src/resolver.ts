@@ -4,6 +4,7 @@ export interface Resolver<TSchema = unknown> {
   input: unknown;
   output: unknown;
   base: unknown;
+  module: unknown;
 }
 
 export type InferInput<TResolver extends Resolver, TSchema> = (TResolver & {
@@ -17,3 +18,5 @@ export type InferOutput<TResolver extends Resolver, TSchema> = (TResolver & {
 export type InferSchema<TResolver extends Resolver, T> = (TResolver & {
   type: T;
 })['base'];
+
+export type InferModule<TResolver extends Resolver> = TResolver['module'];

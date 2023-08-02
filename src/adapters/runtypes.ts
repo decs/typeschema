@@ -9,6 +9,7 @@ interface RuntypesResolver extends Resolver {
   base: Runtype<this['type']>;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
+  module: typeof import('runtypes');
 }
 
 declare global {

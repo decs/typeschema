@@ -11,6 +11,7 @@ interface SuperstructResolver extends Resolver {
   output: this['schema'] extends Struct<any, any>
     ? Infer<this['schema']>
     : never;
+  module: typeof import('superstruct');
 }
 
 declare global {
