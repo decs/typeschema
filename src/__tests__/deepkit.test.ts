@@ -35,8 +35,8 @@ describe('deepkit', () => {
   };
 
   test('infer', () => {
-    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<never>();
-    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<never>();
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<unknown>();
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<unknown>();
   });
 
   test('validate', async () => {

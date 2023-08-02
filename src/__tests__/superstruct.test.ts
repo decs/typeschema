@@ -54,7 +54,7 @@ describe('superstruct', () => {
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
-    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<never>();
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<unknown>();
   });
 
   test('validate', async () => {

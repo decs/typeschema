@@ -9,8 +9,6 @@ import {isJSONSchema} from '../utils';
 
 interface AjvResolver extends Resolver {
   base: SchemaObject;
-  input: never;
-  output: never;
 }
 
 declare global {
