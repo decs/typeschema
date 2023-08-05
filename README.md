@@ -59,9 +59,9 @@ const schema: Schema = typia.createAssert<string>();
 type Output = Infer<typeof schema>; // `string`
 type Input = InferIn<typeof schema>; // `string`
 
-// Returns the validated data or throws a `ValidationIssue`
+// Returns the validated data or throws an `AggregateError`
 await assert(schema, '123'); // '123'
-await assert(schema, 123); // throws `ValidationIssue`
+await assert(schema, 123); // throws `AggregateError`
 
 // Returns the validated data or a list of `ValidationIssue`s
 await validate(schema, '123'); // {data: '123'}
@@ -70,7 +70,7 @@ await validate(schema, 123); // {issues: [`ValidationIssue`]}
 // Returns an assertion function for a specific schema
 const assertString = createAssert(schema);
 await assertString('123'); // '123'
-await assertString(123); // throws `ValidationIssue`
+await assertString(123); // throws `AggregateError`
 ```
 
 ## Coverage
@@ -108,7 +108,7 @@ export function assertString(data: unknown): string {
 }
 
 await assert(assertString, '123'); // '123'
-await assert(assertString, 123); // throws `ValidationIssue`
+await assert(assertString, 123); // throws `AggregateError`
 
 await validate(assertString, '123'); // {data: '123'}
 await validate(assertString, 123); // {issues: [`ValidationIssue`]}
@@ -145,7 +145,7 @@ await validate(assertString, 123); // {issues: [`ValidationIssue`]}
   ): Promise<Infer<TSchema>>
   ```
 
-  Returns the validated data or throws a `ValidationIssue`
+  Returns the validated data or throws an `AggregateError`
 
 - `validate(schema, data)`
 
