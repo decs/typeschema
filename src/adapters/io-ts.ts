@@ -1,8 +1,8 @@
 import type {Resolver} from '../resolver';
 import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface IoTsResolver extends Resolver {

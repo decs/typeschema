@@ -1,7 +1,7 @@
 import type {Resolver} from '../resolver';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 
 type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 

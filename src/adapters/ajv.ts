@@ -1,10 +1,10 @@
+import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
-import type {TypeSchema} from '../schema';
 import type Ajv from 'ajv';
 import type {SchemaObject} from 'ajv';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 import {isJSONSchema} from '../utils';
 
 interface AjvResolver extends Resolver {

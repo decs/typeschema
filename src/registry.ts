@@ -1,6 +1,6 @@
-import type {Infer} from './inference';
+import type {Infer} from './api/inference';
+import type {Schema, TypeSchema} from './api/schema';
 import type {InferModule, InferSchema} from './resolver';
-import type {Schema, TypeSchema} from './schema';
 
 export type Adapter = <TSchema extends Schema>(
   schema: TSchema,

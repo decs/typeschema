@@ -1,8 +1,8 @@
 import type {Resolver} from '../resolver';
 import type {AnySchema} from 'joi';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface JoiResolver extends Resolver {

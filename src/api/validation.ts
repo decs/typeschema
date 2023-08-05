@@ -1,7 +1,7 @@
 import type {Infer} from './inference';
 import type {Schema, ValidationIssue} from './schema';
 
-import {wrap as wrapUncached, wrapCached} from './wrap';
+import {wrap as wrapUncached, wrapCached} from '../wrap';
 
 export async function validate<TSchema extends Schema>(
   schema: TSchema,

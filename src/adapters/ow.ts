@@ -1,9 +1,9 @@
+import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
-import type {TypeSchema} from '../schema';
 import type {Infer, Predicate} from 'ow';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface OwResolver extends Resolver {

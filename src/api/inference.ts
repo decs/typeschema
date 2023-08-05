@@ -1,6 +1,6 @@
-import type {InferInput, InferOutput} from './resolver';
+import type {InferInput, InferOutput} from '../resolver';
+import type {IfDefined, UnknownIfNever} from '../utils';
 import type {Schema} from './schema';
-import type {IfDefined, UnknownIfNever} from './utils';
 
 export type Infer<TSchema extends Schema> = UnknownIfNever<
   {

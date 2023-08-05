@@ -1,4 +1,4 @@
-import type {Schema} from './schema';
+import type {Schema} from './api/schema';
 import type {TSchema} from '@sinclair/typebox';
 import type {SchemaObject} from 'ajv';
 

@@ -1,8 +1,8 @@
 import type {Resolver} from '../resolver';
 import type {Infer, Struct} from 'superstruct';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface SuperstructResolver extends Resolver {

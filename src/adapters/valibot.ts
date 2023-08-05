@@ -1,8 +1,8 @@
 import type {Resolver} from '../resolver';
 import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
+import {ValidationIssue} from '../api/schema';
 import {register} from '../registry';
-import {ValidationIssue} from '../schema';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 interface ValibotResolver extends Resolver {

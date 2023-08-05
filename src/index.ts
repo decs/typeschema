@@ -1,6 +1,6 @@
-export type {Infer, InferIn} from './inference';
-export type {Schema} from './schema';
-export {ValidationIssue} from './schema';
-export {assert, createAssert, validate} from './validation';
+export type {Infer, InferIn} from './api/inference';
+export type {Schema} from './api/schema';
+export {ValidationIssue} from './api/schema';
+export {assert, createAssert, validate} from './api/validation';
 
 import './adapters';

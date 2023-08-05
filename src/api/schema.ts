@@ -1,5 +1,5 @@
-import type {InferSchema} from './resolver';
-import type {IfDefined} from './utils';
+import type {InferSchema} from '../resolver';
+import type {IfDefined} from '../utils';
 
 export type Schema = {
   [K in keyof TypeSchemaRegistry]: IfDefined<
