@@ -1,10 +1,9 @@
-import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {Type} from 'arktype';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface ArkTypeResolver extends Resolver {
   base: Type<this['type']>;
@@ -19,23 +18,24 @@ declare global {
   }
 }
 
-register<'arktype'>(
-  schema =>
-    'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async <T>(schema: Type<T>): Promise<TypeSchema<T>> => ({
-    validate: async data => {
-      const result = schema(data);
-      if (result.problems == null) {
-        return {data: result.data as T};
-      }
-      return {
-        issues: Array.from(result.problems).map(
-          ({message, path}) => new ValidationIssue(message, path),
-        ),
-      };
-    },
-  }),
-  'arktype',
-);
+export const init: Adapter<ArkTypeResolver>['init'] = async () =>
+  maybe(() => import('arktype'));
+
+export const guard: Adapter<ArkTypeResolver>['guard'] = schema =>
+  'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<ArkTypeResolver>['validate'] =
+  schema => async data => {
+    const result = schema(data);
+    if (result.problems == null) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: result.data as any};
+    }
+    return {
+      issues: Array.from(result.problems).map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
+    };
+  };

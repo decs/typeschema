@@ -1,10 +1,9 @@
-import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {Type} from '@deepkit/type';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface DeepkitResolver extends Resolver {
   base: Type;
@@ -17,26 +16,25 @@ declare global {
   }
 }
 
-register<'deepkit'>(
-  schema =>
-    'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async <T>(
-    schema: Type,
-    {validate}: typeof import('@deepkit/type'),
-  ): Promise<TypeSchema<T>> => ({
-    validate: async data => {
-      const result = validate(data, schema);
-      if (result.length === 0) {
-        return {data: data as T};
-      }
-      return {
-        issues: result.map(
-          ({message, path}) => new ValidationIssue(message, [path]),
-        ),
-      };
-    },
-  }),
-  '@deepkit/type',
-);
+export const init: Adapter<DeepkitResolver>['init'] = async () =>
+  maybe(() => import('@deepkit/type'));
+
+export const guard: Adapter<DeepkitResolver>['guard'] = schema =>
+  'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<DeepkitResolver>['validate'] =
+  (schema, {validate: validateSchema}) =>
+  async data => {
+    const result = validateSchema(data, schema);
+    if (result.length === 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: data as any};
+    }
+    return {
+      issues: result.map(
+        ({message, path}) => new ValidationIssue(message, [path]),
+      ),
+    };
+  };

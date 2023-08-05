@@ -1,9 +1,9 @@
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface IoTsResolver extends Resolver {
   base: Type<this['type']>;
@@ -18,29 +18,28 @@ declare global {
   }
 }
 
-register<'io-ts'>(
-  schema =>
-    'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async (schema, {isRight}) => {
+export const init: Adapter<IoTsResolver>['init'] = async () =>
+  maybe(() => import('fp-ts/Either'));
+
+export const guard: Adapter<IoTsResolver>['guard'] = schema =>
+  'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<IoTsResolver>['validate'] =
+  (schema, {isRight}) =>
+  async data => {
+    const result = schema.decode(data);
+    if (isRight(result)) {
+      return {data: result.right};
+    }
     return {
-      validate: async data => {
-        const result = schema.decode(data);
-        if (isRight(result)) {
-          return {data: result.right};
-        }
-        return {
-          issues: result.left.map(
-            ({message, context}) =>
-              new ValidationIssue(
-                message ?? '',
-                context.map(({key}) => key),
-              ),
+      issues: result.left.map(
+        ({message, context}) =>
+          new ValidationIssue(
+            message ?? '',
+            context.map(({key}) => key),
           ),
-        };
-      },
+      ),
     };
-  },
-  'fp-ts/Either',
-);
+  };

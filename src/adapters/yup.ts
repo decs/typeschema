@@ -1,9 +1,9 @@
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {InferType, Schema} from 'yup';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface YupResolver extends Resolver {
   base: Schema<this['type']>;
@@ -18,32 +18,33 @@ declare global {
   }
 }
 
-register<'yup'>(
-  schema =>
-    '__isYupSchema__' in schema &&
-    !isTypeBoxSchema(schema) &&
-    !isJSONSchema(schema)
-      ? schema
-      : null,
-  async (schema, {ValidationError}) => ({
-    validate: async data => {
-      try {
-        return {data: await schema.validate(data, {strict: true})};
-      } catch (error) {
-        if (error instanceof ValidationError) {
-          const {message, path} = error;
-          return {
-            issues: [
-              new ValidationIssue(
-                message,
-                path != null && path !== '' ? [path] : undefined,
-              ),
-            ],
-          };
-        }
-        throw error;
+export const init: Adapter<YupResolver>['init'] = async () =>
+  maybe(() => import('yup'));
+
+export const guard: Adapter<YupResolver>['guard'] = schema =>
+  '__isYupSchema__' in schema &&
+  !isTypeBoxSchema(schema) &&
+  !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<YupResolver>['validate'] =
+  (schema, {ValidationError}) =>
+  async data => {
+    try {
+      return {data: await schema.validate(data, {strict: true})};
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const {message, path} = error;
+        return {
+          issues: [
+            new ValidationIssue(
+              message,
+              path != null && path !== '' ? [path] : undefined,
+            ),
+          ],
+        };
       }
-    },
-  }),
-  'yup',
-);
+      throw error;
+    }
+  };

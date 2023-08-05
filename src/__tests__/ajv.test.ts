@@ -1,12 +1,15 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('ajv', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = {
     additionalProperties: false,
     properties: {

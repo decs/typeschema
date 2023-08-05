@@ -1,16 +1,18 @@
-import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
-import type {Infer, Predicate} from 'ow';
+import type {Adapter} from '.';
+import type {ArgumentError, Infer, Ow, Predicate} from 'ow';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface OwResolver extends Resolver {
   base: Predicate<this['type']>;
   input: this['schema'] extends Predicate ? Infer<this['schema']> : never;
   output: this['schema'] extends Predicate ? Infer<this['schema']> : never;
-  module: typeof import('ow');
+  module: {
+    ow: Ow;
+    ArgumentError: typeof ArgumentError;
+  };
 }
 
 declare global {
@@ -19,36 +21,40 @@ declare global {
   }
 }
 
-register<'ow'>(
-  schema =>
-    'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async <T>(
-    schema: Predicate<T>,
-    {default: ow, ArgumentError}: typeof import('ow'),
-  ): Promise<TypeSchema<T>> => {
-    const assert = ow.create(schema);
-    return {
-      validate: async data => {
-        try {
-          assert(data);
-          return {data: data as T};
-        } catch (error) {
-          if (error instanceof ArgumentError) {
-            return {
-              issues: Array.from(error.validationErrors.values()).flatMap(
-                messages =>
-                  Array.from(messages).map(
-                    message => new ValidationIssue(message),
-                  ),
-              ),
-            };
-          }
-          throw error;
-        }
-      },
-    };
-  },
-  'ow',
-);
+export const init: Adapter<OwResolver>['init'] = async () => {
+  const Ow = await maybe(() => import('ow'));
+  if (Ow == null) {
+    return undefined;
+  }
+  const {ArgumentError, default: ow} = Ow;
+  return {ArgumentError, ow};
+};
+
+export const guard: Adapter<OwResolver>['guard'] = schema =>
+  'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<OwResolver>['validate'] = (
+  schema,
+  {ow, ArgumentError},
+) => {
+  const assertSchema = ow.create(schema);
+  return async data => {
+    try {
+      assertSchema(data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: data as any};
+    } catch (error) {
+      if (error instanceof ArgumentError) {
+        return {
+          issues: Array.from(error.validationErrors.values()).flatMap(
+            messages =>
+              Array.from(messages).map(message => new ValidationIssue(message)),
+          ),
+        };
+      }
+      throw error;
+    }
+  };
+};

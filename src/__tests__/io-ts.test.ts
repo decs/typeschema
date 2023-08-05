@@ -1,14 +1,17 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import * as t from 'io-ts';
 import {DateFromISOString} from 'io-ts-types';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('io-ts', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = t.type({
     age: t.number,
     createdAt: DateFromISOString,

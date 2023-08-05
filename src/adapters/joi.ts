@@ -1,9 +1,9 @@
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {AnySchema} from 'joi';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
@@ -16,23 +16,23 @@ declare global {
   }
 }
 
-register<'joi'>(
-  schema =>
-    '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async schema => ({
-    validate: async data => {
-      const result = schema.validate(data);
-      if (result.error == null) {
-        return {data: result.value};
-      }
-      return {
-        issues: result.error.details.map(
-          ({message, path}) => new ValidationIssue(message, path),
-        ),
-      };
-    },
-  }),
-  'joi',
-);
+export const init: Adapter<JoiResolver>['init'] = async () =>
+  maybe(() => import('joi'));
+
+export const guard: Adapter<JoiResolver>['guard'] = schema =>
+  '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<JoiResolver>['validate'] =
+  schema => async data => {
+    const result = schema.validate(data);
+    if (result.error == null) {
+      return {data: result.value};
+    }
+    return {
+      issues: result.error.details.map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
+    };
+  };

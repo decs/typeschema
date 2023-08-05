@@ -1,7 +1,7 @@
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
+import {ValidationIssue} from '../validation';
 
 type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
@@ -17,6 +17,7 @@ interface FunctionResolver extends Resolver {
       ? Awaited<ReturnType<this['schema']>>
       : never
     : never;
+  module: Record<string, never>;
 }
 
 declare global {
@@ -25,19 +26,19 @@ declare global {
   }
 }
 
-register<'function'>(
-  schema =>
-    typeof schema === 'function' && !('assert' in schema) ? schema : null,
-  async schema => ({
-    validate: async data => {
-      try {
-        return {data: await schema(data)};
-      } catch (error) {
-        if (error instanceof Error) {
-          return {issues: [new ValidationIssue(error.message)]};
-        }
-        throw error;
+export const init: Adapter<FunctionResolver>['init'] = async () => ({});
+
+export const guard: Adapter<FunctionResolver>['guard'] = schema =>
+  typeof schema === 'function' && !('assert' in schema) ? schema : undefined;
+
+export const validate: Adapter<FunctionResolver>['validate'] =
+  schema => async data => {
+    try {
+      return {data: await schema(data)};
+    } catch (error) {
+      if (error instanceof Error) {
+        return {issues: [new ValidationIssue(error.message)]};
       }
-    },
-  }),
-);
+      throw error;
+    }
+  };

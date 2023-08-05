@@ -1,13 +1,16 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import Joi from 'joi';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('joi', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = Joi.object({
     age: Joi.number().required(),
     createdAt: Joi.date().required(),

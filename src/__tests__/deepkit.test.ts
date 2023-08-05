@@ -1,13 +1,16 @@
 import type {Infer, InferIn} from '..';
 
 import {typeOf} from '@deepkit/type';
-import {describe, expect, test} from '@jest/globals';
+import {beforeEach, describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('deepkit', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = typeOf<{
     age: number;
     createdAt: string;

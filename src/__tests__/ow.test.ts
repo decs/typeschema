@@ -1,13 +1,16 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import ow from 'ow';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('ow', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = ow.object.exactShape({
     age: ow.number,
     createdAt: ow.string,

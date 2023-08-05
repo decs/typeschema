@@ -1,9 +1,9 @@
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {Infer, Struct} from 'superstruct';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface SuperstructResolver extends Resolver {
   base: Struct<this['type']>;
@@ -20,20 +20,20 @@ declare global {
   }
 }
 
-register<'superstruct'>(
-  schema =>
-    'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async schema => ({
-    validate: async data => {
-      const result = schema.validate(data, {coerce: true});
-      if (result[0] == null) {
-        return {data: result[1]};
-      }
-      const {message, path} = result[0];
-      return {issues: [new ValidationIssue(message, path)]};
-    },
-  }),
-  'superstruct',
-);
+export const init: Adapter<SuperstructResolver>['init'] = async () =>
+  maybe(() => import('superstruct'));
+
+export const guard: Adapter<SuperstructResolver>['guard'] = schema =>
+  'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<SuperstructResolver>['validate'] =
+  schema => async data => {
+    const result = schema.validate(data, {coerce: true});
+    if (result[0] == null) {
+      return {data: result[1]};
+    }
+    const {message, path} = result[0];
+    return {issues: [new ValidationIssue(message, path)]};
+  };

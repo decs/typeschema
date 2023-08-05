@@ -1,10 +1,9 @@
-import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {Static, TSchema} from '@sinclair/typebox';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isTypeBoxSchema} from '../utils';
+import {isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface TypeBoxResolver extends Resolver {
   base: TSchema;
@@ -19,25 +18,26 @@ declare global {
   }
 }
 
-register<'typebox'>(
-  schema => (isTypeBoxSchema(schema) ? schema : null),
-  async <T>(
-    schema: TSchema,
-    {TypeCompiler}: typeof import('@sinclair/typebox/compiler'),
-  ): Promise<TypeSchema<T>> => {
-    const result = TypeCompiler.Compile(schema);
+export const init: Adapter<TypeBoxResolver>['init'] = async () =>
+  maybe(() => import('@sinclair/typebox/compiler'));
+
+export const guard: Adapter<TypeBoxResolver>['guard'] = schema =>
+  isTypeBoxSchema(schema) ? schema : undefined;
+
+export const validate: Adapter<TypeBoxResolver>['validate'] = (
+  schema,
+  {TypeCompiler},
+) => {
+  const result = TypeCompiler.Compile(schema);
+  return async data => {
+    if (result.Check(data)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: data as any};
+    }
     return {
-      validate: async data => {
-        if (result.Check(data)) {
-          return {data: data as T};
-        }
-        return {
-          issues: [...result.Errors(data)].map(
-            ({message, path}) => new ValidationIssue(message, [path]),
-          ),
-        };
-      },
+      issues: [...result.Errors(data)].map(
+        ({message, path}) => new ValidationIssue(message, [path]),
+      ),
     };
-  },
-  '@sinclair/typebox/compiler',
-);
+  };
+};

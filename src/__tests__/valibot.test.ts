@@ -1,13 +1,16 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {email, number, object, string, transform} from 'valibot';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('valibot', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = object({
     age: number(),
     createdAt: transform(string(), value => new Date(value)),

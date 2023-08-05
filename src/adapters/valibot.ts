@@ -1,9 +1,9 @@
 import type {Resolver} from '../resolver';
+import type {Adapter} from '.';
 import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema, isTypeBoxSchema} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface ValibotResolver extends Resolver {
   base: BaseSchema | BaseSchemaAsync;
@@ -22,24 +22,25 @@ declare global {
   }
 }
 
-register<'valibot'>(
-  schema =>
-    'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-      ? schema
-      : null,
-  async (schema, {safeParseAsync}) => ({
-    validate: async data => {
-      const result = await safeParseAsync(schema, data);
-      if (result.success) {
-        return {data: result.data};
-      }
-      return {
-        issues: result.error.issues.map(
-          ({message, path}) =>
-            new ValidationIssue(message, path?.map(({key}) => key)),
-        ),
-      };
-    },
-  }),
-  'valibot',
-);
+export const init: Adapter<ValibotResolver>['init'] = async () =>
+  maybe(() => import('valibot'));
+
+export const guard: Adapter<ValibotResolver>['guard'] = schema =>
+  'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+    ? schema
+    : undefined;
+
+export const validate: Adapter<ValibotResolver>['validate'] =
+  (schema, {safeParseAsync}) =>
+  async data => {
+    const result = await safeParseAsync(schema, data);
+    if (result.success) {
+      return {data: result.data};
+    }
+    return {
+      issues: result.error.issues.map(
+        ({message, path}) =>
+          new ValidationIssue(message, path?.map(({key}) => key)),
+      ),
+    };
+  };

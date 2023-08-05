@@ -1,13 +1,16 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {Type} from '@sinclair/typebox';
 import {expectTypeOf} from 'expect-type';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('typebox', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = Type.Object({
     age: Type.Number(),
     createdAt: Type.String(),

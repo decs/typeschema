@@ -1,4 +1,4 @@
-import type {Schema} from './api/schema';
+import type {Schema} from './resolver';
 import type {TSchema} from '@sinclair/typebox';
 import type {SchemaObject} from 'ajv';
 
@@ -6,6 +6,14 @@ import type {SchemaObject} from 'ajv';
 export type IfDefined<T> = any extends T ? never : T;
 
 export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
+
+export async function maybe<T>(fn: () => Promise<T>): Promise<T | undefined> {
+  try {
+    return await fn();
+  } catch (_e) {
+    return undefined;
+  }
+}
 
 export function isTypeBoxSchema(schema: Schema): schema is TSchema {
   return Symbol.for('TypeBox.Kind') in schema;

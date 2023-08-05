@@ -1,15 +1,14 @@
-import type {TypeSchema} from '../api/schema';
 import type {Resolver} from '../resolver';
-import type Ajv from 'ajv';
+import type {Adapter} from '.';
 import type {SchemaObject} from 'ajv';
+import type Ajv from 'ajv';
 
-import {ValidationIssue} from '../api/schema';
-import {register} from '../registry';
-import {isJSONSchema} from '../utils';
+import {isJSONSchema, maybe} from '../utils';
+import {ValidationIssue} from '../validation';
 
 interface AjvResolver extends Resolver {
   base: SchemaObject;
-  module: typeof import('ajv');
+  module: Ajv;
 }
 
 declare global {
@@ -18,31 +17,29 @@ declare global {
   }
 }
 
-let ajv: Ajv | null = null;
+export const init: Adapter<AjvResolver>['init'] = async () => {
+  const Ajv = await maybe(() => import('ajv'));
+  if (Ajv == null) {
+    return undefined;
+  }
+  return new Ajv.default();
+};
 
-register<'ajv'>(
-  schema => (isJSONSchema(schema) ? schema : null),
-  async <T>(
-    schema: SchemaObject,
-    {default: Ajv}: typeof import('ajv'),
-  ): Promise<TypeSchema<T>> => {
-    if (ajv == null) {
-      ajv = new Ajv();
+export const guard: Adapter<AjvResolver>['guard'] = schema =>
+  isJSONSchema(schema) ? schema : undefined;
+
+export const validate: Adapter<AjvResolver>['validate'] = (schema, ajv) => {
+  const validateSchema = ajv.compile(schema);
+  return async data => {
+    if (validateSchema(data)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: data as any};
     }
-    const validate = ajv.compile(schema);
     return {
-      validate: async data => {
-        if (validate(data)) {
-          return {data: data as T};
-        }
-        return {
-          issues: (validate.errors ?? []).map(
-            ({message, schemaPath}) =>
-              new ValidationIssue(message ?? '', [schemaPath]),
-          ),
-        };
-      },
+      issues: (validateSchema.errors ?? []).map(
+        ({message, schemaPath}) =>
+          new ValidationIssue(message ?? '', [schemaPath]),
+      ),
     };
-  },
-  'ajv',
-);
+  };
+};

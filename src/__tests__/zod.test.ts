@@ -1,13 +1,16 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {z} from 'zod';
 
 import {assert, createAssert, validate} from '..';
+import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('zod', () => {
+  beforeEach(() => resetAdapters());
+
   const schema = z.object({
     age: z.number(),
     createdAt: z.string().transform(value => new Date(value)),
