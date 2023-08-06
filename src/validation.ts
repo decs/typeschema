@@ -4,10 +4,6 @@ import type {Schema} from './resolver';
 
 import {cachedAdapters, findAdapter} from './adapters';
 
-type ValidationResult<TSchema extends Schema> =
-  | {data: Infer<TSchema>}
-  | {issues: Array<ValidationIssue>};
-
 export class ValidationIssue extends Error {
   constructor(
     message: string,
@@ -25,10 +21,12 @@ const cachedCreateValidates = new Map<
 export async function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
-): Promise<ValidationResult<TSchema>> {
+): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> {
   const cachedCreateValidate = cachedCreateValidates.get(schema);
   if (cachedCreateValidate != null) {
-    return (await cachedCreateValidate(data)) as ValidationResult<TSchema>;
+    return (await cachedCreateValidate(data)) as
+      | {data: Infer<TSchema>}
+      | {issues: Array<ValidationIssue>};
   }
 
   const {createValidate, module} =
