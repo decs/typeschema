@@ -26,7 +26,7 @@ export const guard: Adapter<'io-ts'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'io-ts'>['validate'] =
+export const createValidate: Adapter<'io-ts'>['createValidate'] =
   (schema, {isRight}) =>
   async data => {
     const result = schema.decode(data);

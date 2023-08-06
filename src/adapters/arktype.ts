@@ -26,7 +26,7 @@ export const guard: Adapter<'arktype'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'arktype'>['validate'] =
+export const createValidate: Adapter<'arktype'>['createValidate'] =
   schema => async data => {
     const result = schema(data);
     if (result.problems == null) {

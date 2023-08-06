@@ -35,7 +35,7 @@ export const guard: Adapter<'ow'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'ow'>['validate'] = (
+export const createValidate: Adapter<'ow'>['createValidate'] = (
   schema,
   {ow, ArgumentError},
 ) => {

@@ -24,10 +24,10 @@ export const guard: Adapter<'deepkit'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'deepkit'>['validate'] =
-  (schema, {validate: validateSchema}) =>
+export const createValidate: Adapter<'deepkit'>['createValidate'] =
+  (schema, {validate}) =>
   async data => {
-    const result = validateSchema(data, schema);
+    const result = validate(data, schema);
     if (result.length === 0) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return {data: data as any};

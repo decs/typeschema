@@ -49,7 +49,7 @@ export type Adapter<
   guard: <TSchema extends Schema>(
     schema: TSchema,
   ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null;
-  validate: <T>(
+  createValidate: <T>(
     schema: InferSchema<TypeSchemaRegistry[TKey], T>,
     module: TypeSchemaRegistry[TKey]['module'],
   ) => (data: unknown) => Promise<{data: T} | {issues: Array<ValidationIssue>}>;
@@ -59,11 +59,9 @@ export async function findAdapter<TSchema extends Schema>(
   schema: TSchema,
 ): Promise<Adapter> {
   if (registry == null) {
-    const allAdapters = await Promise.all(adapters);
-    const modules = await Promise.all(
-      allAdapters.map(async ({init}) => init()),
-    );
-    registry = allAdapters
+    const importedAdapters = await Promise.all(adapters);
+    const modules = await Promise.all(importedAdapters.map(({init}) => init()));
+    registry = importedAdapters
       .filter((_adapter, index) => modules[index] != null)
       .map((adapter, index) => ({
         ...adapter,

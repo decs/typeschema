@@ -31,7 +31,7 @@ export const init: Adapter<'function'>['init'] = async () => ({});
 export const guard: Adapter<'function'>['guard'] = schema =>
   typeof schema === 'function' && !('assert' in schema) ? schema : null;
 
-export const validate: Adapter<'function'>['validate'] =
+export const createValidate: Adapter<'function'>['createValidate'] =
   schema => async data => {
     try {
       return {data: await schema(data)};

@@ -26,14 +26,15 @@ export const guard: Adapter<'zod'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'zod'>['validate'] = schema => async data => {
-  const result = await schema.safeParseAsync(data);
-  if (result.success) {
-    return {data: result.data};
-  }
-  return {
-    issues: result.error.issues.map(
-      ({message, path}) => new ValidationIssue(message, path),
-    ),
+export const createValidate: Adapter<'zod'>['createValidate'] =
+  schema => async data => {
+    const result = await schema.safeParseAsync(data);
+    if (result.success) {
+      return {data: result.data};
+    }
+    return {
+      issues: result.error.issues.map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
+    };
   };
-};

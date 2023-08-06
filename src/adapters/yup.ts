@@ -28,7 +28,7 @@ export const guard: Adapter<'yup'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'yup'>['validate'] =
+export const createValidate: Adapter<'yup'>['createValidate'] =
   (schema, {ValidationError}) =>
   async data => {
     try {

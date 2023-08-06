@@ -26,7 +26,7 @@ export const guard: Adapter<'runtypes'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'runtypes'>['validate'] =
+export const createValidate: Adapter<'runtypes'>['createValidate'] =
   schema => async data => {
     const result = schema.validate(data);
     if (result.success) {

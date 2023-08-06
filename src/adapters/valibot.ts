@@ -30,7 +30,7 @@ export const guard: Adapter<'valibot'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'valibot'>['validate'] =
+export const createValidate: Adapter<'valibot'>['createValidate'] =
   (schema, {safeParseAsync}) =>
   async data => {
     const result = await safeParseAsync(schema, data);

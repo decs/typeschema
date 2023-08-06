@@ -28,7 +28,10 @@ export const init: Adapter<'ajv'>['init'] = async () => {
 export const guard: Adapter<'ajv'>['guard'] = schema =>
   isJSONSchema(schema) ? schema : null;
 
-export const validate: Adapter<'ajv'>['validate'] = (schema, ajv) => {
+export const createValidate: Adapter<'ajv'>['createValidate'] = (
+  schema,
+  ajv,
+) => {
   const validateSchema = ajv.compile(schema);
   return async data => {
     if (validateSchema(data)) {

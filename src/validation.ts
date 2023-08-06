@@ -1,7 +1,12 @@
+import type {Adapter} from './adapters';
 import type {Infer} from './inference';
 import type {Schema} from './resolver';
 
 import {cachedAdapters, findAdapter} from './adapters';
+
+type ValidationResult<TSchema extends Schema> =
+  | {data: Infer<TSchema>}
+  | {issues: Array<ValidationIssue>};
 
 export class ValidationIssue extends Error {
   constructor(
@@ -12,13 +17,26 @@ export class ValidationIssue extends Error {
   }
 }
 
+const cachedCreateValidates = new Map<
+  Schema,
+  ReturnType<Adapter['createValidate']>
+>();
+
 export async function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
-): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> {
-  const {validate: validateSchema, module} =
+): Promise<ValidationResult<TSchema>> {
+  const cachedCreateValidate = cachedCreateValidates.get(schema);
+  if (cachedCreateValidate != null) {
+    return (await cachedCreateValidate(data)) as ValidationResult<TSchema>;
+  }
+
+  const {createValidate, module} =
     cachedAdapters.get(schema) ?? (await findAdapter(schema));
-  return validateSchema<Infer<TSchema>>(schema, module)(data);
+  const validateSchema = createValidate<Infer<TSchema>>(schema, module);
+
+  cachedCreateValidates.set(schema, validateSchema);
+  return validateSchema(data);
 }
 
 export async function assert<TSchema extends Schema>(

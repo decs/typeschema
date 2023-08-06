@@ -28,7 +28,7 @@ export const guard: Adapter<'superstruct'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'superstruct'>['validate'] =
+export const createValidate: Adapter<'superstruct'>['createValidate'] =
   schema => async data => {
     const result = schema.validate(data, {coerce: true});
     if (result[0] == null) {

@@ -24,14 +24,15 @@ export const guard: Adapter<'joi'>['guard'] = schema =>
     ? schema
     : null;
 
-export const validate: Adapter<'joi'>['validate'] = schema => async data => {
-  const result = schema.validate(data);
-  if (result.error == null) {
-    return {data: result.value};
-  }
-  return {
-    issues: result.error.details.map(
-      ({message, path}) => new ValidationIssue(message, path),
-    ),
+export const createValidate: Adapter<'joi'>['createValidate'] =
+  schema => async data => {
+    const result = schema.validate(data);
+    if (result.error == null) {
+      return {data: result.value};
+    }
+    return {
+      issues: result.error.details.map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
+    };
   };
-};

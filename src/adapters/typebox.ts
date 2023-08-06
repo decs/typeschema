@@ -24,7 +24,7 @@ export const init: Adapter<'typebox'>['init'] = async () =>
 export const guard: Adapter<'typebox'>['guard'] = schema =>
   isTypeBoxSchema(schema) ? schema : null;
 
-export const validate: Adapter<'typebox'>['validate'] = (
+export const createValidate: Adapter<'typebox'>['createValidate'] = (
   schema,
   {TypeCompiler},
 ) => {
