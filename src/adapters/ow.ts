@@ -21,7 +21,7 @@ declare global {
   }
 }
 
-export const init: Adapter<OwResolver>['init'] = async () => {
+export const init: Adapter<'ow'>['init'] = async () => {
   const Ow = await maybe(() => import('ow'));
   if (Ow == null) {
     return undefined;
@@ -30,12 +30,12 @@ export const init: Adapter<OwResolver>['init'] = async () => {
   return {ArgumentError, ow};
 };
 
-export const guard: Adapter<OwResolver>['guard'] = schema =>
+export const guard: Adapter<'ow'>['guard'] = schema =>
   'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<OwResolver>['validate'] = (
+export const validate: Adapter<'ow'>['validate'] = (
   schema,
   {ow, ArgumentError},
 ) => {

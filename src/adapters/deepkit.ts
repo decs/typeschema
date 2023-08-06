@@ -16,15 +16,15 @@ declare global {
   }
 }
 
-export const init: Adapter<DeepkitResolver>['init'] = async () =>
+export const init: Adapter<'deepkit'>['init'] = async () =>
   maybe(() => import('@deepkit/type'));
 
-export const guard: Adapter<DeepkitResolver>['guard'] = schema =>
+export const guard: Adapter<'deepkit'>['guard'] = schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<DeepkitResolver>['validate'] =
+export const validate: Adapter<'deepkit'>['validate'] =
   (schema, {validate: validateSchema}) =>
   async data => {
     const result = validateSchema(data, schema);

@@ -22,15 +22,15 @@ declare global {
   }
 }
 
-export const init: Adapter<ValibotResolver>['init'] = async () =>
+export const init: Adapter<'valibot'>['init'] = async () =>
   maybe(() => import('valibot'));
 
-export const guard: Adapter<ValibotResolver>['guard'] = schema =>
+export const guard: Adapter<'valibot'>['guard'] = schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<ValibotResolver>['validate'] =
+export const validate: Adapter<'valibot'>['validate'] =
   (schema, {safeParseAsync}) =>
   async data => {
     const result = await safeParseAsync(schema, data);

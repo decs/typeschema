@@ -18,15 +18,15 @@ declare global {
   }
 }
 
-export const init: Adapter<IoTsResolver>['init'] = async () =>
+export const init: Adapter<'io-ts'>['init'] = async () =>
   maybe(() => import('fp-ts/Either'));
 
-export const guard: Adapter<IoTsResolver>['guard'] = schema =>
+export const guard: Adapter<'io-ts'>['guard'] = schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<IoTsResolver>['validate'] =
+export const validate: Adapter<'io-ts'>['validate'] =
   (schema, {isRight}) =>
   async data => {
     const result = schema.decode(data);

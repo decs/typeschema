@@ -18,17 +18,17 @@ declare global {
   }
 }
 
-export const init: Adapter<YupResolver>['init'] = async () =>
+export const init: Adapter<'yup'>['init'] = async () =>
   maybe(() => import('yup'));
 
-export const guard: Adapter<YupResolver>['guard'] = schema =>
+export const guard: Adapter<'yup'>['guard'] = schema =>
   '__isYupSchema__' in schema &&
   !isTypeBoxSchema(schema) &&
   !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<YupResolver>['validate'] =
+export const validate: Adapter<'yup'>['validate'] =
   (schema, {ValidationError}) =>
   async data => {
     try {

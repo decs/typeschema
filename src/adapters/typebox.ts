@@ -18,13 +18,13 @@ declare global {
   }
 }
 
-export const init: Adapter<TypeBoxResolver>['init'] = async () =>
+export const init: Adapter<'typebox'>['init'] = async () =>
   maybe(() => import('@sinclair/typebox/compiler'));
 
-export const guard: Adapter<TypeBoxResolver>['guard'] = schema =>
+export const guard: Adapter<'typebox'>['guard'] = schema =>
   isTypeBoxSchema(schema) ? schema : undefined;
 
-export const validate: Adapter<TypeBoxResolver>['validate'] = (
+export const validate: Adapter<'typebox'>['validate'] = (
   schema,
   {TypeCompiler},
 ) => {

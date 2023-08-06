@@ -20,15 +20,15 @@ declare global {
   }
 }
 
-export const init: Adapter<SuperstructResolver>['init'] = async () =>
+export const init: Adapter<'superstruct'>['init'] = async () =>
   maybe(() => import('superstruct'));
 
-export const guard: Adapter<SuperstructResolver>['guard'] = schema =>
+export const guard: Adapter<'superstruct'>['guard'] = schema =>
   'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<SuperstructResolver>['validate'] =
+export const validate: Adapter<'superstruct'>['validate'] =
   schema => async data => {
     const result = schema.validate(data, {coerce: true});
     if (result[0] == null) {

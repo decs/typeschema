@@ -18,15 +18,15 @@ declare global {
   }
 }
 
-export const init: Adapter<RuntypesResolver>['init'] = async () =>
+export const init: Adapter<'runtypes'>['init'] = async () =>
   maybe(() => import('runtypes'));
 
-export const guard: Adapter<RuntypesResolver>['guard'] = schema =>
+export const guard: Adapter<'runtypes'>['guard'] = schema =>
   'reflect' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<RuntypesResolver>['validate'] =
+export const validate: Adapter<'runtypes'>['validate'] =
   schema => async data => {
     const result = schema.validate(data);
     if (result.success) {

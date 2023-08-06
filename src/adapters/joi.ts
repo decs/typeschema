@@ -16,23 +16,22 @@ declare global {
   }
 }
 
-export const init: Adapter<JoiResolver>['init'] = async () =>
+export const init: Adapter<'joi'>['init'] = async () =>
   maybe(() => import('joi'));
 
-export const guard: Adapter<JoiResolver>['guard'] = schema =>
+export const guard: Adapter<'joi'>['guard'] = schema =>
   '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<JoiResolver>['validate'] =
-  schema => async data => {
-    const result = schema.validate(data);
-    if (result.error == null) {
-      return {data: result.value};
-    }
-    return {
-      issues: result.error.details.map(
-        ({message, path}) => new ValidationIssue(message, path),
-      ),
-    };
+export const validate: Adapter<'joi'>['validate'] = schema => async data => {
+  const result = schema.validate(data);
+  if (result.error == null) {
+    return {data: result.value};
+  }
+  return {
+    issues: result.error.details.map(
+      ({message, path}) => new ValidationIssue(message, path),
+    ),
   };
+};

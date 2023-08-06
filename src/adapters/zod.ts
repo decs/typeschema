@@ -18,23 +18,22 @@ declare global {
   }
 }
 
-export const init: Adapter<ZodResolver>['init'] = async () =>
+export const init: Adapter<'zod'>['init'] = async () =>
   maybe(() => import('zod'));
 
-export const guard: Adapter<ZodResolver>['guard'] = schema =>
+export const guard: Adapter<'zod'>['guard'] = schema =>
   '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<ZodResolver>['validate'] =
-  schema => async data => {
-    const result = await schema.safeParseAsync(data);
-    if (result.success) {
-      return {data: result.data};
-    }
-    return {
-      issues: result.error.issues.map(
-        ({message, path}) => new ValidationIssue(message, path),
-      ),
-    };
+export const validate: Adapter<'zod'>['validate'] = schema => async data => {
+  const result = await schema.safeParseAsync(data);
+  if (result.success) {
+    return {data: result.data};
+  }
+  return {
+    issues: result.error.issues.map(
+      ({message, path}) => new ValidationIssue(message, path),
+    ),
   };
+};

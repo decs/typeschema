@@ -17,7 +17,7 @@ declare global {
   }
 }
 
-export const init: Adapter<AjvResolver>['init'] = async () => {
+export const init: Adapter<'ajv'>['init'] = async () => {
   const Ajv = await maybe(() => import('ajv'));
   if (Ajv == null) {
     return undefined;
@@ -25,10 +25,10 @@ export const init: Adapter<AjvResolver>['init'] = async () => {
   return new Ajv.default();
 };
 
-export const guard: Adapter<AjvResolver>['guard'] = schema =>
+export const guard: Adapter<'ajv'>['guard'] = schema =>
   isJSONSchema(schema) ? schema : undefined;
 
-export const validate: Adapter<AjvResolver>['validate'] = (schema, ajv) => {
+export const validate: Adapter<'ajv'>['validate'] = (schema, ajv) => {
   const validateSchema = ajv.compile(schema);
   return async data => {
     if (validateSchema(data)) {

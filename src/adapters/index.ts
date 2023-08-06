@@ -1,6 +1,20 @@
 import type {Infer} from '../inference';
-import type {InferSchema, Resolver, Schema} from '../resolver';
+import type {InferSchema, Schema} from '../resolver';
 import type {ValidationIssue} from '../validation';
+
+import './ajv';
+import './arktype';
+import './deepkit';
+import './function';
+import './io-ts';
+import './joi';
+import './ow';
+import './runtypes';
+import './superstruct';
+import './typebox';
+import './valibot';
+import './yup';
+import './zod';
 
 const adapters = [
   import('./ajv'),
@@ -27,15 +41,17 @@ export function resetAdapters(): void {
   cachedAdapters.clear();
 }
 
-export type Adapter<TResolver extends Resolver = Resolver> = {
-  init: () => Promise<TResolver['module'] | undefined>;
-  module: TResolver['module'];
+export type Adapter<
+  TKey extends keyof TypeSchemaRegistry = keyof TypeSchemaRegistry,
+> = {
+  init: () => Promise<TypeSchemaRegistry[TKey]['module'] | undefined>;
+  module: TypeSchemaRegistry[TKey]['module'];
   guard: <TSchema extends Schema>(
     schema: TSchema,
-  ) => InferSchema<TResolver, Infer<TSchema>> | undefined;
+  ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | undefined;
   validate: <T>(
-    schema: InferSchema<TResolver, T>,
-    module: TResolver['module'],
+    schema: InferSchema<TypeSchemaRegistry[TKey], T>,
+    module: TypeSchemaRegistry[TKey]['module'],
   ) => (data: unknown) => Promise<{data: T} | {issues: Array<ValidationIssue>}>;
 };
 

@@ -18,15 +18,15 @@ declare global {
   }
 }
 
-export const init: Adapter<ArkTypeResolver>['init'] = async () =>
+export const init: Adapter<'arktype'>['init'] = async () =>
   maybe(() => import('arktype'));
 
-export const guard: Adapter<ArkTypeResolver>['guard'] = schema =>
+export const guard: Adapter<'arktype'>['guard'] = schema =>
   'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : undefined;
 
-export const validate: Adapter<ArkTypeResolver>['validate'] =
+export const validate: Adapter<'arktype'>['validate'] =
   schema => async data => {
     const result = schema(data);
     if (result.problems == null) {
