@@ -22,7 +22,7 @@ export const init: Adapter<'deepkit'>['init'] = async () =>
 export const guard: Adapter<'deepkit'>['guard'] = schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'deepkit'>['validate'] =
   (schema, {validate: validateSchema}) =>

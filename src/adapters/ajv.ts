@@ -20,13 +20,13 @@ declare global {
 export const init: Adapter<'ajv'>['init'] = async () => {
   const Ajv = await maybe(() => import('ajv'));
   if (Ajv == null) {
-    return undefined;
+    return null;
   }
   return new Ajv.default();
 };
 
 export const guard: Adapter<'ajv'>['guard'] = schema =>
-  isJSONSchema(schema) ? schema : undefined;
+  isJSONSchema(schema) ? schema : null;
 
 export const validate: Adapter<'ajv'>['validate'] = (schema, ajv) => {
   const validateSchema = ajv.compile(schema);

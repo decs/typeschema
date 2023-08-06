@@ -24,7 +24,7 @@ export const init: Adapter<'runtypes'>['init'] = async () =>
 export const guard: Adapter<'runtypes'>['guard'] = schema =>
   'reflect' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'runtypes'>['validate'] =
   schema => async data => {

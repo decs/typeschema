@@ -24,7 +24,7 @@ export const init: Adapter<'zod'>['init'] = async () =>
 export const guard: Adapter<'zod'>['guard'] = schema =>
   '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'zod'>['validate'] = schema => async data => {
   const result = await schema.safeParseAsync(data);

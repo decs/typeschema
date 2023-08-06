@@ -44,11 +44,11 @@ export function resetAdapters(): void {
 export type Adapter<
   TKey extends keyof TypeSchemaRegistry = keyof TypeSchemaRegistry,
 > = {
-  init: () => Promise<TypeSchemaRegistry[TKey]['module'] | undefined>;
+  init: () => Promise<TypeSchemaRegistry[TKey]['module'] | null>;
   module: TypeSchemaRegistry[TKey]['module'];
   guard: <TSchema extends Schema>(
     schema: TSchema,
-  ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | undefined;
+  ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null;
   validate: <T>(
     schema: InferSchema<TypeSchemaRegistry[TKey], T>,
     module: TypeSchemaRegistry[TKey]['module'],
@@ -64,15 +64,14 @@ export async function findAdapter<TSchema extends Schema>(
       allAdapters.map(async ({init}) => init()),
     );
     registry = allAdapters
-      .map((adapter, index) =>
-        modules[index] !== undefined
-          ? {...adapter, module: modules[index]}
-          : undefined,
-      )
-      .filter(Boolean) as Array<Adapter>;
+      .filter((_adapter, index) => modules[index] != null)
+      .map((adapter, index) => ({
+        ...adapter,
+        module: modules[index],
+      })) as Array<Adapter>;
   }
 
-  const results = registry.filter(({guard}) => guard(schema) !== undefined);
+  const results = registry.filter(({guard}) => guard(schema) != null);
   if (results.length === 0) {
     throw new Error('Missing adapters for schema: ' + schema);
   }

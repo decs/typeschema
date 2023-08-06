@@ -22,7 +22,7 @@ export const init: Adapter<'typebox'>['init'] = async () =>
   maybe(() => import('@sinclair/typebox/compiler'));
 
 export const guard: Adapter<'typebox'>['guard'] = schema =>
-  isTypeBoxSchema(schema) ? schema : undefined;
+  isTypeBoxSchema(schema) ? schema : null;
 
 export const validate: Adapter<'typebox'>['validate'] = (
   schema,

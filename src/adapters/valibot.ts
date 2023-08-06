@@ -28,7 +28,7 @@ export const init: Adapter<'valibot'>['init'] = async () =>
 export const guard: Adapter<'valibot'>['guard'] = schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'valibot'>['validate'] =
   (schema, {safeParseAsync}) =>

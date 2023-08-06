@@ -26,7 +26,7 @@ export const init: Adapter<'superstruct'>['init'] = async () =>
 export const guard: Adapter<'superstruct'>['guard'] = schema =>
   'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'superstruct'>['validate'] =
   schema => async data => {

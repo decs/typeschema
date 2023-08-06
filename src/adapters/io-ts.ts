@@ -24,7 +24,7 @@ export const init: Adapter<'io-ts'>['init'] = async () =>
 export const guard: Adapter<'io-ts'>['guard'] = schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'io-ts'>['validate'] =
   (schema, {isRight}) =>

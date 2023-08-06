@@ -24,7 +24,7 @@ export const init: Adapter<'arktype'>['init'] = async () =>
 export const guard: Adapter<'arktype'>['guard'] = schema =>
   'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'arktype'>['validate'] =
   schema => async data => {

@@ -26,7 +26,7 @@ export const guard: Adapter<'yup'>['guard'] = schema =>
   !isTypeBoxSchema(schema) &&
   !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'yup'>['validate'] =
   (schema, {ValidationError}) =>

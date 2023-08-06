@@ -22,7 +22,7 @@ export const init: Adapter<'joi'>['init'] = async () =>
 export const guard: Adapter<'joi'>['guard'] = schema =>
   '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
-    : undefined;
+    : null;
 
 export const validate: Adapter<'joi'>['validate'] = schema => async data => {
   const result = schema.validate(data);
