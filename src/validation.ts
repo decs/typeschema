@@ -1,8 +1,8 @@
-import type {Adapter} from './adapters';
 import type {Infer} from './inference';
 import type {Schema} from './resolver';
 
-import {cachedAdapters, findAdapter} from './adapters';
+import {findAdapter} from './adapters';
+import {memoizeWithKey} from './utils';
 
 export class ValidationIssue extends Error {
   constructor(
@@ -13,27 +13,16 @@ export class ValidationIssue extends Error {
   }
 }
 
-const cachedCreateValidates = new Map<
-  Schema,
-  ReturnType<Adapter['createValidate']>
->();
+const createValidate = memoizeWithKey(async (schema: Schema) => {
+  const adapter = await findAdapter(schema);
+  return adapter.createValidate(schema, adapter.module);
+});
 
 export async function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
 ): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> {
-  const cachedCreateValidate = cachedCreateValidates.get(schema);
-  if (cachedCreateValidate != null) {
-    return (await cachedCreateValidate(data)) as
-      | {data: Infer<TSchema>}
-      | {issues: Array<ValidationIssue>};
-  }
-
-  const {createValidate, module} =
-    cachedAdapters.get(schema) ?? (await findAdapter(schema));
-  const validateSchema = createValidate<Infer<TSchema>>(schema, module);
-
-  cachedCreateValidates.set(schema, validateSchema);
+  const validateSchema = await createValidate(schema);
   return validateSchema(data);
 }
 

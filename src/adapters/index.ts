@@ -16,6 +16,8 @@ import './valibot';
 import './yup';
 import './zod';
 
+import {memoize, memoizeWithKey} from '../utils';
+
 const adapters = [
   import('./ajv'),
   import('./arktype'),
@@ -32,15 +34,6 @@ const adapters = [
   import('./zod'),
 ];
 
-let registry: Array<Adapter> | null = null;
-
-export const cachedAdapters = new Map<Schema, Adapter>();
-
-export function resetAdapters(): void {
-  registry = null;
-  cachedAdapters.clear();
-}
-
 export type Adapter<
   TKey extends keyof TypeSchemaRegistry = keyof TypeSchemaRegistry,
 > = {
@@ -55,28 +48,34 @@ export type Adapter<
   ) => (data: unknown) => Promise<{data: T} | {issues: Array<ValidationIssue>}>;
 };
 
-export async function findAdapter<TSchema extends Schema>(
-  schema: TSchema,
-): Promise<Adapter> {
-  if (registry == null) {
-    const importedAdapters = await Promise.all(adapters);
-    const modules = await Promise.all(importedAdapters.map(({init}) => init()));
-    registry = importedAdapters
-      .filter((_adapter, index) => modules[index] != null)
-      .map((adapter, index) => ({
-        ...adapter,
-        module: modules[index],
-      })) as Array<Adapter>;
-  }
+const importAdapters = memoize(async () => {
+  const importedAdapters = await Promise.all(adapters);
+  const modules = await Promise.all(importedAdapters.map(({init}) => init()));
+  return importedAdapters
+    .filter((_adapter, index) => modules[index] != null)
+    .map((adapter, index) => ({
+      ...adapter,
+      module: modules[index],
+    })) as Array<Adapter>;
+});
 
-  const results = registry.filter(({coerce}) => coerce(schema) != null);
-  if (results.length === 0) {
-    throw new Error('Missing adapters for schema: ' + schema);
-  }
-  if (results.length > 1) {
-    throw new Error('Conflicting adapters for schema: ' + schema);
-  }
+export const findAdapter = memoizeWithKey(
+  async (schema: Schema): Promise<Adapter> => {
+    const importedAdapters = await importAdapters();
+    const results = importedAdapters.filter(
+      ({coerce}) => coerce(schema) != null,
+    );
+    if (results.length === 0) {
+      throw new Error('Missing adapters for schema: ' + schema);
+    }
+    if (results.length > 1) {
+      throw new Error('Conflicting adapters for schema: ' + schema);
+    }
+    return results[0];
+  },
+);
 
-  cachedAdapters.set(schema, results[0]);
-  return results[0];
+export function resetAdapters(): void {
+  importAdapters.clear();
+  findAdapter.clear();
 }

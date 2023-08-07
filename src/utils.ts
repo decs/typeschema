@@ -7,6 +7,38 @@ export type IfDefined<T> = any extends T ? never : T;
 
 export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
 
+export function memoize<TValue>(
+  fn: () => Promise<TValue>,
+): (() => Promise<TValue>) & {clear(): void} {
+  let cache: TValue | undefined = undefined;
+  const memoizedFn = async () => {
+    if (cache !== undefined) {
+      return cache;
+    }
+    const value = await fn();
+    cache = value;
+    return value;
+  };
+  memoizedFn.clear = () => (cache = undefined);
+  return memoizedFn;
+}
+
+export function memoizeWithKey<TKey, TValue>(
+  fn: (key: TKey) => Promise<TValue>,
+): ((key: TKey) => Promise<TValue>) & {clear(): void} {
+  const cache = new Map<TKey, TValue>();
+  const memoizedFn = async (key: TKey) => {
+    if (cache.has(key)) {
+      return cache.get(key) as TValue;
+    }
+    const value = await fn(key);
+    cache.set(key, value);
+    return value;
+  };
+  memoizedFn.clear = () => cache.clear();
+  return memoizedFn;
+}
+
 export async function maybeImport<T>(moduleName: string): Promise<T | null> {
   try {
     return await import(moduleName);
