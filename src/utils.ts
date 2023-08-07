@@ -7,9 +7,9 @@ export type IfDefined<T> = any extends T ? never : T;
 
 export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
 
-export async function maybe<T>(fn: () => Promise<T>): Promise<T | null> {
+export async function maybeImport<T>(moduleName: string): Promise<T | null> {
   try {
-    return await fn();
+    return await import(moduleName);
   } catch (_e) {
     return null;
   }

@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {ArgumentError, Infer, Ow, Predicate} from 'ow';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface OwResolver extends Resolver {
@@ -22,7 +22,7 @@ declare global {
 }
 
 export const init: Adapter<'ow'>['init'] = async () => {
-  const Ow = await maybe(() => import('ow'));
+  const Ow = await maybeImport<typeof import('ow')>('ow');
   if (Ow == null) {
     return null;
   }

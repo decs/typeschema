@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface IoTsResolver extends Resolver {
@@ -19,7 +19,7 @@ declare global {
 }
 
 export const init: Adapter<'io-ts'>['init'] = async () =>
-  maybe(() => import('fp-ts/Either'));
+  maybeImport<typeof import('fp-ts/Either')>('fp-ts/Either');
 
 export const coerce: Adapter<'io-ts'>['coerce'] = schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {input, output, ZodSchema} from 'zod';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface ZodResolver extends Resolver {
@@ -19,7 +19,7 @@ declare global {
 }
 
 export const init: Adapter<'zod'>['init'] = async () =>
-  maybe(() => import('zod'));
+  maybeImport<typeof import('zod')>('zod');
 
 export const coerce: Adapter<'zod'>['coerce'] = schema =>
   '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

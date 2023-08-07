@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Type} from 'arktype';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface ArkTypeResolver extends Resolver {
@@ -19,7 +19,7 @@ declare global {
 }
 
 export const init: Adapter<'arktype'>['init'] = async () =>
-  maybe(() => import('arktype'));
+  maybeImport<typeof import('arktype')>('arktype');
 
 export const coerce: Adapter<'arktype'>['coerce'] = schema =>
   'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

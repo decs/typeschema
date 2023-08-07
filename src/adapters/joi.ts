@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {AnySchema} from 'joi';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface JoiResolver extends Resolver {
@@ -17,7 +17,7 @@ declare global {
 }
 
 export const init: Adapter<'joi'>['init'] = async () =>
-  maybe(() => import('joi'));
+  maybeImport<typeof import('joi')>('joi');
 
 export const coerce: Adapter<'joi'>['coerce'] = schema =>
   '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

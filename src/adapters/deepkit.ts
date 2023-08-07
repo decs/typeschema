@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Type} from '@deepkit/type';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface DeepkitResolver extends Resolver {
@@ -17,7 +17,7 @@ declare global {
 }
 
 export const init: Adapter<'deepkit'>['init'] = async () =>
-  maybe(() => import('@deepkit/type'));
+  maybeImport<typeof import('@deepkit/type')>('@deepkit/type');
 
 export const coerce: Adapter<'deepkit'>['coerce'] = schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

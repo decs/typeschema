@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface ValibotResolver extends Resolver {
@@ -23,7 +23,7 @@ declare global {
 }
 
 export const init: Adapter<'valibot'>['init'] = async () =>
-  maybe(() => import('valibot'));
+  maybeImport<typeof import('valibot')>('valibot');
 
 export const coerce: Adapter<'valibot'>['coerce'] = schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

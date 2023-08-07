@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Runtype, Static} from 'runtypes';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface RuntypesResolver extends Resolver {
@@ -19,7 +19,7 @@ declare global {
 }
 
 export const init: Adapter<'runtypes'>['init'] = async () =>
-  maybe(() => import('runtypes'));
+  maybeImport<typeof import('runtypes')>('runtypes');
 
 export const coerce: Adapter<'runtypes'>['coerce'] = schema =>
   'reflect' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

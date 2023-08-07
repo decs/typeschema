@@ -3,7 +3,7 @@ import type {Adapter} from '.';
 import type {SchemaObject} from 'ajv';
 import type Ajv from 'ajv';
 
-import {isJSONSchema, maybe} from '../utils';
+import {isJSONSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface AjvResolver extends Resolver {
@@ -18,7 +18,7 @@ declare global {
 }
 
 export const init: Adapter<'ajv'>['init'] = async () => {
-  const Ajv = await maybe(() => import('ajv'));
+  const Ajv = await maybeImport<typeof import('ajv')>('ajv');
   if (Ajv == null) {
     return null;
   }

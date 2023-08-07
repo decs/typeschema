@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {InferType, Schema} from 'yup';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface YupResolver extends Resolver {
@@ -19,7 +19,7 @@ declare global {
 }
 
 export const init: Adapter<'yup'>['init'] = async () =>
-  maybe(() => import('yup'));
+  maybeImport<typeof import('yup')>('yup');
 
 export const coerce: Adapter<'yup'>['coerce'] = schema =>
   '__isYupSchema__' in schema &&

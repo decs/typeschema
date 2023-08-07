@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Infer, Struct} from 'superstruct';
 
-import {isJSONSchema, isTypeBoxSchema, maybe} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface SuperstructResolver extends Resolver {
@@ -21,7 +21,7 @@ declare global {
 }
 
 export const init: Adapter<'superstruct'>['init'] = async () =>
-  maybe(() => import('superstruct'));
+  maybeImport<typeof import('superstruct')>('superstruct');
 
 export const coerce: Adapter<'superstruct'>['coerce'] = schema =>
   'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

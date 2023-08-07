@@ -2,7 +2,7 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Static, TSchema} from '@sinclair/typebox';
 
-import {isTypeBoxSchema, maybe} from '../utils';
+import {isTypeBoxSchema, maybeImport} from '../utils';
 import {ValidationIssue} from '../validation';
 
 interface TypeBoxResolver extends Resolver {
@@ -19,7 +19,9 @@ declare global {
 }
 
 export const init: Adapter<'typebox'>['init'] = async () =>
-  maybe(() => import('@sinclair/typebox/compiler'));
+  maybeImport<typeof import('@sinclair/typebox/compiler')>(
+    '@sinclair/typebox/compiler',
+  );
 
 export const coerce: Adapter<'typebox'>['coerce'] = schema =>
   isTypeBoxSchema(schema) ? schema : null;
