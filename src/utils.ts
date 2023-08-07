@@ -12,12 +12,10 @@ export function memoize<TValue>(
 ): (() => Promise<TValue>) & {clear(): void} {
   let cache: TValue | undefined = undefined;
   const memoizedFn = async () => {
-    if (cache !== undefined) {
-      return cache;
+    if (cache === undefined) {
+      cache = await fn();
     }
-    const value = await fn();
-    cache = value;
-    return value;
+    return cache;
   };
   memoizedFn.clear = () => (cache = undefined);
   return memoizedFn;
@@ -28,12 +26,10 @@ export function memoizeWithKey<TKey, TValue>(
 ): ((key: TKey) => Promise<TValue>) & {clear(): void} {
   const cache = new Map<TKey, TValue>();
   const memoizedFn = async (key: TKey) => {
-    if (cache.has(key)) {
-      return cache.get(key) as TValue;
+    if (!cache.has(key)) {
+      cache.set(key, await fn(key));
     }
-    const value = await fn(key);
-    cache.set(key, value);
-    return value;
+    return cache.get(key) as TValue;
   };
   memoizedFn.clear = () => cache.clear();
   return memoizedFn;
