@@ -15,7 +15,6 @@ import type {ValibotResolver} from './valibot';
 import type {YupResolver} from './yup';
 import type {ZodResolver} from './zod';
 
-import {createValidate} from '../registry/create-validate';
 import {memoizeWithKey} from '../utils';
 
 export interface TypeSchemaRegistry {
@@ -50,10 +49,12 @@ export type Adapter<
   >;
 };
 
+const wrappedFns: Array<{clear(): void}> = [];
+
 export function wrap<TSchema extends Schema, TReturn>(
   adapters: Array<(schema: TSchema) => Promise<TReturn>>,
 ): (schema: TSchema) => Promise<NonNullable<TReturn>> {
-  return memoizeWithKey(async (schema: TSchema) => {
+  const memoizedFn = memoizeWithKey(async (schema: TSchema) => {
     const results = await Promise.all(adapters.map(fn => fn(schema)));
     const filteredResults = results.filter(Boolean);
     if (filteredResults.length === 0) {
@@ -64,9 +65,10 @@ export function wrap<TSchema extends Schema, TReturn>(
     }
     return filteredResults[0] as NonNullable<TReturn>;
   });
+  wrappedFns.push(memoizedFn);
+  return memoizedFn;
 }
 
 export function resetAdapters(): void {
-  // TODO look into caching
-  // createValidate.clear();
+  wrappedFns.forEach(fn => fn.clear());
 }
