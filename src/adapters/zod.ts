@@ -21,7 +21,7 @@ declare global {
 export const init: Adapter<'zod'>['init'] = async () =>
   maybe(() => import('zod'));
 
-export const guard: Adapter<'zod'>['guard'] = schema =>
+export const coerce: Adapter<'zod'>['coerce'] = schema =>
   '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

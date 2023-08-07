@@ -21,7 +21,7 @@ declare global {
 export const init: Adapter<'io-ts'>['init'] = async () =>
   maybe(() => import('fp-ts/Either'));
 
-export const guard: Adapter<'io-ts'>['guard'] = schema =>
+export const coerce: Adapter<'io-ts'>['coerce'] = schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

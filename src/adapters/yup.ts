@@ -21,7 +21,7 @@ declare global {
 export const init: Adapter<'yup'>['init'] = async () =>
   maybe(() => import('yup'));
 
-export const guard: Adapter<'yup'>['guard'] = schema =>
+export const coerce: Adapter<'yup'>['coerce'] = schema =>
   '__isYupSchema__' in schema &&
   !isTypeBoxSchema(schema) &&
   !isJSONSchema(schema)

@@ -23,7 +23,7 @@ declare global {
 export const init: Adapter<'superstruct'>['init'] = async () =>
   maybe(() => import('superstruct'));
 
-export const guard: Adapter<'superstruct'>['guard'] = schema =>
+export const coerce: Adapter<'superstruct'>['coerce'] = schema =>
   'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

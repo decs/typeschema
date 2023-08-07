@@ -25,7 +25,7 @@ export const init: Adapter<'ajv'>['init'] = async () => {
   return new Ajv.default();
 };
 
-export const guard: Adapter<'ajv'>['guard'] = schema =>
+export const coerce: Adapter<'ajv'>['coerce'] = schema =>
   isJSONSchema(schema) ? schema : null;
 
 export const createValidate: Adapter<'ajv'>['createValidate'] = (

@@ -21,7 +21,7 @@ declare global {
 export const init: Adapter<'runtypes'>['init'] = async () =>
   maybe(() => import('runtypes'));
 
-export const guard: Adapter<'runtypes'>['guard'] = schema =>
+export const coerce: Adapter<'runtypes'>['coerce'] = schema =>
   'reflect' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

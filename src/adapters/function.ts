@@ -28,7 +28,7 @@ declare global {
 
 export const init: Adapter<'function'>['init'] = async () => ({});
 
-export const guard: Adapter<'function'>['guard'] = schema =>
+export const coerce: Adapter<'function'>['coerce'] = schema =>
   typeof schema === 'function' && !('assert' in schema) ? schema : null;
 
 export const createValidate: Adapter<'function'>['createValidate'] =

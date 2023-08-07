@@ -19,7 +19,7 @@ declare global {
 export const init: Adapter<'joi'>['init'] = async () =>
   maybe(() => import('joi'));
 
-export const guard: Adapter<'joi'>['guard'] = schema =>
+export const coerce: Adapter<'joi'>['coerce'] = schema =>
   '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

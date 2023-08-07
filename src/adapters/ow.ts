@@ -30,7 +30,7 @@ export const init: Adapter<'ow'>['init'] = async () => {
   return {ArgumentError, ow};
 };
 
-export const guard: Adapter<'ow'>['guard'] = schema =>
+export const coerce: Adapter<'ow'>['coerce'] = schema =>
   'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

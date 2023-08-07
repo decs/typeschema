@@ -21,7 +21,7 @@ declare global {
 export const init: Adapter<'typebox'>['init'] = async () =>
   maybe(() => import('@sinclair/typebox/compiler'));
 
-export const guard: Adapter<'typebox'>['guard'] = schema =>
+export const coerce: Adapter<'typebox'>['coerce'] = schema =>
   isTypeBoxSchema(schema) ? schema : null;
 
 export const createValidate: Adapter<'typebox'>['createValidate'] = (

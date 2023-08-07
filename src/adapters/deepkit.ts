@@ -19,7 +19,7 @@ declare global {
 export const init: Adapter<'deepkit'>['init'] = async () =>
   maybe(() => import('@deepkit/type'));
 
-export const guard: Adapter<'deepkit'>['guard'] = schema =>
+export const coerce: Adapter<'deepkit'>['coerce'] = schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

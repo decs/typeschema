@@ -21,7 +21,7 @@ declare global {
 export const init: Adapter<'arktype'>['init'] = async () =>
   maybe(() => import('arktype'));
 
-export const guard: Adapter<'arktype'>['guard'] = schema =>
+export const coerce: Adapter<'arktype'>['coerce'] = schema =>
   'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

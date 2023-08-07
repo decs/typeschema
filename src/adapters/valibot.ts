@@ -25,7 +25,7 @@ declare global {
 export const init: Adapter<'valibot'>['init'] = async () =>
   maybe(() => import('valibot'));
 
-export const guard: Adapter<'valibot'>['guard'] = schema =>
+export const coerce: Adapter<'valibot'>['coerce'] = schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;

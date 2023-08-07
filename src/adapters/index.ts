@@ -46,7 +46,7 @@ export type Adapter<
 > = {
   init: () => Promise<TypeSchemaRegistry[TKey]['module'] | null>;
   module: TypeSchemaRegistry[TKey]['module'];
-  guard: <TSchema extends Schema>(
+  coerce: <TSchema extends Schema>(
     schema: TSchema,
   ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null;
   createValidate: <T>(
@@ -69,7 +69,7 @@ export async function findAdapter<TSchema extends Schema>(
       })) as Array<Adapter>;
   }
 
-  const results = registry.filter(({guard}) => guard(schema) != null);
+  const results = registry.filter(({coerce}) => coerce(schema) != null);
   if (results.length === 0) {
     throw new Error('Missing adapters for schema: ' + schema);
   }
