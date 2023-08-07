@@ -1,48 +1,40 @@
 import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {SchemaObject} from 'ajv';
-import type Ajv from 'ajv';
 
-import {isJSONSchema, maybeImport} from '../utils';
+import {isJSONSchema, memoize} from '../utils';
 import {ValidationIssue} from '../validation';
 
-interface AjvResolver extends Resolver {
+export interface AjvResolver extends Resolver {
   base: SchemaObject;
-  module: Ajv;
 }
 
-declare global {
-  export interface TypeSchemaRegistry {
-    ajv: AjvResolver;
-  }
-}
-
-export const init: Adapter<'ajv'>['init'] = async () => {
-  const Ajv = await maybeImport<typeof import('ajv')>('ajv');
-  if (Ajv == null) {
-    return null;
-  }
-  return new Ajv.default();
-};
+const fetchModule = memoize(async () => {
+  const {default: Ajv} = await import('ajv');
+  return {ajv: new Ajv()};
+});
 
 export const coerce: Adapter<'ajv'>['coerce'] = schema =>
   isJSONSchema(schema) ? schema : null;
 
-export const createValidate: Adapter<'ajv'>['createValidate'] = (
-  schema,
-  ajv,
-) => {
-  const validateSchema = ajv.compile(schema);
-  return async data => {
-    if (validateSchema(data)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
+export const createValidate: Adapter<'ajv'>['createValidate'] =
+  async schema => {
+    const coercedSchema = coerce(schema);
+    if (coercedSchema == null) {
+      return undefined;
     }
-    return {
-      issues: (validateSchema.errors ?? []).map(
-        ({message, schemaPath}) =>
-          new ValidationIssue(message ?? '', [schemaPath]),
-      ),
+    const {ajv} = await fetchModule();
+    const validateSchema = ajv.compile(coercedSchema);
+    return async data => {
+      if (validateSchema(data)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return {data: data as any};
+      }
+      return {
+        issues: (validateSchema.errors ?? []).map(
+          ({message, schemaPath}) =>
+            new ValidationIssue(message ?? '', [schemaPath]),
+        ),
+      };
     };
   };
-};

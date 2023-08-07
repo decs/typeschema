@@ -1,6 +1,6 @@
 import type {Infer, InferIn} from '..';
 
-import {beforeEach, describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {Number, Record, String} from 'runtypes';
 
@@ -19,7 +19,6 @@ describe('runtypes', () => {
     name: String,
     updatedAt: String,
   });
-  const module = 'runtypes';
 
   const data = {
     age: 123,
@@ -37,15 +36,6 @@ describe('runtypes', () => {
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
-
-  test('peer dependency', async () => {
-    jest.mock(module, () => {
-      throw new Error('Cannot find module');
-    });
-    await expect(validate(schema, data)).rejects.toThrow();
-    await expect(assert(schema, data)).rejects.toThrow();
-    jest.unmock(module);
-  });
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);

@@ -35,14 +35,6 @@ export function memoizeWithKey<TKey, TValue>(
   return memoizedFn;
 }
 
-export async function maybeImport<T>(moduleName: string): Promise<T | null> {
-  try {
-    return await import(moduleName);
-  } catch (_e) {
-    return null;
-  }
-}
-
 export function isTypeBoxSchema(schema: Schema): schema is TSchema {
   return Symbol.for('TypeBox.Kind') in schema;
 }

@@ -1,3 +1,4 @@
+import type {TypeSchemaRegistry} from './adapters';
 import type {InferInput, InferOutput, Schema} from './resolver';
 import type {IfDefined, UnknownIfNever} from './utils';
 

@@ -1,6 +1,6 @@
 import type {Infer, InferIn} from '..';
 
-import {beforeEach, describe, expect, jest, test} from '@jest/globals';
+import {beforeEach, describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {coerce, date, number, object, string} from 'superstruct';
 
@@ -19,7 +19,6 @@ describe('superstruct', () => {
     name: string(),
     updatedAt: coerce(date(), string(), value => new Date(value)),
   });
-  const module = 'superstruct';
 
   const data = {
     age: 123,
@@ -45,15 +44,6 @@ describe('superstruct', () => {
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
-
-  test('peer dependency', async () => {
-    jest.mock(module, () => {
-      throw new Error('Cannot find module');
-    });
-    await expect(validate(schema, data)).rejects.toThrow();
-    await expect(assert(schema, data)).rejects.toThrow();
-    jest.unmock(module);
-  });
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);

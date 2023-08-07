@@ -1,8 +1,7 @@
 import type {Infer} from './inference';
 import type {Schema} from './resolver';
 
-import {findAdapter} from './adapters';
-import {memoizeWithKey} from './utils';
+import {createValidate} from './registry/create-validate';
 
 export class ValidationIssue extends Error {
   constructor(
@@ -12,11 +11,6 @@ export class ValidationIssue extends Error {
     super(message);
   }
 }
-
-const createValidate = memoizeWithKey(async (schema: Schema) => {
-  const adapter = await findAdapter(schema);
-  return adapter.createValidate(schema, adapter.module);
-});
 
 export async function validate<TSchema extends Schema>(
   schema: TSchema,

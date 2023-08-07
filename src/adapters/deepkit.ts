@@ -2,22 +2,17 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {Type} from '@deepkit/type';
 
-import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 import {ValidationIssue} from '../validation';
 
-interface DeepkitResolver extends Resolver {
+export interface DeepkitResolver extends Resolver {
   base: Type;
-  module: typeof import('@deepkit/type');
 }
 
-declare global {
-  export interface TypeSchemaRegistry {
-    deepkit: DeepkitResolver;
-  }
-}
-
-export const init: Adapter<'deepkit'>['init'] = async () =>
-  maybeImport<typeof import('@deepkit/type')>('@deepkit/type');
+const fetchModule = memoize(async () => {
+  const {validate} = await import('@deepkit/type');
+  return {validate};
+});
 
 export const coerce: Adapter<'deepkit'>['coerce'] = schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
@@ -25,16 +20,22 @@ export const coerce: Adapter<'deepkit'>['coerce'] = schema =>
     : null;
 
 export const createValidate: Adapter<'deepkit'>['createValidate'] =
-  (schema, {validate}) =>
-  async data => {
-    const result = validate(data, schema);
-    if (result.length === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
+  async schema => {
+    const coercedSchema = coerce(schema);
+    if (coercedSchema == null) {
+      return undefined;
     }
-    return {
-      issues: result.map(
-        ({message, path}) => new ValidationIssue(message, [path]),
-      ),
+    const {validate} = await fetchModule();
+    return async data => {
+      const result = validate(data, coercedSchema);
+      if (result.length === 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return {data: data as any};
+      }
+      return {
+        issues: result.map(
+          ({message, path}) => new ValidationIssue(message, [path]),
+        ),
+      };
     };
   };

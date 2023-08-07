@@ -2,24 +2,19 @@ import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
 import type {InferType, Schema} from 'yup';
 
-import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 import {ValidationIssue} from '../validation';
 
-interface YupResolver extends Resolver {
+export interface YupResolver extends Resolver {
   base: Schema<this['type']>;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
-  module: typeof import('yup');
 }
 
-declare global {
-  export interface TypeSchemaRegistry {
-    yup: YupResolver;
-  }
-}
-
-export const init: Adapter<'yup'>['init'] = async () =>
-  maybeImport<typeof import('yup')>('yup');
+const fetchModule = memoize(async () => {
+  const {ValidationError} = await import('yup');
+  return {ValidationError};
+});
 
 export const coerce: Adapter<'yup'>['coerce'] = schema =>
   '__isYupSchema__' in schema &&
@@ -29,22 +24,28 @@ export const coerce: Adapter<'yup'>['coerce'] = schema =>
     : null;
 
 export const createValidate: Adapter<'yup'>['createValidate'] =
-  (schema, {ValidationError}) =>
-  async data => {
-    try {
-      return {data: await schema.validate(data, {strict: true})};
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        const {message, path} = error;
-        return {
-          issues: [
-            new ValidationIssue(
-              message,
-              path != null && path !== '' ? [path] : undefined,
-            ),
-          ],
-        };
-      }
-      throw error;
+  async schema => {
+    const coercedSchema = coerce(schema);
+    if (coercedSchema == null) {
+      return undefined;
     }
+    const {ValidationError} = await fetchModule();
+    return async data => {
+      try {
+        return {data: await coercedSchema.validate(data, {strict: true})};
+      } catch (error) {
+        if (error instanceof ValidationError) {
+          const {message, path} = error;
+          return {
+            issues: [
+              new ValidationIssue(
+                message,
+                path != null && path !== '' ? [path] : undefined,
+              ),
+            ],
+          };
+        }
+        throw error;
+      }
+    };
   };

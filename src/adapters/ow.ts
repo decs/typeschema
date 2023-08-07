@@ -1,45 +1,33 @@
 import type {Resolver} from '../resolver';
 import type {Adapter} from '.';
-import type {ArgumentError, Infer, Ow, Predicate} from 'ow';
+import type {Infer, Predicate} from 'ow';
 
-import {isJSONSchema, isTypeBoxSchema, maybeImport} from '../utils';
+import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 import {ValidationIssue} from '../validation';
 
-interface OwResolver extends Resolver {
+export interface OwResolver extends Resolver {
   base: Predicate<this['type']>;
   input: this['schema'] extends Predicate ? Infer<this['schema']> : never;
   output: this['schema'] extends Predicate ? Infer<this['schema']> : never;
-  module: {
-    ow: Ow;
-    ArgumentError: typeof ArgumentError;
-  };
 }
 
-declare global {
-  export interface TypeSchemaRegistry {
-    ow: OwResolver;
-  }
-}
-
-export const init: Adapter<'ow'>['init'] = async () => {
-  const Ow = await maybeImport<typeof import('ow')>('ow');
-  if (Ow == null) {
-    return null;
-  }
-  const {ArgumentError, default: ow} = Ow;
+const fetchModule = memoize(async () => {
+  const {ArgumentError, default: ow} = await import('ow');
   return {ArgumentError, ow};
-};
+});
 
 export const coerce: Adapter<'ow'>['coerce'] = schema =>
   'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? schema
     : null;
 
-export const createValidate: Adapter<'ow'>['createValidate'] = (
-  schema,
-  {ow, ArgumentError},
-) => {
-  const assertSchema = ow.create(schema);
+export const createValidate: Adapter<'ow'>['createValidate'] = async schema => {
+  const coercedSchema = coerce(schema);
+  if (coercedSchema == null) {
+    return undefined;
+  }
+  const {ow, ArgumentError} = await fetchModule();
+  const assertSchema = ow.create(coercedSchema);
   return async data => {
     try {
       assertSchema(data);
