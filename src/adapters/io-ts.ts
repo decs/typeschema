@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
@@ -16,31 +16,26 @@ const fetchModule = memoize(async () => {
   return {isRight};
 });
 
-export const coerce: Adapter<'io-ts'>['coerce'] = schema =>
+const coerce: Coerce<'io-ts'> = fn => async schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'io-ts'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {isRight} = await fetchModule();
+  return async data => {
+    const result = schema.decode(data);
+    if (isRight(result)) {
+      return {data: result.right};
     }
-    const {isRight} = await fetchModule();
-    return async data => {
-      const result = coercedSchema.decode(data);
-      if (isRight(result)) {
-        return {data: result.right};
-      }
-      return {
-        issues: result.left.map(
-          ({message, context}) =>
-            new ValidationIssue(
-              message ?? '',
-              context.map(({key}) => key),
-            ),
-        ),
-      };
+    return {
+      issues: result.left.map(
+        ({message, context}) =>
+          new ValidationIssue(
+            message ?? '',
+            context.map(({key}) => key),
+          ),
+      ),
     };
   };
+});

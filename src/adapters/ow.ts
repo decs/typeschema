@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {Infer, Predicate} from 'ow';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
@@ -16,18 +16,14 @@ const fetchModule = memoize(async () => {
   return {ArgumentError, ow};
 });
 
-export const coerce: Adapter<'ow'>['coerce'] = schema =>
+const coerce: Coerce<'ow'> = fn => async schema =>
   'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'ow'>['createValidate'] = async schema => {
-  const coercedSchema = coerce(schema);
-  if (coercedSchema == null) {
-    return undefined;
-  }
+export const createValidate: CreateValidate = coerce(async schema => {
   const {ow, ArgumentError} = await fetchModule();
-  const assertSchema = ow.create(coercedSchema);
+  const assertSchema = ow.create(schema);
   return async data => {
     try {
       assertSchema(data);
@@ -45,4 +41,4 @@ export const createValidate: Adapter<'ow'>['createValidate'] = async schema => {
       throw error;
     }
   };
-};
+});

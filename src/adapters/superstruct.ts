@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {Infer, Struct} from 'superstruct';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
@@ -13,23 +13,18 @@ export interface SuperstructResolver extends Resolver {
     : never;
 }
 
-export const coerce: Adapter<'superstruct'>['coerce'] = schema =>
+const coerce: Coerce<'superstruct'> = fn => async schema =>
   'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'superstruct'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(
+  async schema => async data => {
+    const result = schema.validate(data, {coerce: true});
+    if (result[0] == null) {
+      return {data: result[1]};
     }
-    return async data => {
-      const result = coercedSchema.validate(data, {coerce: true});
-      if (result[0] == null) {
-        return {data: result[1]};
-      }
-      const {message, path} = result[0];
-      return {issues: [new ValidationIssue(message, path)]};
-    };
-  };
+    const {message, path} = result[0];
+    return {issues: [new ValidationIssue(message, path)]};
+  },
+);

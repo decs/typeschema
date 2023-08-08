@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {input, output, ZodSchema} from 'zod';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
@@ -11,26 +11,21 @@ export interface ZodResolver extends Resolver {
   output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
 }
 
-export const coerce: Adapter<'zod'>['coerce'] = schema =>
+const coerce: Coerce<'zod'> = fn => async schema =>
   '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'zod'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(
+  async schema => async data => {
+    const result = await schema.safeParseAsync(data);
+    if (result.success) {
+      return {data: result.data};
     }
-    return async data => {
-      const result = await coercedSchema.safeParseAsync(data);
-      if (result.success) {
-        return {data: result.data};
-      }
-      return {
-        issues: result.error.issues.map(
-          ({message, path}) => new ValidationIssue(message, path),
-        ),
-      };
+    return {
+      issues: result.error.issues.map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
     };
-  };
+  },
+);

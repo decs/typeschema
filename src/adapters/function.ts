@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 
 import {ValidationIssue} from '../validation';
 
@@ -19,23 +19,20 @@ export interface FunctionResolver extends Resolver {
     : never;
 }
 
-export const coerce: Adapter<'function'>['coerce'] = schema =>
-  typeof schema === 'function' && !('assert' in schema) ? schema : null;
+const coerce: Coerce<'function'> = fn => async schema =>
+  typeof schema === 'function' && !('assert' in schema)
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'function'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
-    }
-    return async data => {
-      try {
-        return {data: await coercedSchema(data)};
-      } catch (error) {
-        if (error instanceof Error) {
-          return {issues: [new ValidationIssue(error.message)]};
-        }
-        throw error;
+export const createValidate: CreateValidate = coerce(
+  async schema => async data => {
+    try {
+      return {data: await schema(data)};
+    } catch (error) {
+      if (error instanceof Error) {
+        return {issues: [new ValidationIssue(error.message)]};
       }
-    };
-  };
+      throw error;
+    }
+  },
+);

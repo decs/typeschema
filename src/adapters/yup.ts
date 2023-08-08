@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {InferType, Schema} from 'yup';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
@@ -16,36 +16,31 @@ const fetchModule = memoize(async () => {
   return {ValidationError};
 });
 
-export const coerce: Adapter<'yup'>['coerce'] = schema =>
+const coerce: Coerce<'yup'> = fn => async schema =>
   '__isYupSchema__' in schema &&
   !isTypeBoxSchema(schema) &&
   !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'yup'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
-    }
-    const {ValidationError} = await fetchModule();
-    return async data => {
-      try {
-        return {data: await coercedSchema.validate(data, {strict: true})};
-      } catch (error) {
-        if (error instanceof ValidationError) {
-          const {message, path} = error;
-          return {
-            issues: [
-              new ValidationIssue(
-                message,
-                path != null && path !== '' ? [path] : undefined,
-              ),
-            ],
-          };
-        }
-        throw error;
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {ValidationError} = await fetchModule();
+  return async data => {
+    try {
+      return {data: await schema.validate(data, {strict: true})};
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const {message, path} = error;
+        return {
+          issues: [
+            new ValidationIssue(
+              message,
+              path != null && path !== '' ? [path] : undefined,
+            ),
+          ],
+        };
       }
-    };
+      throw error;
+    }
   };
+});

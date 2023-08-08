@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
@@ -20,28 +20,23 @@ const fetchModule = memoize(async () => {
   return {safeParseAsync};
 });
 
-export const coerce: Adapter<'valibot'>['coerce'] = schema =>
+const coerce: Coerce<'valibot'> = fn => async schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'valibot'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {safeParseAsync} = await fetchModule();
+  return async data => {
+    const result = await safeParseAsync(schema, data);
+    if (result.success) {
+      return {data: result.data};
     }
-    const {safeParseAsync} = await fetchModule();
-    return async data => {
-      const result = await safeParseAsync(coercedSchema, data);
-      if (result.success) {
-        return {data: result.data};
-      }
-      return {
-        issues: result.error.issues.map(
-          ({message, path}) =>
-            new ValidationIssue(message, path?.map(({key}) => key)),
-        ),
-      };
+    return {
+      issues: result.error.issues.map(
+        ({message, path}) =>
+          new ValidationIssue(message, path?.map(({key}) => key)),
+      ),
     };
   };
+});

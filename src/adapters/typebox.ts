@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {Static, TSchema} from '@sinclair/typebox';
 
 import {isTypeBoxSchema, memoize} from '../utils';
@@ -16,26 +16,21 @@ const fetchModule = memoize(async () => {
   return {TypeCompiler};
 });
 
-export const coerce: Adapter<'typebox'>['coerce'] = schema =>
-  isTypeBoxSchema(schema) ? schema : null;
+const coerce: Coerce<'typebox'> = fn => async schema =>
+  isTypeBoxSchema(schema) ? fn(schema) : undefined;
 
-export const createValidate: Adapter<'typebox'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {TypeCompiler} = await fetchModule();
+  const result = TypeCompiler.Compile(schema);
+  return async data => {
+    if (result.Check(data)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: data as any};
     }
-    const {TypeCompiler} = await fetchModule();
-    const result = TypeCompiler.Compile(coercedSchema);
-    return async data => {
-      if (result.Check(data)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return {data: data as any};
-      }
-      return {
-        issues: [...result.Errors(data)].map(
-          ({message, path}) => new ValidationIssue(message, [path]),
-        ),
-      };
+    return {
+      issues: [...result.Errors(data)].map(
+        ({message, path}) => new ValidationIssue(message, [path]),
+      ),
     };
   };
+});

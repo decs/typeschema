@@ -33,21 +33,23 @@ export interface TypeSchemaRegistry {
   zod: ZodResolver;
 }
 
-export type Adapter<
-  TKey extends keyof TypeSchemaRegistry = keyof TypeSchemaRegistry,
-> = {
-  coerce: <TSchema extends Schema>(
-    schema: TSchema,
-  ) => InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>> | null;
-  createValidate: <TSchema extends Schema>(
-    schema: TSchema,
-  ) => Promise<
-    | ((
-        data: unknown,
-      ) => Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>)
-    | undefined
-  >;
-};
+export type Coerce<TKey extends keyof TypeSchemaRegistry> = <
+  TSchema extends Schema,
+  TReturn,
+>(
+  fn: (
+    schema: InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>>,
+  ) => Promise<TReturn>,
+) => (schema: TSchema) => Promise<TReturn | undefined>;
+
+export type CreateValidate = <TSchema extends Schema>(
+  schema: TSchema,
+) => Promise<
+  | ((
+      data: unknown,
+    ) => Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>)
+  | undefined
+>;
 
 const wrappedFns: Array<{clear(): void}> = [];
 

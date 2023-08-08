@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {SchemaObject} from 'ajv';
 
 import {isJSONSchema, memoize} from '../utils';
@@ -14,27 +14,22 @@ const fetchModule = memoize(async () => {
   return {ajv: new Ajv()};
 });
 
-export const coerce: Adapter<'ajv'>['coerce'] = schema =>
-  isJSONSchema(schema) ? schema : null;
+const coerce: Coerce<'ajv'> = fn => async schema =>
+  isJSONSchema(schema) ? fn(schema) : undefined;
 
-export const createValidate: Adapter<'ajv'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {ajv} = await fetchModule();
+  const validateSchema = ajv.compile(schema);
+  return async data => {
+    if (validateSchema(data)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: data as any};
     }
-    const {ajv} = await fetchModule();
-    const validateSchema = ajv.compile(coercedSchema);
-    return async data => {
-      if (validateSchema(data)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return {data: data as any};
-      }
-      return {
-        issues: (validateSchema.errors ?? []).map(
-          ({message, schemaPath}) =>
-            new ValidationIssue(message ?? '', [schemaPath]),
-        ),
-      };
+    return {
+      issues: (validateSchema.errors ?? []).map(
+        ({message, schemaPath}) =>
+          new ValidationIssue(message ?? '', [schemaPath]),
+      ),
     };
   };
+});

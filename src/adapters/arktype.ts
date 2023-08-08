@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {Type} from 'arktype';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
@@ -11,27 +11,22 @@ export interface ArkTypeResolver extends Resolver {
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
 }
 
-export const coerce: Adapter<'arktype'>['coerce'] = schema =>
+const coerce: Coerce<'arktype'> = fn => async schema =>
   'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'arktype'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(async schema => {
+  return async data => {
+    const result = schema(data);
+    if (result.problems == null) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: result.data as any};
     }
-    return async data => {
-      const result = coercedSchema(data);
-      if (result.problems == null) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return {data: result.data as any};
-      }
-      return {
-        issues: Array.from(result.problems).map(
-          ({message, path}) => new ValidationIssue(message, path),
-        ),
-      };
+    return {
+      issues: Array.from(result.problems).map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
     };
   };
+});

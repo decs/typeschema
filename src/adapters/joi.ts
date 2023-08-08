@@ -1,5 +1,5 @@
 import type {Resolver} from '../resolver';
-import type {Adapter} from '.';
+import type {Coerce, CreateValidate} from '.';
 import type {AnySchema} from 'joi';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
@@ -9,26 +9,21 @@ export interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
 }
 
-export const coerce: Adapter<'joi'>['coerce'] = schema =>
+const coerce: Coerce<'joi'> = fn => async schema =>
   '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? schema
-    : null;
+    ? fn(schema)
+    : undefined;
 
-export const createValidate: Adapter<'joi'>['createValidate'] =
-  async schema => {
-    const coercedSchema = coerce(schema);
-    if (coercedSchema == null) {
-      return undefined;
+export const createValidate: CreateValidate = coerce(
+  async schema => async data => {
+    const result = schema.validate(data);
+    if (result.error == null) {
+      return {data: result.value};
     }
-    return async data => {
-      const result = coercedSchema.validate(data);
-      if (result.error == null) {
-        return {data: result.value};
-      }
-      return {
-        issues: result.error.details.map(
-          ({message, path}) => new ValidationIssue(message, path),
-        ),
-      };
+    return {
+      issues: result.error.details.map(
+        ({message, path}) => new ValidationIssue(message, path),
+      ),
     };
-  };
+  },
+);
