@@ -1,7 +1,7 @@
 import type {Infer} from './inference';
 import type {Schema} from './resolver';
 
-import {createValidate} from './registry/create-validate';
+import {createValidate} from './registry';
 
 export class ValidationIssue extends Error {
   constructor(
