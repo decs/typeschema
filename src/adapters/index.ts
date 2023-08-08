@@ -1,37 +1,9 @@
 import type {Infer} from '../inference';
+import type {TypeSchemaRegistry} from '../registry';
 import type {InferSchema, Schema} from '../resolver';
 import type {ValidationIssue} from '../validation';
-import type {AjvResolver} from './ajv';
-import type {ArkTypeResolver} from './arktype';
-import type {DeepkitResolver} from './deepkit';
-import type {FunctionResolver} from './function';
-import type {IoTsResolver} from './io-ts';
-import type {JoiResolver} from './joi';
-import type {OwResolver} from './ow';
-import type {RuntypesResolver} from './runtypes';
-import type {SuperstructResolver} from './superstruct';
-import type {TypeBoxResolver} from './typebox';
-import type {ValibotResolver} from './valibot';
-import type {YupResolver} from './yup';
-import type {ZodResolver} from './zod';
 
 import {memoizeWithKey} from '../utils';
-
-export interface TypeSchemaRegistry {
-  ajv: AjvResolver;
-  arktype: ArkTypeResolver;
-  deepkit: DeepkitResolver;
-  function: FunctionResolver;
-  'io-ts': IoTsResolver;
-  joi: JoiResolver;
-  ow: OwResolver;
-  runtypes: RuntypesResolver;
-  superstruct: SuperstructResolver;
-  typebox: TypeBoxResolver;
-  valibot: ValibotResolver;
-  yup: YupResolver;
-  zod: ZodResolver;
-}
 
 export type Coerce<TKey extends keyof TypeSchemaRegistry> = <
   TSchema extends Schema,

@@ -1,4 +1,4 @@
-import type {TypeSchemaRegistry} from './adapters';
+import type {TypeSchemaRegistry} from './registry';
 import type {IfDefined} from './utils';
 
 export type Schema = {
