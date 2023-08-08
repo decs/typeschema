@@ -1,16 +1,14 @@
 import type {Infer, InferIn} from '..';
 
 import {typeOf} from '@deepkit/type';
-import {beforeEach, describe, expect, test} from '@jest/globals';
+import {beforeEach, describe, expect, jest, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
+import {fetchModule} from '../adapters/deepkit';
 import {extractIssues} from './utils';
 
 describe('deepkit', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = typeOf<{
     age: number;
     createdAt: string;
@@ -19,6 +17,7 @@ describe('deepkit', () => {
     name: string;
     updatedAt: string;
   }>();
+  const module = '@deepkit/type';
 
   const data = {
     age: 123,
@@ -36,6 +35,8 @@ describe('deepkit', () => {
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
+
+  beforeEach(() => fetchModule.clear());
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<unknown>();
@@ -61,5 +62,14 @@ describe('deepkit', () => {
     const assertSchema = createAssert(schema);
     expect(await assertSchema(data)).toEqual(data);
     await expect(assertSchema(badData)).rejects.toThrow();
+  });
+
+  test('peer dependency', async () => {
+    jest.mock(module, () => {
+      throw new Error('Cannot find module');
+    });
+    await expect(validate(schema, data)).rejects.toThrow();
+    await expect(assert(schema, data)).rejects.toThrow();
+    jest.unmock(module);
   });
 });

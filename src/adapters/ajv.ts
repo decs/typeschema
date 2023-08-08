@@ -9,7 +9,7 @@ export interface AjvResolver extends Resolver {
   base: SchemaObject;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {default: Ajv} = await import('ajv');
   return {ajv: new Ajv()};
 });

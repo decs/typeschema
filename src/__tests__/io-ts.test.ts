@@ -6,12 +6,10 @@ import * as t from 'io-ts';
 import {DateFromISOString} from 'io-ts-types';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
+import {fetchModule} from '../adapters/io-ts';
 import {extractIssues} from './utils';
 
 describe('io-ts', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = t.type({
     age: t.number,
     createdAt: DateFromISOString,
@@ -39,14 +37,7 @@ describe('io-ts', () => {
     updatedAt: new Date('2021-01-01T00:00:00.000Z'),
   };
 
-  test('peer dependency', async () => {
-    jest.mock(module, () => {
-      throw new Error('Cannot find module');
-    });
-    await expect(validate(schema, data)).rejects.toThrow();
-    await expect(assert(schema, data)).rejects.toThrow();
-    jest.unmock(module);
-  });
+  beforeEach(() => fetchModule.clear());
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
@@ -76,5 +67,14 @@ describe('io-ts', () => {
     const assertSchema = createAssert(schema);
     expect(await assertSchema(data)).toEqual(outputData);
     await expect(assertSchema(outputData)).rejects.toThrow();
+  });
+
+  test('peer dependency', async () => {
+    jest.mock(module, () => {
+      throw new Error('Cannot find module');
+    });
+    await expect(validate(schema, data)).rejects.toThrow();
+    await expect(assert(schema, data)).rejects.toThrow();
+    jest.unmock(module);
   });
 });

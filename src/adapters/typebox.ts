@@ -11,7 +11,7 @@ export interface TypeBoxResolver extends Resolver {
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {TypeCompiler} = await import('@sinclair/typebox/compiler');
   return {TypeCompiler};
 });

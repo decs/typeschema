@@ -3,8 +3,6 @@ import type {Registry} from '../registry';
 import type {InferSchema, Schema} from '../resolver';
 import type {ValidationIssue} from '../validation';
 
-import {memoizeWithKey} from '../utils';
-
 export type Coerce<TKey extends keyof Registry> = <
   TSchema extends Schema,
   TReturn,
@@ -22,12 +20,10 @@ export type CreateValidate = <TSchema extends Schema>(
     >
   | undefined;
 
-const wrappedAdapters: Array<{clear(): void}> = [];
-
 export function wrap<TSchema extends Schema, TReturn>(
   adapters: Array<(schema: TSchema) => Promise<TReturn> | undefined>,
 ): (schema: TSchema) => Promise<TReturn> {
-  const memoizedAdapter = memoizeWithKey(async (schema: TSchema) => {
+  return async (schema: TSchema) => {
     const results = await Promise.all(
       adapters
         .map(adapter => adapter(schema))
@@ -40,11 +36,5 @@ export function wrap<TSchema extends Schema, TReturn>(
       throw new Error('Conflicting adapters for schema: ' + schema);
     }
     return results[0];
-  });
-  wrappedAdapters.push(memoizedAdapter);
-  return memoizedAdapter;
-}
-
-export function resetAdapters(): void {
-  wrappedAdapters.forEach(adapter => adapter.clear());
+  };
 }

@@ -11,7 +11,7 @@ export interface IoTsResolver extends Resolver {
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {isRight} = await import('fp-ts/Either');
   return {isRight};
 });

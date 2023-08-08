@@ -1,16 +1,13 @@
 import type {Infer, InferIn} from '..';
 
-import {beforeEach, describe, expect, test} from '@jest/globals';
+import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {Number, Record, String} from 'runtypes';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('runtypes', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = Record({
     age: Number,
     createdAt: String,

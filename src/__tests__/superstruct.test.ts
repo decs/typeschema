@@ -1,16 +1,13 @@
 import type {Infer, InferIn} from '..';
 
-import {beforeEach, describe, expect, test} from '@jest/globals';
+import {describe, expect, test} from '@jest/globals';
 import {expectTypeOf} from 'expect-type';
 import {coerce, date, number, object, string} from 'superstruct';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
 import {extractIssues} from './utils';
 
 describe('superstruct', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = object({
     age: number(),
     createdAt: coerce(date(), string(), value => new Date(value)),

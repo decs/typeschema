@@ -5,12 +5,10 @@ import {expectTypeOf} from 'expect-type';
 import {date, number, object, string} from 'yup';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
+import {fetchModule} from '../adapters/yup';
 import {extractIssues} from './utils';
 
 describe('yup', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = object({
     age: number().required(),
     createdAt: date().required(),
@@ -38,14 +36,7 @@ describe('yup', () => {
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
 
-  test('peer dependency', async () => {
-    jest.mock(module, () => {
-      throw new Error('Cannot find module');
-    });
-    await expect(validate(schema, data)).rejects.toThrow();
-    await expect(assert(schema, data)).rejects.toThrow();
-    jest.unmock(module);
-  });
+  beforeEach(() => fetchModule.clear());
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
@@ -72,5 +63,14 @@ describe('yup', () => {
     const assertSchema = createAssert(schema);
     expect(await assertSchema(data)).toEqual(data);
     await expect(assertSchema(badData)).rejects.toThrow();
+  });
+
+  test('peer dependency', async () => {
+    jest.mock(module, () => {
+      throw new Error('Cannot find module');
+    });
+    await expect(validate(schema, data)).rejects.toThrow();
+    await expect(assert(schema, data)).rejects.toThrow();
+    jest.unmock(module);
   });
 });

@@ -5,12 +5,10 @@ import {expectTypeOf} from 'expect-type';
 import ow from 'ow';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
+import {fetchModule} from '../adapters/ow';
 import {extractIssues} from './utils';
 
 describe('ow', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = ow.object.exactShape({
     age: ow.number,
     createdAt: ow.string,
@@ -38,14 +36,7 @@ describe('ow', () => {
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
 
-  test('peer dependency', async () => {
-    jest.mock(module, () => {
-      throw new Error('Cannot find module');
-    });
-    await expect(validate(schema, data)).rejects.toThrow();
-    await expect(assert(schema, data)).rejects.toThrow();
-    jest.unmock(module);
-  });
+  beforeEach(() => fetchModule.clear());
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
@@ -71,5 +62,14 @@ describe('ow', () => {
     const assertSchema = createAssert(schema);
     expect(await assertSchema(data)).toEqual(data);
     await expect(assertSchema(badData)).rejects.toThrow();
+  });
+
+  test('peer dependency', async () => {
+    jest.mock(module, () => {
+      throw new Error('Cannot find module');
+    });
+    await expect(validate(schema, data)).rejects.toThrow();
+    await expect(assert(schema, data)).rejects.toThrow();
+    jest.unmock(module);
   });
 });

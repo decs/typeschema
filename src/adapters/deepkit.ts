@@ -9,7 +9,7 @@ export interface DeepkitResolver extends Resolver {
   base: Type;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {validate} = await import('@deepkit/type');
   return {validate};
 });

@@ -11,7 +11,7 @@ export interface OwResolver extends Resolver {
   output: this['schema'] extends Predicate ? Infer<this['schema']> : never;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {ArgumentError, default: ow} = await import('ow');
   return {ArgumentError, ow};
 });

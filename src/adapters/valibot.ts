@@ -15,7 +15,7 @@ export interface ValibotResolver extends Resolver {
     : never;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {safeParseAsync} = await import('valibot');
   return {safeParseAsync};
 });

@@ -5,12 +5,10 @@ import {expectTypeOf} from 'expect-type';
 import {email, number, object, string, transform} from 'valibot';
 
 import {assert, createAssert, validate} from '..';
-import {resetAdapters} from '../adapters';
+import {fetchModule} from '../adapters/valibot';
 import {extractIssues} from './utils';
 
 describe('valibot', () => {
-  beforeEach(() => resetAdapters());
-
   const schema = object({
     age: number(),
     createdAt: transform(string(), value => new Date(value)),
@@ -46,14 +44,7 @@ describe('valibot', () => {
     updatedAt: '2021-01-01T00:00:00.000Z',
   };
 
-  test('peer dependency', async () => {
-    jest.mock(module, () => {
-      throw new Error('Cannot find module');
-    });
-    await expect(validate(schema, data)).rejects.toThrow();
-    await expect(assert(schema, data)).rejects.toThrow();
-    jest.unmock(module);
-  });
+  beforeEach(() => fetchModule.clear());
 
   test('infer', () => {
     expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(outputData);
@@ -79,5 +70,14 @@ describe('valibot', () => {
     const assertSchema = createAssert(schema);
     expect(await assertSchema(data)).toEqual(outputData);
     await expect(assertSchema(badData)).rejects.toThrow();
+  });
+
+  test('peer dependency', async () => {
+    jest.mock(module, () => {
+      throw new Error('Cannot find module');
+    });
+    await expect(validate(schema, data)).rejects.toThrow();
+    await expect(assert(schema, data)).rejects.toThrow();
+    jest.unmock(module);
   });
 });

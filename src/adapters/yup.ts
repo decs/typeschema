@@ -11,7 +11,7 @@ export interface YupResolver extends Resolver {
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
 }
 
-const fetchModule = memoize(async () => {
+export const fetchModule = memoize(async () => {
   const {ValidationError} = await import('yup');
   return {ValidationError};
 });
