@@ -1,8 +1,8 @@
 import {wrap} from '../adapters';
 import * as ajv from '../adapters/ajv';
 import * as arktype from '../adapters/arktype';
+import * as custom from '../adapters/custom';
 import * as deepkit from '../adapters/deepkit';
-import * as custom from '../adapters/function';
 import * as ioTs from '../adapters/io-ts';
 import * as joi from '../adapters/joi';
 import * as ow from '../adapters/ow';

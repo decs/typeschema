@@ -3,23 +3,23 @@ import type {Coerce, CreateValidate} from '.';
 
 import {ValidationIssue} from '../validation';
 
-type FunctionSchema<T = unknown> = (data: unknown) => Promise<T> | T;
+type CustomSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
-export interface FunctionResolver extends Resolver {
-  base: FunctionSchema<this['type']>;
-  input: this['schema'] extends FunctionSchema
+export interface CustomResolver extends Resolver {
+  base: CustomSchema<this['type']>;
+  input: this['schema'] extends CustomSchema
     ? keyof this['schema'] extends never
       ? Awaited<ReturnType<this['schema']>>
       : never
     : never;
-  output: this['schema'] extends FunctionSchema
+  output: this['schema'] extends CustomSchema
     ? keyof this['schema'] extends never
       ? Awaited<ReturnType<this['schema']>>
       : never
     : never;
 }
 
-const coerce: Coerce<'function'> = fn => async schema =>
+const coerce: Coerce<'custom'> = fn => async schema =>
   typeof schema === 'function' && !('assert' in schema)
     ? fn(schema)
     : undefined;

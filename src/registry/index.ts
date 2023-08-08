@@ -1,7 +1,7 @@
 import type {AjvResolver} from '../adapters/ajv';
 import type {ArkTypeResolver} from '../adapters/arktype';
+import type {CustomResolver} from '../adapters/custom';
 import type {DeepkitResolver} from '../adapters/deepkit';
-import type {FunctionResolver} from '../adapters/function';
 import type {IoTsResolver} from '../adapters/io-ts';
 import type {JoiResolver} from '../adapters/joi';
 import type {OwResolver} from '../adapters/ow';
@@ -15,8 +15,8 @@ import type {ZodResolver} from '../adapters/zod';
 export interface TypeSchemaRegistry {
   ajv: AjvResolver;
   arktype: ArkTypeResolver;
+  custom: CustomResolver;
   deepkit: DeepkitResolver;
-  function: FunctionResolver;
   'io-ts': IoTsResolver;
   joi: JoiResolver;
   ow: OwResolver;
