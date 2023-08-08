@@ -14,13 +14,13 @@ const fetchModule = memoize(async () => {
   return {ajv: new Ajv()};
 });
 
-const coerce: Coerce<'ajv'> = fn => async schema =>
+const coerce: Coerce<'ajv'> = fn => schema =>
   isJSONSchema(schema) ? fn(schema) : undefined;
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {ajv} = await fetchModule();
   const validateSchema = ajv.compile(schema);
-  return async data => {
+  return async (data: unknown) => {
     if (validateSchema(data)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return {data: data as any};

@@ -11,13 +11,13 @@ export interface ArkTypeResolver extends Resolver {
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
 }
 
-const coerce: Coerce<'arktype'> = fn => async schema =>
+const coerce: Coerce<'arktype'> = fn => schema =>
   'infer' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = coerce(async schema => {
-  return async data => {
+export const createValidate: CreateValidate = coerce(
+  async schema => async (data: unknown) => {
     const result = schema(data);
     if (result.problems == null) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -28,5 +28,5 @@ export const createValidate: CreateValidate = coerce(async schema => {
         ({message, path}) => new ValidationIssue(message, path),
       ),
     };
-  };
-});
+  },
+);

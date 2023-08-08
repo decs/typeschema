@@ -19,13 +19,13 @@ export interface CustomResolver extends Resolver {
     : never;
 }
 
-const coerce: Coerce<'custom'> = fn => async schema =>
+const coerce: Coerce<'custom'> = fn => schema =>
   typeof schema === 'function' && !('assert' in schema)
     ? fn(schema)
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async data => {
+  async schema => async (data: unknown) => {
     try {
       return {data: await schema(data)};
     } catch (error) {

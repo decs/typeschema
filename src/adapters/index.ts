@@ -9,40 +9,44 @@ export type Coerce<TKey extends keyof TypeSchemaRegistry> = <
   TSchema extends Schema,
   TReturn,
 >(
-  fn: (
+  adapter: (
     schema: InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>>,
-  ) => Promise<TReturn>,
-) => (schema: TSchema) => Promise<TReturn | undefined>;
+  ) => TReturn,
+) => (schema: TSchema) => TReturn | undefined;
 
 export type CreateValidate = <TSchema extends Schema>(
   schema: TSchema,
-) => Promise<
-  | ((
-      data: unknown,
-    ) => Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>)
-  | undefined
->;
+) =>
+  | Promise<
+      (
+        data: unknown,
+      ) => Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>
+    >
+  | undefined;
 
-const wrappedFns: Array<{clear(): void}> = [];
+const wrappedAdapters: Array<{clear(): void}> = [];
 
 export function wrap<TSchema extends Schema, TReturn>(
-  adapters: Array<(schema: TSchema) => Promise<TReturn>>,
-): (schema: TSchema) => Promise<NonNullable<TReturn>> {
-  const memoizedFn = memoizeWithKey(async (schema: TSchema) => {
-    const results = await Promise.all(adapters.map(fn => fn(schema)));
-    const filteredResults = results.filter(Boolean);
-    if (filteredResults.length === 0) {
+  adapters: Array<(schema: TSchema) => Promise<TReturn> | undefined>,
+): (schema: TSchema) => Promise<TReturn> {
+  const memoizedAdapter = memoizeWithKey(async (schema: TSchema) => {
+    const results = await Promise.all(
+      adapters
+        .map(adapter => adapter(schema))
+        .filter(Boolean) as Array<TReturn>,
+    );
+    if (results.length === 0) {
       throw new Error('Missing adapters for schema: ' + schema);
     }
-    if (filteredResults.length > 1) {
+    if (results.length > 1) {
       throw new Error('Conflicting adapters for schema: ' + schema);
     }
-    return filteredResults[0] as NonNullable<TReturn>;
+    return results[0];
   });
-  wrappedFns.push(memoizedFn);
-  return memoizedFn;
+  wrappedAdapters.push(memoizedAdapter);
+  return memoizedAdapter;
 }
 
 export function resetAdapters(): void {
-  wrappedFns.forEach(fn => fn.clear());
+  wrappedAdapters.forEach(adapter => adapter.clear());
 }

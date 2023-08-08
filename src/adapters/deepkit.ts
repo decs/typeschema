@@ -14,14 +14,14 @@ const fetchModule = memoize(async () => {
   return {validate};
 });
 
-const coerce: Coerce<'deepkit'> = fn => async schema =>
+const coerce: Coerce<'deepkit'> = fn => schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {validate} = await fetchModule();
-  return async data => {
+  return async (data: unknown) => {
     const result = validate(data, schema);
     if (result.length === 0) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

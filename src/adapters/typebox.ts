@@ -16,13 +16,13 @@ const fetchModule = memoize(async () => {
   return {TypeCompiler};
 });
 
-const coerce: Coerce<'typebox'> = fn => async schema =>
+const coerce: Coerce<'typebox'> = fn => schema =>
   isTypeBoxSchema(schema) ? fn(schema) : undefined;
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {TypeCompiler} = await fetchModule();
   const result = TypeCompiler.Compile(schema);
-  return async data => {
+  return async (data: unknown) => {
     if (result.Check(data)) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return {data: data as any};

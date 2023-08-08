@@ -16,7 +16,7 @@ const fetchModule = memoize(async () => {
   return {ValidationError};
 });
 
-const coerce: Coerce<'yup'> = fn => async schema =>
+const coerce: Coerce<'yup'> = fn => schema =>
   '__isYupSchema__' in schema &&
   !isTypeBoxSchema(schema) &&
   !isJSONSchema(schema)
@@ -25,7 +25,7 @@ const coerce: Coerce<'yup'> = fn => async schema =>
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {ValidationError} = await fetchModule();
-  return async data => {
+  return async (data: unknown) => {
     try {
       return {data: await schema.validate(data, {strict: true})};
     } catch (error) {

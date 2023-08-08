@@ -9,13 +9,13 @@ export interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
 }
 
-const coerce: Coerce<'joi'> = fn => async schema =>
+const coerce: Coerce<'joi'> = fn => schema =>
   '_flags' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async data => {
+  async schema => async (data: unknown) => {
     const result = schema.validate(data);
     if (result.error == null) {
       return {data: result.value};

@@ -16,7 +16,7 @@ const fetchModule = memoize(async () => {
   return {ArgumentError, ow};
 });
 
-const coerce: Coerce<'ow'> = fn => async schema =>
+const coerce: Coerce<'ow'> = fn => schema =>
   'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
@@ -24,7 +24,7 @@ const coerce: Coerce<'ow'> = fn => async schema =>
 export const createValidate: CreateValidate = coerce(async schema => {
   const {ow, ArgumentError} = await fetchModule();
   const assertSchema = ow.create(schema);
-  return async data => {
+  return async (data: unknown) => {
     try {
       assertSchema(data);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

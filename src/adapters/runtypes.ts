@@ -11,13 +11,13 @@ export interface RuntypesResolver extends Resolver {
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
 }
 
-const coerce: Coerce<'runtypes'> = fn => async schema =>
+const coerce: Coerce<'runtypes'> = fn => schema =>
   'reflect' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async data => {
+  async schema => async (data: unknown) => {
     const result = schema.validate(data);
     if (result.success) {
       return {data: result.value};

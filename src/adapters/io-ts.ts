@@ -16,14 +16,14 @@ const fetchModule = memoize(async () => {
   return {isRight};
 });
 
-const coerce: Coerce<'io-ts'> = fn => async schema =>
+const coerce: Coerce<'io-ts'> = fn => schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {isRight} = await fetchModule();
-  return async data => {
+  return async (data: unknown) => {
     const result = schema.decode(data);
     if (isRight(result)) {
       return {data: result.right};

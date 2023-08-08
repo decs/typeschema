@@ -11,13 +11,13 @@ export interface ZodResolver extends Resolver {
   output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
 }
 
-const coerce: Coerce<'zod'> = fn => async schema =>
+const coerce: Coerce<'zod'> = fn => schema =>
   '_def' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async data => {
+  async schema => async (data: unknown) => {
     const result = await schema.safeParseAsync(data);
     if (result.success) {
       return {data: result.data};
