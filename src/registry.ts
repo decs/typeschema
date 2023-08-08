@@ -13,7 +13,7 @@ import * as valibot from './adapters/valibot';
 import * as yup from './adapters/yup';
 import * as zod from './adapters/zod';
 
-export interface TypeSchemaRegistry {
+export type Registry = {
   ajv: ajv.AjvResolver;
   arktype: arktype.ArkTypeResolver;
   custom: custom.CustomResolver;
@@ -27,7 +27,7 @@ export interface TypeSchemaRegistry {
   valibot: valibot.ValibotResolver;
   yup: yup.YupResolver;
   zod: zod.ZodResolver;
-}
+};
 
 export const createValidate = wrap([
   ajv.createValidate,

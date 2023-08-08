@@ -1,17 +1,15 @@
 import type {Infer} from '../inference';
-import type {TypeSchemaRegistry} from '../registry';
+import type {Registry} from '../registry';
 import type {InferSchema, Schema} from '../resolver';
 import type {ValidationIssue} from '../validation';
 
 import {memoizeWithKey} from '../utils';
 
-export type Coerce<TKey extends keyof TypeSchemaRegistry> = <
+export type Coerce<TKey extends keyof Registry> = <
   TSchema extends Schema,
   TReturn,
 >(
-  adapter: (
-    schema: InferSchema<TypeSchemaRegistry[TKey], Infer<TSchema>>,
-  ) => TReturn,
+  adapter: (schema: InferSchema<Registry[TKey], Infer<TSchema>>) => TReturn,
 ) => (schema: TSchema) => TReturn | undefined;
 
 export type CreateValidate = <TSchema extends Schema>(
