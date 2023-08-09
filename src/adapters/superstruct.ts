@@ -18,7 +18,7 @@ const coerce: Coerce<'superstruct'> = fn => schema =>
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = coerce(
+export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
   async schema => async (data: unknown) => {
     const result = schema.validate(data, {coerce: true});
     if (result[0] == null) {

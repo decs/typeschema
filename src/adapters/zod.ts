@@ -16,7 +16,7 @@ const coerce: Coerce<'zod'> = fn => schema =>
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = coerce(
+export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
   async schema => async (data: unknown) => {
     const result = await schema.safeParseAsync(data);
     if (result.success) {

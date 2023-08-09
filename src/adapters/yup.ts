@@ -11,10 +11,7 @@ export interface YupResolver extends Resolver {
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
 }
 
-export const fetchModule = memoize(async () => {
-  const {ValidationError} = await import('yup');
-  return {ValidationError};
-});
+export const fetchModule = /*@__PURE__*/ memoize(() => import('./modules/yup'));
 
 const coerce: Coerce<'yup'> = fn => schema =>
   '__isYupSchema__' in schema &&
@@ -23,24 +20,26 @@ const coerce: Coerce<'yup'> = fn => schema =>
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = coerce(async schema => {
-  const {ValidationError} = await fetchModule();
-  return async (data: unknown) => {
-    try {
-      return {data: await schema.validate(data, {strict: true})};
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        const {message, path} = error;
-        return {
-          issues: [
-            new ValidationIssue(
-              message,
-              path != null && path !== '' ? [path] : undefined,
-            ),
-          ],
-        };
+export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
+  async schema => {
+    const {ValidationError} = await fetchModule();
+    return async (data: unknown) => {
+      try {
+        return {data: await schema.validate(data, {strict: true})};
+      } catch (error) {
+        if (error instanceof ValidationError) {
+          const {message, path} = error;
+          return {
+            issues: [
+              new ValidationIssue(
+                message,
+                path != null && path !== '' ? [path] : undefined,
+              ),
+            ],
+          };
+        }
+        throw error;
       }
-      throw error;
-    }
-  };
-});
+    };
+  },
+);

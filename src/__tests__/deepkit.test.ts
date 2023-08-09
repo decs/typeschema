@@ -17,7 +17,7 @@ describe('deepkit', () => {
     name: string;
     updatedAt: string;
   }>();
-  const module = '@deepkit/type';
+  const module = '../adapters/modules/deepkit';
 
   const data = {
     age: 123,

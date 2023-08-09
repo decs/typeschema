@@ -9,27 +9,26 @@ export interface AjvResolver extends Resolver {
   base: SchemaObject;
 }
 
-export const fetchModule = memoize(async () => {
-  const {default: Ajv} = await import('ajv');
-  return {ajv: new Ajv()};
-});
+export const fetchModule = /*@__PURE__*/ memoize(() => import('./modules/ajv'));
 
 const coerce: Coerce<'ajv'> = fn => schema =>
   isJSONSchema(schema) ? fn(schema) : undefined;
 
-export const createValidate: CreateValidate = coerce(async schema => {
-  const {ajv} = await fetchModule();
-  const validateSchema = ajv.compile(schema);
-  return async (data: unknown) => {
-    if (validateSchema(data)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
-    }
-    return {
-      issues: (validateSchema.errors ?? []).map(
-        ({message, schemaPath}) =>
-          new ValidationIssue(message ?? '', [schemaPath]),
-      ),
+export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
+  async schema => {
+    const {ajv} = await fetchModule();
+    const validateSchema = ajv.compile(schema);
+    return async (data: unknown) => {
+      if (validateSchema(data)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return {data: data as any};
+      }
+      return {
+        issues: (validateSchema.errors ?? []).map(
+          ({message, schemaPath}) =>
+            new ValidationIssue(message ?? '', [schemaPath]),
+        ),
+      };
     };
-  };
-});
+  },
+);

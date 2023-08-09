@@ -11,26 +11,27 @@ export interface TypeBoxResolver extends Resolver {
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
 }
 
-export const fetchModule = memoize(async () => {
-  const {TypeCompiler} = await import('@sinclair/typebox/compiler');
-  return {TypeCompiler};
-});
+export const fetchModule = /*@__PURE__*/ memoize(
+  () => import('./modules/typebox'),
+);
 
 const coerce: Coerce<'typebox'> = fn => schema =>
   isTypeBoxSchema(schema) ? fn(schema) : undefined;
 
-export const createValidate: CreateValidate = coerce(async schema => {
-  const {TypeCompiler} = await fetchModule();
-  const result = TypeCompiler.Compile(schema);
-  return async (data: unknown) => {
-    if (result.Check(data)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
-    }
-    return {
-      issues: [...result.Errors(data)].map(
-        ({message, path}) => new ValidationIssue(message, [path]),
-      ),
+export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
+  async schema => {
+    const {TypeCompiler} = await fetchModule();
+    const result = TypeCompiler.Compile(schema);
+    return async (data: unknown) => {
+      if (result.Check(data)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return {data: data as any};
+      }
+      return {
+        issues: [...result.Errors(data)].map(
+          ({message, path}) => new ValidationIssue(message, [path]),
+        ),
+      };
     };
-  };
-});
+  },
+);

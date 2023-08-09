@@ -14,7 +14,7 @@ const coerce: Coerce<'joi'> = fn => schema =>
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = coerce(
+export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
   async schema => async (data: unknown) => {
     const result = schema.validate(data);
     if (result.error == null) {

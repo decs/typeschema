@@ -22,7 +22,7 @@ There's no best validation library because there's always a tradeoff. Each devel
 ## Features
 
 - 🚀 Decouple from validation libraries
-- 🍃 Tiny client footprint, tree-shakable
+- 🍃 Tiny client footprint, tree-shakeable
 - ✨ Easy-to-use, minimal API
 
 ## Setup
