@@ -11,32 +11,30 @@ export interface IoTsResolver extends Resolver {
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
 }
 
-export const fetchModule = /*@__PURE__*/ memoize(
+export const fetchModule = /* @__PURE__ */ memoize(
   () => import('./modules/io-ts'),
 );
 
-const coerce: Coerce<'io-ts'> = fn => schema =>
+const coerce: Coerce<'io-ts'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
-  async schema => {
-    const {isRight} = await fetchModule();
-    return async (data: unknown) => {
-      const result = schema.decode(data);
-      if (isRight(result)) {
-        return {data: result.right};
-      }
-      return {
-        issues: result.left.map(
-          ({message, context}) =>
-            new ValidationIssue(
-              message ?? '',
-              context.map(({key}) => key),
-            ),
-        ),
-      };
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {isRight} = await fetchModule();
+  return async (data: unknown) => {
+    const result = schema.decode(data);
+    if (isRight(result)) {
+      return {data: result.right};
+    }
+    return {
+      issues: result.left.map(
+        ({message, context}) =>
+          new ValidationIssue(
+            message ?? '',
+            context.map(({key}) => key),
+          ),
+      ),
     };
-  },
-);
+  };
+});

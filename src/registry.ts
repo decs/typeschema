@@ -29,7 +29,7 @@ export type Registry = {
   zod: zod.ZodResolver;
 };
 
-export const createValidate = /*@__PURE__*/ wrap([
+export const createValidate = /* @__PURE__ */ wrap([
   ajv.createValidate,
   arktype.createValidate,
   custom.createValidate,

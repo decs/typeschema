@@ -13,12 +13,14 @@ export interface SuperstructResolver extends Resolver {
     : never;
 }
 
-const coerce: Coerce<'superstruct'> = fn => schema =>
-  'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
-    ? fn(schema)
-    : undefined;
+const coerce: Coerce<'superstruct'> =
+  /* @__NO_SIDE_EFFECTS__ */
+  fn => schema =>
+    'refiner' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
+      ? fn(schema)
+      : undefined;
 
-export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
+export const createValidate: CreateValidate = coerce(
   async schema => async (data: unknown) => {
     const result = schema.validate(data, {coerce: true});
     if (result[0] == null) {

@@ -15,29 +15,27 @@ export interface ValibotResolver extends Resolver {
     : never;
 }
 
-export const fetchModule = /*@__PURE__*/ memoize(
+export const fetchModule = /* @__PURE__ */ memoize(
   () => import('./modules/valibot'),
 );
 
-const coerce: Coerce<'valibot'> = fn => schema =>
+const coerce: Coerce<'valibot'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
     ? fn(schema)
     : undefined;
 
-export const createValidate: CreateValidate = /*@__PURE__*/ coerce(
-  async schema => {
-    const {safeParseAsync} = await fetchModule();
-    return async (data: unknown) => {
-      const result = await safeParseAsync(schema, data);
-      if (result.success) {
-        return {data: result.data};
-      }
-      return {
-        issues: result.error.issues.map(
-          ({message, path}) =>
-            new ValidationIssue(message, path?.map(({key}) => key)),
-        ),
-      };
+export const createValidate: CreateValidate = coerce(async schema => {
+  const {safeParseAsync} = await fetchModule();
+  return async (data: unknown) => {
+    const result = await safeParseAsync(schema, data);
+    if (result.success) {
+      return {data: result.data};
+    }
+    return {
+      issues: result.error.issues.map(
+        ({message, path}) =>
+          new ValidationIssue(message, path?.map(({key}) => key)),
+      ),
     };
-  },
-);
+  };
+});
