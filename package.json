@@ -48,8 +48,8 @@
       }
     },
     "./vite": {
-      "types": "./dist/vite/index.d.ts",
-      "default": "./dist/vite/index.js"
+      "types": "./vite/index.d.ts",
+      "default": "./vite/index.js"
     }
   },
   "sideEffects": false,
@@ -58,7 +58,7 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build": "tsup && sed -i '' 's/import/require/g' dist/index.js",
+    "build": "tsup",
     "lint": "eslint src --fix",
     "format": "prettier --write src",
     "test": "jest src",
