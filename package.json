@@ -31,7 +31,8 @@
     "email": "andrefonsecacosta@gmail.com"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "/vite"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
