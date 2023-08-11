@@ -46,6 +46,10 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
+    },
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "default": "./dist/vite/index.js"
     }
   },
   "sideEffects": false,
@@ -99,6 +103,7 @@
     "typescript": "^5.1.6",
     "typia": "^4.1.8",
     "valibot": "^0.8.0",
+    "vite": "^4.4.9",
     "webpack": "^5.88.2",
     "yup": "^1.2.0",
     "zod": "^3.21.4"
@@ -115,6 +120,7 @@
     "runtypes": "^6.7.0",
     "superstruct": "^1.0.3",
     "valibot": "^0.8.0",
+    "vite": "^4.4.9",
     "yup": "^1.2.0",
     "zod": "^3.21.4"
   },
@@ -150,6 +156,9 @@
       "optional": true
     },
     "valibot": {
+      "optional": true
+    },
+    "vite": {
       "optional": true
     },
     "yup": {
