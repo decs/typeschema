@@ -25,39 +25,6 @@ There's no best validation library because there's always a tradeoff. Each devel
 - 🍃 Tiny client footprint, tree-shakeable
 - ✨ Easy-to-use, minimal API
 
-## Setup
-
-Install TypeSchema with your package manager of choice:
-
-<table>
-  <tr>
-    <th>npm</th>
-    <td><code>npm install @decs/typeschema</code></td>
-  </tr>
-  <tr>
-    <th>Yarn</th>
-    <td><code>yarn add @decs/typeschema</code></td>
-  </tr>
-  <tr>
-    <th>pnpm</th>
-    <td><code>pnpm add @decs/typeschema</code></td>
-  </tr>
-</table>
-
-### Vite
-
-If using [Vite](https://vitejs.dev/), you'll also need to update your `vite.config.ts` file:
-
-```ts
-import { typeschemaPlugin } from "@decs/typeschema/vite";
-
-export default defineConfig({
-  plugins: [
-    typeschemaPlugin(), // add this plugin
-  ],
-});
-```
-
 ## Usage
 
 ```ts
@@ -125,6 +92,39 @@ await assert(assertString, 123); // throws `AggregateError`
 
 await validate(assertString, '123'); // {data: '123'}
 await validate(assertString, 123); // {issues: [`ValidationIssue`]}
+```
+
+## Setup
+
+Install TypeSchema with your package manager of choice:
+
+<table>
+  <tr>
+    <th>npm</th>
+    <td><code>npm install @decs/typeschema</code></td>
+  </tr>
+  <tr>
+    <th>Yarn</th>
+    <td><code>yarn add @decs/typeschema</code></td>
+  </tr>
+  <tr>
+    <th>pnpm</th>
+    <td><code>pnpm add @decs/typeschema</code></td>
+  </tr>
+</table>
+
+### Vite
+
+If using [Vite](https://vitejs.dev/), you'll also need to update your `vite.config.ts` file:
+
+```ts
+import { typeschemaPlugin } from "@decs/typeschema/vite";
+
+export default defineConfig({
+  plugins: [
+    typeschemaPlugin(), // add this plugin
+  ],
+});
 ```
 
 ## API
