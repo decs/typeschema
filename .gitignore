@@ -3,6 +3,7 @@ node_modules
 
 dist/
 vite/
+deno_dist/
 
 yarn-debug.log*
 yarn-error.log*
