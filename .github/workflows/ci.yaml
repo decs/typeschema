@@ -58,9 +58,7 @@ jobs:
           node-version: 18
       - run: yarn install --frozen-lockfile
       - run: yarn build:deno
-      - run: |
-          npx -y -p denoify enable_short_npm_import_path
-          npx -y -p denoify remove_deno_dist_from_gitignore
+      - run: npx -y -p denoify remove_deno_dist_from_gitignore
         env:
           DRY_RUN: "0"
       - run: |
