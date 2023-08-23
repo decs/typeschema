@@ -6,7 +6,6 @@ import {expectTypeOf} from 'expect-type';
 import Joi from 'joi';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 describe('joi', () => {
   const schema = Joi.object({
@@ -42,12 +41,9 @@ describe('joi', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: '"email" must be a valid email',
-        path: ['email'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [{message: '"email" must be a valid email', path: ['email']}],
+    });
   });
 
   test('assert', async () => {

@@ -7,7 +7,6 @@ import ow from 'ow';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/ow';
-import {extractIssues} from './utils';
 
 describe('ow', () => {
   const schema = ow.object.exactShape({
@@ -46,12 +45,14 @@ describe('ow', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message:
-          'Expected property `age` to be of type `number` but received type `string` in object',
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [
+        {
+          message:
+            'Expected property `age` to be of type `number` but received type `string` in object',
+        },
+      ],
+    });
   });
 
   test('assert', async () => {

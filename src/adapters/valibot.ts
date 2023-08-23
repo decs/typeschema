@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface ValibotResolver extends Resolver {
   base: BaseSchema | BaseSchemaAsync;
@@ -32,10 +31,10 @@ export const createValidate: CreateValidate = coerce(async schema => {
       return {data: result.data};
     }
     return {
-      issues: result.issues.map(
-        ({message, path}) =>
-          new ValidationIssue(message, path?.map(({key}) => key)),
-      ),
+      issues: result.issues.map(({message, path}) => ({
+        message,
+        path: path?.map(({key}) => key),
+      })),
     };
   };
 });

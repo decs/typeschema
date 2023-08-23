@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {SchemaObject} from 'ajv';
 
 import {isJSONSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface AjvResolver extends Resolver {
   base: SchemaObject;
@@ -25,10 +24,10 @@ export const createValidate: CreateValidate = coerce(async schema => {
       return {data: data as any};
     }
     return {
-      issues: (validateSchema.errors ?? []).map(
-        ({message, schemaPath}) =>
-          new ValidationIssue(message ?? '', [schemaPath]),
-      ),
+      issues: (validateSchema.errors ?? []).map(({message, schemaPath}) => ({
+        message: message ?? '',
+        path: [schemaPath],
+      })),
     };
   };
 });

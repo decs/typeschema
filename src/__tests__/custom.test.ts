@@ -5,7 +5,6 @@ import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 function assertString(value: unknown): string {
   if (typeof value !== 'string') {
@@ -29,9 +28,9 @@ describe('custom', () => {
 
     test('validate', async () => {
       expect(await validate(schema, '123')).toStrictEqual({data: '123'});
-      expect(extractIssues(await validate(schema, 123))).toStrictEqual([
-        {message: 'Not a string'},
-      ]);
+      expect(await validate(schema, 123)).toStrictEqual({
+        issues: [{message: 'Not a string'}],
+      });
     });
 
     test('assert', async () => {
@@ -60,9 +59,9 @@ describe('custom', () => {
 
     test('validate', async () => {
       expect(await validate(schema, '123')).toStrictEqual({data: '123'});
-      expect(extractIssues(await validate(schema, 123))).toStrictEqual([
-        {message: 'Not a string'},
-      ]);
+      expect(await validate(schema, 123)).toStrictEqual({
+        issues: [{message: 'Not a string'}],
+      });
     });
 
     test('assert', async () => {

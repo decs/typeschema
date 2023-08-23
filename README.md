@@ -168,7 +168,7 @@ export default defineConfig({
 
 - `ValidationIssue`
 
-  Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+  Generic interface for validation issues<br />Includes a `message` and an optional `path`
 
 #### Functions
 

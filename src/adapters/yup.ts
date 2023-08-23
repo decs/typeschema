@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {InferType, Schema} from 'yup';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface YupResolver extends Resolver {
   base: Schema<this['type']>;
@@ -32,10 +31,10 @@ export const createValidate: CreateValidate = coerce(async schema => {
         const {message, path} = error;
         return {
           issues: [
-            new ValidationIssue(
+            {
               message,
-              path != null && path !== '' ? [path] : undefined,
-            ),
+              path: path != null && path !== '' ? [path] : undefined,
+            },
           ],
         };
       }

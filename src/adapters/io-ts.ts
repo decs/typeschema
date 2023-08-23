@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface IoTsResolver extends Resolver {
   base: Type<this['type']>;
@@ -28,13 +27,10 @@ export const createValidate: CreateValidate = coerce(async schema => {
       return {data: result.right};
     }
     return {
-      issues: result.left.map(
-        ({message, context}) =>
-          new ValidationIssue(
-            message ?? '',
-            context.map(({key}) => key),
-          ),
-      ),
+      issues: result.left.map(({message, context}) => ({
+        message: message ?? '',
+        path: context.map(({key}) => key),
+      })),
     };
   };
 });

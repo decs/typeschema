@@ -7,7 +7,6 @@ import {expectTypeOf} from 'expect-type';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/typebox';
-import {extractIssues} from './utils';
 
 describe('typebox', () => {
   const schema = Type.Object({
@@ -46,12 +45,9 @@ describe('typebox', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: 'Expected number',
-        path: ['/age'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [{message: 'Expected number', path: ['/age']}],
+    });
   });
 
   test('assert', async () => {

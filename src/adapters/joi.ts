@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {AnySchema} from 'joi';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface JoiResolver extends Resolver {
   base: AnySchema<this['type']>;
@@ -21,9 +20,7 @@ export const createValidate: CreateValidate = coerce(
       return {data: result.value};
     }
     return {
-      issues: result.error.details.map(
-        ({message, path}) => new ValidationIssue(message, path),
-      ),
+      issues: result.error.details.map(({message, path}) => ({message, path})),
     };
   },
 );

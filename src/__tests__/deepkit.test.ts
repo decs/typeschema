@@ -7,7 +7,6 @@ import {expectTypeOf} from 'expect-type';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/deepkit';
-import {extractIssues} from './utils';
 
 describe('deepkit', () => {
   const schema = typeOf<{
@@ -46,12 +45,9 @@ describe('deepkit', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: 'Not a number',
-        path: ['age'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [{message: 'Not a number', path: ['age']}],
+    });
   });
 
   test('assert', async () => {

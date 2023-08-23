@@ -8,7 +8,6 @@ import {DateFromISOString} from 'io-ts-types';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/io-ts';
-import {extractIssues} from './utils';
 
 describe('io-ts', () => {
   const schema = t.type({
@@ -47,16 +46,12 @@ describe('io-ts', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(extractIssues(await validate(schema, outputData))).toStrictEqual([
-      {
-        message: '',
-        path: ['', 'createdAt'],
-      },
-      {
-        message: '',
-        path: ['', 'updatedAt'],
-      },
-    ]);
+    expect(await validate(schema, outputData)).toStrictEqual({
+      issues: [
+        {message: '', path: ['', 'createdAt']},
+        {message: '', path: ['', 'updatedAt']},
+      ],
+    });
   });
 
   test('assert', async () => {

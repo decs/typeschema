@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {Runtype, Static} from 'runtypes';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface RuntypesResolver extends Resolver {
   base: Runtype<this['type']>;
@@ -22,6 +21,6 @@ export const createValidate: CreateValidate = coerce(
     if (result.success) {
       return {data: result.value};
     }
-    return {issues: [new ValidationIssue(result.message)]};
+    return {issues: [{message: result.message}]};
   },
 );

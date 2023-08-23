@@ -6,7 +6,6 @@ import {expectTypeOf} from 'expect-type';
 import {z} from 'zod';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 describe('zod', () => {
   const schema = z.object({
@@ -50,12 +49,9 @@ describe('zod', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: 'Expected number, received string',
-        path: ['age'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [{message: 'Expected number, received string', path: ['age']}],
+    });
   });
 
   test('assert', async () => {

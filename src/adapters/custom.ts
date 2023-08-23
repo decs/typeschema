@@ -1,8 +1,6 @@
 import type {Resolver} from '../resolver';
 import type {Coerce, CreateValidate} from '.';
 
-import {ValidationIssue} from '../validation';
-
 type CustomSchema<T = unknown> = (data: unknown) => Promise<T> | T;
 
 export interface CustomResolver extends Resolver {
@@ -30,7 +28,7 @@ export const createValidate: CreateValidate = coerce(
       return {data: await schema(data)};
     } catch (error) {
       if (error instanceof Error) {
-        return {issues: [new ValidationIssue(error.message)]};
+        return {issues: [{message: error.message}]};
       }
       throw error;
     }

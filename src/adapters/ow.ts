@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {Infer, Predicate} from 'ow';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface OwResolver extends Resolver {
   base: Predicate<this['type']>;
@@ -32,8 +31,7 @@ export const createValidate: CreateValidate = coerce(async schema => {
       if (error instanceof ArgumentError) {
         return {
           issues: Array.from(error.validationErrors.values()).flatMap(
-            messages =>
-              Array.from(messages).map(message => new ValidationIssue(message)),
+            messages => Array.from(messages).map(message => ({message})),
           ),
         };
       }

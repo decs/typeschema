@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {Type} from '@deepkit/type';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface DeepkitResolver extends Resolver {
   base: Type;
@@ -27,9 +26,7 @@ export const createValidate: CreateValidate = coerce(async schema => {
       return {data: data as any};
     }
     return {
-      issues: result.map(
-        ({message, path}) => new ValidationIssue(message, [path]),
-      ),
+      issues: result.map(({message, path}) => ({message, path: [path]})),
     };
   };
 });

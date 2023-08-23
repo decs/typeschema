@@ -6,7 +6,6 @@ import {expectTypeOf} from 'expect-type';
 import {Number, Record, String} from 'runtypes';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 describe('runtypes', () => {
   const schema = Record({
@@ -42,15 +41,17 @@ describe('runtypes', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: `Validation failed:
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [
+        {
+          message: `Validation failed:
 {
   "age": "Expected number, but was string"
 }.
 Object should match { age: number; createdAt: string; email: string; id: string; name: string; updatedAt: string; }`,
-      },
-    ]);
+        },
+      ],
+    });
   });
 
   test('assert', async () => {

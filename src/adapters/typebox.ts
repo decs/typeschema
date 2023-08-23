@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {Static, TSchema} from '@sinclair/typebox';
 
 import {isTypeBoxSchema, memoize} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface TypeBoxResolver extends Resolver {
   base: TSchema;
@@ -27,9 +26,10 @@ export const createValidate: CreateValidate = coerce(async schema => {
       return {data: data as any};
     }
     return {
-      issues: [...result.Errors(data)].map(
-        ({message, path}) => new ValidationIssue(message, [path]),
-      ),
+      issues: [...result.Errors(data)].map(({message, path}) => ({
+        message,
+        path: [path],
+      })),
     };
   };
 });

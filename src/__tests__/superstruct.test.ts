@@ -6,7 +6,6 @@ import {expectTypeOf} from 'expect-type';
 import {coerce, date, number, object, string} from 'superstruct';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 describe('superstruct', () => {
   const schema = object({
@@ -50,12 +49,14 @@ describe('superstruct', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: 'At path: age -- Expected a number, but received: "123"',
-        path: ['age'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [
+        {
+          message: 'At path: age -- Expected a number, but received: "123"',
+          path: ['age'],
+        },
+      ],
+    });
   });
 
   test('assert', async () => {

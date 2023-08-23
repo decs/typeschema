@@ -6,7 +6,6 @@ import {expectTypeOf} from 'expect-type';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/ajv';
-import {extractIssues} from './utils';
 
 describe('ajv', () => {
   const schema = {
@@ -50,12 +49,9 @@ describe('ajv', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: 'must be integer',
-        path: ['#/properties/age/type'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [{message: 'must be integer', path: ['#/properties/age/type']}],
+    });
   });
 
   test('assert', async () => {

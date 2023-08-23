@@ -7,7 +7,6 @@ import {email, number, object, string, transform} from 'valibot';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/valibot';
-import {extractIssues} from './utils';
 
 describe('valibot', () => {
   const schema = object({
@@ -54,12 +53,9 @@ describe('valibot', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message: 'Invalid type',
-        path: ['age'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [{message: 'Invalid type', path: ['age']}],
+    });
   });
 
   test('assert', async () => {

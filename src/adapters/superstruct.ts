@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {Infer, Struct} from 'superstruct';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface SuperstructResolver extends Resolver {
   base: Struct<this['type']>;
@@ -27,6 +26,6 @@ export const createValidate: CreateValidate = coerce(
       return {data: result[1]};
     }
     const {message, path} = result[0];
-    return {issues: [new ValidationIssue(message, path)]};
+    return {issues: [{message, path}]};
   },
 );

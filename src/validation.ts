@@ -3,14 +3,10 @@ import type {Schema} from './resolver';
 
 import {createValidate} from './registry';
 
-export class ValidationIssue extends Error {
-  constructor(
-    message: string,
-    public path?: Array<string | number | symbol>,
-  ) {
-    super(message);
-  }
-}
+export type ValidationIssue = {
+  message: string;
+  path?: Array<string | number | symbol>;
+};
 
 export async function validate<TSchema extends Schema>(
   schema: TSchema,

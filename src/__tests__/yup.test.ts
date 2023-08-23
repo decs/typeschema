@@ -7,7 +7,6 @@ import {date, number, object, string} from 'yup';
 
 import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/yup';
-import {extractIssues} from './utils';
 
 describe('yup', () => {
   const schema = object({
@@ -46,13 +45,15 @@ describe('yup', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message:
-          'updatedAt must be a `date` type, but the final value was: `"2021-01-01T00:00:00.000Z"`.',
-        path: ['updatedAt'],
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [
+        {
+          message:
+            'updatedAt must be a `date` type, but the final value was: `"2021-01-01T00:00:00.000Z"`.',
+          path: ['updatedAt'],
+        },
+      ],
+    });
   });
 
   test('assert', async () => {

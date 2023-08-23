@@ -6,7 +6,6 @@ import {expectTypeOf} from 'expect-type';
 import typia from 'typia';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 describe('typia', () => {
   const schema = typia.createAssert<{
@@ -42,12 +41,14 @@ describe('typia', () => {
 
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data});
-    expect(extractIssues(await validate(schema, badData))).toStrictEqual([
-      {
-        message:
-          'Error on typia.assert(): invalid type on $input.age, expect to be number',
-      },
-    ]);
+    expect(await validate(schema, badData)).toStrictEqual({
+      issues: [
+        {
+          message:
+            'Error on typia.assert(): invalid type on $input.age, expect to be number',
+        },
+      ],
+    });
   });
 
   test('assert', async () => {

@@ -6,7 +6,6 @@ import {type} from 'arktype';
 import {expectTypeOf} from 'expect-type';
 
 import {assert, validate, wrap} from '..';
-import {extractIssues} from './utils';
 
 describe('arktype', () => {
   const schema = type({
@@ -44,22 +43,22 @@ describe('arktype', () => {
     expect(await validate(schema, structuredClone(data))).toEqual({
       data: outputData,
     });
-    expect(
-      extractIssues(await validate(schema, structuredClone(outputData))),
-    ).toStrictEqual([
-      {
-        message: 'age must be a number (was string)',
-        path: ['age'],
-      },
-      {
-        message: 'createdAt must be a string (was object)',
-        path: ['createdAt'],
-      },
-      {
-        message: 'updatedAt must be a string (was object)',
-        path: ['updatedAt'],
-      },
-    ]);
+    expect(await validate(schema, structuredClone(outputData))).toStrictEqual({
+      issues: [
+        {
+          message: 'age must be a number (was string)',
+          path: ['age'],
+        },
+        {
+          message: 'createdAt must be a string (was object)',
+          path: ['createdAt'],
+        },
+        {
+          message: 'updatedAt must be a string (was object)',
+          path: ['updatedAt'],
+        },
+      ],
+    });
   });
 
   test('assert', async () => {

@@ -3,7 +3,6 @@ import type {Coerce, CreateValidate} from '.';
 import type {input, output, ZodSchema} from 'zod';
 
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
-import {ValidationIssue} from '../validation';
 
 export interface ZodResolver extends Resolver {
   base: ZodSchema<this['type']>;
@@ -23,9 +22,7 @@ export const createValidate: CreateValidate = coerce(
       return {data: result.data};
     }
     return {
-      issues: result.error.issues.map(
-        ({message, path}) => new ValidationIssue(message, path),
-      ),
+      issues: result.error.issues.map(({message, path}) => ({message, path})),
     };
   },
 );
