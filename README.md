@@ -29,7 +29,7 @@ There's no best validation library because there's always a tradeoff. Each devel
 
 ```ts
 import type {Infer, InferIn, Schema} from '@decs/typeschema';
-import {assert, createAssert, validate} from '@decs/typeschema';
+import {assert, validate, wrap} from '@decs/typeschema';
 
 // Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
 const schema: Schema = z.string();
@@ -40,39 +40,39 @@ const schema: Schema = typia.createAssert<string>();
 type Output = Infer<typeof schema>; // `string`
 type Input = InferIn<typeof schema>; // `string`
 
-// Returns the validated data or throws an `AggregateError`
-await assert(schema, '123'); // '123'
-await assert(schema, 123); // throws `AggregateError`
+// Returns the validated data or a list of `ValidationIssue`s
+const wrappedSchema = wrap(schema);
+await wrappedSchema.validate('123'); // {data: '123'}
+await wrappedSchema.assert('123'); // '123'
 
 // Returns the validated data or a list of `ValidationIssue`s
 await validate(schema, '123'); // {data: '123'}
 await validate(schema, 123); // {issues: [`ValidationIssue`]}
 
-// Returns an assertion function for a specific schema
-const assertString = createAssert(schema);
-await assertString('123'); // '123'
-await assertString(123); // throws `AggregateError`
+// Returns the validated data or throws an `AggregateError`
+await assert(schema, '123'); // '123'
+await assert(schema, 123); // throws `AggregateError`
 ```
 
 ## Coverage
 
 TypeSchema supports all major schema validation libraries:
 
-| Project                                            | Popularity                                                                                                                                                                            | `validate`</br>`assert` | `Infer` | `InferIn` | Example schema                 |
-| :------------------------------------------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------: | :-----: | :-------: | :----------------------------- |
-| [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | ✅                       | ✅       | ✅         | `z.string()`                   |
-| [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | ✅                       | ✅       | ✅         | `string()`                     |
-| [joi](https://joi.dev)                             | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a>                                 | ✅                       | ❌       | ❌         | `Joi.string()`                 |
-| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | ✅                       | ❌       | ❌         | `{type: "string"}`             |
-| [superstruct](https://docs.superstructjs.org)      | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | ✅                       | ✅       | ❌         | `string()`                     |
-| [io-ts](https://gcanti.github.io/io-ts)            | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a>                             | ✅                       | ✅       | ✅         | `t.string`                     |
-| [ow](https://sindresorhus.com/ow)[^1]              | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a>                       | ✅                       | ✅       | ✅         | `ow.string`                    |
-| [typia](https://typia.io)                          | <a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a>                           | ✅                       | ✅       | ✅         | `typia.createAssert<string>()` |
-| [typebox](https://github.com/sinclairzx81/typebox) | <a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a>             | ✅                       | ✅       | ✅         | `Type.String()`                |
-| [valibot](https://valibot.dev)                     | <a href="https://github.com/fabian-hiller/valibot" rel="nofollow"><img src="https://img.shields.io/github/stars/fabian-hiller/valibot?style=social" alt="GitHub stars"></a>           | ✅                       | ✅       | ✅         | `string()`                     |
-| [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | ✅                       | ❌       | ❌         | `typeOf<string>()`             |
-| [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | ✅                       | ✅       | ✅         | `String`                       |
-| [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | ✅                       | ✅       | ✅         | `type('string')`               |
+| Project                                            | Popularity                                                                                                                                                                            | `wrap` | `validate`</br>`assert` | `Infer` | `InferIn` | Example schema                 |
+|:---------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------:|:-----------------------:|:-------:|:---------:|:------------------------------|
+| [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | ✅      | ✅                       | ✅       | ✅         | `z.string()`                   |
+| [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | ✅      | ✅                       | ✅       | ✅         | `string()`                     |
+| [joi](https://joi.dev)                             | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a>                                 | ✅      | ✅                       | ❌       | ❌         | `Joi.string()`                 |
+| [ajv](https://ajv.js.org)                          | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a>                   | ✅      | ✅                       | ❌       | ❌         | `{type: "string"}`             |
+| [superstruct](https://docs.superstructjs.org)      | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | ✅      | ✅                       | ✅       | ❌         | `string()`                     |
+| [io-ts](https://gcanti.github.io/io-ts)            | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a>                             | ✅      | ✅                       | ✅       | ✅         | `t.string`                     |
+| [ow](https://sindresorhus.com/ow)[^1]              | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a>                       | ✅      | ✅                       | ✅       | ✅         | `ow.string`                    |
+| [typia](https://typia.io)                          | <a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a>                           | ✅      | ✅                       | ✅       | ✅         | `typia.createAssert<string>()` |
+| [typebox](https://github.com/sinclairzx81/typebox) | <a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a>             | ✅      | ✅                       | ✅       | ✅         | `Type.String()`                |
+| [valibot](https://valibot.dev)                     | <a href="https://github.com/fabian-hiller/valibot" rel="nofollow"><img src="https://img.shields.io/github/stars/fabian-hiller/valibot?style=social" alt="GitHub stars"></a>           | ✅      | ✅                       | ✅       | ✅         | `string()`                     |
+| [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | ✅      | ✅                       | ❌       | ❌         | `typeOf<string>()`             |
+| [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | ✅      | ✅                       | ✅       | ✅         | `String`                       |
+| [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | ✅      | ✅                       | ✅       | ✅         | `type('string')`               |
 
 [^1]: For [ow](https://sindresorhus.com/ow), only v0.28.2 is supported (sindresorhus/ow#248)
 
@@ -86,11 +86,11 @@ export function assertString(data: unknown): string {
   return data;
 }
 
-await assert(assertString, '123'); // '123'
-await assert(assertString, 123); // throws `AggregateError`
-
 await validate(assertString, '123'); // {data: '123'}
 await validate(assertString, 123); // {issues: [`ValidationIssue`]}
+
+await assert(assertString, '123'); // '123'
+await assert(assertString, 123); // throws `AggregateError`
 ```
 
 ## Setup
@@ -134,9 +134,9 @@ export default defineConfig({
 
   Generic interface for schemas<br />An union of the schema types of all supported libraries
 
-- `ValidationIssue`
+- `TypeSchema<TOutput, TInput = TOutput>`
 
-  Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+  Interface for a wrapped schema, exposing all its operations
 
 - `Infer<TSchema extends Schema>`
 
@@ -146,18 +146,21 @@ export default defineConfig({
 
   Extracts the input type of a schema
 
+- `ValidationIssue`
+
+  Generic interface for validation issues<br />Includes a `message: string` and an optional `path?: Array<string | number | symbol>`
+
 #### Functions
 
-- `assert(schema, data)`
+- `wrap(schema)`
 
   ```ts
-  assert<TSchema extends Schema>(
+  wrap<TSchema extends Schema>(
     schema: TSchema,
-    data: unknown,
-  ): Promise<Infer<TSchema>>
+  ): TypeSchema<Infer<TSchema>, InferIn<TSchema>>
   ```
 
-  Returns the validated data or throws an `AggregateError`
+  Returns the wrapped schema with access to all its operations
 
 - `validate(schema, data)`
 
@@ -170,15 +173,16 @@ export default defineConfig({
 
   Returns the validated data or a list of `ValidationIssue`s
 
-- `createAssert(schema)`
+- `assert(schema, data)`
 
   ```ts
-  createAssert<TSchema extends Schema>(
+  assert<TSchema extends Schema>(
     schema: TSchema,
-  ): (data: unknown) => Promise<Infer<TSchema>>
+    data: unknown,
+  ): Promise<Infer<TSchema>>
   ```
 
-  Returns an assertion function for a specific schema
+  Returns the validated data or throws an `AggregateError`
 
 ## Acknowledgements
 

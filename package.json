@@ -71,6 +71,7 @@
     "@deepkit/type": "^1.0.1-alpha.97",
     "@deepkit/type-compiler": "^1.0.1-alpha.97",
     "@sinclair/typebox": "^0.31.0",
+    "@trpc/server": "^10.37.1",
     "@types/node": "^20.4.10",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",

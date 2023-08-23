@@ -30,9 +30,3 @@ export async function assert<TSchema extends Schema>(
   }
   return result.data;
 }
-
-export function createAssert<TSchema extends Schema>(
-  schema: TSchema,
-): (data: unknown) => Promise<Infer<TSchema>> {
-  return async data => assert(schema, data);
-}

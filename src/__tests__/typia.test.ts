@@ -1,10 +1,11 @@
 import type {Infer, InferIn} from '..';
 
 import {describe, expect, test} from '@jest/globals';
+import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import typia from 'typia';
 
-import {assert, createAssert, validate} from '..';
+import {assert, validate, wrap} from '..';
 import {extractIssues} from './utils';
 
 describe('typia', () => {
@@ -54,9 +55,13 @@ describe('typia', () => {
     await expect(assert(schema, badData)).rejects.toThrow();
   });
 
-  test('createAssert', async () => {
-    const assertSchema = createAssert(schema);
-    expect(await assertSchema(data)).toEqual(data);
-    await expect(assertSchema(badData)).rejects.toThrow();
+  test('wrap', async () => {
+    const tRPC = initTRPC.create();
+    tRPC.router({
+      hello: tRPC.procedure.input(wrap(schema)).query(({input}) => {
+        expectTypeOf<typeof input>().toEqualTypeOf(data);
+        return input;
+      }),
+    });
   });
 });

@@ -1,11 +1,12 @@
 import type {Infer, InferIn} from '..';
 
 import {beforeEach, describe, expect, jest, test} from '@jest/globals';
+import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import * as t from 'io-ts';
 import {DateFromISOString} from 'io-ts-types';
 
-import {assert, createAssert, validate} from '..';
+import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/io-ts';
 import {extractIssues} from './utils';
 
@@ -63,10 +64,14 @@ describe('io-ts', () => {
     await expect(assert(schema, outputData)).rejects.toThrow();
   });
 
-  test('createAssert', async () => {
-    const assertSchema = createAssert(schema);
-    expect(await assertSchema(data)).toEqual(outputData);
-    await expect(assertSchema(outputData)).rejects.toThrow();
+  test('wrap', async () => {
+    const tRPC = initTRPC.create();
+    tRPC.router({
+      hello: tRPC.procedure.input(wrap(schema)).query(({input}) => {
+        expectTypeOf<typeof input>().toEqualTypeOf(outputData);
+        return input;
+      }),
+    });
   });
 
   test('peer dependency', async () => {

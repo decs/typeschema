@@ -995,6 +995,11 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
+"@trpc/server@^10.37.1":
+  version "10.37.1"
+  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-10.37.1.tgz#7867a1042d3d055177327151a5abbf07ca0930f0"
+  integrity sha512-r3VeA319/braYMBIzj+XLgLKQ9lJSVglvPvP9HUv4kr5w6Y5grQMxMcExhTiZWltE9bnSJHKtBBzHafOo7KC8A==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"

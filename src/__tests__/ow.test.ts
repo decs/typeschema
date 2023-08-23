@@ -1,10 +1,11 @@
 import type {Infer, InferIn} from '..';
 
 import {beforeEach, describe, expect, jest, test} from '@jest/globals';
+import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import ow from 'ow';
 
-import {assert, createAssert, validate} from '..';
+import {assert, validate, wrap} from '..';
 import {fetchModule} from '../adapters/ow';
 import {extractIssues} from './utils';
 
@@ -58,10 +59,14 @@ describe('ow', () => {
     await expect(assert(schema, badData)).rejects.toThrow();
   });
 
-  test('createAssert', async () => {
-    const assertSchema = createAssert(schema);
-    expect(await assertSchema(data)).toEqual(data);
-    await expect(assertSchema(badData)).rejects.toThrow();
+  test('wrap', async () => {
+    const tRPC = initTRPC.create();
+    tRPC.router({
+      hello: tRPC.procedure.input(wrap(schema)).query(({input}) => {
+        expectTypeOf<typeof input>().toEqualTypeOf(data);
+        return input;
+      }),
+    });
   });
 
   test('peer dependency', async () => {
