@@ -69,7 +69,7 @@ const schema = object({name: string()});
 const t = initTRPC.create();
 const appRouter = t.router({
   hello: t.procedure
-    .input(wrap(schema))
+    .input(wrap(schema)) // like this
     .query(({input}) => `Hello, ${input.name}!`),
 });
 ```
