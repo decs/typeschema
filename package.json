@@ -1,6 +1,6 @@
 {
   "name": "@decs/typeschema",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
     "typescript",
