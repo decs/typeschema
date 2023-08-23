@@ -32,7 +32,7 @@ export const createValidate: CreateValidate = coerce(async schema => {
       return {data: result.data};
     }
     return {
-      issues: result.error.issues.map(
+      issues: result.issues.map(
         ({message, path}) =>
           new ValidationIssue(message, path?.map(({key}) => key)),
       ),
