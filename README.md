@@ -41,9 +41,9 @@ type Output = Infer<typeof schema>; // `string`
 type Input = InferIn<typeof schema>; // `string`
 
 // Returns the validated data or a list of `ValidationIssue`s
-const wrappedSchema = wrap(schema);
-await wrappedSchema.validate('123'); // {data: '123'}
-await wrappedSchema.assert('123'); // '123'
+const wrapped = wrap(schema);
+await wrapped.validate('123'); // {data: '123'}
+await wrapped.assert('123'); // '123'
 
 // Returns the validated data or a list of `ValidationIssue`s
 await validate(schema, '123'); // {data: '123'}
