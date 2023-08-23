@@ -54,6 +54,26 @@ await assert(schema, '123'); // '123'
 await assert(schema, 123); // throws `AggregateError`
 ```
 
+#### tRPC
+
+You can use any supported schema on [tRPC](https://trpc.io/) through the `wrap` function:
+
+```ts
+import {wrap} from '@decs/typeschema';
+import {initTRPC} from '@trpc/server';
+import {object, string} from 'valibot';
+
+// Use your favorite validation library, e.g. `valibot`
+const schema = object({name: string()});
+
+const t = initTRPC.create();
+const appRouter = t.router({
+  hello: t.procedure
+    .input(wrap(schema))
+    .query(({input}) => `Hello, ${input.name}!`),
+});
+```
+
 ## Coverage
 
 TypeSchema supports all major schema validation libraries:
