@@ -1,7 +1,8 @@
 <br />
-<h1 align="center">
+<p align="center">
   <img src="assets/logo.png" width="64px" alt="TypeSchema" />
-  <br />
+</p>
+<h1 align="center">
   TypeSchema
 </h1>
 <p align="center">
