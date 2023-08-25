@@ -153,7 +153,7 @@ Install TypeSchema with your package manager of choice:
   </tr>
   <tr>
     <th>Deno</th>
-    <td><a href="https://deno.land/x/typeschema">https://deno.land/x/typeschema</a></td>
+    <td><code>https://deno.land/x/typeschema</code></td>
   </tr>
 </table>
 
