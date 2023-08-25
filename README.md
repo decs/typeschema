@@ -1,3 +1,4 @@
+<br />
 <h1 align="center">
   <img src="assets/logo.png" width="64px" alt="TypeSchema" />
   <br />
@@ -8,13 +9,27 @@
   <br />
   Universal adapter for schema validation
 </p>
+<br />
+
 <p align="center">
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
   <a href="https://bundlephobia.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40decs%2Ftypeschema" alt="Bundle size"></a>
-  <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM downloads"></a>
+  <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="npm downloads"></a>
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
-
+<p align="center">
+  <a href="#setup">Setup</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="#api">API</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="#coverage">Coverage</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://github.com/decs/typeschema">GitHub</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://www.npmjs.com/package/@decs/typeschema">npm</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://deno.land/x/typeschema">Deno</a>
+</p>
 <br />
 
 Many libraries rely on some sort of type validation. Their maintainers have the choice of either to:
@@ -135,6 +150,10 @@ Install TypeSchema with your package manager of choice:
   <tr>
     <th>pnpm</th>
     <td><code>pnpm add @decs/typeschema</code></td>
+  </tr>
+  <tr>
+    <th>Deno</th>
+    <td><a href="https://deno.land/x/typeschema">https://deno.land/x/typeschema</a></td>
   </tr>
 </table>
 
