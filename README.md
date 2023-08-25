@@ -1,5 +1,8 @@
-<p align="center"><img src="assets/logo.png" width="64px" alt="TypeSchema" /></p>
-<h1 align="center">TypeSchema</h1>
+<h1 align="center">
+  <img src="assets/logo.png" width="64px" alt="TypeSchema" />
+  <br />
+  TypeSchema
+</h1>
 <p align="center">
   ✨ <a href="https://typeschema.com">https://typeschema.com</a> ✨
   <br />
@@ -81,7 +84,7 @@ const appRouter = t.router({
 
 TypeSchema supports all major schema validation libraries:
 
-| Project                                            | Popularity                                                                                                                                                                            | `wrap` | `validate`</br>`assert` | `Infer` | `InferIn` | Example schema                 |
+| Project                                            | Popularity                                                                                                                                                                            | `wrap` | `validate`<br/>`assert` | `Infer` | `InferIn` | Example schema                 |
 |:---------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:------:|:-----------------------:|:-------:|:---------:|:------------------------------|
 | [zod](https://zod.dev)                             | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a>                         | ✅      | ✅                       | ✅       | ✅         | `z.string()`                   |
 | [yup](https://github.com/jquense/yup)              | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a>                               | ✅      | ✅                       | ✅       | ✅         | `string()`                     |
