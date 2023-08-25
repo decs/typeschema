@@ -1,15 +1,18 @@
-<div id="header">
-  <h1 align="center">🛵 TypeSchema</h1>
-  <p align="center">Universal adapter for schema validation</p>
-  <p align="center">
+<p align="center"><img src="assets/logo.png" width="64px" alt="TypeSchema" /></p>
+<h1 align="center">TypeSchema</h1>
+<p align="center">
+  ✨ <a href="https://typeschema.com">https://typeschema.com</a> ✨
+  <br />
+  Universal adapter for schema validation
+</p>
+<p align="center">
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
   <a href="https://bundlephobia.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40decs%2Ftypeschema" alt="Bundle size"></a>
   <a href="https://www.npmjs.com/package/@decs/typeschema" rel="nofollow"><img src="https://img.shields.io/npm/dw/@decs/typeschema.svg" alt="NPM downloads"></a>
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
-  </p>
+</p>
 
-  <br />
-</div>
+<br />
 
 Many libraries rely on some sort of type validation. Their maintainers have the choice of either to:
 
@@ -21,9 +24,9 @@ There's no best validation library because there's always a tradeoff. Each devel
 
 ## Features
 
-- 🚀 Decouple from validation libraries
+- 🚀 Decouple from schema validation libraries
 - 🍃 Tiny client footprint, tree-shakeable
-- ✨ Easy-to-use, minimal API
+- 🛋️ Easy-to-use, minimal API
 
 ## Usage
 
@@ -209,3 +212,4 @@ export default defineConfig({
 - Inspired by [tRPC](https://trpc.io/)'s [input & output validators](https://trpc.io/docs/server/validators)
 - Adapter architecture inspired by [@ecyrbe](https://github.com/ecyrbe)'s [suggestions](https://github.com/decs/typeschema/issues/1)
 - API definition inspired by [@colinhacks](https://github.com/colinhacks)'s [proposal](https://twitter.com/colinhacks/status/1634284724796661761)
+- Logo designed by [flaticon](https://www.flaticon.com/)
