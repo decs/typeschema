@@ -62,7 +62,7 @@ const schema: Schema = typia.createAssert<string>();
 type Output = Infer<typeof schema>; // `string`
 type Input = InferIn<typeof schema>; // `string`
 
-// Returns the validated data or a list of `ValidationIssue`s
+// Returns the wrapped schema with access to all its operations
 const wrapped = wrap(schema);
 await wrapped.validate('123'); // {data: '123'}
 await wrapped.assert('123'); // '123'
