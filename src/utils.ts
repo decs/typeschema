@@ -46,6 +46,7 @@ export function isJSONSchema(schema: Schema): schema is SchemaObject {
     !('kind' in schema) &&
     !('parse' in schema) &&
     !('_parse' in schema) &&
+    !('_id' in schema) &&
     !isTypeBoxSchema(schema)
   );
 }

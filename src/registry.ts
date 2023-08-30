@@ -3,6 +3,7 @@ import * as ajv from './adapters/ajv';
 import * as arktype from './adapters/arktype';
 import * as custom from './adapters/custom';
 import * as deepkit from './adapters/deepkit';
+import * as effect from './adapters/effect';
 import * as ioTs from './adapters/io-ts';
 import * as joi from './adapters/joi';
 import * as ow from './adapters/ow';
@@ -18,6 +19,7 @@ export type Registry = {
   arktype: arktype.ArkTypeResolver;
   custom: custom.CustomResolver;
   deepkit: deepkit.DeepkitResolver;
+  effect: effect.EffectResolver;
   'io-ts': ioTs.IoTsResolver;
   joi: joi.JoiResolver;
   ow: ow.OwResolver;
@@ -34,6 +36,7 @@ export const createValidate = /* @__PURE__ */ wrap([
   arktype.createValidate,
   custom.createValidate,
   deepkit.createValidate,
+  effect.createValidate,
   ioTs.createValidate,
   joi.createValidate,
   ow.createValidate,

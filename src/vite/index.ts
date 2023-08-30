@@ -5,6 +5,9 @@ import {mergeConfig} from 'vite';
 
 const optionalDependencies = [
   '@deepkit/type',
+  '@effect/data/Either',
+  '@effect/schema/Schema',
+  '@effect/schema/TreeFormatter',
   '@sinclair/typebox/compiler',
   'ajv',
   'fp-ts/Either',
