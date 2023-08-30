@@ -42,7 +42,11 @@ describe('effect', () => {
   test('validate', async () => {
     expect(await validate(schema, data)).toStrictEqual({data: outputData});
     expect(await validate(schema, badData)).toStrictEqual({
-      issues: [{message: 'Expected number, received string'}],
+      issues: [{message: 
+`error(s) found
+└─ [\"age\"]
+   └─ Expected number, actual \"123\"`
+      }],
     });
   });
 
