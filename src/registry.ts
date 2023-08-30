@@ -34,9 +34,9 @@ export type Registry = {
 export const createValidate = /* @__PURE__ */ wrap([
   ajv.createValidate,
   arktype.createValidate,
-  effect.createValidate,
   custom.createValidate,
   deepkit.createValidate,
+  effect.createValidate,
   ioTs.createValidate,
   joi.createValidate,
   ow.createValidate,
