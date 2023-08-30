@@ -53,10 +53,11 @@ There's no best validation library because there's always a tradeoff. Each devel
 import type {Infer, InferIn, Schema} from '@decs/typeschema';
 import {assert, validate, wrap} from '@decs/typeschema';
 
-// Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
+// Use your favorite validation library, e.g. `zod`, `arktype`, `typia`, `effect`
 const schema: Schema = z.string();
 const schema: Schema = type('string');
 const schema: Schema = typia.createAssert<string>();
+const schema: Schema = S.string
 
 // Extracts the schema type
 type Output = Infer<typeof schema>; // `string`
@@ -115,6 +116,7 @@ TypeSchema supports all major schema validation libraries:
 | [deepkit](https://deepkit.io)                      | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a>   | ✅      | ✅                       | ❌       | ❌         | `typeOf<string>()`             |
 | [runtypes](https://github.com/pelotom/runtypes)    | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a>                     | ✅      | ✅                       | ✅       | ✅         | `String`                       |
 | [arktype](https://arktype.io)                      | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a>                   | ✅      | ✅                       | ✅       | ✅         | `type('string')`               |
+| [effect](https://effect.website)                      | <a href="https://github.com/Effect-TS/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a>                   | ✅      | ✅                       | ✅       | ✅         | `S.string`               |
 
 [^1]: For [ow](https://sindresorhus.com/ow), only v0.28.2 is supported (sindresorhus/ow#248)
 
