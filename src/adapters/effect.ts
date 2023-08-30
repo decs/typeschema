@@ -1,13 +1,13 @@
 import type {Resolver} from '../resolver';
 import type {Coerce, CreateValidate} from '.';
-import { isSchema, type From, type Schema, type To } from '@effect/schema/Schema';
+import type * as Schema from '@effect/schema/Schema';
 
-import { memoize } from '../utils';
+import { isJSONSchema, isTypeBoxSchema, memoize } from '../utils';
 
 export interface EffectResolver extends Resolver {
-  base: Schema<this['type']>;
-  input: this['schema'] extends Schema<any> ? From<this['schema']> : never;
-  output: this['schema'] extends Schema<any> ? To<this['schema']> : never;
+  base: Schema.Schema<this['type']>;
+  input: this['schema'] extends Schema.Schema<any> ? Schema.From<this['schema']> : never;
+  output: this['schema'] extends Schema.Schema<any> ? Schema.To<this['schema']> : never;
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(
@@ -15,7 +15,7 @@ export const fetchModule = /* @__PURE__ */ memoize(
 );
 
 const coerce: Coerce<'effect'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema => {
-  return isSchema(schema)
+  return "_id" in schema && !isJSONSchema(schema) && !isTypeBoxSchema(schema)
     ? fn(schema)
     : undefined;
 }
