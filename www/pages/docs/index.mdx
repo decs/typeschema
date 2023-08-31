@@ -1,0 +1,38 @@
+import {Steps} from 'nextra/components';
+
+# Quickstart
+
+Many libraries rely on some sort of type validation. Their maintainers have the choice of either to:
+
+1. ⁠**Implement their own** validation logic: which leads to more code to maintain, and we already have many good solutions out there (e.g. [`zod`](https://zod.dev), [`arktype`](https://arktype.io), [`typia`](https://typia.io))
+1. **Couple their code** with a specific validation library: which limits adoption by developers who use another
+1. **Support multiple** validation libraries: which is a burden to keep up-to-date (e.g. [tRPC](https://trpc.io/))
+
+There's no best validation library because there's always a tradeoff. Each developer chooses the library that makes the most sense to them. TypeSchema solves this problem by easily providing option 3: **support multiple validation libraries out-of-the-box.**
+
+<Steps>
+
+### Install it
+
+```sh npm2yarn
+npm install @decs/typeschema
+```
+
+Plus some optional [setup steps](/docs/setup).
+
+### Use it
+
+```ts
+import {wrap} from '@decs/typeschema';
+import {z} from 'zod';
+
+// Use your favorite validation library, e.g. `zod`
+const wrapped = wrap(z.string());
+
+await wrapped.validate('123'); // {data: '123'}
+await wrapped.assert('123'); // '123'
+```
+
+And check other [use cases](/docs/usage).
+
+</Steps>

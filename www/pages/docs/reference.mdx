@@ -1,0 +1,57 @@
+# Reference
+
+## Functions
+
+#### `wrap`
+
+```ts
+function wrap<TSchema extends Schema>(
+  schema: TSchema,
+): TypeSchema<Infer<TSchema>, InferIn<TSchema>> { ... }
+```
+
+Returns the wrapped schema with access to all its operations.
+
+#### `validate`
+
+```ts
+function validate<TSchema extends Schema>(
+  schema: TSchema,
+  data: unknown,
+): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> { ... }
+```
+
+Returns the validated data or a list of `ValidationIssue`s.
+
+#### `assert`
+
+```ts
+function assert<TSchema extends Schema>(
+  schema: TSchema,
+  data: unknown,
+): Promise<Infer<TSchema>> { ... }
+```
+
+Returns the validated data or throws an `AggregateError`.
+
+## Types
+
+#### `Schema`
+
+Generic interface for schemas. An union of the schema types of all supported libraries.
+
+#### `TypeSchema`
+
+Interface for a wrapped schema, exposing all its operations.
+
+#### `Infer`
+
+Extracts the output type of a schema.
+
+#### `InferIn`
+
+Extracts the input type of a schema.
+
+#### `ValidationIssue`
+
+Generic interface for validation issues. Includes a `message` and an optional `path`.

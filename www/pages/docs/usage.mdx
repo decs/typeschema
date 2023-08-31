@@ -1,0 +1,48 @@
+# Usage
+
+```ts
+import type {Infer, InferIn, Schema} from '@decs/typeschema';
+import {assert, validate, wrap} from '@decs/typeschema';
+
+// Use your favorite validation library, e.g. `zod`, `arktype`, `typia`
+const schema: Schema = z.string();
+const schema: Schema = type('string');
+const schema: Schema = typia.createAssert<string>();
+
+// Extracts the schema type
+type Output = Infer<typeof schema>; // `string`
+type Input = InferIn<typeof schema>; // `string`
+
+// Returns the wrapped schema with access to all its operations
+const wrapped = wrap(schema);
+await wrapped.validate('123'); // {data: '123'}
+await wrapped.assert('123'); // '123'
+
+// Returns the validated data or a list of `ValidationIssue`s
+await validate(schema, '123'); // {data: '123'}
+await validate(schema, 123); // {issues: [`ValidationIssue`]}
+
+// Returns the validated data or throws an `AggregateError`
+await assert(schema, '123'); // '123'
+await assert(schema, 123); // throws `AggregateError`
+```
+
+### tRPC
+
+You can use any supported schema on [tRPC](https://trpc.io/) through the [`wrap`](/docs/reference#wrap) function:
+
+```ts
+import {wrap} from '@decs/typeschema';
+import {initTRPC} from '@trpc/server';
+import {object, string} from 'valibot';
+
+// Use your favorite validation library, e.g. `valibot`
+const schema = object({name: string()});
+
+const t = initTRPC.create();
+const appRouter = t.router({
+  hello: t.procedure
+    .input(wrap(schema)) // like this
+    .query(({input}) => `Hello, ${input.name}!`),
+});
+```

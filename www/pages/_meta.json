@@ -1,7 +1,23 @@
 {
   "index": {
-    "title": "Introduction",
+    "title": "Universal adapter for schema validation",
     "type": "page",
     "display": "hidden"
+  },
+  "docs": {
+    "title": "Documentation",
+    "type": "page"
+  },
+  "npm": {
+    "title": "npm",
+    "type": "page",
+    "href": "https://www.npmjs.com/package/@decs/typeschema",
+    "newWindow": true
+  },
+  "deno": {
+    "title": "Deno",
+    "type": "page",
+    "href": "https://deno.land/x/typeschema",
+    "newWindow": true
   }
 }

@@ -38,7 +38,7 @@ export default function Hero(): JSX.Element {
         <a
           className="inline-block mx-2 inline-grid appearance-none grid-flow-col items-center justify-center gap-1 rounded-md px-2 py-1.5 text-sm font-bold tracking-normal no-underline shadow-xl shadow-[#57686944] transition-all duration-300 hover:no-underline sm:gap-1.5 sm:px-4 sm:py-2 sm:text-base bg-[#3d4a44] text-white hover:bg-[#576869] lg:text-lg"
           rel=""
-          href="/docs/quickstart"
+          href="/docs"
         >
           Quickstart
           <svg
