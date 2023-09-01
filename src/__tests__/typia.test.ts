@@ -40,7 +40,10 @@ describe('typia', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data});
+    expect(await validate(schema, data)).toStrictEqual({
+      data,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
@@ -48,6 +51,7 @@ describe('typia', () => {
             'Error on typia.assert(): invalid type on $input.age, expect to be number',
         },
       ],
+      success: false,
     });
   });
 

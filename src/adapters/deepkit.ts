@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {Type} from '@deepkit/type';
 
@@ -19,14 +20,17 @@ const coerce: Coerce<'deepkit'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {validate} = await fetchModule();
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     const result = validate(data, schema);
     if (result.length === 0) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
+      return {
+        data,
+        success: true,
+      };
     }
     return {
       issues: result.map(({message, path}) => ({message, path: [path]})),
+      success: false,
     };
   };
 });

@@ -64,12 +64,12 @@ type Input = InferIn<typeof schema>; // `string`
 
 // Returns the wrapped schema with access to all its operations
 const wrapped = wrap(schema);
-await wrapped.validate('123'); // {data: '123'}
+await wrapped.validate('123'); // {success: true, data: '123'}
 await wrapped.assert('123'); // '123'
 
 // Returns the validated data or a list of `ValidationIssue`s
-await validate(schema, '123'); // {data: '123'}
-await validate(schema, 123); // {issues: [`ValidationIssue`]}
+await validate(schema, '123'); // {success: true, data: '123'}
+await validate(schema, 123); // {success: false, issues: [`ValidationIssue`]}
 
 // Returns the validated data or throws an `AggregateError`
 await assert(schema, '123'); // '123'
@@ -129,8 +129,8 @@ export function assertString(data: unknown): string {
   return data;
 }
 
-await validate(assertString, '123'); // {data: '123'}
-await validate(assertString, 123); // {issues: [`ValidationIssue`]}
+await validate(assertString, '123'); // {success: true, data: '123'}
+await validate(assertString, 123); // {success: false, issues: [`ValidationIssue`]}
 
 await assert(assertString, '123'); // '123'
 await assert(assertString, 123); // throws `AggregateError`
@@ -215,7 +215,7 @@ export default defineConfig({
   validate<TSchema extends Schema>(
     schema: TSchema,
     data: unknown,
-  ): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>
+  ): Promise<ValidationResult<Infer<TSchema>>>
   ```
 
   Returns the validated data or a list of `ValidationIssue`s

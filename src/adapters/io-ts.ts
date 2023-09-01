@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {Any, OutputOf, TypeOf} from 'io-ts';
 
@@ -21,16 +22,20 @@ const coerce: Coerce<'io-ts'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {isRight} = await fetchModule();
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     const result = schema.decode(data);
     if (isRight(result)) {
-      return {data: result.right};
+      return {
+        data: result.right,
+        success: true,
+      };
     }
     return {
       issues: result.left.map(({message, context}) => ({
         message: message ?? '',
         path: context.map(({key}) => key),
       })),
+      success: false,
     };
   };
 });

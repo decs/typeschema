@@ -44,7 +44,10 @@ describe('ow', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data});
+    expect(await validate(schema, data)).toStrictEqual({
+      data,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
@@ -52,6 +55,7 @@ describe('ow', () => {
             'Expected property `age` to be of type `number` but received type `string` in object',
         },
       ],
+      success: false,
     });
   });
 

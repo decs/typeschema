@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {InferType, Schema} from 'yup';
 
@@ -23,9 +24,12 @@ const coerce: Coerce<'yup'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {ValidationError} = await fetchModule();
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     try {
-      return {data: await schema.validate(data, {strict: true})};
+      return {
+        data: await schema.validate(data, {strict: true}),
+        success: true,
+      };
     } catch (error) {
       if (error instanceof ValidationError) {
         const {message, path} = error;
@@ -36,6 +40,7 @@ export const createValidate: CreateValidate = coerce(async schema => {
               path: path != null && path !== '' ? [path] : undefined,
             },
           ],
+          success: false,
         };
       }
       throw error;

@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +25,21 @@ const coerce: Coerce<'custom'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async (data: unknown) => {
-    try {
-      return {data: await schema(data)};
-    } catch (error) {
-      if (error instanceof Error) {
-        return {issues: [{message: error.message}]};
+  async schema =>
+    async (data: unknown): Promise<ValidationResult> => {
+      try {
+        return {
+          data: await schema(data),
+          success: true,
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          return {
+            issues: [{message: error.message}],
+            success: false,
+          };
+        }
+        throw error;
       }
-      throw error;
-    }
-  },
+    },
 );

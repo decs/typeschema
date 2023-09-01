@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {input, output, ZodSchema} from 'zod';
 
@@ -16,13 +17,18 @@ const coerce: Coerce<'zod'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async (data: unknown) => {
-    const result = await schema.safeParseAsync(data);
-    if (result.success) {
-      return {data: result.data};
-    }
-    return {
-      issues: result.error.issues.map(({message, path}) => ({message, path})),
-    };
-  },
+  async schema =>
+    async (data: unknown): Promise<ValidationResult> => {
+      const result = await schema.safeParseAsync(data);
+      if (result.success) {
+        return {
+          data: result.data,
+          success: true,
+        };
+      }
+      return {
+        issues: result.error.issues.map(({message, path}) => ({message, path})),
+        success: false,
+      };
+    },
 );

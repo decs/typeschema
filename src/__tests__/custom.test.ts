@@ -27,9 +27,13 @@ describe('custom', () => {
     });
 
     test('validate', async () => {
-      expect(await validate(schema, '123')).toStrictEqual({data: '123'});
+      expect(await validate(schema, '123')).toStrictEqual({
+        data: '123',
+        success: true,
+      });
       expect(await validate(schema, 123)).toStrictEqual({
         issues: [{message: 'Not a string'}],
+        success: false,
       });
     });
 
@@ -58,9 +62,13 @@ describe('custom', () => {
     });
 
     test('validate', async () => {
-      expect(await validate(schema, '123')).toStrictEqual({data: '123'});
+      expect(await validate(schema, '123')).toStrictEqual({
+        data: '123',
+        success: true,
+      });
       expect(await validate(schema, 123)).toStrictEqual({
         issues: [{message: 'Not a string'}],
+        success: false,
       });
     });
 

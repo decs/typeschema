@@ -52,9 +52,13 @@ describe('valibot', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data: outputData});
+    expect(await validate(schema, data)).toStrictEqual({
+      data: outputData,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [{message: 'Invalid type', path: ['age']}],
+      success: false,
     });
   });
 

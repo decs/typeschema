@@ -44,9 +44,13 @@ describe('deepkit', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data});
+    expect(await validate(schema, data)).toStrictEqual({
+      data,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [{message: 'Not a number', path: ['age']}],
+      success: false,
     });
   });
 

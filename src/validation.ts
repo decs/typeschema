@@ -8,10 +8,15 @@ export type ValidationIssue = {
   path?: Array<string | number | symbol>;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ValidationResult<TOutput = any> =
+  | {success: true; data: TOutput}
+  | {success: false; issues: Array<ValidationIssue>};
+
 export async function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
-): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> {
+): Promise<ValidationResult<Infer<TSchema>>> {
   const validateSchema = await createValidate(schema);
   return validateSchema(data);
 }
@@ -21,8 +26,8 @@ export async function assert<TSchema extends Schema>(
   data: unknown,
 ): Promise<Infer<TSchema>> {
   const result = await validate(schema, data);
-  if ('issues' in result) {
-    throw new AggregateError(result.issues, 'Assertion failed');
+  if (result.success) {
+    return result.data;
   }
-  return result.data;
+  throw new AggregateError(result.issues, 'Assertion failed');
 }

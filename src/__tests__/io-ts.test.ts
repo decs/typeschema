@@ -45,12 +45,16 @@ describe('io-ts', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data: outputData});
+    expect(await validate(schema, data)).toStrictEqual({
+      data: outputData,
+      success: true,
+    });
     expect(await validate(schema, outputData)).toStrictEqual({
       issues: [
         {message: '', path: ['', 'createdAt']},
         {message: '', path: ['', 'updatedAt']},
       ],
+      success: false,
     });
   });
 

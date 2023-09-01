@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {Type} from 'arktype';
 
@@ -16,17 +17,21 @@ const coerce: Coerce<'arktype'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
     : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async (data: unknown) => {
-    const result = schema(data);
-    if (result.problems == null) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: result.data as any};
-    }
-    return {
-      issues: Array.from(result.problems).map(({message, path}) => ({
-        message,
-        path,
-      })),
-    };
-  },
+  async schema =>
+    async (data: unknown): Promise<ValidationResult> => {
+      const result = schema(data);
+      if (result.problems == null) {
+        return {
+          data: result.data,
+          success: true,
+        };
+      }
+      return {
+        issues: Array.from(result.problems).map(({message, path}) => ({
+          message,
+          path,
+        })),
+        success: false,
+      };
+    },
 );

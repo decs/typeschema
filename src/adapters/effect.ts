@@ -1,16 +1,17 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
-import type * as S from '@effect/schema/Schema';
+import type {From, Schema, To} from '@effect/schema/Schema';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 
 export interface EffectResolver extends Resolver {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  base: S.Schema<any>;
+  base: Schema<any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  input: this['schema'] extends S.Schema<any> ? S.From<this['schema']> : never;
+  input: this['schema'] extends Schema<any> ? From<this['schema']> : never;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  output: this['schema'] extends S.Schema<any> ? S.To<this['schema']> : never;
+  output: this['schema'] extends Schema<any> ? To<this['schema']> : never;
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(
@@ -26,15 +27,19 @@ const coerce: Coerce<'effect'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema => {
 export const createValidate: CreateValidate = coerce(async schema => {
   const {parseEither, isRight, formatErrors} = await fetchModule();
   const parseSchema = parseEither(schema);
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     const result = parseSchema(data);
     if (isRight(result)) {
-      return {data: result.right};
+      return {
+        data: result.right,
+        success: true,
+      };
     }
     return {
       issues: result.left.errors.map(error => ({
         message: formatErrors([error]),
       })),
+      success: false,
     };
   };
 });

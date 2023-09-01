@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {Static, TSchema} from '@sinclair/typebox';
 
@@ -20,16 +21,19 @@ const coerce: Coerce<'typebox'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
 export const createValidate: CreateValidate = coerce(async schema => {
   const {TypeCompiler} = await fetchModule();
   const result = TypeCompiler.Compile(schema);
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     if (result.Check(data)) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
+      return {
+        data,
+        success: true,
+      };
     }
     return {
       issues: [...result.Errors(data)].map(({message, path}) => ({
         message,
         path: [path],
       })),
+      success: false,
     };
   };
 });

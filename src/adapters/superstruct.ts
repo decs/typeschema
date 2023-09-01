@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {Infer, Struct} from 'superstruct';
 
@@ -21,12 +22,19 @@ const coerce: Coerce<'superstruct'> =
       : undefined;
 
 export const createValidate: CreateValidate = coerce(
-  async schema => async (data: unknown) => {
-    const result = schema.validate(data, {coerce: true});
-    if (result[0] == null) {
-      return {data: result[1]};
-    }
-    const {message, path} = result[0];
-    return {issues: [{message, path}]};
-  },
+  async schema =>
+    async (data: unknown): Promise<ValidationResult> => {
+      const result = schema.validate(data, {coerce: true});
+      if (result[0] == null) {
+        return {
+          data: result[1],
+          success: true,
+        };
+      }
+      const {message, path} = result[0];
+      return {
+        issues: [{message, path}],
+        success: false,
+      };
+    },
 );

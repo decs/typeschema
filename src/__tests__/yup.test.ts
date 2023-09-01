@@ -44,7 +44,10 @@ describe('yup', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data});
+    expect(await validate(schema, data)).toStrictEqual({
+      data,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
@@ -53,6 +56,7 @@ describe('yup', () => {
           path: ['updatedAt'],
         },
       ],
+      success: false,
     });
   });
 

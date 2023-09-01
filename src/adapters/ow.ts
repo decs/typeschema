@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {Infer, Predicate} from 'ow';
 
@@ -22,17 +23,20 @@ const coerce: Coerce<'ow'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
 export const createValidate: CreateValidate = coerce(async schema => {
   const {ow, ArgumentError} = await fetchModule();
   const assertSchema = ow.create(schema);
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     try {
       assertSchema(data);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return {data: data as any};
+      return {
+        data,
+        success: true,
+      };
     } catch (error) {
       if (error instanceof ArgumentError) {
         return {
           issues: Array.from(error.validationErrors.values()).flatMap(
             messages => Array.from(messages).map(message => ({message})),
           ),
+          success: false,
         };
       }
       throw error;

@@ -1,4 +1,5 @@
 import type {Resolver} from '../resolver';
+import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
 import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
@@ -25,16 +26,20 @@ const coerce: Coerce<'valibot'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
 
 export const createValidate: CreateValidate = coerce(async schema => {
   const {safeParseAsync} = await fetchModule();
-  return async (data: unknown) => {
+  return async (data: unknown): Promise<ValidationResult> => {
     const result = await safeParseAsync(schema, data);
     if (result.success) {
-      return {data: result.output};
+      return {
+        data: result.output,
+        success: true,
+      };
     }
     return {
       issues: result.issues.map(({message, path}) => ({
         message,
         path: path?.map(({key}) => key),
       })),
+      success: false,
     };
   };
 });

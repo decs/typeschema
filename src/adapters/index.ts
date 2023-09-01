@@ -1,7 +1,7 @@
 import type {Infer} from '../inference';
 import type {Registry} from '../registry';
 import type {InferSchema, Schema} from '../resolver';
-import type {ValidationIssue} from '../validation';
+import type {ValidationResult} from '../validation';
 
 export type Coerce<TKey extends keyof Registry> = <
   TSchema extends Schema,
@@ -13,11 +13,7 @@ export type Coerce<TKey extends keyof Registry> = <
 export type CreateValidate = <TSchema extends Schema>(
   schema: TSchema,
 ) =>
-  | Promise<
-      (
-        data: unknown,
-      ) => Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}>
-    >
+  | Promise<(data: unknown) => Promise<ValidationResult<Infer<TSchema>>>>
   | undefined;
 
 export function wrap<TSchema extends Schema, TReturn>(

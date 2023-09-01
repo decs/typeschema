@@ -42,6 +42,7 @@ describe('arktype', () => {
   test('validate', async () => {
     expect(await validate(schema, structuredClone(data))).toEqual({
       data: outputData,
+      success: true,
     });
     expect(await validate(schema, structuredClone(outputData))).toStrictEqual({
       issues: [
@@ -58,6 +59,7 @@ describe('arktype', () => {
           path: ['updatedAt'],
         },
       ],
+      success: false,
     });
   });
 

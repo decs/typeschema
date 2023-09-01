@@ -40,9 +40,13 @@ describe('joi', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data});
+    expect(await validate(schema, data)).toStrictEqual({
+      data,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [{message: '"email" must be a valid email', path: ['email']}],
+      success: false,
     });
   });
 

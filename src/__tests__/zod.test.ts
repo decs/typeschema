@@ -48,9 +48,13 @@ describe('zod', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data: outputData});
+    expect(await validate(schema, data)).toStrictEqual({
+      data: outputData,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [{message: 'Expected number, received string', path: ['age']}],
+      success: false,
     });
   });
 

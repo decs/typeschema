@@ -40,7 +40,10 @@ describe('runtypes', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, data)).toStrictEqual({data});
+    expect(await validate(schema, data)).toStrictEqual({
+      data,
+      success: true,
+    });
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
@@ -51,6 +54,7 @@ describe('runtypes', () => {
 Object should match { age: number; createdAt: string; email: string; id: string; name: string; updatedAt: string; }`,
         },
       ],
+      success: false,
     });
   });
 
