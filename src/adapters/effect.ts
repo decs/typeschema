@@ -5,7 +5,8 @@ import type * as S from '@effect/schema/Schema';
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 
 export interface EffectResolver extends Resolver {
-  base: S.Schema<this['type']>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  base: S.Schema<any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   input: this['schema'] extends S.Schema<any> ? S.From<this['schema']> : never;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

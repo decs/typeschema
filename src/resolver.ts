@@ -2,12 +2,10 @@ import type {Registry} from './registry';
 import type {IfDefined} from './utils';
 
 export type Schema = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [K in keyof Registry]: IfDefined<InferSchema<Registry[K], any>>;
+  [K in keyof Registry]: IfDefined<InferSchema<Registry[K]>>;
 }[keyof Registry];
 
 export interface Resolver<TSchema = unknown> {
-  type: unknown;
   schema: TSchema;
   input: unknown;
   output: unknown;
@@ -22,6 +20,4 @@ export type InferOutput<TResolver extends Resolver, TSchema> = (TResolver & {
   schema: TSchema;
 })['output'];
 
-export type InferSchema<TResolver extends Resolver, T> = (TResolver & {
-  type: T;
-})['base'];
+export type InferSchema<TResolver extends Resolver> = TResolver['base'];

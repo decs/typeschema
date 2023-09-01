@@ -5,7 +5,7 @@ import type {Infer, Predicate} from 'ow';
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 
 export interface OwResolver extends Resolver {
-  base: Predicate<this['type']>;
+  base: Predicate;
   input: this['schema'] extends Predicate ? Infer<this['schema']> : never;
   output: this['schema'] extends Predicate ? Infer<this['schema']> : never;
 }

@@ -5,7 +5,7 @@ import type {InferType, Schema} from 'yup';
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 
 export interface YupResolver extends Resolver {
-  base: Schema<this['type']>;
+  base: Schema;
   input: this['schema'] extends Schema ? InferType<this['schema']> : never;
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
 }

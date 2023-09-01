@@ -5,7 +5,7 @@ import type {Runtype, Static} from 'runtypes';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 export interface RuntypesResolver extends Resolver {
-  base: Runtype<this['type']>;
+  base: Runtype;
   input: this['schema'] extends Runtype ? Static<this['schema']> : never;
   output: this['schema'] extends Runtype ? Static<this['schema']> : never;
 }
@@ -19,7 +19,8 @@ export const createValidate: CreateValidate = coerce(
   async schema => async (data: unknown) => {
     const result = schema.validate(data);
     if (result.success) {
-      return {data: result.value};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return {data: result.value as any};
     }
     return {issues: [{message: result.message}]};
   },

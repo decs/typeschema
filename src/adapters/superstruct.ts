@@ -5,7 +5,8 @@ import type {Infer, Struct} from 'superstruct';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 export interface SuperstructResolver extends Resolver {
-  base: Struct<this['type']>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  base: Struct<any, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   output: this['schema'] extends Struct<any, any>
     ? Infer<this['schema']>

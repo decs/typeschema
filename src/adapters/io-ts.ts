@@ -1,11 +1,11 @@
 import type {Resolver} from '../resolver';
 import type {Coerce, CreateValidate} from '.';
-import type {Any, OutputOf, Type, TypeOf} from 'io-ts';
+import type {Any, OutputOf, TypeOf} from 'io-ts';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 
 export interface IoTsResolver extends Resolver {
-  base: Type<this['type']>;
+  base: Any;
   input: this['schema'] extends Any ? OutputOf<this['schema']> : never;
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
 }

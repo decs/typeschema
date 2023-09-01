@@ -5,7 +5,7 @@ import type {Type} from 'arktype';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 export interface ArkTypeResolver extends Resolver {
-  base: Type<this['type']>;
+  base: Type;
   input: this['schema'] extends Type ? this['schema']['inferIn'] : never;
   output: this['schema'] extends Type ? this['schema']['infer'] : never;
 }

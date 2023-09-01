@@ -5,7 +5,7 @@ import type {input, output, ZodSchema} from 'zod';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 export interface ZodResolver extends Resolver {
-  base: ZodSchema<this['type']>;
+  base: ZodSchema;
   input: this['schema'] extends ZodSchema ? input<this['schema']> : never;
   output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
 }

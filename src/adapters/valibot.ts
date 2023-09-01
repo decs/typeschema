@@ -28,7 +28,7 @@ export const createValidate: CreateValidate = coerce(async schema => {
   return async (data: unknown) => {
     const result = await safeParseAsync(schema, data);
     if (result.success) {
-      return {data: result.data};
+      return {data: result.output};
     }
     return {
       issues: result.issues.map(({message, path}) => ({

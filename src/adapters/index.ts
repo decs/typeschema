@@ -7,7 +7,7 @@ export type Coerce<TKey extends keyof Registry> = <
   TSchema extends Schema,
   TReturn,
 >(
-  adapter: (schema: InferSchema<Registry[TKey], Infer<TSchema>>) => TReturn,
+  adapter: (schema: InferSchema<Registry[TKey]>) => TReturn,
 ) => (schema: TSchema) => TReturn | undefined;
 
 export type CreateValidate = <TSchema extends Schema>(

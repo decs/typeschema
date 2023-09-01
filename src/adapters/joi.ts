@@ -5,7 +5,7 @@ import type {AnySchema} from 'joi';
 import {isJSONSchema, isTypeBoxSchema} from '../utils';
 
 export interface JoiResolver extends Resolver {
-  base: AnySchema<this['type']>;
+  base: AnySchema;
 }
 
 const coerce: Coerce<'joi'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>

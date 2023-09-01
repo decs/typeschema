@@ -1,10 +1,11 @@
 import type {Resolver} from '../resolver';
 import type {Coerce, CreateValidate} from '.';
 
-type CustomSchema<T = unknown> = (data: unknown) => Promise<T> | T;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CustomSchema<T = any> = (data: unknown) => Promise<T> | T;
 
 export interface CustomResolver extends Resolver {
-  base: CustomSchema<this['type']>;
+  base: CustomSchema;
   input: this['schema'] extends CustomSchema
     ? keyof this['schema'] extends never
       ? Awaited<ReturnType<this['schema']>>
