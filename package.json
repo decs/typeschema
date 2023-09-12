@@ -18,11 +18,11 @@
     "io-ts",
     "ow",
     "typia",
-    "typebox",
     "valibot",
+    "typebox",
     "deepkit",
-    "runtypes",
     "effect",
+    "runtypes",
     "arktype"
   ],
   "homepage": "https://typeschema.com",
