@@ -1,7 +1,7 @@
 import type {Resolver} from '../resolver';
 import type {ValidationResult} from '../validation';
 import type {Coerce, CreateValidate} from '.';
-import type {From, Schema, To} from '@effect/schema/Schema';
+import type {Schema} from '@effect/schema/Schema';
 
 import {isJSONSchema, isTypeBoxSchema, memoize} from '../utils';
 
@@ -9,9 +9,13 @@ export interface EffectResolver extends Resolver {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   base: Schema<any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  input: this['schema'] extends Schema<any> ? From<this['schema']> : never;
+  input: this['schema'] extends Schema<any>
+    ? Schema.From<this['schema']>
+    : never;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  output: this['schema'] extends Schema<any> ? To<this['schema']> : never;
+  output: this['schema'] extends Schema<any>
+    ? Schema.To<this['schema']>
+    : never;
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(
@@ -19,7 +23,7 @@ export const fetchModule = /* @__PURE__ */ memoize(
 );
 
 const coerce: Coerce<'effect'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema => {
-  return '_id' in schema && !isJSONSchema(schema) && !isTypeBoxSchema(schema)
+  return 'ast' in schema && !isJSONSchema(schema) && !isTypeBoxSchema(schema)
     ? fn(schema)
     : undefined;
 };
