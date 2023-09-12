@@ -6,9 +6,8 @@ export default function Hero(): JSX.Element {
         <span className="whitespace-nowrap">for schema validation.</span>
       </h1>
       <p className="mx-auto max-w-lg text-sm md:text-md lg:text-lg font-medium text-[#748a8b]">
-        Experience the flexibility of writing{' '}
-        <span className="text-[#3178c6]">TypeScript</span> code that works with
-        any runtime type check library.
+        Write library agnostic{' '}
+        <span className="text-[#3178c6]">TypeScript</span> code out of the box.
       </p>
       <div className="mx-auto w-fit flex flex-row mt-6">
         <a

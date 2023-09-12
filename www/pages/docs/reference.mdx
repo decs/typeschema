@@ -18,7 +18,7 @@ Returns the wrapped schema with access to all its operations.
 function validate<TSchema extends Schema>(
   schema: TSchema,
   data: unknown,
-): Promise<{data: Infer<TSchema>} | {issues: Array<ValidationIssue>}> { ... }
+): Promise<ValidationResult<Infer<TSchema>>> { ... }
 ```
 
 Returns the validated data or a list of `ValidationIssue`s.

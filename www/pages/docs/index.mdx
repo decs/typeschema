@@ -29,7 +29,7 @@ import {z} from 'zod';
 // Use your favorite validation library, e.g. `zod`
 const wrapped = wrap(z.string());
 
-await wrapped.validate('123'); // {data: '123'}
+await wrapped.validate('123'); // {success: true, data: '123'}
 await wrapped.assert('123'); // '123'
 ```
 
