@@ -65,11 +65,13 @@ Object should match { age: number; createdAt: string; email: string; id: string;
 
   test('wrap', async () => {
     const tRPC = initTRPC.create();
-    tRPC.router({
+    const router = tRPC.router({
       hello: tRPC.procedure.input(wrap(schema)).query(({input}) => {
         expectTypeOf<typeof input>().toEqualTypeOf(data);
         return input;
       }),
     });
+    const caller = router.createCaller({});
+    expect(await caller.hello(data)).toStrictEqual(data);
   });
 });

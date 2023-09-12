@@ -65,12 +65,14 @@ describe('io-ts', () => {
 
   test('wrap', async () => {
     const tRPC = initTRPC.create();
-    tRPC.router({
+    const router = tRPC.router({
       hello: tRPC.procedure.input(wrap(schema)).query(({input}) => {
         expectTypeOf<typeof input>().toEqualTypeOf(outputData);
         return input;
       }),
     });
+    const caller = router.createCaller({});
+    expect(await caller.hello(data)).toStrictEqual(outputData);
   });
 
   test('peer dependency', async () => {
