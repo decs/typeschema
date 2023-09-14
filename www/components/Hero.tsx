@@ -20,11 +20,11 @@ export default function Hero(): JSX.Element {
     <div className="text-center my-12">
       <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold mb-3 text-[#3d4a44]">
         Universal adapter{' '}
-        <span className="whitespace-nowrap">for schema validation.</span>
+        <span className="whitespace-nowrap">for schema validation</span>
       </h1>
       <p className="mx-auto max-w-lg text-sm md:text-md lg:text-lg font-medium text-[#748a8b]">
         Write library agnostic{' '}
-        <span className="text-[#3178c6]">TypeScript</span> code out of the box.
+        <span className="text-[#3178c6]">TypeScript</span> code out of the box
       </p>
       <div className="mx-auto w-fit flex flex-row mt-6">
         <a
