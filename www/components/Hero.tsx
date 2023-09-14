@@ -1,13 +1,30 @@
+import {clsx} from 'clsx';
+import {useEffect, useState} from 'react';
+
 export default function Hero(): JSX.Element {
+  const [stars, setStars] = useState<string>();
+
+  const fetchStars = async () => {
+    const res = await fetch('https://api.github.com/repos/decs/typeschema');
+    const data = (await res.json()) as {stargazers_count: number};
+    if (typeof data?.stargazers_count === 'number') {
+      setStars(new Intl.NumberFormat().format(data.stargazers_count));
+    }
+  };
+
+  useEffect(() => {
+    fetchStars().catch(console.error);
+  }, []);
+
   return (
     <div className="text-center my-12">
       <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold mb-3 text-[#3d4a44]">
         Universal adapter{' '}
-        <span className="whitespace-nowrap">for schema validation.</span>
+        <span className="whitespace-nowrap">for schema validation</span>
       </h1>
       <p className="mx-auto max-w-lg text-sm md:text-md lg:text-lg font-medium text-[#748a8b]">
         Write library agnostic{' '}
-        <span className="text-[#3178c6]">TypeScript</span> code out of the box.
+        <span className="text-[#3178c6]">TypeScript</span> code out of the box
       </p>
       <div className="mx-auto w-fit flex flex-row mt-6">
         <a
@@ -30,8 +47,14 @@ export default function Hero(): JSX.Element {
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
           </svg>
           Star
-          <span className="w-full overflow-hidden whitespace-nowrap max-w-[100px] opacity-100">
-            142
+          <span
+            style={{ transition: 'max-width 1s, opacity 1s' }}
+            className={clsx(
+              'w-full overflow-hidden whitespace-nowrap',
+              stars ? 'max-w-[100px] opacity-100' : 'max-w-0 opacity-0',
+            )}
+          >
+            {stars}
           </span>
         </a>
         <a
