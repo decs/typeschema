@@ -111,7 +111,6 @@
     "typescript": "^5.2.2",
     "typia": "^5.0.5",
     "valibot": "^0.17.0",
-    "vite": "^4.4.9",
     "webpack": "^5.88.2",
     "yup": "^1.2.0",
     "zod": "^3.22.2"
@@ -130,7 +129,6 @@
     "runtypes": "^6.7.0",
     "superstruct": "^1.0.3",
     "valibot": "^0.17.0",
-    "vite": "^4.4.9",
     "yup": "^1.2.0",
     "zod": "^3.22.2"
   },
@@ -172,9 +170,6 @@
       "optional": true
     },
     "valibot": {
-      "optional": true
-    },
-    "vite": {
       "optional": true
     },
     "yup": {

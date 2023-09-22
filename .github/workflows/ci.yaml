@@ -62,14 +62,6 @@ jobs:
 
             validate(z.string(), 'hello').then(console.log);
           " > src/main.ts
-          echo "
-            import {defineConfig} from 'vite';
-            import {typeschemaPlugin} from '@decs/typeschema/vite';
-
-            export default defineConfig({
-              plugins: [typeschemaPlugin()],
-            });
-          " > vite.config.ts
       - name: Bundle project
         working-directory: ./sample
         run: yarn build
