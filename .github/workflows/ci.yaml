@@ -27,6 +27,8 @@ jobs:
         run: yarn build
       - name: Create package
         run: yarn pack
+      - name: Lint package
+        run: yarn lint:package
       - name: Upload package
         uses: actions/upload-artifact@v3
         with:
