@@ -18,9 +18,15 @@ export interface EffectResolver extends Resolver {
     : never;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/effect'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const {isRight} =
+    require('@effect/data/Either') as typeof import('@effect/data/Either');
+  const {isSchema, parseEither} =
+    require('@effect/schema/Schema') as typeof import('@effect/schema/Schema');
+  const {formatErrors} =
+    require('@effect/schema/TreeFormatter') as typeof import('@effect/schema/TreeFormatter');
+  return {formatErrors, isRight, isSchema, parseEither};
+});
 
 const coerce: Coerce<'effect'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema => {
   return 'ast' in schema && !isJSONSchema(schema) && !isTypeBoxSchema(schema)

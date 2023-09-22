@@ -32,8 +32,7 @@
     "email": "andrefonsecacosta@gmail.com"
   },
   "files": [
-    "/dist",
-    "/vite"
+    "/dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -48,10 +47,6 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    },
-    "./vite": {
-      "types": "./vite/index.d.ts",
-      "default": "./vite/index.js"
     }
   },
   "sideEffects": false,
