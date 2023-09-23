@@ -9,10 +9,9 @@ export interface AjvResolver extends Resolver {
   base: SchemaObject;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const Ajv = require('ajv').default as typeof import('ajv').default;
-  return {ajv: new Ajv()};
-});
+export const fetchModule = /* @__PURE__ */ memoize(
+  () => import('./modules/ajv'),
+);
 
 const coerce: Coerce<'ajv'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   isJSONSchema(schema) ? fn(schema) : undefined;

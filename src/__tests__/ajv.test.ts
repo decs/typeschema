@@ -21,7 +21,7 @@ describe('ajv', () => {
     required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
     type: 'object',
   };
-  const module = 'ajv';
+  const module = '../adapters/modules/ajv';
 
   const data = {
     age: 123,

@@ -11,10 +11,9 @@ export interface YupResolver extends Resolver {
   output: this['schema'] extends Schema ? InferType<this['schema']> : never;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {ValidationError} = require('yup') as typeof import('yup');
-  return {ValidationError};
-});
+export const fetchModule = /* @__PURE__ */ memoize(
+  () => import('./modules/yup'),
+);
 
 const coerce: Coerce<'yup'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   '__isYupSchema__' in schema &&

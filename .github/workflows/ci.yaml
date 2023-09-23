@@ -62,26 +62,31 @@ jobs:
 
             validate(z.string(), 'hello').then(console.log);
           " > src/main.ts
+          echo "
+            import {defineConfig} from 'vite';
+            import {typeschemaPlugin} from '@decs/typeschema/vite';
+
+            export default defineConfig({
+              plugins: [typeschemaPlugin()],
+            });
+          " > vite.config.ts
       - name: Bundle project
         working-directory: ./sample
         run: yarn build
 
   check_for_version_upgrade:
     name: Check for version upgrade
-    if: |
-      github.event_name == 'push' || 
-      github.event.pull_request.head.repo.owner.login == github.event.pull_request.base.repo.owner.login
     runs-on: ubuntu-latest
     needs:
       - bundle_with_vite
     outputs:
-      from_version: ${{steps.check.outputs.from_version}}
-      to_version: ${{steps.check.outputs.to_version}}
-      is_upgraded_version: ${{steps.check.outputs.is_upgraded_version}}
-      is_pre_release: ${{steps.check.outputs.is_pre_release}}
+      from_version: ${{steps.step1.outputs.from_version}}
+      to_version: ${{steps.step1.outputs.to_version}}
+      is_upgraded_version: ${{steps.step1.outputs.is_upgraded_version}}
+      is_pre_release: ${{steps.step1.outputs.is_pre_release}}
     steps:
       - uses: garronej/ts-ci@v2.1.0
-        id: check
+        id: step1
         with:
           action_name: is_package_json_version_upgraded
           branch: ${{github.head_ref || github.ref}}
@@ -92,11 +97,7 @@ jobs:
     needs:
       - check_for_version_upgrade
     if: |
-      needs.check_for_version_upgrade.outputs.is_upgraded_version == 'true' &&
-      (
-        github.event_name == 'push' ||
-        needs.check_for_version_upgrade.outputs.is_pre_release == 'true'
-      )
+      needs.check_for_version_upgrade.outputs.is_upgraded_version == 'true'
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -145,11 +146,7 @@ jobs:
     needs:
       - check_for_version_upgrade
     if: |
-      needs.check_for_version_upgrade.outputs.is_upgraded_version == 'true' &&
-      (
-        github.event_name == 'push' ||
-        needs.check_for_version_upgrade.outputs.is_pre_release == 'true'
-      )
+      needs.check_for_version_upgrade.outputs.is_upgraded_version == 'true'
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4

@@ -13,3 +13,17 @@ If using [Deno](https://deno.com/), just replace the import module with `https:/
 ```ts
 import {wrap} from 'https://deno.land/x/typeschema';
 ```
+
+### Vite
+
+If using [Vite](https://vitejs.dev/), you'll need to update your `vite.config.ts` file:
+
+```ts filename="vite.config.ts"
+import {typeschemaPlugin} from '@decs/typeschema/vite';
+
+export default defineConfig({
+  plugins: [
+    typeschemaPlugin(), // add this plugin
+  ],
+});
+```

@@ -3,6 +3,7 @@ node_modules
 .next
 
 dist/
+vite/
 deno_dist/
 
 yarn-debug.log*
