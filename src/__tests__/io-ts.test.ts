@@ -18,7 +18,7 @@ describe('io-ts', () => {
     name: t.string,
     updatedAt: DateFromISOString,
   });
-  const module = '../adapters/modules/io-ts';
+  const module = 'fp-ts/Either';
 
   const data = {
     age: 123,

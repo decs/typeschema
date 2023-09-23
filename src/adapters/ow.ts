@@ -11,9 +11,11 @@ export interface OwResolver extends Resolver {
   output: this['schema'] extends Predicate ? Infer<this['schema']> : never;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/ow'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const ow = require('ow').default as typeof import('ow').default;
+  const {ArgumentError} = require('ow') as typeof import('ow');
+  return {ArgumentError, ow};
+});
 
 const coerce: Coerce<'ow'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   'context' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

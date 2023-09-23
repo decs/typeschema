@@ -159,20 +159,6 @@ Install TypeSchema with your package manager of choice:
   </tr>
 </table>
 
-#### Vite
-
-If using [Vite](https://vitejs.dev/), you'll also need to update your `vite.config.ts` file:
-
-```ts
-import {typeschemaPlugin} from '@decs/typeschema/vite';
-
-export default defineConfig({
-  plugins: [
-    typeschemaPlugin(), // add this plugin
-  ],
-});
-```
-
 ## API
 
 #### Types

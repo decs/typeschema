@@ -15,9 +15,10 @@ export interface ValibotResolver extends Resolver {
     : never;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/valibot'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const {safeParseAsync} = require('valibot') as typeof import('valibot');
+  return {safeParseAsync};
+});
 
 const coerce: Coerce<'valibot'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   'async' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)
