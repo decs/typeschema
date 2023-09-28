@@ -11,9 +11,10 @@ export interface IoTsResolver extends Resolver {
   output: this['schema'] extends Any ? TypeOf<this['schema']> : never;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/io-ts'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const {isRight} = await import('fp-ts/Either');
+  return {isRight};
+});
 
 const coerce: Coerce<'io-ts'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   'encode' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

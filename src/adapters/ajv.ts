@@ -9,15 +9,16 @@ export interface AjvResolver extends Resolver {
   base: SchemaObject;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/ajv'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const {default: Ajv} = await import('ajv');
+  return new Ajv();
+});
 
 const coerce: Coerce<'ajv'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   isJSONSchema(schema) ? fn(schema) : undefined;
 
 export const createValidate: CreateValidate = coerce(async schema => {
-  const {ajv} = await fetchModule();
+  const ajv = await fetchModule();
   const validateSchema = ajv.compile(schema);
   return async (data: unknown): Promise<ValidationResult> => {
     if (validateSchema(data)) {

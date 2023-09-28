@@ -17,7 +17,7 @@ describe('ow', () => {
     name: ow.string,
     updatedAt: ow.string,
   });
-  const module = '../adapters/modules/ow';
+  const module = 'ow';
 
   const data = {
     age: 123,

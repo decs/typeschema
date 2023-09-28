@@ -11,9 +11,10 @@ export interface TypeBoxResolver extends Resolver {
   output: this['schema'] extends TSchema ? Static<this['schema']> : never;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/typebox'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const {TypeCompiler} = await import('@sinclair/typebox/compiler');
+  return {TypeCompiler};
+});
 
 const coerce: Coerce<'typebox'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   isTypeBoxSchema(schema) ? fn(schema) : undefined;

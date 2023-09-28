@@ -17,7 +17,7 @@ describe('yup', () => {
     name: string().required(),
     updatedAt: date().required(),
   });
-  const module = '../adapters/modules/yup';
+  const module = 'yup';
 
   const data = {
     age: 123,

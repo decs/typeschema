@@ -9,9 +9,10 @@ export interface DeepkitResolver extends Resolver {
   base: Type;
 }
 
-export const fetchModule = /* @__PURE__ */ memoize(
-  () => import('./modules/deepkit'),
-);
+export const fetchModule = /* @__PURE__ */ memoize(async () => {
+  const {validate} = await import('@deepkit/type');
+  return {validate};
+});
 
 const coerce: Coerce<'deepkit'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
   'kind' in schema && !isTypeBoxSchema(schema) && !isJSONSchema(schema)

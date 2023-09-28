@@ -17,7 +17,7 @@ describe('valibot', () => {
     name: string(),
     updatedAt: transform(string(), value => new Date(value)),
   });
-  const module = '../adapters/modules/valibot';
+  const module = 'valibot';
 
   const data = {
     age: 123,

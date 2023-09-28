@@ -19,7 +19,7 @@ describe('effect', () => {
     name: S.string,
     updatedAt: S.dateFromString(S.string),
   });
-  const module = '../adapters/modules/effect';
+  const module = '@effect/schema/Schema';
 
   const data = readonly({
     age: 123,
