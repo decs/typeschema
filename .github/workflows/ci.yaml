@@ -48,7 +48,7 @@ jobs:
         run: yarn create vite sample --template vanilla-ts
       - name: Install dependencies
         working-directory: ./sample
-        run: yarn install --frozen-lockfile
+        run: yarn install
       - name: Upgrade Vite
         working-directory: ./sample
         run: yarn upgrade vite@^5.0.0-beta.4
