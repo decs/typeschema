@@ -46,6 +46,12 @@ jobs:
           node-version: 18
       - name: Create a Vite project
         run: yarn create vite sample --template vanilla-ts
+      - name: Install dependencies
+        working-directory: ./sample
+        run: yarn install --frozen-lockfile
+      - name: Upgrade Vite
+        working-directory: ./sample
+        run: yarn upgrade vite@^5.0.0-beta.4
       - name: Download package
         uses: actions/download-artifact@v3
         with:
