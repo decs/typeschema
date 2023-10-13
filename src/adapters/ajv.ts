@@ -10,7 +10,7 @@ export interface AjvResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {default: Ajv} = await import('ajv');
+  const {default: Ajv} = await import(/* webpackIgnore: true */ 'ajv');
   return new Ajv();
 });
 

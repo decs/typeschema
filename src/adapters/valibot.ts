@@ -16,7 +16,7 @@ export interface ValibotResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {safeParseAsync} = await import('valibot');
+  const {safeParseAsync} = await import(/* webpackIgnore: true */ 'valibot');
   return {safeParseAsync};
 });
 

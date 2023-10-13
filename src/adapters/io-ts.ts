@@ -12,7 +12,7 @@ export interface IoTsResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {isRight} = await import('fp-ts/Either');
+  const {isRight} = await import(/* webpackIgnore: true */ 'fp-ts/Either');
   return {isRight};
 });
 

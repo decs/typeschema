@@ -12,7 +12,9 @@ export interface TypeBoxResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {TypeCompiler} = await import('@sinclair/typebox/compiler');
+  const {TypeCompiler} = await import(
+    /* webpackIgnore: true */ '@sinclair/typebox/compiler'
+  );
   return {TypeCompiler};
 });
 

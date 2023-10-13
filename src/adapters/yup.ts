@@ -12,7 +12,7 @@ export interface YupResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {ValidationError} = await import('yup');
+  const {ValidationError} = await import(/* webpackIgnore: true */ 'yup');
   return {ValidationError};
 });
 

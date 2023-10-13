@@ -12,7 +12,9 @@ export interface OwResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {default: ow, ArgumentError} = await import('ow');
+  const {default: ow, ArgumentError} = await import(
+    /* webpackIgnore: true */ 'ow'
+  );
   return {ArgumentError, ow};
 });
 
