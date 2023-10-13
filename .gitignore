@@ -1,9 +1,2 @@
-.DS_Store
-node_modules
-.next
 
-dist/
-deno_dist/
-
-yarn-debug.log*
-yarn-error.log*
+/node_modules
