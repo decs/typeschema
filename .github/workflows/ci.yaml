@@ -92,7 +92,7 @@ jobs:
             import {z} from 'zod';
 
             export default function Page() {
-              validate(z.string(), "hello").then(console.log);
+              validate(z.string(), 'hello').then(console.log);
             }
           " > src/app/page.tsx
       - name: Bundle project
