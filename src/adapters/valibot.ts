@@ -42,7 +42,9 @@ export const createValidate: CreateValidate = coerce(async schema => {
     return {
       issues: result.issues.map(({message, path}) => ({
         message,
-        path: path?.map(({key}) => key),
+        path: path?.map(({type, key}) =>
+          type === 'map' || type === 'unknown' ? String(key) : key,
+        ),
       })),
       success: false,
     };

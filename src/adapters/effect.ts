@@ -9,27 +9,25 @@ export interface EffectResolver extends Resolver {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   base: Schema<any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  input: this['schema'] extends Schema<any>
+  input: this['schema'] extends Schema<any, any>
     ? Schema.From<this['schema']>
     : never;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  output: this['schema'] extends Schema<any>
+  output: this['schema'] extends Schema<any, any>
     ? Schema.To<this['schema']>
     : never;
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
   try {
-    const {isRight} = await import(
-      /* webpackIgnore: true */ '@effect/data/Either'
-    );
+    const {isRight} = await import(/* webpackIgnore: true */ 'effect/Either');
     const {isSchema, parseEither} = await import(
       /* webpackIgnore: true */ '@effect/schema/Schema'
     );
-    const {formatErrors} = await import(
+    const {formatError} = await import(
       /* webpackIgnore: true */ '@effect/schema/TreeFormatter'
     );
-    return {formatErrors, isRight, isSchema, parseEither};
+    return {formatError, isRight, isSchema, parseEither};
   } catch (error) {
     throw error;
   }
@@ -42,7 +40,7 @@ const coerce: Coerce<'effect'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema => {
 };
 
 export const createValidate: CreateValidate = coerce(async schema => {
-  const {parseEither, isRight, formatErrors} = await fetchModule();
+  const {parseEither, isRight, formatError} = await fetchModule();
   const parseSchema = parseEither(schema);
   return async (data: unknown): Promise<ValidationResult> => {
     const result = parseSchema(data);
@@ -53,9 +51,7 @@ export const createValidate: CreateValidate = coerce(async schema => {
       };
     }
     return {
-      issues: result.left.errors.map(error => ({
-        message: formatErrors([error]),
-      })),
+      issues: [{message: formatError(result.left)}],
       success: false,
     };
   };

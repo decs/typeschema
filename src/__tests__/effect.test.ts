@@ -13,11 +13,11 @@ const readonly = <A extends Record<string, unknown>>(a: A): Readonly<A> => a;
 describe('effect', () => {
   const schema = S.struct({
     age: S.number,
-    createdAt: S.dateFromString(S.string),
+    createdAt: S.DateFromString,
     email: S.string,
     id: S.string,
     name: S.string,
-    updatedAt: S.dateFromString(S.string),
+    updatedAt: S.DateFromString,
   });
   const module = '@effect/schema/Schema';
 
@@ -61,9 +61,9 @@ describe('effect', () => {
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
-          message: `error(s) found
+          message: `{ age: number; email: string; id: string; name: string; createdAt: DateFromString; updatedAt: DateFromString }
 └─ [\"age\"]
-   └─ Expected number, actual \"123\"`,
+   └─ Expected a number, actual \"123\"`,
         },
       ],
       success: false,
