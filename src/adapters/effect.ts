@@ -19,16 +19,20 @@ export interface EffectResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {isRight} = await import(
-    /* webpackIgnore: true */ '@effect/data/Either'
-  );
-  const {isSchema, parseEither} = await import(
-    /* webpackIgnore: true */ '@effect/schema/Schema'
-  );
-  const {formatErrors} = await import(
-    /* webpackIgnore: true */ '@effect/schema/TreeFormatter'
-  );
-  return {formatErrors, isRight, isSchema, parseEither};
+  try {
+    const {isRight} = await import(
+      /* webpackIgnore: true */ '@effect/data/Either'
+    );
+    const {isSchema, parseEither} = await import(
+      /* webpackIgnore: true */ '@effect/schema/Schema'
+    );
+    const {formatErrors} = await import(
+      /* webpackIgnore: true */ '@effect/schema/TreeFormatter'
+    );
+    return {formatErrors, isRight, isSchema, parseEither};
+  } catch (error) {
+    throw error;
+  }
 });
 
 const coerce: Coerce<'effect'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema => {

@@ -16,8 +16,12 @@ export interface ValibotResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {safeParseAsync} = await import(/* webpackIgnore: true */ 'valibot');
-  return {safeParseAsync};
+  try {
+    const {safeParseAsync} = await import(/* webpackIgnore: true */ 'valibot');
+    return {safeParseAsync};
+  } catch (error) {
+    throw error;
+  }
 });
 
 const coerce: Coerce<'valibot'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>

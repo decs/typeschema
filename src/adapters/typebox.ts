@@ -12,10 +12,14 @@ export interface TypeBoxResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {TypeCompiler} = await import(
-    /* webpackIgnore: true */ '@sinclair/typebox/compiler'
-  );
-  return {TypeCompiler};
+  try {
+    const {TypeCompiler} = await import(
+      /* webpackIgnore: true */ '@sinclair/typebox/compiler'
+    );
+    return {TypeCompiler};
+  } catch (error) {
+    throw error;
+  }
 });
 
 const coerce: Coerce<'typebox'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>

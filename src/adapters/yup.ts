@@ -12,8 +12,12 @@ export interface YupResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {ValidationError} = await import(/* webpackIgnore: true */ 'yup');
-  return {ValidationError};
+  try {
+    const {ValidationError} = await import(/* webpackIgnore: true */ 'yup');
+    return {ValidationError};
+  } catch (error) {
+    throw error;
+  }
 });
 
 const coerce: Coerce<'yup'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>

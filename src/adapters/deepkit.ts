@@ -10,8 +10,12 @@ export interface DeepkitResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {validate} = await import(/* webpackIgnore: true */ '@deepkit/type');
-  return {validate};
+  try {
+    const {validate} = await import(/* webpackIgnore: true */ '@deepkit/type');
+    return {validate};
+  } catch (error) {
+    throw error;
+  }
 });
 
 const coerce: Coerce<'deepkit'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>

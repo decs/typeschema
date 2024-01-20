@@ -10,8 +10,12 @@ export interface AjvResolver extends Resolver {
 }
 
 export const fetchModule = /* @__PURE__ */ memoize(async () => {
-  const {default: Ajv} = await import(/* webpackIgnore: true */ 'ajv');
-  return new Ajv();
+  try {
+    const {default: Ajv} = await import(/* webpackIgnore: true */ 'ajv');
+    return new Ajv();
+  } catch (error) {
+    throw error;
+  }
 });
 
 const coerce: Coerce<'ajv'> = /* @__NO_SIDE_EFFECTS__ */ fn => schema =>
