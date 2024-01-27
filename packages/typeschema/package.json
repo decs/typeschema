@@ -1,0 +1,189 @@
+{
+  "name": "@decs/typeschema",
+  "version": "0.12.2",
+  "description": "Universal adapter for schema validation",
+  "keywords": [
+    "typescript",
+    "type",
+    "schema",
+    "adapter",
+    "validation",
+    "inference",
+    "assert",
+    "zod",
+    "yup",
+    "joi",
+    "ajv",
+    "superstruct",
+    "io-ts",
+    "valibot",
+    "typebox",
+    "typia",
+    "ow",
+    "effect",
+    "arktype",
+    "deepkit",
+    "runtypes"
+  ],
+  "homepage": "https://typeschema.com",
+  "license": "MIT",
+  "author": {
+    "name": "André Costa",
+    "email": "andrefonsecacosta@gmail.com"
+  },
+  "files": [
+    "/dist",
+    "/assets"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decs/typeschema.git"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint src --fix",
+    "lint:package": "publint && attw --pack",
+    "format": "prettier --write src",
+    "test": "jest src",
+    "upgrade:deps": "ncu -u --dep=dev,peer --reject ow",
+    "benchmark": "for i in src/__tests__/benchmarks/*.ts ; do ts-node --project tsconfig.test.json \"$i\" ; done",
+    "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
+    "postpack": "rm README.md && rm -r assets"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.13.5",
+    "@deepkit/core": "^1.0.1-alpha.113",
+    "@deepkit/type": "^1.0.1-alpha.113",
+    "@deepkit/type-compiler": "^1.0.1-alpha.112",
+    "@effect/schema": "^0.60.6",
+    "@jest/globals": "^29.7.0",
+    "@sinclair/typebox": "^0.32.11",
+    "@trpc/server": "^10.45.0",
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "ajv": "^8.12.0",
+    "arktype": "^1.0.29-alpha",
+    "benny": "^3.7.1",
+    "effect": "^2.1.2",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^27.6.3",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-sort-keys": "^2.3.5",
+    "expect-type": "^0.17.3",
+    "fast-check": "^3.15.0",
+    "fp-ts": "^2.16.2",
+    "io-ts": "^2.2.21",
+    "io-ts-types": "^0.5.19",
+    "jest": "^29.7.0",
+    "joi": "^17.12.0",
+    "monocle-ts": "^2.3.13",
+    "newtype-ts": "^0.3.5",
+    "npm-check-updates": "^16.14.12",
+    "ow": "^0.28.2",
+    "prettier": "^3.2.4",
+    "publint": "^0.2.7",
+    "runtypes": "^6.7.0",
+    "superstruct": "^1.0.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.2",
+    "ts-patch": "^3.1.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "typia": "^5.3.11",
+    "valibot": "^0.26.0",
+    "vite": "^5.0.12",
+    "webpack": "^5.89.0",
+    "yup": "^1.3.3",
+    "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "@deepkit/type": "^1.0.1-alpha.113",
+    "@effect/schema": "^0.60.6",
+    "@sinclair/typebox": "^0.32.11",
+    "ajv": "^8.12.0",
+    "arktype": "^1.0.29-alpha",
+    "effect": "^2.1.2",
+    "fp-ts": "^2.16.2",
+    "io-ts": "^2.2.21",
+    "joi": "^17.12.0",
+    "ow": "^0.28.2",
+    "runtypes": "^6.7.0",
+    "superstruct": "^1.0.3",
+    "valibot": "^0.26.0",
+    "vite": "^5.0.12",
+    "yup": "^1.3.3",
+    "zod": "^3.22.4"
+  },
+  "peerDependenciesMeta": {
+    "@deepkit/type": {
+      "optional": true
+    },
+    "@effect/schema": {
+      "optional": true
+    },
+    "@sinclair/typebox": {
+      "optional": true
+    },
+    "ajv": {
+      "optional": true
+    },
+    "arktype": {
+      "optional": true
+    },
+    "effect": {
+      "optional": true
+    },
+    "fp-ts": {
+      "optional": true
+    },
+    "io-ts": {
+      "optional": true
+    },
+    "joi": {
+      "optional": true
+    },
+    "ow": {
+      "optional": true
+    },
+    "runtypes": {
+      "optional": true
+    },
+    "superstruct": {
+      "optional": true
+    },
+    "valibot": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    },
+    "yup": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  }
+}
