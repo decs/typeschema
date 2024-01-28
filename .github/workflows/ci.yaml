@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - monorepo
 
 jobs:
   build:
@@ -13,46 +13,59 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
       - name: Lint library
-        run: yarn lint
+        working-directory: ./packages/typeschema
+        run: pnpm lint
       - name: Test library
-        run: yarn test
+        working-directory: ./packages/typeschema
+        run: pnpm test
       - name: Build library
-        run: yarn build
+        working-directory: ./packages/typeschema
+        run: pnpm build
       - name: Create package
-        run: yarn pack
+        working-directory: ./packages/typeschema
+        run: pnpm pack
       - name: Lint package
-        run: yarn lint:package
+        working-directory: ./packages/typeschema
+        run: pnpm lint:package
       - name: Upload package
         uses: actions/upload-artifact@v3
         with:
           name: package.tgz
-          path: decs-typeschema-*.tgz
+          path: ./packages/typeschema/decs-typeschema-*.tgz
 
   bundle_with_vite:
     needs: build
     name: Test bundling with Vite
     runs-on: ubuntu-latest
     steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Create a Vite project
-        run: yarn create vite sample --template vanilla-ts
+        run: pnpm create vite sample --template vanilla-ts
       - name: Download package
         uses: actions/download-artifact@v3
         with:
           name: package.tgz
       - name: Add package
         working-directory: ./sample
-        run: yarn add $(ls ../decs-typeschema-*.tgz) zod
+        run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
       - name: Use package
         working-directory: ./sample
         run: |
@@ -64,26 +77,30 @@ jobs:
           " > src/main.ts
       - name: Bundle project
         working-directory: ./sample
-        run: yarn build
+        run: pnpm build
 
   bundle_with_webpack:
     needs: build
     name: Test bundling with Webpack
     runs-on: ubuntu-latest
     steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Create a Next.js project
-        run: yarn create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
+        run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
         uses: actions/download-artifact@v3
         with:
           name: package.tgz
       - name: Add package
         working-directory: ./sample
-        run: yarn add $(ls ../decs-typeschema-*.tgz) zod
+        run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
       - name: Use package
         working-directory: ./sample
         run: |
@@ -97,26 +114,30 @@ jobs:
           " > src/app/page.tsx
       - name: Bundle project
         working-directory: ./sample
-        run: yarn build
+        run: pnpm build
 
   bundle_with_turbopack:
     needs: build
     name: Test bundling with Turbopack
     runs-on: ubuntu-latest
     steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Create a Next.js project
-        run: yarn create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
+        run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
         uses: actions/download-artifact@v3
         with:
           name: package.tgz
       - name: Add package
         working-directory: ./sample
-        run: yarn add $(ls ../decs-typeschema-*.tgz) zod
+        run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
       - name: Use package
         working-directory: ./sample
         run: |
@@ -130,7 +151,7 @@ jobs:
           " > src/app/page.tsx
       - name: Start development server
         working-directory: ./sample
-        run: yarn next dev --turbo &
+        run: pnpm next dev --turbo &
       - name: Load page
         working-directory: ./sample
         run: curl http://127.0.0.1:3000 -f
@@ -167,6 +188,10 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
@@ -178,9 +203,9 @@ jobs:
       - name: Checkout deno-dist branch
         run: git checkout -b deno-dist
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
       - name: Build library
-        run: yarn build:deno
+        run: pnpm build:deno
       - name: Track deno_dist folder
         run: npx -y -p denoify remove_deno_dist_from_gitignore
         env:
@@ -219,14 +244,19 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
       - name: Build library
-        run: yarn build
+        working-directory: ./packages/typeschema
+        run: pnpm build
       - name: Publish library to NPM
         uses: JS-DevTools/npm-publish@v2
         with:
