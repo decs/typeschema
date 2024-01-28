@@ -20,7 +20,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Install dependencies
         run: pnpm install
       - name: Lint library
@@ -60,7 +60,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Create a Vite project
         run: pnpm create vite sample --template vanilla-ts
       - name: Download package
@@ -95,7 +95,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Create a Next.js project
         run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
@@ -132,7 +132,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Create a Next.js project
         run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
@@ -199,7 +199,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Skip GitHub actions
         run: rm -r .github
       - name: Remove deno-dist branch if it exists
@@ -255,7 +255,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Install dependencies
         run: pnpm install
       - name: Build library

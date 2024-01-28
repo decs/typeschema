@@ -14,9 +14,16 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build:deno": "denoify --src packages/typeschema/src"
+    "build": "turbo build",
+    "build:deno": "denoify --src packages/typeschema/src",
+    "lint": "turbo lint",
+    "lint:package": "turbo lint:package",
+    "format": "turbo format",
+    "test": "turbo test",
+    "upgrade:deps": "turbo upgrade:deps"
   },
   "devDependencies": {
-    "denoify": "^1.6.9"
+    "denoify": "^1.6.9",
+    "turbo": "^1.11.3"
   }
 }
