@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: package.tgz
-          path: packages/typeschema/decs-typeschema-*.tgz
+          path: decs-typeschema-*.tgz
 
   bundle_with_vite:
     needs: build
@@ -65,7 +65,7 @@ jobs:
           name: package.tgz
       - name: Add package
         working-directory: sample
-        run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
+        run: pnpm install $(ls ../decs-typeschema-*.tgz) zod
       - name: Use package
         working-directory: sample
         run: |
@@ -100,7 +100,7 @@ jobs:
           name: package.tgz
       - name: Add package
         working-directory: sample
-        run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
+        run: pnpm install $(ls ../decs-typeschema-*.tgz) zod
       - name: Use package
         working-directory: sample
         run: |
@@ -137,7 +137,7 @@ jobs:
           name: package.tgz
       - name: Add package
         working-directory: sample
-        run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
+        run: pnpm install $(ls ../decs-typeschema-*.tgz) zod
       - name: Use package
         working-directory: sample
         run: |
