@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup requirements
-        uses: .github/setup
+        uses: ./.github/actions/setup
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Install dependencies
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup requirements
-        uses: .github/setup
+        uses: ./.github/actions/setup
       - name: Create a Vite project
         run: pnpm create vite sample --template vanilla-ts
       - name: Download package
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup requirements
-        uses: .github/setup
+        uses: ./.github/actions/setup
       - name: Create a Next.js project
         run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup requirements
-        uses: .github/setup
+        uses: ./.github/actions/setup
       - name: Create a Next.js project
         run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
@@ -165,7 +165,7 @@ jobs:
       )
     steps:
       - name: Setup requirements
-        uses: .github/setup
+        uses: ./.github/actions/setup
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Skip GitHub actions
@@ -215,7 +215,7 @@ jobs:
       )
     steps:
       - name: Setup requirements
-        uses: .github/setup
+        uses: ./.github/actions/setup
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Install dependencies
