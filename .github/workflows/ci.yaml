@@ -24,25 +24,25 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Lint library
-        working-directory: ./packages/typeschema
+        working-directory: packages/typeschema
         run: pnpm lint
       - name: Test library
-        working-directory: ./packages/typeschema
+        working-directory: packages/typeschema
         run: pnpm test
       - name: Build library
-        working-directory: ./packages/typeschema
+        working-directory: packages/typeschema
         run: pnpm build
       - name: Create package
-        working-directory: ./packages/typeschema
+        working-directory: packages/typeschema
         run: pnpm pack
       - name: Lint package
-        working-directory: ./packages/typeschema
+        working-directory: packages/typeschema
         run: pnpm lint:package
       - name: Upload package
         uses: actions/upload-artifact@v3
         with:
           name: package.tgz
-          path: decs-typeschema-*.tgz
+          path: packages/typeschema/decs-typeschema-*.tgz
 
   bundle_with_vite:
     needs: build
@@ -64,10 +64,10 @@ jobs:
         with:
           name: package.tgz
       - name: Add package
-        working-directory: ./sample
+        working-directory: sample
         run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
       - name: Use package
-        working-directory: ./sample
+        working-directory: sample
         run: |
           echo "
             import {validate} from '@decs/typeschema';
@@ -76,7 +76,7 @@ jobs:
             validate(z.string(), 'hello').then(console.log);
           " > src/main.ts
       - name: Bundle project
-        working-directory: ./sample
+        working-directory: sample
         run: pnpm build
 
   bundle_with_webpack:
@@ -99,10 +99,10 @@ jobs:
         with:
           name: package.tgz
       - name: Add package
-        working-directory: ./sample
+        working-directory: sample
         run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
       - name: Use package
-        working-directory: ./sample
+        working-directory: sample
         run: |
           echo "
             import {validate} from '@decs/typeschema';
@@ -113,7 +113,7 @@ jobs:
             }
           " > src/app/page.tsx
       - name: Bundle project
-        working-directory: ./sample
+        working-directory: sample
         run: pnpm build
 
   bundle_with_turbopack:
@@ -136,10 +136,10 @@ jobs:
         with:
           name: package.tgz
       - name: Add package
-        working-directory: ./sample
+        working-directory: sample
         run: pnpm install $(ls ../packages/typeschema/decs-typeschema-*.tgz) zod
       - name: Use package
-        working-directory: ./sample
+        working-directory: sample
         run: |
           echo "
             import {validate} from '@decs/typeschema';
@@ -150,10 +150,10 @@ jobs:
             }
           " > src/app/page.tsx
       - name: Start development server
-        working-directory: ./sample
+        working-directory: sample
         run: pnpm next dev --turbo &
       - name: Load page
-        working-directory: ./sample
+        working-directory: sample
         run: curl http://127.0.0.1:3000 -f
 
   check_for_version_upgrade:
@@ -255,7 +255,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build library
-        working-directory: ./packages/typeschema
+        working-directory: packages/typeschema
         run: pnpm build
       - name: Publish library to NPM
         uses: JS-DevTools/npm-publish@v2
