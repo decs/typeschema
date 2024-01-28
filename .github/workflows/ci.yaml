@@ -3,24 +3,16 @@ name: ci
 on:
   pull_request:
   push:
-    branches:
-      - monorepo
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Setup requirements
+        uses: ../setup
       - name: Checkout source code
         uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
       - name: Install dependencies
         run: pnpm install
       - name: Lint library
@@ -53,14 +45,8 @@ jobs:
     name: Test bundling with Vite
     runs-on: ubuntu-latest
     steps:
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Setup requirements
+        uses: ../setup
       - name: Create a Vite project
         run: pnpm create vite sample --template vanilla-ts
       - name: Download package
@@ -88,14 +74,8 @@ jobs:
     name: Test bundling with Webpack
     runs-on: ubuntu-latest
     steps:
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Setup requirements
+        uses: ../setup
       - name: Create a Next.js project
         run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
@@ -125,14 +105,8 @@ jobs:
     name: Test bundling with Turbopack
     runs-on: ubuntu-latest
     steps:
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Setup requirements
+        uses: ../setup
       - name: Create a Next.js project
         run: pnpm create next-app sample --ts --eslint --tailwind --src-dir --app --import-alias="@/*"
       - name: Download package
@@ -190,16 +164,10 @@ jobs:
         needs.check_for_version_upgrade.outputs.is_pre_release == 'true'
       )
     steps:
+      - name: Setup requirements
+        uses: ../setup
       - name: Checkout source code
         uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
       - name: Skip GitHub actions
         run: rm -r .github
       - name: Remove deno-dist branch if it exists
@@ -246,16 +214,10 @@ jobs:
         needs.check_for_version_upgrade.outputs.is_pre_release == 'true'
       )
     steps:
+      - name: Setup requirements
+        uses: ../setup
       - name: Checkout source code
         uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
       - name: Install dependencies
         run: pnpm install
       - name: Build library
