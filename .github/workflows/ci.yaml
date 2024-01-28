@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: package.tgz
-          path: ./packages/typeschema/decs-typeschema-*.tgz
+          path: decs-typeschema-*.tgz
 
   bundle_with_vite:
     needs: build
