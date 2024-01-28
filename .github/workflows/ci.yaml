@@ -9,10 +9,10 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Setup requirements
-        uses: ./.github/actions/setup
       - name: Checkout source code
         uses: actions/checkout@v4
+      - name: Setup requirements
+        uses: ./.github/actions/setup
       - name: Install dependencies
         run: pnpm install
       - name: Lint library
@@ -164,10 +164,10 @@ jobs:
         needs.check_for_version_upgrade.outputs.is_pre_release == 'true'
       )
     steps:
-      - name: Setup requirements
-        uses: ./.github/actions/setup
       - name: Checkout source code
         uses: actions/checkout@v4
+      - name: Setup requirements
+        uses: ./.github/actions/setup
       - name: Skip GitHub actions
         run: rm -r .github
       - name: Remove deno-dist branch if it exists
@@ -214,10 +214,10 @@ jobs:
         needs.check_for_version_upgrade.outputs.is_pre_release == 'true'
       )
     steps:
-      - name: Setup requirements
-        uses: ./.github/actions/setup
       - name: Checkout source code
         uses: actions/checkout@v4
+      - name: Setup requirements
+        uses: ./.github/actions/setup
       - name: Install dependencies
         run: pnpm install
       - name: Build library
