@@ -33,16 +33,20 @@ jobs:
         working-directory: packages/typeschema
         run: pnpm build
       - name: Create package
+        id: pack
         working-directory: packages/typeschema
-        run: pnpm pack
+        run: |
+          pnpm pack
+          echo "tar=$(find -name '*.tgz')" >> $GITHUB_OUTPUT
+          cp *.tgz ..
       - name: Lint package
         working-directory: packages/typeschema
         run: pnpm lint:package
       - name: Upload package
         uses: actions/upload-artifact@v3
         with:
-          name: package.tgz
-          path: decs-typeschema-*.tgz
+          name: npm-package-typeschema
+          path: ${{steps.pack.outputs.tar}}
 
   bundle_with_vite:
     needs: build
@@ -62,7 +66,7 @@ jobs:
       - name: Download package
         uses: actions/download-artifact@v3
         with:
-          name: package.tgz
+          name: npm-package-typeschema
       - name: Add package
         working-directory: sample
         run: pnpm install $(ls ../decs-typeschema-*.tgz) zod
@@ -97,7 +101,7 @@ jobs:
       - name: Download package
         uses: actions/download-artifact@v3
         with:
-          name: package.tgz
+          name: npm-package-typeschema
       - name: Add package
         working-directory: sample
         run: pnpm install $(ls ../decs-typeschema-*.tgz) zod
@@ -134,7 +138,7 @@ jobs:
       - name: Download package
         uses: actions/download-artifact@v3
         with:
-          name: package.tgz
+          name: npm-package-typeschema
       - name: Add package
         working-directory: sample
         run: pnpm install $(ls ../decs-typeschema-*.tgz) zod
