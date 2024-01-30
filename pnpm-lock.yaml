@@ -81,6 +81,8 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  packages/core: {}
+
   packages/typeschema:
     devDependencies:
       '@deepkit/core':
@@ -158,6 +160,16 @@ importers:
       yup:
         specifier: ^1.3.3
         version: 1.3.3
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+
+  packages/zod:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
       zod:
         specifier: ^3.22.4
         version: 3.22.4

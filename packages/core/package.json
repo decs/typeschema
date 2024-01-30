@@ -1,0 +1,53 @@
+{
+  "name": "@typeschema/core",
+  "version": "0.13.0",
+  "description": "Universal adapter for schema validation",
+  "keywords": [
+    "typescript",
+    "type",
+    "schema",
+    "adapter",
+    "validation",
+    "inference",
+    "assert"
+  ],
+  "homepage": "https://typeschema.com",
+  "license": "MIT",
+  "author": {
+    "name": "André Costa",
+    "email": "andrefonsecacosta@gmail.com"
+  },
+  "files": [
+    "/dist",
+    "/assets"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decs/typeschema.git"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint src --fix",
+    "lint:package": "publint && attw --pack",
+    "format": "prettier --write src",
+    "test": "jest src",
+    "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
+    "postpack": "rm README.md && rm -r assets"
+  }
+}
