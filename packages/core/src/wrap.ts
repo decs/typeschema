@@ -1,11 +1,5 @@
 import type {Input, Output, Resolver, Schema} from './resolver';
-
-import {
-  createAssert,
-  createValidate,
-  type ValidationAdapter,
-  type ValidationIssue,
-} from './validation';
+import type {Assert, Validate, ValidationIssue} from './validation';
 
 export type TypeSchema<TOutput, TInput = TOutput> = {
   _input: TInput;
@@ -17,20 +11,19 @@ export type TypeSchema<TOutput, TInput = TOutput> = {
   ): Promise<{data: TOutput} | {issues: Array<ValidationIssue>}>;
 };
 
-export type WrapFn<TResolver extends Resolver> = <
+export type Wrap<TResolver extends Resolver> = <
   TSchema extends Schema<TResolver>,
 >(
   schema: TSchema,
 ) => TypeSchema<Output<TResolver, TSchema>, Input<TResolver, TSchema>>;
 
 export function createWrap<TResolver extends Resolver>(
-  adapter: ValidationAdapter<TResolver>,
-): WrapFn<TResolver> {
-  const assert = createAssert<TResolver>(adapter);
-  const validate = createValidate<TResolver>(adapter);
-  return <TSchema extends Schema<TResolver>>(schema: TSchema) => ({
-    _input: undefined as Input<TResolver, TSchema>,
-    _output: undefined as Output<TResolver, TSchema>,
+  assert: Assert<TResolver>,
+  validate: Validate<TResolver>,
+): Wrap<TResolver> {
+  return schema => ({
+    _input: undefined,
+    _output: undefined,
     assert: data => assert(schema, data),
     parse: data => assert(schema, data),
     validate: data => validate(schema, data),

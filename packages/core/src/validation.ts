@@ -5,8 +5,7 @@ export type ValidationIssue = {
   path?: Array<string | number | symbol>;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ValidationResult<TOutput = any> =
+export type ValidationResult<TOutput> =
   | {success: true; data: TOutput}
   | {success: false; issues: Array<ValidationIssue>};
 
@@ -18,33 +17,32 @@ export type ValidationAdapter<TResolver extends Resolver> = <
   (data: unknown) => Promise<ValidationResult<Output<TResolver, TSchema>>>
 >;
 
-export type ValidateFn<TResolver extends Resolver> = <
+export type Validate<TResolver extends Resolver> = <
   TSchema extends Schema<TResolver>,
 >(
   schema: TSchema,
   data: unknown,
 ) => Promise<ValidationResult<Output<TResolver, TSchema>>>;
 
-export type AssertFn<TResolver extends Resolver> = <
+export function createValidate<TResolver extends Resolver>(
+  validationAdapter: ValidationAdapter<TResolver>,
+): Validate<TResolver> {
+  return async (schema, data) => {
+    const validateSchema = await validationAdapter(schema);
+    return validateSchema(data);
+  };
+}
+
+export type Assert<TResolver extends Resolver> = <
   TSchema extends Schema<TResolver>,
 >(
   schema: TSchema,
   data: unknown,
 ) => Promise<Output<TResolver, TSchema>>;
 
-export function createValidate<TResolver extends Resolver>(
-  adapter: ValidationAdapter<TResolver>,
-): ValidateFn<TResolver> {
-  return async (schema, data) => {
-    const validateSchema = await adapter(schema);
-    return validateSchema(data);
-  };
-}
-
 export function createAssert<TResolver extends Resolver>(
-  adapter: ValidationAdapter<TResolver>,
-): AssertFn<TResolver> {
-  const validate = createValidate<TResolver>(adapter);
+  validate: Validate<TResolver>,
+): Assert<TResolver> {
   return async (schema, data) => {
     const result = await validate(schema, data);
     if (result.success) {

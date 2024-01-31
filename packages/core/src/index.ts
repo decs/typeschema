@@ -1,11 +1,11 @@
 export {Input, Output, Resolver, Schema} from './resolver';
 export {
-  AssertFn,
+  Assert,
   createAssert,
   createValidate,
-  ValidateFn,
+  Validate,
   ValidationAdapter,
   ValidationIssue,
   ValidationResult,
 } from './validation';
-export {createWrap, TypeSchema, WrapFn} from './wrap';
+export {createWrap, TypeSchema, Wrap} from './wrap';
