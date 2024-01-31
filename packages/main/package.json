@@ -45,7 +45,6 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "format": "prettier --write src",
     "test": "jest --preset ts-jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"

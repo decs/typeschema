@@ -18,7 +18,6 @@
     "build:deno": "denoify --src packages/typeschema/src",
     "lint": "turbo lint",
     "lint:package": "turbo lint:package",
-    "format": "turbo format",
     "test": "turbo test",
     "upgrade:deps": "turbo upgrade:deps"
   },

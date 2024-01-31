@@ -59,7 +59,6 @@
     "build": "tsup",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "format": "prettier --write src",
     "test": "jest src",
     "upgrade:deps": "ncu -u --dep=dev,peer --reject ow",
     "benchmark": "for i in src/__tests__/benchmarks/*.ts ; do ts-node --project tsconfig.test.json \"$i\" ; done",

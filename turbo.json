@@ -7,7 +7,6 @@
     },
     "lint": {},
     "lint:package": {},
-    "format": {},
     "test": {
       "dependsOn": ["^build"]
     },
