@@ -1,6 +1,6 @@
 import type {PlopTypes} from '@turbo/gen';
 
-export const adapterNames = ['valibot', 'zod'];
+export const adapterNames = ['main', 'valibot', 'zod'];
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('adapters', {
@@ -14,7 +14,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         },
       ]),
     ],
-    description: 'Generator description',
+    description: 'Generates common adapter files',
     prompts: [],
   });
 }
