@@ -87,7 +87,8 @@ describe('custom', () => {
           return input;
         }),
       });
-      const caller = router.createCaller({});
+      const createCaller = tRPC.createCallerFactory(router);
+      const caller = createCaller({});
       expect(await caller.hello('123')).toStrictEqual('123');
     });
   });

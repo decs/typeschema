@@ -67,7 +67,8 @@ describe('typebox', () => {
         return input;
       }),
     });
-    const caller = router.createCaller({});
+    const createCaller = tRPC.createCallerFactory(router);
+    const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(data);
   });
 
