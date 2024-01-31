@@ -26,6 +26,7 @@
     "@arethetypeswrong/cli": "^0.13.5",
     "@jest/globals": "^29.7.0",
     "@trpc/server": "^10.45.0",
+    "@turbo/gen": "^1.12.1",
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",

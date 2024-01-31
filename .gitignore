@@ -6,5 +6,6 @@ node_modules
 dist/
 deno_dist/
 
-yarn-debug.log*
-yarn-error.log*
+packages/*/src/index.ts
+!packages/core/src/index.ts
+!packages/typeschema/src/index.ts

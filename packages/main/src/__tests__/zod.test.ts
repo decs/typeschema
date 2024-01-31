@@ -7,7 +7,7 @@ import {z} from 'zod';
 
 import {assert, validate, wrap} from '..';
 
-describe('adapter', () => {
+describe('zod', () => {
   const schema = z.object({
     age: z.number(),
     createdAt: z.string().transform(value => new Date(value)),
