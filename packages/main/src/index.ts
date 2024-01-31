@@ -1,9 +1,9 @@
-import type {AdapterResolver} from './adapter';
 import type {Input, Output, Schema} from '@typeschema/core';
 
 import {createAssert, createValidate, createWrap} from '@typeschema/core';
 
-import {validationAdapter} from './adapter';
+import {AdapterResolver} from './resolver';
+import {validationAdapter} from './validation';
 
 export type Infer<TSchema extends Schema<AdapterResolver>> = Output<
   AdapterResolver,

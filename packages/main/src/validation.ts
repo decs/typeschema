@@ -1,24 +1,5 @@
-import type {
-  Input,
-  Output,
-  Resolver,
-  Schema,
-  ValidationAdapter,
-} from '@typeschema/core';
-import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
-import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
-
-type AnyResolver = ValibotResolver | ZodResolver;
-
-export interface AdapterResolver extends Resolver {
-  base: Schema<AnyResolver>;
-  input: this['schema'] extends this['base']
-    ? Input<AnyResolver, this['schema']>
-    : never;
-  output: this['schema'] extends this['base']
-    ? Output<AnyResolver, this['schema']>
-    : never;
-}
+import type {AdapterResolver} from './resolver';
+import type {ValidationAdapter} from '@typeschema/core';
 
 const importValibotValidationAdapter = async () => {
   try {
