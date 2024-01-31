@@ -15,4 +15,4 @@ export type Input<
 export type Output<
   TResolver extends Resolver,
   TSchema extends Schema<TResolver>,
-> = (TResolver & {schema: TSchema})['input'];
+> = (TResolver & {schema: TSchema})['output'];

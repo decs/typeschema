@@ -14,6 +14,9 @@ importers:
       '@jest/globals':
         specifier: ^29.7.0
         version: 29.7.0
+      '@trpc/server':
+        specifier: ^10.45.0
+        version: 10.45.0
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -82,6 +85,22 @@ importers:
         version: 5.3.3
 
   packages/core: {}
+
+  packages/main:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+      valibot:
+        specifier: ^0.27.1
+        version: 0.27.1
+    devDependencies:
+      '@typeschema/valibot':
+        specifier: workspace:*
+        version: link:../valibot
+      '@typeschema/zod':
+        specifier: workspace:*
+        version: link:../zod
 
   packages/typeschema:
     devDependencies:
@@ -163,6 +182,16 @@ importers:
       zod:
         specifier: ^3.22.4
         version: 3.22.4
+
+  packages/valibot:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      valibot:
+        specifier: ^0.27.1
+        version: 0.27.1
 
   packages/zod:
     dependencies:
@@ -7295,6 +7324,9 @@ packages:
   /valibot@0.26.0:
     resolution: {integrity: sha512-cM8VM9jsJGx9P4qarZUBXd0I88OVI4ddtyZ1sAMiofC3Usj7Jxm2c8Xx5accdTrKc3CblO8yyytRaJ6lrsuA+Q==}
     dev: true
+
+  /valibot@0.27.1:
+    resolution: {integrity: sha512-k57/5/kMwMjiVP0LUMpa+n4ihSemuXshz1ND4fftKw1bkHZYN/TnHcbjaEie3K7FwAceiOgugLZPjSaNxdygeg==}
 
   /validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}

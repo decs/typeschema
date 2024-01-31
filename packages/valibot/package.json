@@ -1,5 +1,5 @@
 {
-  "name": "@typeschema/core",
+  "name": "@typeschema/valibot",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -46,7 +46,22 @@
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
     "format": "prettier --write src",
+    "test": "jest --preset ts-jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
+  },
+  "dependencies": {
+    "@typeschema/core": "workspace:*"
+  },
+  "devDependencies": {
+    "valibot": "^0.27.1"
+  },
+  "peerDependencies": {
+    "valibot": "^0.27.1"
+  },
+  "peerDependenciesMeta": {
+    "valibot": {
+      "optional": true
+    }
   }
 }

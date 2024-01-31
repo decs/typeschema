@@ -1,5 +1,5 @@
 {
-  "name": "@typeschema/core",
+  "name": "@typeschema/main",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -48,5 +48,25 @@
     "format": "prettier --write src",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
+  },
+  "dependencies": {
+    "@typeschema/core": "workspace:*",
+    "valibot": "^0.27.1"
+  },
+  "devDependencies": {
+    "@typeschema/valibot": "workspace:*",
+    "@typeschema/zod": "workspace:*"
+  },
+  "peerDependencies": {
+    "@typeschema/valibot": "workspace:*",
+    "@typeschema/zod": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@typeschema/valibot": {
+      "optional": true
+    },
+    "@typeschema/zod": {
+      "optional": true
+    }
   }
 }

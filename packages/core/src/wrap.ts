@@ -17,11 +17,15 @@ export type TypeSchema<TOutput, TInput = TOutput> = {
   ): Promise<{data: TOutput} | {issues: Array<ValidationIssue>}>;
 };
 
+export type WrapFn<TResolver extends Resolver> = <
+  TSchema extends Schema<TResolver>,
+>(
+  schema: TSchema,
+) => TypeSchema<Output<TResolver, TSchema>, Input<TResolver, TSchema>>;
+
 export function createWrap<TResolver extends Resolver>(
   adapter: ValidationAdapter<TResolver>,
-): <TSchema extends Schema<TResolver>>(
-  schema: TSchema,
-) => TypeSchema<Output<TResolver, TSchema>, Input<TResolver, TSchema>> {
+): WrapFn<TResolver> {
   const assert = createAssert<TResolver>(adapter);
   const validate = createValidate<TResolver>(adapter);
   return <TSchema extends Schema<TResolver>>(schema: TSchema) => ({
