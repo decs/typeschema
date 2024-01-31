@@ -1,10 +1,10 @@
 import type {Resolver, ValidationAdapter} from '@typeschema/core';
-import type {input, output, ZodSchema} from 'zod';
+import type {input, output, ZodType} from 'zod';
 
 export interface AdapterResolver extends Resolver {
-  base: ZodSchema;
-  input: this['schema'] extends ZodSchema ? input<this['schema']> : never;
-  output: this['schema'] extends ZodSchema ? output<this['schema']> : never;
+  base: ZodType;
+  input: this['schema'] extends this['base'] ? input<this['schema']> : never;
+  output: this['schema'] extends this['base'] ? output<this['schema']> : never;
 }
 
 export const validationAdapter: ValidationAdapter<

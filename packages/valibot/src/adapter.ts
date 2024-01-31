@@ -3,15 +3,11 @@ import type {BaseSchema, BaseSchemaAsync, Input, Output} from 'valibot';
 
 export interface AdapterResolver extends Resolver {
   base: BaseSchema | BaseSchemaAsync;
-  input: this['schema'] extends BaseSchema | BaseSchemaAsync
-    ? Input<this['schema']>
-    : never;
-  output: this['schema'] extends BaseSchema | BaseSchemaAsync
-    ? Output<this['schema']>
-    : never;
+  input: this['schema'] extends this['base'] ? Input<this['schema']> : never;
+  output: this['schema'] extends this['base'] ? Output<this['schema']> : never;
 }
 
-export const fetchModule = async () => {
+const importValidationModule = async () => {
   try {
     const {safeParseAsync} = await import(/* webpackIgnore: true */ 'valibot');
     return {safeParseAsync};
@@ -23,7 +19,7 @@ export const fetchModule = async () => {
 export const validationAdapter: ValidationAdapter<
   AdapterResolver
 > = async schema => {
-  const {safeParseAsync} = await fetchModule();
+  const {safeParseAsync} = await importValidationModule();
   return async data => {
     const result = await safeParseAsync(schema, data);
     if (result.success) {
