@@ -21,7 +21,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     actions: adapterNames.flatMap(adapterName => [
       {
         force: true,
-        path: 'packages/' + adapterName + '/src/index.ts',
+        path: `packages/${adapterName}/src/index.ts`,
         templateFile: 'templates/index.ts.hbs',
         type: 'add',
       },

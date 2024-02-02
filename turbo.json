@@ -6,10 +6,10 @@
       "outputs": ["dist/**"]
     },
     "lint": {},
-    "lint:package": {},
-    "test": {
-      "dependsOn": ["^build"]
+    "lint:package": {
+      "dependsOn": ["build"]
     },
+    "test": {},
     "upgrade:deps": {}
   }
 }
