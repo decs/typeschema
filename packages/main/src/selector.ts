@@ -1,9 +1,11 @@
-import type {AdapterResolver, Branch} from './resolver';
+import type {AdapterResolver, AdapterResolverMap} from './resolver';
 import type {Schema} from '@typeschema/core';
 
-export const select: <TReturn>(
-  is: Branch<TReturn>,
-) => (schema: Schema<AdapterResolver>) => TReturn = is => schema => {
+export const select: <TReturn>(is: {
+  [Adapter in keyof AdapterResolverMap]: (
+    schema: Schema<AdapterResolverMap[Adapter]>,
+  ) => TReturn;
+}) => (schema: Schema<AdapterResolver>) => TReturn = is => schema => {
   if ('_def' in schema) {
     return is.zod(schema);
   }

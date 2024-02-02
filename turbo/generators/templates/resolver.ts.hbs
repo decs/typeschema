@@ -3,23 +3,20 @@ import type {Input, Output, Resolver, Schema} from '@typeschema/core';
 import type {AdapterResolver as {{pascalCase this}}Resolver} from '@typeschema/{{this}}';
 {{/each}}
 
-type Resolvers =
+export type AdapterResolverMap = {
 {{#each adapterNames}}
-  | {{pascalCase this}}Resolver
-{{/each}};
-
-export interface AdapterResolver extends Resolver {
-  base: Schema<Resolvers>;
-  input: this['schema'] extends this['base']
-    ? Input<Resolvers, this['schema']>
-    : never;
-  output: this['schema'] extends this['base']
-    ? Output<Resolvers, this['schema']>
-    : never;
-}
-
-export type Branch<TReturn> = {
-{{#each adapterNames}}
-  {{camelCase this}}: (schema: Schema<{{pascalCase this}}Resolver>) => TReturn;
+  {{camelCase this}}: {{pascalCase this}}Resolver;
 {{/each}}
 };
+
+type AdapterResolvers = AdapterResolverMap[keyof AdapterResolverMap];
+
+export interface AdapterResolver extends Resolver {
+  base: Schema<AdapterResolvers>;
+  input: this['schema'] extends this['base']
+    ? Input<AdapterResolvers, this['schema']>
+    : never;
+  output: this['schema'] extends this['base']
+    ? Output<AdapterResolvers, this['schema']>
+    : never;
+}

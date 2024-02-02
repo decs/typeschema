@@ -4,7 +4,7 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {select} from './selector';
 
 {{#each adapterNames}}
-export const import{{pascalCase this}}ValidationAdapter = async () => {
+const import{{pascalCase this}}ValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/{{this}}'
