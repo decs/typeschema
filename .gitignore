@@ -9,5 +9,5 @@ deno_dist/
 packages/*/src/index.ts
 !packages/core/src/index.ts
 !packages/typeschema/src/index.ts
-packages/main/src/*.ts
+packages/main/src/**
 !packages/main/src/selector.ts

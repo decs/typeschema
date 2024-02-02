@@ -42,6 +42,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         templateFile: 'templates/validation.ts.hbs',
         type: 'add',
       },
+      ...adapterNamesExcludingMain.map(adapterName => ({
+        force: true,
+        path: `packages/main/src/__tests__/${adapterName}.test.ts`,
+        templateFile: `../../packages/${adapterName}/src/__tests__/${adapterName}.test.ts`,
+        type: 'add',
+      })),
     ],
     description: 'Generates common adapter files',
     prompts: [],
