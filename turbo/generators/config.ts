@@ -16,16 +16,33 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
   const adapterNames = packageNames.filter(
     packageName => !nonAdapterPackageNames.includes(packageName),
   );
+  const adapterNamesExcludingMain = adapterNames.filter(
+    adapterName => adapterName !== 'main',
+  );
 
   plop.setGenerator('adapters', {
-    actions: adapterNames.flatMap(adapterName => [
-      {
+    actions: [
+      ...adapterNames.map(adapterName => ({
         force: true,
         path: `packages/${adapterName}/src/index.ts`,
         templateFile: 'templates/index.ts.hbs',
         type: 'add',
+      })),
+      {
+        data: {adapterNames: adapterNamesExcludingMain},
+        force: true,
+        path: `packages/main/src/resolver.ts`,
+        templateFile: 'templates/resolver.ts.hbs',
+        type: 'add',
       },
-    ]),
+      {
+        data: {adapterNames: adapterNamesExcludingMain},
+        force: true,
+        path: `packages/main/src/validation.ts`,
+        templateFile: 'templates/validation.ts.hbs',
+        type: 'add',
+      },
+    ],
     description: 'Generates common adapter files',
     prompts: [],
   });

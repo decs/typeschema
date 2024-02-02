@@ -1,0 +1,23 @@
+import type {AdapterResolver} from './resolver';
+import type {ValidationAdapter} from '@typeschema/core';
+
+import {select} from './selector';
+
+{{#each adapterNames}}
+export const import{{pascalCase this}}ValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/{{this}}'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
+{{/each}}
+export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
+{{#each adapterNames}}
+  {{camelCase this}}: async schema => (await import{{pascalCase this}}ValidationAdapter())(schema),
+{{/each}}
+});

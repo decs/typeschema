@@ -1,0 +1,25 @@
+import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+{{#each adapterNames}}
+import type {AdapterResolver as {{pascalCase this}}Resolver} from '@typeschema/{{this}}';
+{{/each}}
+
+type Resolvers =
+{{#each adapterNames}}
+  | {{pascalCase this}}Resolver
+{{/each}};
+
+export interface AdapterResolver extends Resolver {
+  base: Schema<Resolvers>;
+  input: this['schema'] extends this['base']
+    ? Input<Resolvers, this['schema']>
+    : never;
+  output: this['schema'] extends this['base']
+    ? Output<Resolvers, this['schema']>
+    : never;
+}
+
+export type Branch<TReturn> = {
+{{#each adapterNames}}
+  {{camelCase this}}: (schema: Schema<{{pascalCase this}}Resolver>) => TReturn;
+{{/each}}
+};
