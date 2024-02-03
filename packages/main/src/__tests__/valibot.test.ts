@@ -1,3 +1,7 @@
+/**
+ * This file is generated. Do not modify it manually!
+ */
+
 import type {Infer, InferIn} from '..';
 
 import {describe, expect, test} from '@jest/globals';
