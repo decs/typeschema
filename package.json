@@ -14,8 +14,9 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build": "pnpm gen && turbo lint build lint:package",
+    "build": "gen && turbo lint build lint:package",
     "build:deno": "denoify --src packages/typeschema/src",
+    "create:adapter": "turbo gen create-adapter && gen && install",
     "gen": "turbo gen adapters",
     "test": "turbo test",
     "upgrade:deps": "turbo upgrade:deps"

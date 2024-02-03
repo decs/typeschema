@@ -8,15 +8,22 @@ const TYPESCRIPT_HEADER = `/**
  */`;
 const FILE_HEADER = `# This file is generated. Do not modify it manually!`;
 
-function generateFile(
-  action: Partial<PlopTypes.AddActionConfig> & {path: string},
-): PlopTypes.AddActionConfig {
-  const header = action.path.endsWith('.ts') ? TYPESCRIPT_HEADER : FILE_HEADER;
+function generateFile(config: {
+  path: string;
+  templateFile: string;
+  data?: object;
+  includeHeader?: boolean;
+}): PlopTypes.AddActionConfig {
   return {
     force: true,
-    transform: (content: string) => `${header}\n\n${content}`,
+    transform: (content: string) =>
+      config.includeHeader ?? true
+        ? `${
+            config.path.endsWith('.ts') ? TYPESCRIPT_HEADER : FILE_HEADER
+          }\n\n${content}`
+        : content,
     type: 'add',
-    ...action,
+    ...config,
   };
 }
 
@@ -61,7 +68,6 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       }),
     ),
   ];
-
   plop.setGenerator('adapters', {
     actions: [
       ...actions,
@@ -73,5 +79,44 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     ],
     description: 'Generates common adapter files',
     prompts: [],
+  });
+
+  plop.setGenerator('create-adapter', {
+    actions: [
+      generateFile({
+        includeHeader: false,
+        path: 'packages/{{adapterName}}/package.json',
+        templateFile: 'templates/create-adapter/package.json.hbs',
+      }),
+      generateFile({
+        includeHeader: false,
+        path: 'packages/{{adapterName}}/tsconfig.json',
+        templateFile: 'templates/create-adapter/tsconfig.json.hbs',
+      }),
+      generateFile({
+        includeHeader: false,
+        path: 'packages/{{adapterName}}/src/resolver.ts',
+        templateFile: 'templates/create-adapter/src/resolver.ts.hbs',
+      }),
+      generateFile({
+        includeHeader: false,
+        path: 'packages/{{adapterName}}/src/validation.ts',
+        templateFile: 'templates/create-adapter/src/validation.ts.hbs',
+      }),
+      generateFile({
+        includeHeader: false,
+        path: 'packages/{{adapterName}}/src/__tests__/{{adapterName}}.test.ts',
+        templateFile:
+          'templates/create-adapter/src/__tests__/adapter.test.ts.hbs',
+      }),
+    ],
+    description: 'Initializes an adapter package',
+    prompts: [
+      {
+        message: 'Adapter name',
+        name: 'adapterName',
+        type: 'input',
+      },
+    ],
   });
 }
