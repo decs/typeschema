@@ -89,32 +89,13 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
 
   plop.setGenerator('create-adapter', {
     actions: [
-      generateFile({
-        includeHeader: false,
-        path: 'packages/{{adapterName}}/package.json',
-        templateFile: 'templates/create-adapter/package.json.hbs',
-      }),
-      generateFile({
-        includeHeader: false,
-        path: 'packages/{{adapterName}}/tsconfig.json',
-        templateFile: 'templates/create-adapter/tsconfig.json.hbs',
-      }),
-      generateFile({
-        includeHeader: false,
-        path: 'packages/{{adapterName}}/src/resolver.ts',
-        templateFile: 'templates/create-adapter/src/resolver.ts.hbs',
-      }),
-      generateFile({
-        includeHeader: false,
-        path: 'packages/{{adapterName}}/src/validation.ts',
-        templateFile: 'templates/create-adapter/src/validation.ts.hbs',
-      }),
-      generateFile({
-        includeHeader: false,
-        path: 'packages/{{adapterName}}/src/__tests__/{{adapterName}}.test.ts',
-        templateFile:
-          'templates/create-adapter/src/__tests__/adapter.test.ts.hbs',
-      }),
+      {
+        base: 'templates/create-adapter',
+        destination: 'packages/{{adapterName}}',
+        force: true,
+        templateFiles: 'templates/create-adapter',
+        type: 'addMany',
+      },
     ],
     description: 'Initializes an adapter package',
     prompts: [
@@ -125,6 +106,4 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       },
     ],
   });
-
-  plop.ex;
 }
