@@ -1,0 +1,11 @@
+# This file is generated. Do not modify it manually!
+
+.gitattributes linguist-generated
+pnpm-lock.yaml linguist-generated
+packages/main/src/index.ts linguist-generated
+packages/valibot/src/index.ts linguist-generated
+packages/zod/src/index.ts linguist-generated
+packages/main/src/resolver.ts linguist-generated
+packages/main/src/validation.ts linguist-generated
+packages/main/src/__tests__/valibot.test.ts linguist-generated
+packages/main/src/__tests__/zod.test.ts linguist-generated

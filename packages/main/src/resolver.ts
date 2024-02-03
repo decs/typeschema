@@ -3,14 +3,12 @@
  */
 
 import type {Input, Output, Resolver, Schema} from '@typeschema/core';
-{{#each adapterNames}}
-import type {AdapterResolver as {{pascalCase this}}Resolver} from '@typeschema/{{this}}';
-{{/each}}
+import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
+import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
 export type AdapterResolverMap = {
-{{#each adapterNames}}
-  {{camelCase this}}: {{pascalCase this}}Resolver;
-{{/each}}
+  valibot: ValibotResolver;
+  zod: ZodResolver;
 };
 
 type AdapterResolvers = AdapterResolverMap[keyof AdapterResolverMap];

@@ -20,34 +20,45 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     adapterName => adapterName !== 'main',
   );
 
+  const actions = [
+    ...adapterNames.map(adapterName => ({
+      force: true,
+      path: `packages/${adapterName}/src/index.ts`,
+      templateFile: 'templates/index.ts.hbs',
+      type: 'add',
+    })),
+    {
+      data: {adapterNames: adapterNamesExcludingMain},
+      force: true,
+      path: `packages/main/src/resolver.ts`,
+      templateFile: 'templates/resolver.ts.hbs',
+      type: 'add',
+    },
+    {
+      data: {adapterNames: adapterNamesExcludingMain},
+      force: true,
+      path: `packages/main/src/validation.ts`,
+      templateFile: 'templates/validation.ts.hbs',
+      type: 'add',
+    },
+    ...adapterNamesExcludingMain.map(adapterName => ({
+      force: true,
+      path: `packages/main/src/__tests__/${adapterName}.test.ts`,
+      templateFile: `../../packages/${adapterName}/src/__tests__/${adapterName}.test.ts`,
+      type: 'add',
+    })),
+  ];
+
   plop.setGenerator('adapters', {
     actions: [
-      ...adapterNames.map(adapterName => ({
-        force: true,
-        path: `packages/${adapterName}/src/index.ts`,
-        templateFile: 'templates/index.ts.hbs',
-        type: 'add',
-      })),
+      ...actions,
       {
-        data: {adapterNames: adapterNamesExcludingMain},
+        data: {generatedFiles: actions.map(action => action.path)},
         force: true,
-        path: `packages/main/src/resolver.ts`,
-        templateFile: 'templates/resolver.ts.hbs',
+        path: '.gitattributes',
+        templateFile: 'templates/.gitattributes.hbs',
         type: 'add',
       },
-      {
-        data: {adapterNames: adapterNamesExcludingMain},
-        force: true,
-        path: `packages/main/src/validation.ts`,
-        templateFile: 'templates/validation.ts.hbs',
-        type: 'add',
-      },
-      ...adapterNamesExcludingMain.map(adapterName => ({
-        force: true,
-        path: `packages/main/src/__tests__/${adapterName}.test.ts`,
-        templateFile: `../../packages/${adapterName}/src/__tests__/${adapterName}.test.ts`,
-        type: 'add',
-      })),
     ],
     description: 'Generates common adapter files',
     prompts: [],
