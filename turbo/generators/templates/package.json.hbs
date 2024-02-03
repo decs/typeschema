@@ -53,19 +53,20 @@
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-    "@typeschema/valibot": "workspace:*",
-    "@typeschema/zod": "workspace:*"
+{{#each adapterNames}}
+    "@typeschema/{{this}}": "workspace:*",
+{{/each}}
   },
   "peerDependencies": {
-    "@typeschema/valibot": "workspace:*",
-    "@typeschema/zod": "workspace:*"
+{{#each adapterNames}}
+    "@typeschema/{{this}}": "workspace:*",
+{{/each}}
   },
   "peerDependenciesMeta": {
-    "@typeschema/valibot": {
+{{#each adapterNames}}
+    "@typeschema/{{this}}": {
       "optional": true
     },
-    "@typeschema/zod": {
-      "optional": true
-    }
+{{/each}}
   }
 }

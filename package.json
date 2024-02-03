@@ -16,8 +16,8 @@
   "scripts": {
     "build": "pnpm gen && turbo lint build lint:package",
     "build:deno": "denoify --src packages/typeschema/src",
-    "create:adapter": "turbo gen create-adapter && pnpm gen && pnpm install",
-    "gen": "turbo gen adapters",
+    "create:adapter": "turbo gen create-adapter && pnpm gen",
+    "gen": "turbo gen adapters && (grep -Eo '^(.+\\.json) ' .gitattributes | xargs prettier -w) && (grep -Eo '^(.+\\.ts) ' .gitattributes | xargs eslint --fix) && pnpm install",
     "test": "turbo test",
     "upgrade:deps": "turbo upgrade:deps"
   },

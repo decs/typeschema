@@ -94,9 +94,6 @@ importers:
       '@typeschema/core':
         specifier: workspace:*
         version: link:../core
-      valibot:
-        specifier: ^0.27.1
-        version: 0.27.1
     devDependencies:
       '@typeschema/valibot':
         specifier: workspace:*
@@ -7907,6 +7904,7 @@ packages:
 
   /valibot@0.27.1:
     resolution: {integrity: sha512-k57/5/kMwMjiVP0LUMpa+n4ihSemuXshz1ND4fftKw1bkHZYN/TnHcbjaEie3K7FwAceiOgugLZPjSaNxdygeg==}
+    dev: true
 
   /validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}

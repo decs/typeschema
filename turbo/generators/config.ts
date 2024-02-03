@@ -53,6 +53,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     ),
     generateFile({
       data: {adapterNames: adapterNamesExcludingMain},
+      includeHeader: false,
+      path: `packages/main/package.json`,
+      templateFile: 'templates/package.json.hbs',
+    }),
+    generateFile({
+      data: {adapterNames: adapterNamesExcludingMain},
       path: `packages/main/src/resolver.ts`,
       templateFile: 'templates/resolver.ts.hbs',
     }),
@@ -119,4 +125,6 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       },
     ],
   });
+
+  plop.ex;
 }
