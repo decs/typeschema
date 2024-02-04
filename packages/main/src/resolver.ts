@@ -4,6 +4,7 @@
 
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
 import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
 import type {AdapterResolver as SuperstructResolver} from '@typeschema/superstruct';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
@@ -12,6 +13,7 @@ import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
 export type AdapterResolverMap = {
   arktype: ArktypeResolver;
+  joi: JoiResolver;
   superstruct: SuperstructResolver;
   typebox: TypeboxResolver;
   valibot: ValibotResolver;
