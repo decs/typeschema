@@ -20,6 +20,9 @@ export const select: <TReturn>(is: {
       if (isTypeboxSchema(schema)) {
         return is.typebox(schema);
       }
+      if ('__isYupSchema__' in schema) {
+        return is.yup(schema);
+      }
       if ('_def' in schema) {
         return is.zod(schema);
       }
