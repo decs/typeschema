@@ -96,7 +96,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           }),
           ...singleAdapterNames.flatMap(singleAdapterName =>
             getAddAction({
-              path: `packages/${multiAdapterName}/__tests__/${singleAdapterName}.test.ts`,
+              path: `packages/${multiAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
               templateFile: `../../packages/${singleAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
             }),
           ),

@@ -2,9 +2,9 @@
 
 .gitattributes linguist-generated
 packages/core/tsconfig.json linguist-generated
-packages/main/__tests__/valibot.test.ts linguist-generated
-packages/main/__tests__/zod.test.ts linguist-generated
 packages/main/package.json linguist-generated
+packages/main/src/__tests__/valibot.test.ts linguist-generated
+packages/main/src/__tests__/zod.test.ts linguist-generated
 packages/main/src/index.ts linguist-generated
 packages/main/src/resolver.ts linguist-generated
 packages/main/src/validation.ts linguist-generated
