@@ -88,19 +88,19 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
             destination: `packages/${adapterName}`,
           }),
         ),
-        ...multiAdapterNames.flatMap(multiAdapterName => [
-          ...getAddActions({
-            base: 'templates/multi-adapter',
-            data: {adapterNames: singleAdapterNames},
-            destination: `packages/${multiAdapterName}`,
-          }),
-          ...singleAdapterNames.flatMap(singleAdapterName =>
+        ...getAddActions({
+          base: 'templates/main',
+          data: {adapterNames: singleAdapterNames},
+          destination: `packages/main`,
+        }),
+        ...multiAdapterNames.flatMap(multiAdapterName =>
+          singleAdapterNames.map(singleAdapterName =>
             getAddAction({
               path: `packages/${multiAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
               templateFile: `../../packages/${singleAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
             }),
           ),
-        ]),
+        ),
         getAddAction({
           path: 'packages/core/tsconfig.json',
           templateFile: 'templates/adapter/tsconfig.json.hbs',
