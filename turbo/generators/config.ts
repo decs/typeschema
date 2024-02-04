@@ -67,21 +67,19 @@ function getAddActions(config: {
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('all', {
     actions: () => {
-      const packageNames = fs
+      const packageFiles = fs
         .readdirSync('packages', {recursive: true})
         .map(String)
-        .filter(
-          filePath =>
-            filePath.endsWith('/package.json') &&
-            !filePath.includes('/node_modules/'),
-        )
-        .map(filePath => filePath.replace(/\/package\.json$/, ''))
-        .filter(Boolean);
+        .filter(filePath => !filePath.includes('/node_modules/'));
+      const packageNames = packageFiles
+        .filter(filePath => filePath.endsWith('/package.json'))
+        .map(filePath => filePath.replace(/\/package\.json$/, ''));
       const adapterNames = packageNames.filter(
         packageName => !['core', 'typeschema'].includes(packageName),
       );
-      const adapterNamesExcludingMain = adapterNames.filter(
-        adapterName => adapterName !== 'main',
+      const multiAdapterNames = ['main'];
+      const singleAdapterNames = adapterNames.filter(
+        adapterName => !multiAdapterNames.includes(adapterName),
       );
       const actions = [
         ...adapterNames.flatMap(adapterName =>
@@ -90,11 +88,19 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
             destination: `packages/${adapterName}`,
           }),
         ),
-        ...getAddActions({
-          base: 'templates/main',
-          data: {adapterNames: adapterNamesExcludingMain},
-          destination: `packages/main`,
-        }),
+        ...multiAdapterNames.flatMap(multiAdapterName => [
+          ...getAddActions({
+            base: 'templates/multi-adapter',
+            data: {adapterNames: singleAdapterNames},
+            destination: `packages/${multiAdapterName}`,
+          }),
+          ...singleAdapterNames.flatMap(singleAdapterName =>
+            getAddAction({
+              path: `packages/${multiAdapterName}/__tests__/${singleAdapterName}.test.ts`,
+              templateFile: `../../packages/${singleAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
+            }),
+          ),
+        ]),
       ];
       actions.push(
         getAddAction({
