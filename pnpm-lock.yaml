@@ -90,6 +90,21 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  packages/all:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+      '@typeschema/main':
+        specifier: workspace:*
+        version: link:../main
+      '@typeschema/valibot':
+        specifier: workspace:*
+        version: link:../valibot
+      '@typeschema/zod':
+        specifier: workspace:*
+        version: link:../zod
+
   packages/core: {}
 
   packages/main:

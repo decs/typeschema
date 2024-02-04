@@ -77,7 +77,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const adapterNames = packageNames.filter(
         packageName => !['core', 'typeschema'].includes(packageName),
       );
-      const multiAdapterNames = ['main'];
+      const multiAdapterNames = ['main', 'all'];
       const singleAdapterNames = adapterNames.filter(
         adapterName => !multiAdapterNames.includes(adapterName),
       );
@@ -88,19 +88,19 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
             destination: `packages/${adapterName}`,
           }),
         ),
-        ...getAddActions({
-          base: 'templates/main',
-          data: {adapterNames: singleAdapterNames},
-          destination: `packages/main`,
-        }),
-        ...multiAdapterNames.flatMap(multiAdapterName =>
-          singleAdapterNames.map(singleAdapterName =>
+        ...multiAdapterNames.flatMap(multiAdapterName => [
+          ...getAddActions({
+            base: `templates/${multiAdapterName}`,
+            data: {adapterNames: singleAdapterNames},
+            destination: `packages/${multiAdapterName}`,
+          }),
+          ...singleAdapterNames.map(singleAdapterName =>
             getAddAction({
               path: `packages/${multiAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
               templateFile: `../../packages/${singleAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
             }),
           ),
-        ),
+        ]),
         getAddAction({
           path: 'packages/core/tsconfig.json',
           templateFile: 'templates/adapter/tsconfig.json.hbs',
