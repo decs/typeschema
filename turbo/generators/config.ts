@@ -67,7 +67,16 @@ function getAddActions(config: {
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('all', {
     actions: () => {
-      const packageNames = fs.readdirSync('packages').map(String);
+      const packageNames = fs
+        .readdirSync('packages', {recursive: true})
+        .map(String)
+        .filter(
+          filePath =>
+            filePath.endsWith('/package.json') &&
+            !filePath.includes('/node_modules/'),
+        )
+        .map(filePath => filePath.replace(/\/package\.json$/, ''))
+        .filter(Boolean);
       const adapterNames = packageNames.filter(
         packageName => !['core', 'typeschema'].includes(packageName),
       );
