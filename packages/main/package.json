@@ -1,4 +1,5 @@
 {
+  "//": "This file is generated. Do not modify it manually!",
   "name": "@typeschema/main",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",

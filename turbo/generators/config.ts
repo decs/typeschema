@@ -3,31 +3,56 @@ import type {PlopTypes} from '@turbo/gen';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-const TYPESCRIPT_HEADER = `/**
- * This file is generated. Do not modify it manually!
- */`;
-const FILE_HEADER = `# This file is generated. Do not modify it manually!`;
+import * as prettier from 'prettier';
 
-function generateFile(config: {
+const DISCLAIMER = 'This file is generated. Do not modify it manually!';
+const SLASH_STAR_HEADER = `/**
+ * ${DISCLAIMER}
+ */`;
+const HASH_HEADER = `# ${DISCLAIMER}`;
+
+function getAddAction(config: {
+  data?: object;
   path: string;
   templateFile: string;
-  data?: object;
-  includeHeader?: boolean;
 }): PlopTypes.AddActionConfig {
   return {
     force: true,
-    transform: (content: string) =>
-      config.includeHeader ?? true
-        ? `${
-            config.path.endsWith('.ts') ? TYPESCRIPT_HEADER : FILE_HEADER
-          }\n\n${content}`
-        : content,
+    transform: async (content: string) => {
+      switch (config.path.split('.').pop()) {
+        case 'ts':
+          return `${SLASH_STAR_HEADER}\n\n${content}`;
+        case 'json':
+          return prettier.format(
+            content.replace(/{/, `{"//": "${DISCLAIMER}",`),
+            {filepath: config.path},
+          );
+        default:
+          return `${HASH_HEADER}\n\n${content}`;
+      }
+    },
     type: 'add',
     ...config,
   };
 }
 
-const nonAdapterPackageNames = ['core', 'typeschema'];
+function getAddActions(config: {
+  base: string;
+  destination: string;
+  data?: object;
+}): Array<PlopTypes.AddActionConfig> {
+  return fs
+    .readdirSync(`turbo/generators/${config.base}`, {recursive: true})
+    .map(String)
+    .filter(filePath => filePath.endsWith('.hbs'))
+    .map(filePath =>
+      getAddAction({
+        data: config.data,
+        path: `${config.destination}/${filePath.replace(/\.hbs$/, '')}`,
+        templateFile: `${config.base}/${filePath}`,
+      }),
+    );
+}
 
 function getPackageNames(plop: PlopTypes.NodePlopAPI): Array<string> {
   const packagesPath = path.join(plop.getDestBasePath(), 'packages');
@@ -36,54 +61,38 @@ function getPackageNames(plop: PlopTypes.NodePlopAPI): Array<string> {
 }
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
-  const packageNames = getPackageNames(plop);
-  const adapterNames = packageNames.filter(
-    packageName => !nonAdapterPackageNames.includes(packageName),
-  );
-  const adapterNamesExcludingMain = adapterNames.filter(
-    adapterName => adapterName !== 'main',
-  );
-
-  const actions = [
-    ...adapterNames.map(adapterName =>
-      generateFile({
-        path: `packages/${adapterName}/src/index.ts`,
-        templateFile: 'templates/index.ts.hbs',
-      }),
-    ),
-    generateFile({
-      data: {adapterNames: adapterNamesExcludingMain},
-      includeHeader: false,
-      path: `packages/main/package.json`,
-      templateFile: 'templates/package.json.hbs',
-    }),
-    generateFile({
-      data: {adapterNames: adapterNamesExcludingMain},
-      path: `packages/main/src/resolver.ts`,
-      templateFile: 'templates/resolver.ts.hbs',
-    }),
-    generateFile({
-      data: {adapterNames: adapterNamesExcludingMain},
-      path: `packages/main/src/validation.ts`,
-      templateFile: 'templates/validation.ts.hbs',
-    }),
-    ...adapterNamesExcludingMain.map(adapterName =>
-      generateFile({
-        path: `packages/main/src/__tests__/${adapterName}.test.ts`,
-        templateFile: `../../packages/${adapterName}/src/__tests__/${adapterName}.test.ts`,
-      }),
-    ),
-  ];
-  plop.setGenerator('adapters', {
-    actions: [
-      ...actions,
-      generateFile({
-        data: {generatedFiles: actions.map(action => action.path)},
-        path: '.gitattributes',
-        templateFile: 'templates/.gitattributes.hbs',
-      }),
-    ],
-    description: 'Generates common adapter files',
+  plop.setGenerator('all', {
+    actions: () => {
+      const packageNames = getPackageNames(plop);
+      const adapterNames = packageNames.filter(
+        packageName => !['core', 'typeschema'].includes(packageName),
+      );
+      const adapterNamesExcludingMain = adapterNames.filter(
+        adapterName => adapterName !== 'main',
+      );
+      const actions = [
+        ...adapterNames.flatMap(adapterName =>
+          getAddActions({
+            base: 'templates/adapter',
+            destination: `packages/${adapterName}`,
+          }),
+        ),
+        ...getAddActions({
+          base: 'templates/main',
+          data: {adapterNames: adapterNamesExcludingMain},
+          destination: `packages/main`,
+        }),
+      ];
+      actions.push(
+        getAddAction({
+          data: {generatedFilePaths: actions.map(action => action.path)},
+          path: '.gitattributes',
+          templateFile: 'templates/.gitattributes.hbs',
+        }),
+      );
+      return actions;
+    },
+    description: 'Re-generates files',
     prompts: [],
   });
 
