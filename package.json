@@ -17,7 +17,7 @@
     "build": "pnpm gen && turbo lint build lint:package",
     "build:deno": "denoify --src packages/typeschema/src",
     "create:adapter": "turbo gen create-adapter && pnpm gen",
-    "gen": "turbo gen adapters && (grep -Eo '^(.+\\.json) ' .gitattributes | xargs prettier -w) && (grep -Eo '^(.+\\.ts) ' .gitattributes | xargs eslint --fix) && pnpm install",
+    "gen": "turbo gen all && pnpm install",
     "test": "turbo test",
     "upgrade:deps": "turbo upgrade:deps"
   },
@@ -26,6 +26,7 @@
     "@jest/globals": "^29.7.0",
     "@trpc/server": "^10.45.0",
     "@turbo/gen": "^1.12.1",
+    "@types/eslint": "^8.56.2",
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",

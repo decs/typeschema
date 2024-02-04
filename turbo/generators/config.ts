@@ -1,8 +1,7 @@
 import type {PlopTypes} from '@turbo/gen';
 
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-
+import {ESLint} from 'eslint';
+import * as fs from 'fs';
 import * as prettier from 'prettier';
 
 const DISCLAIMER = 'This file is generated. Do not modify it manually!';
@@ -10,6 +9,11 @@ const SLASH_STAR_HEADER = `/**
  * ${DISCLAIMER}
  */`;
 const HASH_HEADER = `# ${DISCLAIMER}`;
+
+const eslint = new ESLint({
+  fix: true,
+  overrideConfig: {parserOptions: {extraFileExtensions: ['.tmp']}},
+});
 
 function getAddAction(config: {
   data?: object;
@@ -21,7 +25,13 @@ function getAddAction(config: {
     transform: async (content: string) => {
       switch (config.path.split('.').pop()) {
         case 'ts':
-          return `${SLASH_STAR_HEADER}\n\n${content}`;
+          const tempPath = `${config.path}.tmp`;
+          fs.writeFileSync(tempPath, `${SLASH_STAR_HEADER}\n\n${content}`);
+          const results = await eslint.lintFiles(tempPath);
+          const output =
+            results[0].output ?? fs.readFileSync(tempPath, 'utf-8');
+          fs.unlinkSync(tempPath);
+          return output;
         case 'json':
           return prettier.format(
             content.replace(/{/, `{"//": "${DISCLAIMER}",`),
@@ -54,16 +64,10 @@ function getAddActions(config: {
     );
 }
 
-function getPackageNames(plop: PlopTypes.NodePlopAPI): Array<string> {
-  const packagesPath = path.join(plop.getDestBasePath(), 'packages');
-  const packagesDir = fs.readdirSync(packagesPath, {withFileTypes: true});
-  return packagesDir.filter(file => file.isDirectory()).map(file => file.name);
-}
-
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('all', {
     actions: () => {
-      const packageNames = getPackageNames(plop);
+      const packageNames = fs.readdirSync('packages').map(String);
       const adapterNames = packageNames.filter(
         packageName => !['core', 'typeschema'].includes(packageName),
       );
