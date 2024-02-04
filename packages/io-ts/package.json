@@ -1,5 +1,5 @@
 {
-  "name": "@typeschema/all",
+  "name": "@typeschema/io-ts",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -45,20 +45,20 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --preset ts-jest",
+    "test": "jest --preset ts-jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
   },
   "dependencies": {
-    "@typeschema/core": "workspace:*",
-    "@typeschema/main": "workspace:*",
-{{#each adapterNames}}
-    "@typeschema/{{this}}": "workspace:*",
-{{/each}}
+    "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-{{#each adapterDependencies}}
-    "{{@key}}": "{{this}}",
-{{/each}}
+    "fp-ts": "^2.16.2",
+    "io-ts": "^2.2.21",
+    "io-ts-types": "^0.5.19"
+  },
+  "peerDependencies": {
+    "fp-ts": "^2.16.2",
+    "io-ts": "^2.2.21"
   }
 }

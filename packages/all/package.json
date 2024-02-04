@@ -54,6 +54,7 @@
     "@typeschema/core": "workspace:*",
     "@typeschema/main": "workspace:*",
     "@typeschema/arktype": "workspace:*",
+    "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
     "@typeschema/superstruct": "workspace:*",
     "@typeschema/typebox": "workspace:*",
@@ -63,6 +64,9 @@
   },
   "devDependencies": {
     "arktype": "^1.0.29-alpha",
+    "fp-ts": "^2.16.2",
+    "io-ts": "^2.2.21",
+    "io-ts-types": "^0.5.19",
     "joi": "^17.12.0",
     "superstruct": "^1.0.3",
     "@sinclair/typebox": "^0.32.11",

@@ -23,6 +23,7 @@ export const select: <TReturn>(is: {
       if ('async' in schema) return is.valibot(schema);
       if ('refiner' in schema) return is.superstruct(schema);
       if ('_flags' in schema) return is.joi(schema);
+      if ('encode' in schema) return is.ioTs(schema);
       break;
   }
   schema satisfies never;

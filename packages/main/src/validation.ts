@@ -18,6 +18,17 @@ const importArktypeValidationAdapter = async () => {
   }
 };
 
+const importIoTsValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/io-ts'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const importJoiValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
@@ -86,6 +97,7 @@ const importZodValidationAdapter = async () => {
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   arktype: async schema => (await importArktypeValidationAdapter())(schema),
+  ioTs: async schema => (await importIoTsValidationAdapter())(schema),
   joi: async schema => (await importJoiValidationAdapter())(schema),
   superstruct: async schema => (await importSuperstructValidationAdapter())(schema),
   typebox: async schema => (await importTypeboxValidationAdapter())(schema),
