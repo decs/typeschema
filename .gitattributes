@@ -3,6 +3,7 @@
 .gitattributes linguist-generated
 packages/all/package.json linguist-generated
 packages/all/src/__tests__/arktype.test.ts linguist-generated
+packages/all/src/__tests__/typebox.test.ts linguist-generated
 packages/all/src/__tests__/valibot.test.ts linguist-generated
 packages/all/src/__tests__/zod.test.ts linguist-generated
 packages/all/src/index.ts linguist-generated
@@ -12,12 +13,15 @@ packages/arktype/tsconfig.json linguist-generated
 packages/core/tsconfig.json linguist-generated
 packages/main/package.json linguist-generated
 packages/main/src/__tests__/arktype.test.ts linguist-generated
+packages/main/src/__tests__/typebox.test.ts linguist-generated
 packages/main/src/__tests__/valibot.test.ts linguist-generated
 packages/main/src/__tests__/zod.test.ts linguist-generated
 packages/main/src/index.ts linguist-generated
 packages/main/src/resolver.ts linguist-generated
 packages/main/src/validation.ts linguist-generated
 packages/main/tsconfig.json linguist-generated
+packages/typebox/src/index.ts linguist-generated
+packages/typebox/tsconfig.json linguist-generated
 packages/valibot/src/index.ts linguist-generated
 packages/valibot/tsconfig.json linguist-generated
 packages/zod/src/index.ts linguist-generated

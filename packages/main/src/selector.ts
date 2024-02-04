@@ -1,5 +1,12 @@
 import type {AdapterResolver, AdapterResolverMap} from './resolver';
 import type {Schema} from '@typeschema/core';
+import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
+
+export function isTypeboxSchema(
+  schema: Schema<AdapterResolver>,
+): schema is Schema<TypeboxResolver> {
+  return Symbol.for('TypeBox.Kind') in schema;
+}
 
 export const select: <TReturn>(is: {
   [Adapter in keyof AdapterResolverMap]: (
@@ -10,6 +17,9 @@ export const select: <TReturn>(is: {
     case 'function':
       return is.arktype(schema);
     case 'object':
+      if (isTypeboxSchema(schema)) {
+        return is.typebox(schema);
+      }
       if ('_def' in schema) {
         return is.zod(schema);
       }

@@ -9,7 +9,9 @@
     "lint:package": {
       "dependsOn": ["build"]
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["^build"]
+    },
     "upgrade:deps": {}
   }
 }

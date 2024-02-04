@@ -54,11 +54,13 @@
     "@typeschema/core": "workspace:*",
     "@typeschema/main": "workspace:*",
     "@typeschema/arktype": "workspace:*",
+    "@typeschema/typebox": "workspace:*",
     "@typeschema/valibot": "workspace:*",
     "@typeschema/zod": "workspace:*"
   },
   "devDependencies": {
     "arktype": "^1.0.29-alpha",
+    "@sinclair/typebox": "^0.32.11",
     "valibot": "^0.27.1",
     "zod": "^3.22.4"
   }

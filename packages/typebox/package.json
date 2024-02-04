@@ -1,6 +1,5 @@
 {
-  "//": "This file is generated. Do not modify it manually!",
-  "name": "@typeschema/main",
+  "name": "@typeschema/typebox",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -46,7 +45,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --preset ts-jest",
+    "test": "jest --preset ts-jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
   },
@@ -54,33 +53,9 @@
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-    "@typeschema/arktype": "workspace:*",
-    "@typeschema/typebox": "workspace:*",
-    "@typeschema/valibot": "workspace:*",
-    "@typeschema/zod": "workspace:*",
-    "arktype": "^1.0.29-alpha",
-    "@sinclair/typebox": "^0.32.11",
-    "valibot": "^0.27.1",
-    "zod": "^3.22.4"
+    "@sinclair/typebox": "^0.32.11"
   },
   "peerDependencies": {
-    "@typeschema/arktype": "workspace:*",
-    "@typeschema/typebox": "workspace:*",
-    "@typeschema/valibot": "workspace:*",
-    "@typeschema/zod": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@typeschema/arktype": {
-      "optional": true
-    },
-    "@typeschema/typebox": {
-      "optional": true
-    },
-    "@typeschema/valibot": {
-      "optional": true
-    },
-    "@typeschema/zod": {
-      "optional": true
-    }
+    "@sinclair/typebox": "^0.32.11"
   }
 }

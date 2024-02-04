@@ -18,6 +18,17 @@ const importArktypeValidationAdapter = async () => {
   }
 };
 
+const importTypeboxValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/typebox'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const importValibotValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
@@ -42,6 +53,7 @@ const importZodValidationAdapter = async () => {
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   arktype: async schema => (await importArktypeValidationAdapter())(schema),
+  typebox: async schema => (await importTypeboxValidationAdapter())(schema),
   valibot: async schema => (await importValibotValidationAdapter())(schema),
   zod: async schema => (await importZodValidationAdapter())(schema),
 });
