@@ -32,6 +32,7 @@ export const select: <TReturn>(is: {
       if ('refiner' in schema) return is.superstruct(notJSON(schema));
       if ('_flags' in schema) return is.joi(notJSON(schema));
       if ('encode' in schema) return is.ioTs(notJSON(schema));
+      if ('reflect' in schema) return is.runtypes(notJSON(schema));
       return is.ajv(schema);
   }
 };

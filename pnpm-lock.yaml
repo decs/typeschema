@@ -120,6 +120,9 @@ importers:
       '@typeschema/main':
         specifier: workspace:*
         version: link:../main
+      '@typeschema/runtypes':
+        specifier: workspace:*
+        version: link:../runtypes
       '@typeschema/superstruct':
         specifier: workspace:*
         version: link:../superstruct
@@ -157,6 +160,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.0
+      runtypes:
+        specifier: ^6.7.0
+        version: 6.7.0
       superstruct:
         specifier: ^1.0.3
         version: 1.0.3
@@ -229,6 +235,9 @@ importers:
       '@typeschema/joi':
         specifier: workspace:*
         version: link:../joi
+      '@typeschema/runtypes':
+        specifier: workspace:*
+        version: link:../runtypes
       '@typeschema/superstruct':
         specifier: workspace:*
         version: link:../superstruct
@@ -262,6 +271,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.0
+      runtypes:
+        specifier: ^6.7.0
+        version: 6.7.0
       superstruct:
         specifier: ^1.0.3
         version: 1.0.3
@@ -274,6 +286,16 @@ importers:
       zod:
         specifier: ^3.22.4
         version: 3.22.4
+
+  packages/runtypes:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      runtypes:
+        specifier: ^6.7.0
+        version: 6.7.0
 
   packages/superstruct:
     dependencies:

@@ -14,6 +14,7 @@ import type {
 } from '@typeschema/core';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
+import type {AdapterResolver as RuntypesResolver} from '@typeschema/runtypes';
 import type {AdapterResolver as SuperstructResolver} from '@typeschema/superstruct';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
@@ -25,6 +26,7 @@ export type AdapterResolverMap = {
   arktype: ArktypeResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
+  runtypes: RuntypesResolver;
   superstruct: SuperstructResolver;
   typebox: TypeboxResolver;
   valibot: ValibotResolver;
