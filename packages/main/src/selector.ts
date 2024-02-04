@@ -17,18 +17,11 @@ export const select: <TReturn>(is: {
     case 'function':
       return is.arktype(schema);
     case 'object':
-      if (isTypeboxSchema(schema)) {
-        return is.typebox(schema);
-      }
-      if ('__isYupSchema__' in schema) {
-        return is.yup(schema);
-      }
-      if ('_def' in schema) {
-        return is.zod(schema);
-      }
-      if ('async' in schema) {
-        return is.valibot(schema);
-      }
+      if (isTypeboxSchema(schema)) return is.typebox(schema);
+      if ('__isYupSchema__' in schema) return is.yup(schema);
+      if ('_def' in schema) return is.zod(schema);
+      if ('async' in schema) return is.valibot(schema);
+      if ('refiner' in schema) return is.superstruct(schema);
       break;
   }
   schema satisfies never;
