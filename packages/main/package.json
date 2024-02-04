@@ -54,6 +54,7 @@
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
+    "@typeschema/ajv": "workspace:*",
     "@typeschema/arktype": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
@@ -62,6 +63,7 @@
     "@typeschema/valibot": "workspace:*",
     "@typeschema/yup": "workspace:*",
     "@typeschema/zod": "workspace:*",
+    "ajv": "^8.12.0",
     "arktype": "^1.0.29-alpha",
     "fp-ts": "^2.16.2",
     "io-ts": "^2.2.21",
@@ -74,6 +76,7 @@
     "zod": "^3.22.4"
   },
   "peerDependencies": {
+    "@typeschema/ajv": "workspace:*",
     "@typeschema/arktype": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
@@ -84,6 +87,9 @@
     "@typeschema/zod": "workspace:*"
   },
   "peerDependenciesMeta": {
+    "@typeschema/ajv": {
+      "optional": true
+    },
     "@typeschema/arktype": {
       "optional": true
     },

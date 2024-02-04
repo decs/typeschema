@@ -1,4 +1,5 @@
 export {Input, Output, Resolver, Schema} from './resolver';
+export {IfDefined, UnknownIfNever} from './utils';
 export {
   Assert,
   createAssert,

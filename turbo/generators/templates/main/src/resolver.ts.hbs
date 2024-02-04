@@ -1,4 +1,11 @@
-import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {
+  IfDefined,
+  Input,
+  Output,
+  Resolver,
+  Schema,
+  UnknownIfNever,
+} from '@typeschema/core';
 {{#each adapterNames}}
 import type {AdapterResolver as {{pascalCase this}}Resolver} from '@typeschema/{{this}}';
 {{/each}}
@@ -9,14 +16,28 @@ export type AdapterResolverMap = {
 {{/each}}
 };
 
-type AdapterResolvers = AdapterResolverMap[keyof AdapterResolverMap];
-
 export interface AdapterResolver extends Resolver {
-  base: Schema<AdapterResolvers>;
-  input: this['schema'] extends this['base']
-    ? Input<AdapterResolvers, this['schema']>
-    : never;
-  output: this['schema'] extends this['base']
-    ? Output<AdapterResolvers, this['schema']>
-    : never;
+  base: {
+    [Adapter in keyof AdapterResolverMap]: IfDefined<
+      Schema<AdapterResolverMap[Adapter]>
+    >;
+  }[keyof AdapterResolverMap];
+  input: UnknownIfNever<
+    {
+      [Adapter in keyof AdapterResolverMap]: IfDefined<
+        this['schema'] extends IfDefined<AdapterResolverMap[Adapter]['base']>
+          ? Input<AdapterResolverMap[Adapter], this['schema']>
+          : never
+      >;
+    }[keyof AdapterResolverMap]
+  >;
+  output: UnknownIfNever<
+    {
+      [Adapter in keyof AdapterResolverMap]: IfDefined<
+        this['schema'] extends IfDefined<AdapterResolverMap[Adapter]['base']>
+          ? Output<AdapterResolverMap[Adapter], this['schema']>
+          : never
+      >;
+    }[keyof AdapterResolverMap]
+  >;
 }

@@ -2,8 +2,16 @@
  * This file is generated. Do not modify it manually!
  */
 
+import type {AdapterResolver as AjvResolver} from '@typeschema/ajv';
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
-import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {
+  IfDefined,
+  Input,
+  Output,
+  Resolver,
+  Schema,
+  UnknownIfNever,
+} from '@typeschema/core';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
 import type {AdapterResolver as SuperstructResolver} from '@typeschema/superstruct';
@@ -13,6 +21,7 @@ import type {AdapterResolver as YupResolver} from '@typeschema/yup';
 import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
 export type AdapterResolverMap = {
+  ajv: AjvResolver;
   arktype: ArktypeResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
@@ -23,14 +32,28 @@ export type AdapterResolverMap = {
   zod: ZodResolver;
 };
 
-type AdapterResolvers = AdapterResolverMap[keyof AdapterResolverMap];
-
 export interface AdapterResolver extends Resolver {
-  base: Schema<AdapterResolvers>;
-  input: this['schema'] extends this['base']
-    ? Input<AdapterResolvers, this['schema']>
-    : never;
-  output: this['schema'] extends this['base']
-    ? Output<AdapterResolvers, this['schema']>
-    : never;
+  base: {
+    [Adapter in keyof AdapterResolverMap]: IfDefined<
+      Schema<AdapterResolverMap[Adapter]>
+    >;
+  }[keyof AdapterResolverMap];
+  input: UnknownIfNever<
+    {
+      [Adapter in keyof AdapterResolverMap]: IfDefined<
+        this['schema'] extends IfDefined<AdapterResolverMap[Adapter]['base']>
+          ? Input<AdapterResolverMap[Adapter], this['schema']>
+          : never
+      >;
+    }[keyof AdapterResolverMap]
+  >;
+  output: UnknownIfNever<
+    {
+      [Adapter in keyof AdapterResolverMap]: IfDefined<
+        this['schema'] extends IfDefined<AdapterResolverMap[Adapter]['base']>
+          ? Output<AdapterResolverMap[Adapter], this['schema']>
+          : never
+      >;
+    }[keyof AdapterResolverMap]
+  >;
 }

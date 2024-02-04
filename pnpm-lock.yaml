@@ -90,8 +90,21 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  packages/ajv:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      ajv:
+        specifier: ^8.12.0
+        version: 8.12.0
+
   packages/all:
     dependencies:
+      '@typeschema/ajv':
+        specifier: workspace:*
+        version: link:../ajv
       '@typeschema/arktype':
         specifier: workspace:*
         version: link:../arktype
@@ -126,6 +139,9 @@ importers:
       '@sinclair/typebox':
         specifier: ^0.32.11
         version: 0.32.11
+      ajv:
+        specifier: ^8.12.0
+        version: 8.12.0
       arktype:
         specifier: ^1.0.29-alpha
         version: 1.0.29-alpha
@@ -201,6 +217,9 @@ importers:
       '@sinclair/typebox':
         specifier: ^0.32.11
         version: 0.32.11
+      '@typeschema/ajv':
+        specifier: workspace:*
+        version: link:../ajv
       '@typeschema/arktype':
         specifier: workspace:*
         version: link:../arktype
@@ -225,6 +244,9 @@ importers:
       '@typeschema/zod':
         specifier: workspace:*
         version: link:../zod
+      ajv:
+        specifier: ^8.12.0
+        version: 8.12.0
       arktype:
         specifier: ^1.0.29-alpha
         version: 1.0.29-alpha
