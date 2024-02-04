@@ -55,5 +55,10 @@
 {{#each adapterNames}}
     "@typeschema/{{this}}": "workspace:*",
 {{/each}}
+  },
+  "devDependencies": {
+{{#each adapterPeerDependencies}}
+    "{{@key}}": "{{this}}",
+{{/each}}
   }
 }

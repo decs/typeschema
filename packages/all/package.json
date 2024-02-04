@@ -55,5 +55,9 @@
     "@typeschema/main": "workspace:*",
     "@typeschema/valibot": "workspace:*",
     "@typeschema/zod": "workspace:*"
+  },
+  "devDependencies": {
+    "valibot": "^0.27.1",
+    "zod": "^3.22.4"
   }
 }

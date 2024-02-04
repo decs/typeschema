@@ -104,6 +104,13 @@ importers:
       '@typeschema/zod':
         specifier: workspace:*
         version: link:../zod
+    devDependencies:
+      valibot:
+        specifier: ^0.27.1
+        version: 0.27.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
 
   packages/core: {}
 
@@ -119,6 +126,12 @@ importers:
       '@typeschema/zod':
         specifier: workspace:*
         version: link:../zod
+      valibot:
+        specifier: ^0.27.1
+        version: 0.27.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
 
   packages/typeschema:
     devDependencies:

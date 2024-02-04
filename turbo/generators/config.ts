@@ -81,6 +81,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const singleAdapterNames = adapterNames.filter(
         adapterName => !multiAdapterNames.includes(adapterName),
       );
+      const adapterPeerDependencies = singleAdapterNames
+        .map(adapterName => `packages/${adapterName}/package.json`)
+        .map(filePath => fs.readFileSync(filePath, 'utf-8'))
+        .map(content => JSON.parse(content))
+        .map(pkg => pkg.peerDependencies)
+        .reduce((result, dependency) => ({...result, ...dependency}), {});
       const actions = [
         ...adapterNames.flatMap(adapterName =>
           getAddActions({
@@ -91,7 +97,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         ...multiAdapterNames.flatMap(multiAdapterName => [
           ...getAddActions({
             base: `templates/${multiAdapterName}`,
-            data: {adapterNames: singleAdapterNames},
+            data: {adapterNames: singleAdapterNames, adapterPeerDependencies},
             destination: `packages/${multiAdapterName}`,
           }),
           ...singleAdapterNames.map(singleAdapterName =>

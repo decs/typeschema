@@ -55,7 +55,9 @@
   },
   "devDependencies": {
     "@typeschema/valibot": "workspace:*",
-    "@typeschema/zod": "workspace:*"
+    "@typeschema/zod": "workspace:*",
+    "valibot": "^0.27.1",
+    "zod": "^3.22.4"
   },
   "peerDependencies": {
     "@typeschema/valibot": "workspace:*",
