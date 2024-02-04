@@ -92,6 +92,9 @@ importers:
 
   packages/all:
     dependencies:
+      '@typeschema/arktype':
+        specifier: workspace:*
+        version: link:../arktype
       '@typeschema/core':
         specifier: workspace:*
         version: link:../core
@@ -105,12 +108,25 @@ importers:
         specifier: workspace:*
         version: link:../zod
     devDependencies:
+      arktype:
+        specifier: ^1.0.29-alpha
+        version: 1.0.29-alpha
       valibot:
         specifier: ^0.27.1
         version: 0.27.1
       zod:
         specifier: ^3.22.4
         version: 3.22.4
+
+  packages/arktype:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      arktype:
+        specifier: ^1.0.29-alpha
+        version: 1.0.29-alpha
 
   packages/core: {}
 
@@ -120,12 +136,18 @@ importers:
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@typeschema/arktype':
+        specifier: workspace:*
+        version: link:../arktype
       '@typeschema/valibot':
         specifier: workspace:*
         version: link:../valibot
       '@typeschema/zod':
         specifier: workspace:*
         version: link:../zod
+      arktype:
+        specifier: ^1.0.29-alpha
+        version: 1.0.29-alpha
       valibot:
         specifier: ^0.27.1
         version: 0.27.1

@@ -2,11 +2,13 @@
  * This file is generated. Do not modify it manually!
  */
 
+import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
 import type {Input, Output, Resolver, Schema} from '@typeschema/core';
 import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
 import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
 export type AdapterResolverMap = {
+  arktype: ArktypeResolver;
   valibot: ValibotResolver;
   zod: ZodResolver;
 };

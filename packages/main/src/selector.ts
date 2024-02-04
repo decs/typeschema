@@ -6,11 +6,17 @@ export const select: <TReturn>(is: {
     schema: Schema<AdapterResolverMap[Adapter]>,
   ) => TReturn;
 }) => (schema: Schema<AdapterResolver>) => TReturn = is => schema => {
-  if ('_def' in schema) {
-    return is.zod(schema);
-  }
-  if ('async' in schema) {
-    return is.valibot(schema);
+  switch (typeof schema) {
+    case 'function':
+      return is.arktype(schema);
+    case 'object':
+      if ('_def' in schema) {
+        return is.zod(schema);
+      }
+      if ('async' in schema) {
+        return is.valibot(schema);
+      }
+      break;
   }
   schema satisfies never;
   throw Error('not supported');

@@ -7,6 +7,17 @@ import type {ValidationAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 
+const importArktypeValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/arktype'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const importValibotValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
@@ -30,6 +41,7 @@ const importZodValidationAdapter = async () => {
 };
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
+  arktype: async schema => (await importArktypeValidationAdapter())(schema),
   valibot: async schema => (await importValibotValidationAdapter())(schema),
   zod: async schema => (await importZodValidationAdapter())(schema),
 });
