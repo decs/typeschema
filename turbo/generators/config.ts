@@ -35,7 +35,7 @@ function getAddAction(config: {
         case 'json':
           return prettier.format(
             content.replace(/{/, `{"//": "${DISCLAIMER}",`),
-            {filepath: config.path},
+            {filepath: config.path, trailingComma: 'none'},
           );
         default:
           return `${HASH_HEADER}\n\n${content}`;
@@ -101,6 +101,10 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
             }),
           ),
         ]),
+        getAddAction({
+          path: 'packages/core/tsconfig.json',
+          templateFile: 'templates/adapter/tsconfig.json.hbs',
+        }),
       ];
       actions.push(
         getAddAction({
