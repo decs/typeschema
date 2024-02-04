@@ -89,12 +89,17 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       ];
       actions.push(
         getAddAction({
-          data: {generatedFilePaths: actions.map(action => action.path)},
+          data: {
+            generatedFilePaths: actions
+              .map(action => action.path)
+              .concat(['pnpm-lock.yaml', '.gitattributes'])
+              .sort(),
+          },
           path: '.gitattributes',
           templateFile: 'templates/.gitattributes.hbs',
         }),
       );
-      return actions;
+      return actions.sort((a, b) => a.path.localeCompare(b.path));
     },
     description: 'Re-generates files',
     prompts: [],
