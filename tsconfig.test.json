@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "ts-node": {
+    "compiler": "ts-patch/compiler"
+  },
+  "compilerOptions": {
+    "plugins": [{"transform": "typia/lib/transform"}],
+    "strictNullChecks": true
+  },
+  "reflection": true
+}

@@ -56,6 +56,7 @@
     "@typeschema/ajv": "workspace:*",
     "@typeschema/arktype": "workspace:*",
     "@typeschema/custom": "workspace:*",
+    "@typeschema/deepkit": "workspace:*",
     "@typeschema/effect": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
@@ -69,6 +70,9 @@
   "devDependencies": {
     "ajv": "^8.12.0",
     "arktype": "^1.0.29-alpha",
+    "typia": "^5.3.11",
+    "@deepkit/type": "^1.0.1-alpha.113",
+    "@deepkit/type-compiler": "^1.0.1-alpha.112",
     "@effect/schema": "^0.60.6",
     "effect": "^2.1.2",
     "fp-ts": "^2.16.2",

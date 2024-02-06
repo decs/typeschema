@@ -40,6 +40,17 @@ const importCustomValidationAdapter = async () => {
   }
 };
 
+const importDeepkitValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/deepkit'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const importEffectValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
@@ -143,6 +154,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   ajv: async schema => (await importAjvValidationAdapter())(schema),
   arktype: async schema => (await importArktypeValidationAdapter())(schema),
   custom: async schema => (await importCustomValidationAdapter())(schema),
+  deepkit: async schema => (await importDeepkitValidationAdapter())(schema),
   effect: async schema => (await importEffectValidationAdapter())(schema),
   ioTs: async schema => (await importIoTsValidationAdapter())(schema),
   joi: async schema => (await importJoiValidationAdapter())(schema),

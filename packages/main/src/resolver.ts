@@ -6,6 +6,7 @@ import type {AdapterResolver as AjvResolver} from '@typeschema/ajv';
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
 import type {Input, Output, Resolver, Schema} from '@typeschema/core';
 import type {AdapterResolver as CustomResolver} from '@typeschema/custom';
+import type {AdapterResolver as DeepkitResolver} from '@typeschema/deepkit';
 import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
@@ -20,6 +21,7 @@ export type AdapterResolverMap = {
   ajv: AjvResolver;
   arktype: ArktypeResolver;
   custom: CustomResolver;
+  deepkit: DeepkitResolver;
   effect: EffectResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
