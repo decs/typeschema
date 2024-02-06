@@ -6,6 +6,7 @@ packages/ajv/tsconfig.json linguist-generated
 packages/all/package.json linguist-generated
 packages/all/src/__tests__/ajv.test.ts linguist-generated
 packages/all/src/__tests__/arktype.test.ts linguist-generated
+packages/all/src/__tests__/custom.test.ts linguist-generated
 packages/all/src/__tests__/effect.test.ts linguist-generated
 packages/all/src/__tests__/io-ts.test.ts linguist-generated
 packages/all/src/__tests__/joi.test.ts linguist-generated
@@ -20,6 +21,8 @@ packages/all/tsconfig.json linguist-generated
 packages/arktype/src/index.ts linguist-generated
 packages/arktype/tsconfig.json linguist-generated
 packages/core/tsconfig.json linguist-generated
+packages/custom/src/index.ts linguist-generated
+packages/custom/tsconfig.json linguist-generated
 packages/effect/src/index.ts linguist-generated
 packages/effect/tsconfig.json linguist-generated
 packages/io-ts/src/index.ts linguist-generated
@@ -29,6 +32,7 @@ packages/joi/tsconfig.json linguist-generated
 packages/main/package.json linguist-generated
 packages/main/src/__tests__/ajv.test.ts linguist-generated
 packages/main/src/__tests__/arktype.test.ts linguist-generated
+packages/main/src/__tests__/custom.test.ts linguist-generated
 packages/main/src/__tests__/effect.test.ts linguist-generated
 packages/main/src/__tests__/io-ts.test.ts linguist-generated
 packages/main/src/__tests__/joi.test.ts linguist-generated

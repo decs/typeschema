@@ -4,14 +4,8 @@
 
 import type {AdapterResolver as AjvResolver} from '@typeschema/ajv';
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
-import type {
-  IfDefined,
-  Input,
-  Output,
-  Resolver,
-  Schema,
-  UnknownIfNever,
-} from '@typeschema/core';
+import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {AdapterResolver as CustomResolver} from '@typeschema/custom';
 import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
@@ -25,6 +19,7 @@ import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 export type AdapterResolverMap = {
   ajv: AjvResolver;
   arktype: ArktypeResolver;
+  custom: CustomResolver;
   effect: EffectResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
@@ -38,26 +33,20 @@ export type AdapterResolverMap = {
 
 export interface AdapterResolver extends Resolver {
   base: {
-    [Adapter in keyof AdapterResolverMap]: IfDefined<
-      Schema<AdapterResolverMap[Adapter]>
-    >;
+    [Adapter in keyof AdapterResolverMap]: Schema<AdapterResolverMap[Adapter]>;
   }[keyof AdapterResolverMap];
-  input: UnknownIfNever<
-    {
-      [Adapter in keyof AdapterResolverMap]: IfDefined<
-        this['schema'] extends IfDefined<AdapterResolverMap[Adapter]['base']>
-          ? Input<AdapterResolverMap[Adapter], this['schema']>
-          : never
-      >;
-    }[keyof AdapterResolverMap]
-  >;
-  output: UnknownIfNever<
-    {
-      [Adapter in keyof AdapterResolverMap]: IfDefined<
-        this['schema'] extends IfDefined<AdapterResolverMap[Adapter]['base']>
-          ? Output<AdapterResolverMap[Adapter], this['schema']>
-          : never
-      >;
-    }[keyof AdapterResolverMap]
-  >;
+  input: {
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+      AdapterResolverMap[Adapter]
+    >
+      ? Input<AdapterResolverMap[Adapter], this['schema']>
+      : never;
+  }[keyof AdapterResolverMap];
+  output: {
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+      AdapterResolverMap[Adapter]
+    >
+      ? Output<AdapterResolverMap[Adapter], this['schema']>
+      : never;
+  }[keyof AdapterResolverMap];
 }

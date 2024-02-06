@@ -111,6 +111,9 @@ importers:
       '@typeschema/core':
         specifier: workspace:*
         version: link:../core
+      '@typeschema/custom':
+        specifier: workspace:*
+        version: link:../custom
       '@typeschema/effect':
         specifier: workspace:*
         version: link:../effect
@@ -197,6 +200,12 @@ importers:
 
   packages/core: {}
 
+  packages/custom:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+
   packages/effect:
     dependencies:
       '@typeschema/core':
@@ -254,6 +263,9 @@ importers:
       '@typeschema/arktype':
         specifier: workspace:*
         version: link:../arktype
+      '@typeschema/custom':
+        specifier: workspace:*
+        version: link:../custom
       '@typeschema/effect':
         specifier: workspace:*
         version: link:../effect

@@ -56,6 +56,7 @@
   "devDependencies": {
     "@typeschema/ajv": "workspace:*",
     "@typeschema/arktype": "workspace:*",
+    "@typeschema/custom": "workspace:*",
     "@typeschema/effect": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
@@ -83,6 +84,7 @@
   "peerDependencies": {
     "@typeschema/ajv": "workspace:*",
     "@typeschema/arktype": "workspace:*",
+    "@typeschema/custom": "workspace:*",
     "@typeschema/effect": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
@@ -98,6 +100,9 @@
       "optional": true
     },
     "@typeschema/arktype": {
+      "optional": true
+    },
+    "@typeschema/custom": {
       "optional": true
     },
     "@typeschema/effect": {
