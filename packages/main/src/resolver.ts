@@ -12,6 +12,7 @@ import type {
   Schema,
   UnknownIfNever,
 } from '@typeschema/core';
+import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
 import type {AdapterResolver as RuntypesResolver} from '@typeschema/runtypes';
@@ -24,6 +25,7 @@ import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 export type AdapterResolverMap = {
   ajv: AjvResolver;
   arktype: ArktypeResolver;
+  effect: EffectResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
   runtypes: RuntypesResolver;

@@ -1,6 +1,5 @@
 {
-  "//": "This file is generated. Do not modify it manually!",
-  "name": "@typeschema/all",
+  "name": "@typeschema/effect",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -46,39 +45,19 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --preset ts-jest",
+    "test": "jest --preset ts-jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
   },
   "dependencies": {
-    "@typeschema/core": "workspace:*",
-    "@typeschema/main": "workspace:*",
-    "@typeschema/ajv": "workspace:*",
-    "@typeschema/arktype": "workspace:*",
-    "@typeschema/effect": "workspace:*",
-    "@typeschema/io-ts": "workspace:*",
-    "@typeschema/joi": "workspace:*",
-    "@typeschema/runtypes": "workspace:*",
-    "@typeschema/superstruct": "workspace:*",
-    "@typeschema/typebox": "workspace:*",
-    "@typeschema/valibot": "workspace:*",
-    "@typeschema/yup": "workspace:*",
-    "@typeschema/zod": "workspace:*"
+    "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-    "ajv": "^8.12.0",
-    "arktype": "^1.0.29-alpha",
     "@effect/schema": "^0.60.6",
-    "effect": "^2.1.2",
-    "fp-ts": "^2.16.2",
-    "io-ts": "^2.2.21",
-    "io-ts-types": "^0.5.19",
-    "joi": "^17.12.0",
-    "runtypes": "^6.7.0",
-    "superstruct": "^1.0.3",
-    "@sinclair/typebox": "^0.32.11",
-    "valibot": "^0.27.1",
-    "yup": "^1.3.3",
-    "zod": "^3.22.4"
+    "effect": "^2.1.2"
+  },
+  "peerDependencies": {
+    "@effect/schema": "^0.60.6",
+    "effect": "^2.1.2"
   }
 }

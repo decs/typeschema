@@ -111,6 +111,9 @@ importers:
       '@typeschema/core':
         specifier: workspace:*
         version: link:../core
+      '@typeschema/effect':
+        specifier: workspace:*
+        version: link:../effect
       '@typeschema/io-ts':
         specifier: workspace:*
         version: link:../io-ts
@@ -139,6 +142,9 @@ importers:
         specifier: workspace:*
         version: link:../zod
     devDependencies:
+      '@effect/schema':
+        specifier: ^0.60.6
+        version: 0.60.6(effect@2.1.2)(fast-check@3.15.0)
       '@sinclair/typebox':
         specifier: ^0.32.11
         version: 0.32.11
@@ -148,6 +154,9 @@ importers:
       arktype:
         specifier: ^1.0.29-alpha
         version: 1.0.29-alpha
+      effect:
+        specifier: ^2.1.2
+        version: 2.1.2
       fp-ts:
         specifier: ^2.16.2
         version: 2.16.2
@@ -188,6 +197,19 @@ importers:
 
   packages/core: {}
 
+  packages/effect:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@effect/schema':
+        specifier: ^0.60.6
+        version: 0.60.6(effect@2.1.2)(fast-check@3.15.0)
+      effect:
+        specifier: ^2.1.2
+        version: 2.1.2
+
   packages/io-ts:
     dependencies:
       '@typeschema/core':
@@ -220,6 +242,9 @@ importers:
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@effect/schema':
+        specifier: ^0.60.6
+        version: 0.60.6(effect@2.1.2)(fast-check@3.15.0)
       '@sinclair/typebox':
         specifier: ^0.32.11
         version: 0.32.11
@@ -229,6 +254,9 @@ importers:
       '@typeschema/arktype':
         specifier: workspace:*
         version: link:../arktype
+      '@typeschema/effect':
+        specifier: workspace:*
+        version: link:../effect
       '@typeschema/io-ts':
         specifier: workspace:*
         version: link:../io-ts
@@ -259,6 +287,9 @@ importers:
       arktype:
         specifier: ^1.0.29-alpha
         version: 1.0.29-alpha
+      effect:
+        specifier: ^2.1.2
+        version: 2.1.2
       fp-ts:
         specifier: ^2.16.2
         version: 2.16.2
