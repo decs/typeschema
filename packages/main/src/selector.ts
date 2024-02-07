@@ -36,6 +36,7 @@ export const select: <TReturn>(is: {
       if ('reflect' in schema) return is.runtypes(notJSON(schema));
       if ('ast' in schema) return is.effect(notJSON(schema));
       if ('kind' in schema) return is.deepkit(notJSON(schema));
+      if ('context' in schema) return is.ow(notJSON(schema));
       return is.ajv(schema);
   }
 };

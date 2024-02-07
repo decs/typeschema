@@ -84,6 +84,17 @@ const importJoiValidationAdapter = async () => {
   }
 };
 
+const importOwValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/ow'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const importRuntypesValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
@@ -158,6 +169,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   effect: async schema => (await importEffectValidationAdapter())(schema),
   ioTs: async schema => (await importIoTsValidationAdapter())(schema),
   joi: async schema => (await importJoiValidationAdapter())(schema),
+  ow: async schema => (await importOwValidationAdapter())(schema),
   runtypes: async schema => (await importRuntypesValidationAdapter())(schema),
   superstruct: async schema => (await importSuperstructValidationAdapter())(schema),
   typebox: async schema => (await importTypeboxValidationAdapter())(schema),

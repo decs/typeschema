@@ -10,6 +10,7 @@ import type {AdapterResolver as DeepkitResolver} from '@typeschema/deepkit';
 import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
+import type {AdapterResolver as OwResolver} from '@typeschema/ow';
 import type {AdapterResolver as RuntypesResolver} from '@typeschema/runtypes';
 import type {AdapterResolver as SuperstructResolver} from '@typeschema/superstruct';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
@@ -25,6 +26,7 @@ export type AdapterResolverMap = {
   effect: EffectResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
+  ow: OwResolver;
   runtypes: RuntypesResolver;
   superstruct: SuperstructResolver;
   typebox: TypeboxResolver;

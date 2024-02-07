@@ -42,10 +42,10 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --preset ts-jest",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
   },

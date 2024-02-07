@@ -42,7 +42,7 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
     "test": "jest",

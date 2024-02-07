@@ -135,6 +135,9 @@ importers:
       '@typeschema/main':
         specifier: workspace:*
         version: link:../main
+      '@typeschema/ow':
+        specifier: workspace:*
+        version: link:../ow
       '@typeschema/runtypes':
         specifier: workspace:*
         version: link:../runtypes
@@ -187,6 +190,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.0
+      ow:
+        specifier: ^0.28.2
+        version: 0.28.2
       runtypes:
         specifier: ^6.7.0
         version: 6.7.0
@@ -319,6 +325,9 @@ importers:
       '@typeschema/joi':
         specifier: workspace:*
         version: link:../joi
+      '@typeschema/ow':
+        specifier: workspace:*
+        version: link:../ow
       '@typeschema/runtypes':
         specifier: workspace:*
         version: link:../runtypes
@@ -358,6 +367,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.0
+      ow:
+        specifier: ^0.28.2
+        version: 0.28.2
       runtypes:
         specifier: ^6.7.0
         version: 6.7.0
@@ -376,6 +388,16 @@ importers:
       zod:
         specifier: ^3.22.4
         version: 3.22.4
+
+  packages/ow:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      ow:
+        specifier: ^0.28.2
+        version: 0.28.2
 
   packages/runtypes:
     dependencies:

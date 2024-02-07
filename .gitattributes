@@ -14,6 +14,7 @@ packages/all/src/__tests__/deepkit.test.ts linguist-generated
 packages/all/src/__tests__/effect.test.ts linguist-generated
 packages/all/src/__tests__/io-ts.test.ts linguist-generated
 packages/all/src/__tests__/joi.test.ts linguist-generated
+packages/all/src/__tests__/ow.test.ts linguist-generated
 packages/all/src/__tests__/runtypes.test.ts linguist-generated
 packages/all/src/__tests__/superstruct.test.ts linguist-generated
 packages/all/src/__tests__/typebox.test.ts linguist-generated
@@ -57,6 +58,7 @@ packages/main/src/__tests__/deepkit.test.ts linguist-generated
 packages/main/src/__tests__/effect.test.ts linguist-generated
 packages/main/src/__tests__/io-ts.test.ts linguist-generated
 packages/main/src/__tests__/joi.test.ts linguist-generated
+packages/main/src/__tests__/ow.test.ts linguist-generated
 packages/main/src/__tests__/runtypes.test.ts linguist-generated
 packages/main/src/__tests__/superstruct.test.ts linguist-generated
 packages/main/src/__tests__/typebox.test.ts linguist-generated
@@ -68,6 +70,10 @@ packages/main/src/resolver.ts linguist-generated
 packages/main/src/validation.ts linguist-generated
 packages/main/tsconfig.json linguist-generated
 packages/main/tsconfig.test.json linguist-generated
+packages/ow/jest.config.ts linguist-generated
+packages/ow/src/index.ts linguist-generated
+packages/ow/tsconfig.json linguist-generated
+packages/ow/tsconfig.test.json linguist-generated
 packages/runtypes/jest.config.ts linguist-generated
 packages/runtypes/src/index.ts linguist-generated
 packages/runtypes/tsconfig.json linguist-generated

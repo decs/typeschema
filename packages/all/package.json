@@ -43,10 +43,10 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --preset ts-jest",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
     "postpack": "rm README.md && rm -r assets"
   },
@@ -60,6 +60,7 @@
     "@typeschema/effect": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
+    "@typeschema/ow": "workspace:*",
     "@typeschema/runtypes": "workspace:*",
     "@typeschema/superstruct": "workspace:*",
     "@typeschema/typebox": "workspace:*",
@@ -79,6 +80,7 @@
     "io-ts": "^2.2.21",
     "io-ts-types": "^0.5.19",
     "joi": "^17.12.0",
+    "ow": "^0.28.2",
     "runtypes": "^6.7.0",
     "superstruct": "^1.0.3",
     "@sinclair/typebox": "^0.32.11",
