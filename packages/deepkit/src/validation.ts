@@ -1,14 +1,16 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
-const importValidationModule = async () => {
+import {memoize} from '@typeschema/core';
+
+const importValidationModule = memoize(async () => {
   try {
     const {validate} = await import(/* webpackIgnore: true */ '@deepkit/type');
     return {validate};
   } catch (error) {
     throw error;
   }
-};
+});
 
 export const validationAdapter: ValidationAdapter<
   AdapterResolver

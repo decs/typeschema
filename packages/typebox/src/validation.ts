@@ -1,7 +1,9 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
-const importValidationModule = async () => {
+import {memoize} from '@typeschema/core';
+
+const importValidationModule = memoize(async () => {
   try {
     const {TypeCompiler} = await import(
       /* webpackIgnore: true */ '@sinclair/typebox/compiler'
@@ -10,7 +12,7 @@ const importValidationModule = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
 export const validationAdapter: ValidationAdapter<
   AdapterResolver

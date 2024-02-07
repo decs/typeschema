@@ -5,9 +5,11 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
+import {memoize} from '@typeschema/core';
+
 import {select} from './selector';
 
-const importAjvValidationAdapter = async () => {
+const importAjvValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/ajv'
@@ -16,9 +18,9 @@ const importAjvValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importArktypeValidationAdapter = async () => {
+const importArktypeValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/arktype'
@@ -27,9 +29,9 @@ const importArktypeValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importDeepkitValidationAdapter = async () => {
+const importDeepkitValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/deepkit'
@@ -38,9 +40,9 @@ const importDeepkitValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importEffectValidationAdapter = async () => {
+const importEffectValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/effect'
@@ -49,9 +51,9 @@ const importEffectValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importFunctionValidationAdapter = async () => {
+const importFunctionValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/function'
@@ -60,9 +62,9 @@ const importFunctionValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importIoTsValidationAdapter = async () => {
+const importIoTsValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/io-ts'
@@ -71,9 +73,9 @@ const importIoTsValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importJoiValidationAdapter = async () => {
+const importJoiValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/joi'
@@ -82,9 +84,9 @@ const importJoiValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importOwValidationAdapter = async () => {
+const importOwValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/ow'
@@ -93,9 +95,9 @@ const importOwValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importRuntypesValidationAdapter = async () => {
+const importRuntypesValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/runtypes'
@@ -104,9 +106,9 @@ const importRuntypesValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importSuperstructValidationAdapter = async () => {
+const importSuperstructValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/superstruct'
@@ -115,9 +117,9 @@ const importSuperstructValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importTypeboxValidationAdapter = async () => {
+const importTypeboxValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/typebox'
@@ -126,9 +128,9 @@ const importTypeboxValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importValibotValidationAdapter = async () => {
+const importValibotValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/valibot'
@@ -137,9 +139,9 @@ const importValibotValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importYupValidationAdapter = async () => {
+const importYupValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/yup'
@@ -148,9 +150,9 @@ const importYupValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
-const importZodValidationAdapter = async () => {
+const importZodValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/zod'
@@ -159,7 +161,7 @@ const importZodValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   ajv: async schema => (await importAjvValidationAdapter())(schema),

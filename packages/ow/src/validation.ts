@@ -1,7 +1,9 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
-const importValidationModule = async () => {
+import {memoize} from '@typeschema/core';
+
+const importValidationModule = memoize(async () => {
   try {
     const {default: ow, ArgumentError} = await import(
       /* webpackIgnore: true */ 'ow'
@@ -10,7 +12,7 @@ const importValidationModule = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
 export const validationAdapter: ValidationAdapter<
   AdapterResolver

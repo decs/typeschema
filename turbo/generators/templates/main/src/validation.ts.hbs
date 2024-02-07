@@ -1,10 +1,12 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
+import {memoize} from '@typeschema/core';
+
 import {select} from './selector';
 
 {{#each adapterNames}}
-const import{{pascalCase this}}ValidationAdapter = async () => {
+const import{{pascalCase this}}ValidationAdapter = memoize(async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/{{this}}'
@@ -13,7 +15,7 @@ const import{{pascalCase this}}ValidationAdapter = async () => {
   } catch (error) {
     throw error;
   }
-};
+});
 
 {{/each}}
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
