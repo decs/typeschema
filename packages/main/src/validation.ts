@@ -29,17 +29,6 @@ const importArktypeValidationAdapter = async () => {
   }
 };
 
-const importCustomValidationAdapter = async () => {
-  try {
-    const {validationAdapter} = await import(
-      /* webpackIgnore: true */ '@typeschema/custom'
-    );
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
-};
-
 const importDeepkitValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
@@ -55,6 +44,17 @@ const importEffectValidationAdapter = async () => {
   try {
     const {validationAdapter} = await import(
       /* webpackIgnore: true */ '@typeschema/effect'
+    );
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const importFunctionValidationAdapter = async () => {
+  try {
+    const {validationAdapter} = await import(
+      /* webpackIgnore: true */ '@typeschema/function'
     );
     return validationAdapter;
   } catch (error) {
@@ -164,9 +164,9 @@ const importZodValidationAdapter = async () => {
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   ajv: async schema => (await importAjvValidationAdapter())(schema),
   arktype: async schema => (await importArktypeValidationAdapter())(schema),
-  custom: async schema => (await importCustomValidationAdapter())(schema),
   deepkit: async schema => (await importDeepkitValidationAdapter())(schema),
   effect: async schema => (await importEffectValidationAdapter())(schema),
+  function: async schema => (await importFunctionValidationAdapter())(schema),
   ioTs: async schema => (await importIoTsValidationAdapter())(schema),
   joi: async schema => (await importJoiValidationAdapter())(schema),
   ow: async schema => (await importOwValidationAdapter())(schema),

@@ -9,9 +9,9 @@ packages/all/jest.config.ts linguist-generated
 packages/all/package.json linguist-generated
 packages/all/src/__tests__/ajv.test.ts linguist-generated
 packages/all/src/__tests__/arktype.test.ts linguist-generated
-packages/all/src/__tests__/custom.test.ts linguist-generated
 packages/all/src/__tests__/deepkit.test.ts linguist-generated
 packages/all/src/__tests__/effect.test.ts linguist-generated
+packages/all/src/__tests__/function.test.ts linguist-generated
 packages/all/src/__tests__/io-ts.test.ts linguist-generated
 packages/all/src/__tests__/joi.test.ts linguist-generated
 packages/all/src/__tests__/ow.test.ts linguist-generated
@@ -29,10 +29,6 @@ packages/arktype/src/index.ts linguist-generated
 packages/arktype/tsconfig.json linguist-generated
 packages/arktype/tsconfig.test.json linguist-generated
 packages/core/tsconfig.json linguist-generated
-packages/custom/jest.config.ts linguist-generated
-packages/custom/src/index.ts linguist-generated
-packages/custom/tsconfig.json linguist-generated
-packages/custom/tsconfig.test.json linguist-generated
 packages/deepkit/jest.config.ts linguist-generated
 packages/deepkit/src/index.ts linguist-generated
 packages/deepkit/tsconfig.json linguist-generated
@@ -41,6 +37,10 @@ packages/effect/jest.config.ts linguist-generated
 packages/effect/src/index.ts linguist-generated
 packages/effect/tsconfig.json linguist-generated
 packages/effect/tsconfig.test.json linguist-generated
+packages/function/jest.config.ts linguist-generated
+packages/function/src/index.ts linguist-generated
+packages/function/tsconfig.json linguist-generated
+packages/function/tsconfig.test.json linguist-generated
 packages/io-ts/jest.config.ts linguist-generated
 packages/io-ts/src/index.ts linguist-generated
 packages/io-ts/tsconfig.json linguist-generated
@@ -53,9 +53,9 @@ packages/main/jest.config.ts linguist-generated
 packages/main/package.json linguist-generated
 packages/main/src/__tests__/ajv.test.ts linguist-generated
 packages/main/src/__tests__/arktype.test.ts linguist-generated
-packages/main/src/__tests__/custom.test.ts linguist-generated
 packages/main/src/__tests__/deepkit.test.ts linguist-generated
 packages/main/src/__tests__/effect.test.ts linguist-generated
+packages/main/src/__tests__/function.test.ts linguist-generated
 packages/main/src/__tests__/io-ts.test.ts linguist-generated
 packages/main/src/__tests__/joi.test.ts linguist-generated
 packages/main/src/__tests__/ow.test.ts linguist-generated

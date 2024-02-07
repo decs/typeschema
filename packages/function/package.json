@@ -1,5 +1,5 @@
 {
-  "name": "@typeschema/custom",
+  "name": "@typeschema/function",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [

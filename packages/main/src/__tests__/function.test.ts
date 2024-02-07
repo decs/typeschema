@@ -22,7 +22,7 @@ async function assertStringAsync(value: unknown): Promise<string> {
   return assertString(value);
 }
 
-describe('custom', () => {
+describe('function', () => {
   describe('sync', () => {
     const schema = assertString;
 

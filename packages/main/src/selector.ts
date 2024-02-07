@@ -24,7 +24,7 @@ export const select: <TReturn>(is: {
   switch (typeof schema) {
     case 'function':
       if ('assert' in schema) return is.arktype(schema);
-      return is.custom(schema);
+      return is.function(schema);
     case 'object':
       if (isTypeboxSchema(schema)) return is.typebox(schema);
       if ('__isYupSchema__' in schema) return is.yup(notJSON(schema));
