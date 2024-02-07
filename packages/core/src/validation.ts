@@ -1,5 +1,7 @@
 import type {Output, Resolver, Schema} from './resolver';
 
+import {memoizeWithKey} from './utils';
+
 export type ValidationIssue = {
   message: string;
   path?: Array<string | number | symbol>;
@@ -27,8 +29,11 @@ export type Validate<TResolver extends Resolver> = <
 export function createValidate<TResolver extends Resolver>(
   validationAdapter: ValidationAdapter<TResolver>,
 ): Validate<TResolver> {
+  const memoizedValidationAdapter = memoizeWithKey(
+    (schema: Schema<TResolver>) => validationAdapter(schema),
+  );
   return async (schema, data) => {
-    const validateSchema = await validationAdapter(schema);
+    const validateSchema = await memoizedValidationAdapter(schema);
     return validateSchema(data);
   };
 }
