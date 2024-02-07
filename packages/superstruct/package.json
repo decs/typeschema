@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "superstruct": "^1.0.3"
+  },
+  "peerDependenciesMeta": {
+    "superstruct": {
+      "optional": true
+    }
   }
 }

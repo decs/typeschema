@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "@sinclair/typebox": "^0.32.11"
+  },
+  "peerDependenciesMeta": {
+    "@sinclair/typebox": {
+      "optional": true
+    }
   }
 }

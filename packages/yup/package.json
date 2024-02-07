@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "yup": "^1.3.3"
+  },
+  "peerDependenciesMeta": {
+    "yup": {
+      "optional": true
+    }
   }
 }

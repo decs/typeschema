@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "runtypes": "^6.7.0"
+  },
+  "peerDependenciesMeta": {
+    "runtypes": {
+      "optional": true
+    }
   }
 }

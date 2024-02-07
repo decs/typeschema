@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "ajv": "^8.12.0"
+  },
+  "peerDependenciesMeta": {
+    "ajv": {
+      "optional": true
+    }
   }
 }

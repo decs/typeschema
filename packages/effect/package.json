@@ -59,5 +59,13 @@
   "peerDependencies": {
     "@effect/schema": "^0.60.6",
     "effect": "^2.1.2"
+  },
+  "peerDependenciesMeta": {
+    "@effect/schema": {
+      "optional": true
+    },
+    "effect": {
+      "optional": true
+    }
   }
 }

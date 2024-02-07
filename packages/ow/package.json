@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "ow": "^0.28.2"
+  },
+  "peerDependenciesMeta": {
+    "ow": {
+      "optional": true
+    }
   }
 }

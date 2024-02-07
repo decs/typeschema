@@ -58,5 +58,10 @@
   },
   "peerDependencies": {
     "@deepkit/type": "^1.0.1-alpha.113"
+  },
+  "peerDependenciesMeta": {
+    "@deepkit/type": {
+      "optional": true
+    }
   }
 }

@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "arktype": "^1.0.29-alpha"
+  },
+  "peerDependenciesMeta": {
+    "arktype": {
+      "optional": true
+    }
   }
 }

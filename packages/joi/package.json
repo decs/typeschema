@@ -57,5 +57,10 @@
   },
   "peerDependencies": {
     "joi": "^17.12.0"
+  },
+  "peerDependenciesMeta": {
+    "joi": {
+      "optional": true
+    }
   }
 }

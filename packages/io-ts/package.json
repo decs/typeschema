@@ -60,5 +60,13 @@
   "peerDependencies": {
     "fp-ts": "^2.16.2",
     "io-ts": "^2.2.21"
+  },
+  "peerDependenciesMeta": {
+    "fp-ts": {
+      "optional": true
+    },
+    "io-ts": {
+      "optional": true
+    }
   }
 }
