@@ -1,9 +1,23 @@
 import type {Input, Output, Schema, UnknownIfNever} from '@typeschema/core';
 
-import {createAssert, createValidate, createWrap} from '@typeschema/core';
+import {
+{{#if hasValidationModule}}
+  createAssert,
+  createValidate,
+  createWrap,
+{{/if}}
+{{#if hasSerializationModule}}
+  createToJSONSchema,
+{{/if}}
+} from '@typeschema/core';
 
 import {AdapterResolver} from './resolver';
+{{#if hasValidationModule}}
 import {validationAdapter} from './validation';
+{{/if}}
+{{#if hasSerializationModule}}
+import {serializationAdapter} from './serialization';
+{{/if}}
 
 export type Infer<TSchema extends Schema<AdapterResolver>> = UnknownIfNever<
   Output<AdapterResolver, TSchema>
@@ -12,8 +26,22 @@ export type InferIn<TSchema extends Schema<AdapterResolver>> = UnknownIfNever<
   Input<AdapterResolver, TSchema>
 >;
 
+{{#if hasValidationModule}}
 export const validate = createValidate(validationAdapter);
 export const assert = createAssert(validate);
 export const wrap = createWrap(assert, validate);
+{{/if}}
 
-export {AdapterResolver, validationAdapter};
+{{#if hasSerializationModule}}
+export const toJSONSchema = createToJSONSchema(serializationAdapter);
+{{/if}}
+
+export {
+  AdapterResolver,
+{{#if hasValidationModule}}
+  validationAdapter,
+{{/if}}
+{{#if hasSerializationModule}}
+  serializationAdapter,
+{{/if}}
+};

@@ -4,7 +4,11 @@
 
 import type {Input, Output, Schema, UnknownIfNever} from '@typeschema/core';
 
-import {createAssert, createValidate, createWrap} from '@typeschema/core';
+import {
+  createAssert,
+  createValidate,
+  createWrap,
+} from '@typeschema/core';
 
 import {AdapterResolver} from './resolver';
 import {validationAdapter} from './validation';
@@ -20,4 +24,8 @@ export const validate = createValidate(validationAdapter);
 export const assert = createAssert(validate);
 export const wrap = createWrap(assert, validate);
 
-export {AdapterResolver, validationAdapter};
+
+export {
+  AdapterResolver,
+  validationAdapter,
+};

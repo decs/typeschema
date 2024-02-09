@@ -90,6 +90,16 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const actions = [
         ...adapterNames.flatMap(adapterName =>
           getAddActions({
+            data: {
+              hasValidationModule:
+                fs.statSync(`packages/${adapterName}/src/validation.ts`, {
+                  throwIfNoEntry: false,
+                }) != null,
+              hasSerializationModule:
+                fs.statSync(`packages/${adapterName}/src/serialization.ts`, {
+                  throwIfNoEntry: false,
+                }) != null,
+            },
             base: 'templates/adapter',
             destination: `packages/${adapterName}`,
           }),

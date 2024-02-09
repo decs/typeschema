@@ -1,4 +1,9 @@
-export {Input, Output, Resolver, Schema} from './resolver';
+export {Input, JSONSchema, Output, Resolver, Schema} from './resolver';
+export {
+  createToJSONSchema,
+  SerializationAdapter,
+  ToJSONSchema,
+} from './serialization';
 export {IfDefined, memoize, memoizeWithKey, UnknownIfNever} from './utils';
 export {
   Assert,

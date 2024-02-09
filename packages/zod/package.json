@@ -53,13 +53,18 @@
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zod-to-json-schema": "^3.22.4"
   },
   "peerDependencies": {
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zod-to-json-schema": "^3.22.4"
   },
   "peerDependenciesMeta": {
     "zod": {
+      "optional": true
+    },
+    "zod-to-json-schema": {
       "optional": true
     }
   }
