@@ -53,12 +53,17 @@
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
+    "@gcornut/valibot-json-schema": "^0.0.23",
     "valibot": "^0.27.1"
   },
   "peerDependencies": {
+    "@gcornut/valibot-json-schema": "^0.0.23",
     "valibot": "^0.27.1"
   },
   "peerDependenciesMeta": {
+    "@gcornut/valibot-json-schema": {
+      "optional": true
+    },
     "valibot": {
       "optional": true
     }

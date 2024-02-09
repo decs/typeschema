@@ -79,4 +79,8 @@ describe('valibot', () => {
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(outputData);
   });
+
+  test('assert', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({});
+  });
 });
