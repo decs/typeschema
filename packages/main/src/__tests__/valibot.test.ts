@@ -9,7 +9,7 @@ import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {email, number, object, string, transform} from 'valibot';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 describe('valibot', () => {
   const schema = object({
@@ -80,7 +80,19 @@ describe('valibot', () => {
     expect(await caller.hello(data)).toStrictEqual(outputData);
   });
 
-  test('assert', async () => {
-    expect(await toJSONSchema(schema)).toStrictEqual({});
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      $schema: 'http://json-schema.org/draft-07/schema#',
+      properties: {
+        age: {type: 'number'},
+        createdAt: {type: 'string'},
+        email: {format: 'email', type: 'string'},
+        id: {type: 'string'},
+        name: {type: 'string'},
+        updatedAt: {type: 'string'},
+      },
+      required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+      type: 'object',
+    });
   });
 });

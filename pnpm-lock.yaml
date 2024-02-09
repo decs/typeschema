@@ -269,6 +269,9 @@ importers:
       '@sinclair/typebox':
         specifier: ^0.32.11
         version: 0.32.13
+      '@sodaru/yup-to-json-schema':
+        specifier: ^2.0.1
+        version: 2.0.1
       ajv:
         specifier: ^8.12.0
         version: 8.12.0
@@ -410,6 +413,9 @@ importers:
       '@sinclair/typebox':
         specifier: ^0.32.11
         version: 0.32.13
+      '@sodaru/yup-to-json-schema':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@typeschema/ajv':
         specifier: workspace:*
         version: link:../ajv
@@ -638,6 +644,9 @@ importers:
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@sodaru/yup-to-json-schema':
+        specifier: ^2.0.1
+        version: 2.0.1
       yup:
         specifier: ^1.3.3
         version: 1.3.3
@@ -2201,6 +2210,10 @@ packages:
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
     dependencies:
       '@sinonjs/commons': 3.0.1
+    dev: true
+
+  /@sodaru/yup-to-json-schema@2.0.1:
+    resolution: {integrity: sha512-lWb0Wiz8KZ9ip/dY1eUqt7fhTPmL24p6Hmv5Fd9pzlzAdw/YNcWZr+tiCT4oZ4Zyxzi9+1X4zv82o7jYvcFxYA==}
     dev: true
 
   /@swc/helpers@0.5.2:

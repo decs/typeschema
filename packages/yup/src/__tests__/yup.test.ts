@@ -5,7 +5,7 @@ import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {date, number, object, string} from 'yup';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 describe('yup', () => {
   const schema = object({
@@ -72,5 +72,28 @@ describe('yup', () => {
     const createCaller = tRPC.createCallerFactory(router);
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(data);
+  });
+
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      default: {
+        age: undefined,
+        createdAt: undefined,
+        email: undefined,
+        id: undefined,
+        name: undefined,
+        updatedAt: undefined,
+      },
+      properties: {
+        age: {type: 'number'},
+        createdAt: {format: 'date-time', type: 'string'},
+        email: {type: 'string'},
+        id: {type: 'string'},
+        name: {type: 'string'},
+        updatedAt: {format: 'date-time', type: 'string'},
+      },
+      required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+      type: 'object',
+    });
   });
 });

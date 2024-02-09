@@ -77,4 +77,21 @@ describe('yup', () => {
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(data);
   });
+
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      $schema: 'http://json-schema.org/draft-07/schema#',
+      additionalProperties: false,
+      properties: {
+        age: {type: 'number'},
+        createdAt: {type: 'string'},
+        email: {format: 'email', type: 'string'},
+        id: {type: 'string'},
+        name: {type: 'string'},
+        updatedAt: {type: 'string'},
+      },
+      required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+      type: 'object',
+    });
+  });
 });
