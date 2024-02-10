@@ -1,4 +1,4 @@
-import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {Input, JSONSchema, Output, Resolver, Schema} from '@typeschema/core';
 {{#each adapters}}
 import type {AdapterResolver as {{pascalCase name}}Resolver} from '@typeschema/{{name}}';
 {{/each}}
@@ -26,5 +26,8 @@ export interface AdapterResolver extends Resolver {
     >
       ? Output<AdapterResolverMap[Adapter], this['schema']>
       : never;
+  }[keyof AdapterResolverMap];
+  jsonSchema: {
+    [Adapter in keyof AdapterResolverMap]: JSONSchema<AdapterResolverMap[Adapter]>;
   }[keyof AdapterResolverMap];
 }
