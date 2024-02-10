@@ -16,11 +16,12 @@ function notJSON<TSchema>(
   return schema as any;
 }
 
-export const select: <TReturn>(is: {
+export const select: (is: {
   [Adapter in keyof AdapterResolverMap]: (
     schema: Schema<AdapterResolverMap[Adapter]>,
-  ) => TReturn;
-}) => (schema: Schema<AdapterResolver>) => TReturn = is => schema => {
+  ) => unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}) => (schema: Schema<AdapterResolver>) => any = is => schema => {
   switch (typeof schema) {
     case 'function':
       if ('assert' in schema) return is.arktype(schema);

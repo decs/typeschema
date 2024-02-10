@@ -25,7 +25,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
 {{#if hasModule.validation}}
   {{camelCase name}}: async schema => (await import{{pascalCase name}}ValidationAdapter())(schema),
 {{else}}
-  {{camelCase name}}: async _schema => {
+  {{camelCase name}}: async () => {
     throw new Error('Unsupported');
   },
 {{/if}}

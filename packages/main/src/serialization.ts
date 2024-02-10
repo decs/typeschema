@@ -43,37 +43,37 @@ const importZodSerializationAdapter = memoize(async () => {
 });
 
 export const serializationAdapter: SerializationAdapter<AdapterResolver> = select({
-  ajv: async _schema => {
+  ajv: async () => {
     throw new Error('Unsupported');
   },
-  arktype: async _schema => {
+  arktype: async () => {
     throw new Error('Unsupported');
   },
-  deepkit: async _schema => {
+  deepkit: async () => {
     throw new Error('Unsupported');
   },
-  effect: async _schema => {
+  effect: async () => {
     throw new Error('Unsupported');
   },
-  function: async _schema => {
+  function: async () => {
     throw new Error('Unsupported');
   },
-  ioTs: async _schema => {
+  ioTs: async () => {
     throw new Error('Unsupported');
   },
-  joi: async _schema => {
+  joi: async () => {
     throw new Error('Unsupported');
   },
-  ow: async _schema => {
+  ow: async () => {
     throw new Error('Unsupported');
   },
-  runtypes: async _schema => {
+  runtypes: async () => {
     throw new Error('Unsupported');
   },
-  superstruct: async _schema => {
+  superstruct: async () => {
     throw new Error('Unsupported');
   },
-  typebox: async _schema => {
+  typebox: async () => {
     throw new Error('Unsupported');
   },
   valibot: async schema => (await importValibotSerializationAdapter())(schema),

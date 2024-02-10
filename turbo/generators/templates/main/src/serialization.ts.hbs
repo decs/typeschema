@@ -25,7 +25,7 @@ export const serializationAdapter: SerializationAdapter<AdapterResolver> = selec
 {{#if hasModule.serialization}}
   {{camelCase name}}: async schema => (await import{{pascalCase name}}SerializationAdapter())(schema),
 {{else}}
-  {{camelCase name}}: async _schema => {
+  {{camelCase name}}: async () => {
     throw new Error('Unsupported');
   },
 {{/if}}
