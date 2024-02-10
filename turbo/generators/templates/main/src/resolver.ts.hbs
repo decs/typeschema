@@ -1,11 +1,11 @@
 import type {Input, Output, Resolver, Schema} from '@typeschema/core';
-{{#each adapterNames}}
-import type {AdapterResolver as {{pascalCase this}}Resolver} from '@typeschema/{{this}}';
+{{#each adapters}}
+import type {AdapterResolver as {{pascalCase name}}Resolver} from '@typeschema/{{name}}';
 {{/each}}
 
 export type AdapterResolverMap = {
-{{#each adapterNames}}
-  {{camelCase this}}: {{pascalCase this}}Resolver;
+{{#each adapters}}
+  {{camelCase name}}: {{pascalCase name}}Resolver;
 {{/each}}
 };
 

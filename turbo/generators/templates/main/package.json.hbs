@@ -53,21 +53,21 @@
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-{{#each adapterNames}}
-    "@typeschema/{{this}}": "workspace:*",
-{{/each}}
-{{#each adapterDependencies}}
+{{#each adapters}}
+    "@typeschema/{{name}}": "workspace:*",
+{{#each packageJson.devDependencies}}
     "{{@key}}": "{{this}}",
+{{/each}}
 {{/each}}
   },
   "peerDependencies": {
-{{#each adapterNames}}
-    "@typeschema/{{this}}": "workspace:*",
+{{#each adapters}}
+    "@typeschema/{{name}}": "workspace:*",
 {{/each}}
   },
   "peerDependenciesMeta": {
-{{#each adapterNames}}
-    "@typeschema/{{this}}": {
+{{#each adapters}}
+    "@typeschema/{{name}}": {
       "optional": true
     },
 {{/each}}

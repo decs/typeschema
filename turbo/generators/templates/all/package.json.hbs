@@ -52,13 +52,15 @@
   "dependencies": {
     "@typeschema/core": "workspace:*",
     "@typeschema/main": "workspace:*",
-{{#each adapterNames}}
-    "@typeschema/{{this}}": "workspace:*",
+{{#each adapters}}
+    "@typeschema/{{name}}": "workspace:*",
 {{/each}}
   },
   "devDependencies": {
-{{#each adapterDependencies}}
+{{#each adapters}}
+{{#each packageJson.devDependencies}}
     "{{@key}}": "{{this}}",
+{{/each}}
 {{/each}}
   }
 }

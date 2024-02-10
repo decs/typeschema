@@ -9,7 +9,7 @@ import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {date, number, object, string} from 'yup';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 describe('yup', () => {
   const schema = object({
@@ -80,15 +80,21 @@ describe('yup', () => {
 
   test('toJSONSchema', async () => {
     expect(await toJSONSchema(schema)).toStrictEqual({
-      $schema: 'http://json-schema.org/draft-07/schema#',
-      additionalProperties: false,
+      default: {
+        age: undefined,
+        createdAt: undefined,
+        email: undefined,
+        id: undefined,
+        name: undefined,
+        updatedAt: undefined,
+      },
       properties: {
         age: {type: 'number'},
-        createdAt: {type: 'string'},
-        email: {format: 'email', type: 'string'},
+        createdAt: {format: 'date-time', type: 'string'},
+        email: {type: 'string'},
         id: {type: 'string'},
         name: {type: 'string'},
-        updatedAt: {type: 'string'},
+        updatedAt: {format: 'date-time', type: 'string'},
       },
       required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
       type: 'object',

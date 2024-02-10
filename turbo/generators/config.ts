@@ -64,6 +64,25 @@ function getAddActions(config: {
     );
 }
 
+function getAdapters(adapterNames: Array<string>) {
+  return adapterNames.map(adapterName => ({
+    name: adapterName,
+    packageJson: JSON.parse(
+      fs.readFileSync(`packages/${adapterName}/package.json`, 'utf-8'),
+    ),
+    hasModule: ['validation', 'serialization'].reduce(
+      (result, moduleName) => ({
+        ...result,
+        [moduleName]:
+          fs.statSync(`packages/${adapterName}/src/${moduleName}.ts`, {
+            throwIfNoEntry: false,
+          }) != null,
+      }),
+      {},
+    ),
+  }));
+}
+
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('all', {
     actions: () => {
@@ -74,46 +93,33 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const packageNames = packageFiles
         .filter(filePath => filePath.endsWith('/package.json'))
         .map(filePath => filePath.replace(/\/package\.json$/, ''));
-      const adapterNames = packageNames.filter(
-        packageName => !['core', 'typeschema'].includes(packageName),
+      const adapters = getAdapters(
+        packageNames.filter(
+          packageName => !['core', 'typeschema'].includes(packageName),
+        ),
       );
       const multiAdapterNames = ['main', 'all'];
-      const singleAdapterNames = adapterNames.filter(
-        adapterName => !multiAdapterNames.includes(adapterName),
+      const singleAdapters = adapters.filter(
+        adapter => !multiAdapterNames.includes(adapter.name),
       );
-      const adapterDependencies = singleAdapterNames
-        .map(adapterName => `packages/${adapterName}/package.json`)
-        .map(filePath => fs.readFileSync(filePath, 'utf-8'))
-        .map(content => JSON.parse(content))
-        .map(pkg => pkg.devDependencies)
-        .reduce((result, dependency) => ({...result, ...dependency}), {});
       const actions = [
-        ...adapterNames.flatMap(adapterName =>
+        ...adapters.flatMap(adapter =>
           getAddActions({
-            data: {
-              hasValidationModule:
-                fs.statSync(`packages/${adapterName}/src/validation.ts`, {
-                  throwIfNoEntry: false,
-                }) != null,
-              hasSerializationModule:
-                fs.statSync(`packages/${adapterName}/src/serialization.ts`, {
-                  throwIfNoEntry: false,
-                }) != null,
-            },
+            data: adapter,
             base: 'templates/adapter',
-            destination: `packages/${adapterName}`,
+            destination: `packages/${adapter.name}`,
           }),
         ),
         ...multiAdapterNames.flatMap(multiAdapterName => [
           ...getAddActions({
             base: `templates/${multiAdapterName}`,
-            data: {adapterDependencies, adapterNames: singleAdapterNames},
+            data: {adapters: singleAdapters},
             destination: `packages/${multiAdapterName}`,
           }),
-          ...singleAdapterNames.map(singleAdapterName =>
+          ...singleAdapters.map(singleAdapter =>
             getAddAction({
-              path: `packages/${multiAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
-              templateFile: `../../packages/${singleAdapterName}/src/__tests__/${singleAdapterName}.test.ts`,
+              path: `packages/${multiAdapterName}/src/__tests__/${singleAdapter.name}.test.ts`,
+              templateFile: `../../packages/${singleAdapter.name}/src/__tests__/${singleAdapter.name}.test.ts`,
             }),
           ),
         ]),
