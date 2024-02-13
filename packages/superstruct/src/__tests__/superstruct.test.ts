@@ -1,9 +1,9 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, test} from '@jest/globals';
 import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {coerce, date, number, object, string} from 'superstruct';
+import {describe, expect, test} from 'vitest';
 
 import {assert, validate, wrap} from '..';
 

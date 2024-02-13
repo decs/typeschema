@@ -1,11 +1,9 @@
 {
   "extends": "./tsconfig.json",
-  "ts-node": {
-    "compiler": "ts-patch/compiler"
-  },
   "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
     "plugins": [{"transform": "typia/lib/transform"}],
     "strictNullChecks": true
-  },
-  "reflection": true
+  }
 }

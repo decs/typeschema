@@ -4,16 +4,14 @@
     "airbnb-typescript/base",
     "prettier",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript",
-    "plugin:jest/recommended"
+    "plugin:import/typescript"
   ],
   "plugins": [
     "@typescript-eslint",
     "simple-import-sort",
     "import",
     "sort-keys",
-    "prettier",
-    "jest"
+    "prettier"
   ],
   "rules": {
     "@typescript-eslint/consistent-type-imports": [
@@ -39,13 +37,7 @@
       }
     ],
     "simple-import-sort/exports": "error",
-    "sort-keys/sort-keys-fix": "error",
-    "jest/expect-expect": [
-      "warn",
-      {
-        "assertFunctionNames": ["expect", "expectTypeOf"]
-      }
-    ]
+    "sort-keys/sort-keys-fix": "error"
   },
   "parserOptions": {
     "project": "./tsconfig.json"

@@ -4,10 +4,10 @@
 
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, test} from '@jest/globals';
 import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {email, number, object, string, transform} from 'valibot';
+import {describe, expect, test} from 'vitest';
 
 import {assert, toJSONSchema, validate, wrap} from '..';
 

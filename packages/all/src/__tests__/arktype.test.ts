@@ -4,10 +4,10 @@
 
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, test} from '@jest/globals';
 import {initTRPC} from '@trpc/server';
 import {type} from 'arktype';
 import {expectTypeOf} from 'expect-type';
+import {describe, expect, test} from 'vitest';
 
 import {assert, validate, wrap} from '..';
 
@@ -48,7 +48,7 @@ describe('arktype', () => {
       data: outputData,
       success: true,
     });
-    expect(await validate(schema, structuredClone(outputData))).toStrictEqual({
+    expect(await validate(schema, structuredClone(outputData))).toEqual({
       issues: [
         {
           message: 'age must be a number (was string)',

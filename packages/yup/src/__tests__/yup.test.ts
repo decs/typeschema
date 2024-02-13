@@ -1,8 +1,8 @@
 import type {Infer, InferIn} from '..';
 
-import {describe, expect, test} from '@jest/globals';
 import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
+import {describe, expect, test} from 'vitest';
 import {date, number, object, string} from 'yup';
 
 import {assert, toJSONSchema, validate, wrap} from '..';
