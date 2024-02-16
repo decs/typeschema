@@ -14,7 +14,7 @@ jobs:
       - name: Setup requirements
         uses: ./.github/actions/setup
       - name: Re-generate code
-        uses: pnpm gen
+        run: pnpm gen
       - name: Check for uncommitted changes
         id: changes
         uses: UnicornGlobal/has-changes-action@v1.0.11
