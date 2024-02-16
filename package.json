@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.13.5",
+    "@changesets/cli": "^2.27.1",
     "@trpc/server": "^10.45.0",
     "@turbo/gen": "^1.12.1",
     "@types/eslint": "^8.56.2",
