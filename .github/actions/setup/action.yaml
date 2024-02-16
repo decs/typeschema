@@ -12,3 +12,4 @@ runs:
         node-version: 20
     - name: Install dependencies
       run: pnpm install
+      shell: bash
