@@ -1,6 +1,7 @@
 {
   "name": "@typeschema/all",
-  "version": "0.13.0",
+  "//version": "This field is manually maintained.",
+  "version": "0.1.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
     "typescript",
@@ -9,7 +10,10 @@
     "adapter",
     "validation",
     "inference",
-    "assert"
+    "assert",
+{{#each adapters}}
+    "{{name}}",
+{{/each}}
   ],
   "homepage": "https://typeschema.com",
   "license": "MIT",

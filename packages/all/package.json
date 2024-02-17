@@ -1,6 +1,7 @@
 {
-  "//": "This file is generated. Do not modify it manually!",
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/all",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -10,7 +11,21 @@
     "adapter",
     "validation",
     "inference",
-    "assert"
+    "assert",
+    "ajv",
+    "arktype",
+    "deepkit",
+    "effect",
+    "function",
+    "io-ts",
+    "joi",
+    "ow",
+    "runtypes",
+    "superstruct",
+    "typebox",
+    "valibot",
+    "yup",
+    "zod"
   ],
   "homepage": "https://typeschema.com",
   "license": "MIT",

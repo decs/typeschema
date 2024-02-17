@@ -5,6 +5,9 @@ import * as fs from 'fs';
 import * as prettier from 'prettier';
 
 const DISCLAIMER = 'This file is generated. Do not modify it manually!';
+const PARTIAL_DISCLAIMER =
+  'This file is partially generated. Only some fields can be modified manually!';
+
 const SLASH_STAR_HEADER = `/**
  * ${DISCLAIMER}
  */`;
@@ -20,6 +23,10 @@ function getAddAction(config: {
   path: string;
   templateFile: string;
 }): PlopTypes.AddActionConfig {
+  const originalContent =
+    config.path.endsWith('.json') && fs.existsSync(config.path)
+      ? fs.readFileSync(config.path, 'utf-8')
+      : null;
   return {
     force: true,
     transform: async (content: string) => {
@@ -33,10 +40,24 @@ function getAddAction(config: {
           fs.unlinkSync(tempPath);
           return output;
         case 'json':
-          return prettier.format(
-            content.replace(/{/, `{"//": "${DISCLAIMER}",`),
-            {filepath: config.path, trailingComma: 'none'},
-          );
+          let object = JSON.parse(content.replace(/,(\s+[\}\]\)])/g, '$1'));
+          const manualFields = Object.keys(object)
+            .filter(field => field.startsWith('//'))
+            .map(field => field.replace(/^\/\//, ''));
+          if (manualFields.length > 0 && originalContent != null) {
+            const originalObject = JSON.parse(originalContent);
+            manualFields.forEach(
+              field => (object[field] = originalObject[field]),
+            );
+          }
+          object = {
+            '//': manualFields.length > 0 ? PARTIAL_DISCLAIMER : DISCLAIMER,
+            ...object,
+          };
+          return prettier.format(JSON.stringify(object), {
+            filepath: config.path,
+            trailingComma: 'none',
+          });
         default:
           return `${HASH_HEADER}\n\n${content}`;
       }
