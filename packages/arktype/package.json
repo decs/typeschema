@@ -4,7 +4,7 @@
   "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "//description": "This field is manually maintained.",
-  "description": "Universal adapter for schema validation",
+  "description": "Reusable adapter for ArkType schemas",
   "keywords": [
     "typescript",
     "type",

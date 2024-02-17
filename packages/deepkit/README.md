@@ -9,10 +9,28 @@
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
 <p>
-  Universal adapter for schema validation
+  Reusable adapter for Deepkit schemas
   <br />
   <a href="https://typeschema.com">https://typeschema.com</a> ✨
 </p>
+
+```ts
+import {initTRPC} from '@trpc/server';
+import {typeOf} from '@deepkit/type';
+
+import {wrap} from '@typeschema/deepkit';
+
+const schema = typeOf<{name: string}>();
+
+const t = initTRPC.create();
+const appRouter = t.router({
+  hello: t.procedure
+    .input(wrap(schema))
+    .query(({input}) => `Hello, ${(input as any).name}!`),
+  //         ^? unknown
+});
+
+```
 
 ## Setup
 

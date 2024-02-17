@@ -9,10 +9,28 @@
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
 <p>
-  Universal adapter for schema validation
+  Reusable adapter for Runtypes schemas
   <br />
   <a href="https://typeschema.com">https://typeschema.com</a> ✨
 </p>
+
+```ts
+import {initTRPC} from '@trpc/server';
+import {Record, String} from 'runtypes';
+
+import {wrap} from '@typeschema/runtypes';
+
+const schema = Record({name: String});
+
+const t = initTRPC.create();
+const appRouter = t.router({
+  hello: t.procedure
+    .input(wrap(schema))
+    .query(({input}) => `Hello, ${input.name}!`),
+  //         ^? {name: string}
+});
+
+```
 
 ## Setup
 

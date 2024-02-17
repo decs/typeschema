@@ -9,10 +9,28 @@
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
 <p>
-  Universal adapter for schema validation
+  Reusable adapter for Joi schemas
   <br />
   <a href="https://typeschema.com">https://typeschema.com</a> ✨
 </p>
+
+```ts
+import {initTRPC} from '@trpc/server';
+import Joi from 'joi';
+
+import {wrap} from '@typeschema/joi';
+
+const schema = Joi.object({name: Joi.string().required()});
+
+const t = initTRPC.create();
+const appRouter = t.router({
+  hello: t.procedure
+    .input(wrap(schema))
+    .query(({input}) => `Hello, ${(input as any).name}!`),
+  //         ^? unknown
+});
+
+```
 
 ## Setup
 

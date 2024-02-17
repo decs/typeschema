@@ -9,10 +9,28 @@
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
 <p>
-  Universal adapter for schema validation
+  Reusable adapter for Ow schemas
   <br />
   <a href="https://typeschema.com">https://typeschema.com</a> ✨
 </p>
+
+```ts
+import {initTRPC} from '@trpc/server';
+import ow from 'ow';
+
+import {wrap} from '@typeschema/ow';
+
+const schema = ow.object.exactShape({name: ow.string});
+
+const t = initTRPC.create();
+const appRouter = t.router({
+  hello: t.procedure
+    .input(wrap(schema))
+    .query(({input}) => `Hello, ${input.name}!`),
+  //         ^? {name: string}
+});
+
+```
 
 ## Setup
 
