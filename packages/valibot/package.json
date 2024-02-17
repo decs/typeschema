@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/valibot",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -52,14 +54,17 @@
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "@gcornut/valibot-json-schema": "^0.0.23",
     "valibot": "^0.27.1"
   },
+  "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
     "@gcornut/valibot-json-schema": "^0.0.23",
     "valibot": "^0.27.1"
   },
+  "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "@gcornut/valibot-json-schema": {
       "optional": true

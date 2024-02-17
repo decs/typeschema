@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/io-ts",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -52,15 +54,18 @@
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "fp-ts": "^2.16.2",
     "io-ts": "^2.2.21",
     "io-ts-types": "^0.5.19"
   },
+  "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
     "fp-ts": "^2.16.2",
     "io-ts": "^2.2.21"
   },
+  "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "fp-ts": {
       "optional": true

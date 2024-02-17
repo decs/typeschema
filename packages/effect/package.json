@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/effect",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -52,14 +54,17 @@
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "@effect/schema": "^0.60.6",
     "effect": "^2.1.2"
   },
+  "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
     "@effect/schema": "^0.60.6",
     "effect": "^2.1.2"
   },
+  "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "@effect/schema": {
       "optional": true

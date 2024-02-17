@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/superstruct",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -52,12 +54,15 @@
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "superstruct": "^1.0.3"
   },
+  "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
     "superstruct": "^1.0.3"
   },
+  "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "superstruct": {
       "optional": true

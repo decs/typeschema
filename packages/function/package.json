@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/function",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -47,13 +49,17 @@
     "lint:package": "publint && attw --pack",
     "test": "vitest --config ../../vitest.config.ts",
     "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
-    "postpack": "rm README.md && rm -r assets",
-    "prepare": "ts-patch install && typia patch"
+    "postpack": "rm README.md && rm -r assets"
   },
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "typia": "^5.3.11"
-  }
+  },
+  "//peerDependencies": "This field is manually maintained.",
+  "peerDependencies": {},
+  "//peerDependenciesMeta": "This field is manually maintained.",
+  "peerDependenciesMeta": {}
 }

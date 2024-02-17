@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/typebox",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -52,12 +54,15 @@
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "@sinclair/typebox": "^0.32.11"
   },
+  "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
     "@sinclair/typebox": "^0.32.11"
   },
+  "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "@sinclair/typebox": {
       "optional": true

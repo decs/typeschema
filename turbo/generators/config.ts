@@ -49,9 +49,9 @@ function getAddAction(config: {
             .map(field => field.replace(/^\/\//, ''));
           if (manualFields.length > 0 && originalContent != null) {
             const originalObject = JSON.parse(originalContent);
-            manualFields.forEach(
-              field => (object[field] = originalObject[field]),
-            );
+            manualFields
+              .filter(field => originalObject[field] != null)
+              .forEach(field => (object[field] = originalObject[field]));
           }
           object = {
             '//': manualFields.length > 0 ? PARTIAL_DISCLAIMER : DISCLAIMER,
@@ -121,6 +121,11 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     fs.writeFileSync('.gitattributes', `${HASH_HEADER}\n\n${content}`);
     return '.gitattributes';
   });
+
+  plop.setPartial(
+    'packageJson',
+    fs.readFileSync('turbo/generators/templates/package.json.hbs', 'utf-8'),
+  );
 
   plop.setGenerator('all', {
     actions: () => {

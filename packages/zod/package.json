@@ -1,5 +1,7 @@
 {
+  "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/zod",
+  "//version": "This field is manually maintained.",
   "version": "0.13.0",
   "description": "Universal adapter for schema validation",
   "keywords": [
@@ -52,14 +54,17 @@
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
+  "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.4"
   },
+  "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.4"
   },
+  "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "zod": {
       "optional": true
