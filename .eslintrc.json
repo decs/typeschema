@@ -39,6 +39,14 @@
     "simple-import-sort/exports": "error",
     "sort-keys/sort-keys-fix": "error"
   },
+  "overrides": [
+    {
+      "files": "**/src/__tests__/example.ts",
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   }

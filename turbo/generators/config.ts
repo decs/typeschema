@@ -12,6 +12,7 @@ const SLASH_STAR_HEADER = `/**
  * ${DISCLAIMER}
  */`;
 const HASH_HEADER = `# ${DISCLAIMER}`;
+const HTML_HEADER = `<!-- ${DISCLAIMER} -->`;
 
 const eslint = new ESLint({
   fix: true,
@@ -20,15 +21,18 @@ const eslint = new ESLint({
 
 const generatedFilePaths: Array<string> = [];
 
+function maybeReadFile(path: string): string | null {
+  return fs.existsSync(path) ? fs.readFileSync(path, 'utf-8') : null;
+}
+
 function getAddAction(config: {
   data?: object;
   path: string;
   templateFile: string;
 }): PlopTypes.AddActionConfig {
-  const originalContent =
-    config.path.endsWith('.json') && fs.existsSync(config.path)
-      ? fs.readFileSync(config.path, 'utf-8')
-      : null;
+  const originalContent = config.path.endsWith('.json')
+    ? maybeReadFile(config.path)
+    : null;
   return {
     force: true,
     transform: async (content: string) => {
@@ -64,6 +68,9 @@ function getAddAction(config: {
             filepath: config.path,
             trailingComma: 'none',
           });
+        case 'md':
+          generatedFilePaths.push(config.path);
+          return `${HTML_HEADER}\n\n${content}`;
         default:
           generatedFilePaths.push(config.path);
           return `${HASH_HEADER}\n\n${content}`;
@@ -108,6 +115,9 @@ function getAdapters(adapterNames: Array<string>) {
       }),
       {},
     ),
+    example: maybeReadFile(
+      `packages/${adapterName}/src/__tests__/example.ts`,
+    )?.replace("'..'", `'@typeschema/${adapterName}'`),
   }));
 }
 

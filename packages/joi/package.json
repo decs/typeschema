@@ -3,6 +3,7 @@
   "name": "@typeschema/joi",
   "//version": "This field is manually maintained.",
   "version": "0.13.0",
+  "//description": "This field is manually maintained.",
   "description": "Universal adapter for schema validation",
   "keywords": [
     "typescript",
@@ -47,9 +48,7 @@
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "vitest --config ../../vitest.config.ts",
-    "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
-    "postpack": "rm README.md && rm -r assets"
+    "test": "vitest --config ../../vitest.config.ts"
   },
   "dependencies": {
     "@typeschema/core": "workspace:*"
