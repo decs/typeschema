@@ -1,9 +1,7 @@
 <!-- This file is generated. Do not modify it manually! -->
 
-<h1>
-  <img src="https://typeschema.com/assets/logo.png" width="32px" alt="TypeSchema" style="margin-bottom: -6px;" />
-  <code>@typeschema/runtypes</code>
-</h1>
+<img src="https://typeschema.com/assets/logo.png" width="64px" alt="TypeSchema" />
+<h1>@typeschema/runtypes</h1>
 <p>
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
   <a href="https://bundlephobia.com/package/@typeschema/runtypes" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2Fruntypes" alt="Bundle size"></a>
@@ -13,7 +11,7 @@
 <p>
   Universal adapter for schema validation
   <br />
-  ✨ <a href="https://typeschema.com">https://typeschema.com</a> ✨
+  <a href="https://typeschema.com">https://typeschema.com</a> ✨
 </p>
 
 ## Setup
