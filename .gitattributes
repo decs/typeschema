@@ -4,7 +4,6 @@
 packages/ajv/src/index.ts linguist-generated
 packages/ajv/tsconfig.json linguist-generated
 packages/ajv/tsconfig.test.json linguist-generated
-packages/all/package.json linguist-generated
 packages/all/src/__tests__/ajv.test.ts linguist-generated
 packages/all/src/__tests__/arktype.test.ts linguist-generated
 packages/all/src/__tests__/deepkit.test.ts linguist-generated
@@ -41,7 +40,6 @@ packages/io-ts/tsconfig.test.json linguist-generated
 packages/joi/src/index.ts linguist-generated
 packages/joi/tsconfig.json linguist-generated
 packages/joi/tsconfig.test.json linguist-generated
-packages/main/package.json linguist-generated
 packages/main/src/__tests__/ajv.test.ts linguist-generated
 packages/main/src/__tests__/arktype.test.ts linguist-generated
 packages/main/src/__tests__/deepkit.test.ts linguist-generated

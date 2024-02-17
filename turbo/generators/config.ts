@@ -18,6 +18,8 @@ const eslint = new ESLint({
   overrideConfig: {parserOptions: {extraFileExtensions: ['.tmp']}},
 });
 
+const generatedFilePaths: Array<string> = [];
+
 function getAddAction(config: {
   data?: object;
   path: string;
@@ -38,6 +40,7 @@ function getAddAction(config: {
           const output =
             results[0].output ?? fs.readFileSync(tempPath, 'utf-8');
           fs.unlinkSync(tempPath);
+          generatedFilePaths.push(config.path);
           return output;
         case 'json':
           let object = JSON.parse(content.replace(/,(\s+[\}\]\)])/g, '$1'));
@@ -54,11 +57,15 @@ function getAddAction(config: {
             '//': manualFields.length > 0 ? PARTIAL_DISCLAIMER : DISCLAIMER,
             ...object,
           };
+          if (manualFields.length === 0) {
+            generatedFilePaths.push(config.path);
+          }
           return prettier.format(JSON.stringify(object), {
             filepath: config.path,
             trailingComma: 'none',
           });
         default:
+          generatedFilePaths.push(config.path);
           return `${HASH_HEADER}\n\n${content}`;
       }
     },
@@ -105,6 +112,16 @@ function getAdapters(adapterNames: Array<string>) {
 }
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
+  plop.setActionType('list', () => {
+    const content = generatedFilePaths
+      .concat(['.gitattributes', 'pnpm-lock.yaml'])
+      .sort()
+      .map(path => `${path} linguist-generated`)
+      .join('\n');
+    fs.writeFileSync('.gitattributes', `${HASH_HEADER}\n\n${content}`);
+    return '.gitattributes';
+  });
+
   plop.setGenerator('all', {
     actions: () => {
       const packageFiles = fs
@@ -123,7 +140,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const singleAdapters = adapters.filter(
         adapter => !multiAdapterNames.includes(adapter.name),
       );
-      const actions = [
+      const actions: Array<PlopTypes.ActionConfig> = [
         ...adapters.flatMap(adapter =>
           getAddActions({
             data: adapter,
@@ -148,20 +165,9 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           path: 'packages/core/tsconfig.json',
           templateFile: 'templates/adapter/tsconfig.json.hbs',
         }),
-      ];
-      actions.push(
-        getAddAction({
-          data: {
-            generatedFilePaths: actions
-              .map(action => action.path)
-              .concat(['pnpm-lock.yaml', '.gitattributes'])
-              .sort(),
-          },
-          path: '.gitattributes',
-          templateFile: 'templates/.gitattributes.hbs',
-        }),
-      );
-      return actions.sort((a, b) => a.path.localeCompare(b.path));
+      ].sort((a, b) => a.path.localeCompare(b.path));
+      actions.push({type: 'list'});
+      return actions;
     },
     description: 'Re-generates files',
     prompts: [],
