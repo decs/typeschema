@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "pnpm test:bun && pnpm test:vite",
+    "test": "pnpm test:bun && pnpm test:vite && pnpm test:webpack",
     "test:bun": "bun build index.html --outdir bun_dist",
-    "test:vite": "vite build --outDir vite_dist"
+    "test:vite": "vite build --outDir vite_dist",
+    "test:webpack": "webpack --fail-on-warnings"
   },
   "dependencies": {
     "@typeschema/main": "workspace:*",
@@ -15,8 +16,11 @@
   },
   "devDependencies": {
     "bun": "^1.0.27",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "webpack": "^5.90.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependenciesMeta": {
     "@typeschema/main": {
