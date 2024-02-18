@@ -6,7 +6,9 @@ validate<any>(string(), 'hello')
     throw new Error('Unexpected success');
   })
   .catch(error => {
-    if (!error.message.startsWith("Cannot find module '@typeschema/valibot'")) {
+    if (
+      !error.message.startsWith("Cannot find package '@typeschema/valibot'")
+    ) {
       throw new Error(`Unexpected error: ${error.message}`);
     }
   });
