@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "pnpm test:bun && pnpm test:vite && pnpm test:webpack",
-    "test:bun": "bun build index.html --outdir bun_dist",
-    "test:vite": "vite build --outDir vite_dist",
+    "test:bun": "bun build index.html --outdir=bun_dist",
+    "test:esbuild": "esbuild src/main.ts --bundle --outdir=esbuild_dist",
+    "test:vite": "vite build --outDir=vite_dist",
     "test:webpack": "webpack --fail-on-warnings"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "bun": "^1.0.27",
+    "esbuild": "^0.20.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.8",
