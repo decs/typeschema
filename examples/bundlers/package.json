@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "pnpm test:vite",
-    "test:vite": "vite build"
+    "test": "pnpm test:bun && pnpm test:vite",
+    "test:bun": "bun build index.html --outdir bun_dist",
+    "test:vite": "vite build --outDir vite_dist"
   },
   "dependencies": {
     "@typeschema/main": "workspace:*",
@@ -13,6 +14,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "bun": "^1.0.27",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   },
