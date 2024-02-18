@@ -14,15 +14,15 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "create:adapter": "turbo gen create-adapter && pnpm gen",
     "gen": "turbo gen all && pnpm install",
-    "lint": "turbo lint lint:package --filter @typeschema/*",
-    "build": "turbo build --filter @typeschema/*",
-    "test": "turbo test --filter @typeschema/*",
+    "lint": "turbo lint lint:package --filter=@typeschema/*",
+    "build": "turbo build --filter=@typeschema/*",
+    "test": "turbo test --filter=@typeschema/*",
     "test:e2e": "pnpm build && pnpm install && turbo test --filter=./bundlers/* --filter=./examples/*",
     "upgrade:deps": "turbo upgrade:deps",
+    "create:adapter": "turbo gen create-adapter && pnpm gen",
     "prepare": "ts-patch install && typia patch",
-    "clean": "git clean -fdx"
+    "clean": "git clean -fdx && pnpm install"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.13.5",
