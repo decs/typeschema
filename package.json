@@ -19,11 +19,13 @@
     "create:adapter": "turbo gen create-adapter && pnpm gen",
     "gen": "turbo gen all && pnpm install",
     "test": "turbo test",
-    "upgrade:deps": "turbo upgrade:deps"
+    "upgrade:deps": "turbo upgrade:deps",
+    "prepare": "ts-patch install && typia patch"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.13.5",
     "@changesets/cli": "^2.27.1",
+    "@deepkit/vite": "1.0.1-alpha.123",
     "@trpc/server": "^10.45.0",
     "@turbo/gen": "^1.12.1",
     "@types/eslint": "^8.56.2",
@@ -49,6 +51,7 @@
     "tsup": "^8.0.1",
     "turbo": "^1.12.2",
     "typescript": "^5.3.3",
+    "typia": "^5.3.11",
     "vitest": "^1.2.2"
   }
 }

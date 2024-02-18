@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "plugins": [{"transform": "typia/lib/transform"}],
