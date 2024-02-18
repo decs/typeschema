@@ -21,3 +21,13 @@ jobs:
       - name: Fail if uncommitted changes
         if: steps.changes.outputs.changed == 1
         run: exit 1
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+      - name: Setup requirements
+        uses: ./.github/actions/setup
+      - name: Run tests
+        run: pnpm test
