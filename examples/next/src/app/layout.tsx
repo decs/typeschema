@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
-  title: 'Next',
+  title: 'TypeSchema',
 };
 
 export default function RootLayout({

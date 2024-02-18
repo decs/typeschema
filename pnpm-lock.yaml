@@ -96,45 +96,6 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2(@types/node@20.11.16)
 
-  bundlers/turbopack:
-    dependencies:
-      '@typeschema/main':
-        specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.0)
-      '@typeschema/zod':
-        specifier: workspace:*
-        version: file:packages/zod(zod@3.22.4)
-      next:
-        specifier: 14.1.0
-        version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
-      react:
-        specifier: ^18
-        version: 18.2.0
-      react-dom:
-        specifier: ^18
-        version: 18.2.0(react@18.2.0)
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@types/node':
-        specifier: ^20
-        version: 20.11.16
-      '@types/react':
-        specifier: ^18
-        version: 18.2.55
-      '@types/react-dom':
-        specifier: ^18
-        version: 18.2.19
-      typescript:
-        specifier: ^5
-        version: 5.3.3
-    dependenciesMeta:
-      '@typeschema/main':
-        injected: true
-      '@typeschema/zod':
-        injected: true
-
   examples/bundlers:
     dependencies:
       '@typeschema/main':
@@ -181,6 +142,45 @@ importers:
         version: 0.27.1
     dependenciesMeta:
       '@typeschema/main':
+        injected: true
+
+  examples/next:
+    dependencies:
+      '@typeschema/main':
+        specifier: workspace:*
+        version: file:packages/main(@typeschema/zod@0.13.0)
+      '@typeschema/zod':
+        specifier: workspace:*
+        version: file:packages/zod(zod@3.22.4)
+      next:
+        specifier: 14.1.0
+        version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
+      react:
+        specifier: ^18
+        version: 18.2.0
+      react-dom:
+        specifier: ^18
+        version: 18.2.0(react@18.2.0)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.11.16
+      '@types/react':
+        specifier: ^18
+        version: 18.2.55
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.2.19
+      typescript:
+        specifier: ^5
+        version: 5.3.3
+    dependenciesMeta:
+      '@typeschema/main':
+        injected: true
+      '@typeschema/zod':
         injected: true
 
   packages/ajv:

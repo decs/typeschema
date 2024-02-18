@@ -1,9 +1,11 @@
 {
-  "name": "turbopack",
+  "name": "next",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "./test.sh"
+    "test": "pnpm test:webpack && pnpm test:turbopack",
+    "test:webpack": "next build",
+    "test:turbopack": "./turbopack.sh"
   },
   "dependencies": {
     "@typeschema/main": "workspace:*",
