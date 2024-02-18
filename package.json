@@ -19,7 +19,7 @@
     "lint": "turbo lint lint:package --filter @typeschema/*",
     "build": "turbo build --filter @typeschema/*",
     "test": "turbo test --filter @typeschema/*",
-    "test:e2e": "pnpm build && pnpm install && turbo test --filter @examples/*",
+    "test:e2e": "pnpm build && pnpm install && turbo test --filter=./bundlers/* --filter=./examples/*",
     "upgrade:deps": "turbo upgrade:deps",
     "prepare": "ts-patch install && typia patch",
     "clean": "git clean -fdx"

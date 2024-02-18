@@ -1,14 +1,11 @@
 {
-  "name": "@examples/next",
+  "name": "turbopack",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "pnpm test:webpack && pnpm test:turbopack",
-    "test:webpack": "next build",
-    "test:turbopack": "./turbopack.sh"
+    "test": "./test.sh"
   },
   "dependencies": {
-    "@typeschema/core": "workspace:*",
     "@typeschema/main": "workspace:*",
     "@typeschema/zod": "workspace:*",
     "next": "14.1.0",
@@ -23,9 +20,6 @@
     "typescript": "^5"
   },
   "dependenciesMeta": {
-    "@typeschema/core": {
-      "injected": true
-    },
     "@typeschema/main": {
       "injected": true
     },

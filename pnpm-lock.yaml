@@ -96,35 +96,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2(@types/node@20.11.16)
 
-  examples/commonjs:
+  bundlers/turbopack:
     dependencies:
-      '@typeschema/all':
-        specifier: workspace:*
-        version: file:packages/all
-      ow:
-        specifier: ^0.28.2
-        version: 0.28.2
-    dependenciesMeta:
-      '@typeschema/all':
-        injected: true
-
-  examples/missing-adapter:
-    dependencies:
-      '@typeschema/main':
-        specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.0)
-      valibot:
-        specifier: ^0.27.1
-        version: 0.27.1
-    dependenciesMeta:
-      '@typeschema/main':
-        injected: true
-
-  examples/next:
-    dependencies:
-      '@typeschema/core':
-        specifier: workspace:*
-        version: file:packages/core
       '@typeschema/main':
         specifier: workspace:*
         version: file:packages/main(@typeschema/zod@0.13.0)
@@ -157,18 +130,13 @@ importers:
         specifier: ^5
         version: 5.3.3
     dependenciesMeta:
-      '@typeschema/core':
-        injected: true
       '@typeschema/main':
         injected: true
       '@typeschema/zod':
         injected: true
 
-  examples/vite:
+  bundlers/vite:
     dependencies:
-      '@typeschema/core':
-        specifier: workspace:*
-        version: file:packages/core
       '@typeschema/main':
         specifier: workspace:*
         version: file:packages/main(@typeschema/zod@0.13.0)
@@ -186,11 +154,33 @@ importers:
         specifier: ^5.0.8
         version: 5.0.12(@types/node@20.11.16)
     dependenciesMeta:
-      '@typeschema/core':
-        injected: true
       '@typeschema/main':
         injected: true
       '@typeschema/zod':
+        injected: true
+
+  examples/commonjs:
+    dependencies:
+      '@typeschema/all':
+        specifier: workspace:*
+        version: file:packages/all
+      ow:
+        specifier: ^0.28.2
+        version: 0.28.2
+    dependenciesMeta:
+      '@typeschema/all':
+        injected: true
+
+  examples/missing-adapter:
+    dependencies:
+      '@typeschema/main':
+        specifier: workspace:*
+        version: file:packages/main(@typeschema/zod@0.13.0)
+      valibot:
+        specifier: ^0.27.1
+        version: 0.27.1
+    dependenciesMeta:
+      '@typeschema/main':
         injected: true
 
   packages/ajv:
@@ -7963,11 +7953,6 @@ packages:
       '@typeschema/valibot': link:packages/valibot
       '@typeschema/yup': link:packages/yup
       '@typeschema/zod': link:packages/zod
-    dev: false
-
-  file:packages/core:
-    resolution: {directory: packages/core, type: directory}
-    name: '@typeschema/core'
     dev: false
 
   file:packages/main(@typeschema/zod@0.13.0):

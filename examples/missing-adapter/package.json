@@ -1,5 +1,5 @@
 {
-  "name": "@examples/missing-adapter",
+  "name": "missing-adapter",
   "private": true,
   "version": "0.0.0",
   "scripts": {

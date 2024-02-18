@@ -1,5 +1,5 @@
 {
-  "name": "@examples/vite",
+  "name": "vite",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,6 @@
     "test": "tsc && vite build"
   },
   "dependencies": {
-    "@typeschema/core": "workspace:*",
     "@typeschema/main": "workspace:*",
     "@typeschema/zod": "workspace:*",
     "zod": "^3.22.4"
@@ -17,9 +16,6 @@
     "vite": "^5.0.8"
   },
   "dependenciesMeta": {
-    "@typeschema/core": {
-      "injected": true
-    },
     "@typeschema/main": {
       "injected": true
     },

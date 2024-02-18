@@ -1,5 +1,5 @@
 {
-  "name": "@examples/commonjs",
+  "name": "commonjs",
   "private": true,
   "version": "0.0.0",
   "scripts": {
