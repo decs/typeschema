@@ -14,12 +14,12 @@
     "url": "https://github.com/decs/typeschema.git"
   },
   "scripts": {
-    "build": "pnpm gen && turbo lint build lint:package",
-    "build:deno": "denoify --src packages/typeschema/src",
     "create:adapter": "turbo gen create-adapter && pnpm gen",
     "gen": "turbo gen all && pnpm install",
+    "lint": "turbo lint lint:package --filter @typeschema/*",
+    "build": "turbo build --filter @typeschema/*",
     "test": "turbo test --filter @typeschema/*",
-    "test:e2e": "turbo build --filter @typeschema/* && pnpm install && turbo test --filter @examples/*",
+    "test:e2e": "pnpm build && pnpm install && turbo test --filter @examples/*",
     "upgrade:deps": "turbo upgrade:deps",
     "prepare": "ts-patch install && typia patch",
     "clean": "git clean -fdx"
@@ -34,7 +34,6 @@
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
-    "denoify": "^1.6.9",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.1.0",
