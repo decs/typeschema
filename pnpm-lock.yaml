@@ -135,7 +135,7 @@ importers:
       '@typeschema/zod':
         injected: true
 
-  bundlers/vite:
+  examples/bundlers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
