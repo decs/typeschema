@@ -1,5 +1,5 @@
-import {initTRPC} from '@trpc/server';
 import {Type} from '@sinclair/typebox';
+import {initTRPC} from '@trpc/server';
 
 import {wrap} from '..';
 

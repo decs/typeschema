@@ -54,12 +54,12 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@deepkit/type": "^1.0.1-alpha.113",
-    "@deepkit/type-compiler": "^1.0.1-alpha.112"
+    "@deepkit/type": "^1.0.1-alpha.132",
+    "@deepkit/type-compiler": "^1.0.1-alpha.123"
   },
   "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
-    "@deepkit/type": "^1.0.1-alpha.113"
+    "@deepkit/type": "^1.0.1-alpha.132"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

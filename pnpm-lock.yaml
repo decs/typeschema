@@ -252,10 +252,10 @@ importers:
         version: link:../zod
     devDependencies:
       '@deepkit/type':
-        specifier: ^1.0.1-alpha.113
-        version: 1.0.1-alpha.124(@deepkit/core@1.0.1-alpha.124)
+        specifier: ^1.0.1-alpha.132
+        version: 1.0.1-alpha.132(@deepkit/core@1.0.1-alpha.124)
       '@deepkit/type-compiler':
-        specifier: ^1.0.1-alpha.112
+        specifier: ^1.0.1-alpha.123
         version: 1.0.1-alpha.123(rollup@4.9.6)(typescript@5.3.3)
       '@effect/schema':
         specifier: ^0.60.6
@@ -334,10 +334,10 @@ importers:
         version: link:../core
     devDependencies:
       '@deepkit/type':
-        specifier: ^1.0.1-alpha.113
-        version: 1.0.1-alpha.124(@deepkit/core@1.0.1-alpha.124)
+        specifier: ^1.0.1-alpha.132
+        version: 1.0.1-alpha.132(@deepkit/core@1.0.1-alpha.124)
       '@deepkit/type-compiler':
-        specifier: ^1.0.1-alpha.112
+        specifier: ^1.0.1-alpha.123
         version: 1.0.1-alpha.123(rollup@4.9.6)(typescript@5.3.3)
 
   packages/effect:
@@ -396,10 +396,10 @@ importers:
         version: link:../core
     devDependencies:
       '@deepkit/type':
-        specifier: ^1.0.1-alpha.113
-        version: 1.0.1-alpha.124(@deepkit/core@1.0.1-alpha.124)
+        specifier: ^1.0.1-alpha.132
+        version: 1.0.1-alpha.132(@deepkit/core@1.0.1-alpha.124)
       '@deepkit/type-compiler':
-        specifier: ^1.0.1-alpha.112
+        specifier: ^1.0.1-alpha.123
         version: 1.0.1-alpha.123(rollup@4.9.6)(typescript@5.3.3)
       '@effect/schema':
         specifier: ^0.60.6
@@ -883,8 +883,8 @@ packages:
     resolution: {integrity: sha512-8LDtbhLlZTKJGocdmpB/Td5nor5Pm90i4TuZbRIJEAofuEFAXM80tT7xZZLl9AFtGJaATZd7Lv0jViwspXKvxg==}
     dev: true
 
-  /@deepkit/type@1.0.1-alpha.124(@deepkit/core@1.0.1-alpha.124):
-    resolution: {integrity: sha512-1+ZPgMMkU9o/K09VImec9mVCH0ECLuo5GzMl/DXx52BYGsaeaeQQG0e9FQzm47FeScu2wBSlOLwI1FXEQolRfQ==}
+  /@deepkit/type@1.0.1-alpha.132(@deepkit/core@1.0.1-alpha.124):
+    resolution: {integrity: sha512-qobzSybTMVQT0TDsWGL2keZdh7HZg+NH7K8eNWesyvoI63h2ZWSenKUdzNstDF/1x6MKZKTOuHgPQHWLG151eg==}
     peerDependencies:
       '@deepkit/core': ^1.0.1-alpha.13
     dependencies:

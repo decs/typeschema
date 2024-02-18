@@ -1,5 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "tsconfig.json",
+    "tsconfig.test.json",
+    ".eslintrc.json",
+    ".prettierrc.json",
+    "tsup.config.ts",
+    "vitest.config.ts"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -10,7 +18,6 @@
       "dependsOn": ["build"]
     },
     "test": {
-      "cache": false,
       "dependsOn": ["^build"]
     },
     "upgrade:deps": {}

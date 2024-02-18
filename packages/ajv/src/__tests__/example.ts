@@ -3,10 +3,10 @@ import {initTRPC} from '@trpc/server';
 import {wrap} from '..';
 
 const schema = {
-  type: 'object',
+  additionalProperties: false,
   properties: {name: {type: 'string'}},
   required: ['name'],
-  additionalProperties: false,
+  type: 'object',
 };
 
 const t = initTRPC.create();

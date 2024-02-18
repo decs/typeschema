@@ -15,8 +15,8 @@
 </p>
 
 ```ts
-import {initTRPC} from '@trpc/server';
 import * as S from '@effect/schema/Schema';
+import {initTRPC} from '@trpc/server';
 
 import {wrap} from '@typeschema/effect';
 

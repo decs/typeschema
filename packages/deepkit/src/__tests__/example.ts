@@ -1,5 +1,5 @@
-import {initTRPC} from '@trpc/server';
 import {typeOf} from '@deepkit/type';
+import {initTRPC} from '@trpc/server';
 
 import {wrap} from '..';
 
