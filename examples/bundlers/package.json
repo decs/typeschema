@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "pnpm test:bun && pnpm test:vite && pnpm test:webpack",
+    "test": "pnpm test:bun && pnpm test:esbuild && pnpm test:vite && pnpm test:webpack",
     "test:bun": "bun build index.html --outdir=bun_dist",
     "test:esbuild": "esbuild src/main.ts --bundle --outdir=esbuild_dist",
     "test:vite": "vite build --outDir=vite_dist",
