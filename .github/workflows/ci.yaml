@@ -31,3 +31,13 @@ jobs:
         uses: ./.github/actions/setup
       - name: Run tests
         run: pnpm test
+  test-e2e:
+    name: Run e2e tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+      - name: Setup requirements
+        uses: ./.github/actions/setup
+      - name: Run e2e tests
+        run: pnpm test:e2e

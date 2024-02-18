@@ -18,9 +18,11 @@
     "build:deno": "denoify --src packages/typeschema/src",
     "create:adapter": "turbo gen create-adapter && pnpm gen",
     "gen": "turbo gen all && pnpm install",
-    "test": "turbo test",
+    "test": "turbo test --filter @typeschema/*",
+    "test:e2e": "turbo build --filter @typeschema/* && pnpm install && turbo test --filter @examples/*",
     "upgrade:deps": "turbo upgrade:deps",
-    "prepare": "ts-patch install && typia patch"
+    "prepare": "ts-patch install && typia patch",
+    "clean": "git clean -fdx"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.13.5",
