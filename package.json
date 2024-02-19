@@ -54,5 +54,12 @@
     "typescript": "^5.3.3",
     "typia": "^5.3.11",
     "vitest": "^1.2.2"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "svgo": "2.8.0"
+      }
+    }
   }
 }
