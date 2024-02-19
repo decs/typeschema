@@ -5,14 +5,14 @@
   "type": "module",
   "scripts": {
     "test": "pnpm test:bun && pnpm test:esbuild && pnpm test:parcel && pnpm test:rollup && pnpm test:swc && pnpm test:vite && pnpm test:webpack",
-    "test:bun": "bun build src/main.ts --outdir=bun_dist",
-    "test:esbuild": "esbuild src/main.ts --bundle --outdir=esbuild_dist",
+    "test:bun": "bun build src/main.ts --outdir=bun_dist && node bun_dist/main.js",
+    "test:esbuild": "esbuild src/main.ts --bundle --outdir=esbuild_dist && node esbuild_dist/main.js",
     "//test:parcel": "parcel build src/main.ts --dist-dir=parcel_dist",
     "test:parcel": "exit 0",
-    "test:rollup": "rollup --config",
-    "test:swc": "swc src/main.ts --out-dir=swc_dist",
+    "test:rollup": "rollup --config && node rollup_dist/main.js",
+    "test:swc": "swc src/main.ts --out-dir=swc_dist && node swc_dist/src/main.js",
     "test:vite": "vite build --outDir=vite_dist",
-    "test:webpack": "webpack --fail-on-warnings"
+    "test:webpack": "webpack --fail-on-warnings && node webpack_dist/main.js"
   },
   "dependencies": {
     "@typeschema/main": "workspace:*",
