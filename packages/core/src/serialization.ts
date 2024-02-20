@@ -14,6 +14,7 @@ export type ToJSONSchema<TResolver extends Resolver> = <
   schema: TSchema,
 ) => Promise<JSONSchema<TResolver>>;
 
+/* @__NO_SIDE_EFFECTS__ */
 export function createToJSONSchema<TResolver extends Resolver>(
   serializationAdapter: SerializationAdapter<TResolver>,
 ): ToJSONSchema<TResolver> {

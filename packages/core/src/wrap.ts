@@ -21,6 +21,7 @@ export type Wrap<TResolver extends Resolver> = <
   UnknownIfNever<Input<TResolver, TSchema>>
 >;
 
+/* @__NO_SIDE_EFFECTS__ */
 export function createWrap<TResolver extends Resolver>(
   assert: Assert<TResolver>,
   validate: Validate<TResolver>,

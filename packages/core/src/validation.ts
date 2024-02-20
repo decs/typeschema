@@ -26,6 +26,7 @@ export type Validate<TResolver extends Resolver> = <
   data: unknown,
 ) => Promise<ValidationResult<Output<TResolver, TSchema>>>;
 
+/* @__NO_SIDE_EFFECTS__ */
 export function createValidate<TResolver extends Resolver>(
   validationAdapter: ValidationAdapter<TResolver>,
 ): Validate<TResolver> {
@@ -45,6 +46,7 @@ export type Assert<TResolver extends Resolver> = <
   data: unknown,
 ) => Promise<Output<TResolver, TSchema>>;
 
+/* @__NO_SIDE_EFFECTS__ */
 export function createAssert<TResolver extends Resolver>(
   validate: Validate<TResolver>,
 ): Assert<TResolver> {

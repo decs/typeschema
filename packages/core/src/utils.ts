@@ -3,6 +3,7 @@ export type IfDefined<T> = any extends T ? never : T;
 
 export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
 
+/* @__NO_SIDE_EFFECTS__ */
 export function memoize<TValue>(
   fn: () => Promise<TValue>,
 ): (() => Promise<TValue>) & {clear(): void} {
@@ -17,6 +18,7 @@ export function memoize<TValue>(
   return memoizedFn;
 }
 
+/* @__NO_SIDE_EFFECTS__ */
 export function memoizeWithKey<TKey, TValue>(
   fn: (key: TKey) => Promise<TValue>,
 ): ((key: TKey) => Promise<TValue>) & {clear(): void} {
@@ -31,6 +33,7 @@ export function memoizeWithKey<TKey, TValue>(
   return memoizedFn;
 }
 
+/* @__NO_SIDE_EFFECTS__ */
 export function unsupportedAdapter(adapterName: string): () => Promise<void> {
   return async () => {
     throw new Error(`This feature is unsupported for ${adapterName}`);
