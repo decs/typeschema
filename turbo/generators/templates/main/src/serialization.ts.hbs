@@ -9,9 +9,10 @@ import {select} from './selector';
 {{#if hasModule.serialization}}
 const import{{pascalCase name}}SerializationAdapter = memoize(async () => {
   try {
-    const {serializationAdapter} = await import(
-      /* webpackIgnore: true */ '@typeschema/{{name}}'
-    );
+    const moduleName = '@typeschema/{{name}}';
+    const {serializationAdapter} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@typeschema/{{name}}');
     return serializationAdapter;
   } catch (error) {
     throw error;

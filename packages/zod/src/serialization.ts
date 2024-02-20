@@ -5,9 +5,10 @@ import {memoize} from '@typeschema/core';
 
 const importSerializationModule = memoize(async () => {
   try {
-    const {zodToJsonSchema} = await import(
-      /* webpackIgnore: true */ 'zod-to-json-schema'
-    );
+    const moduleName = 'zod-to-json-schema';
+    const {zodToJsonSchema} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('zod-to-json-schema');
     return {zodToJsonSchema};
   } catch (error) {
     throw error;

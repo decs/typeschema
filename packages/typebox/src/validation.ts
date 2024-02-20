@@ -5,9 +5,10 @@ import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
   try {
-    const {TypeCompiler} = await import(
-      /* webpackIgnore: true */ '@sinclair/typebox/compiler'
-    );
+    const moduleName = '@sinclair/typebox/compiler';
+    const {TypeCompiler} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@sinclair/typebox/compiler');
     return {TypeCompiler};
   } catch (error) {
     throw error;

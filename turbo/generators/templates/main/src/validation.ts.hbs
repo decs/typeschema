@@ -9,9 +9,10 @@ import {select} from './selector';
 {{#if hasModule.validation}}
 const import{{pascalCase name}}ValidationAdapter = memoize(async () => {
   try {
-    const {validationAdapter} = await import(
-      /* webpackIgnore: true */ '@typeschema/{{name}}'
-    );
+    const moduleName = '@typeschema/{{name}}';
+    const {validationAdapter} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@typeschema/{{name}}');
     return validationAdapter;
   } catch (error) {
     throw error;

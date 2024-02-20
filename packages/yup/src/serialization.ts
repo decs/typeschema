@@ -5,9 +5,10 @@ import {memoize} from '@typeschema/core';
 
 const importSerializationModule = memoize(async () => {
   try {
-    const {convertSchema} = await import(
-      /* webpackIgnore: true */ '@sodaru/yup-to-json-schema'
-    );
+    const moduleName = '@sodaru/yup-to-json-schema';
+    const {convertSchema} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@sodaru/yup-to-json-schema');
     return {convertSchema};
   } catch (error) {
     throw error;

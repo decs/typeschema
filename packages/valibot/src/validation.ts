@@ -5,7 +5,10 @@ import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
   try {
-    const {safeParseAsync} = await import(/* webpackIgnore: true */ 'valibot');
+    const moduleName = 'valibot';
+    const {safeParseAsync} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('valibot');
     return {safeParseAsync};
   } catch (error) {
     throw error;

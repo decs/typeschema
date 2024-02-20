@@ -5,9 +5,10 @@ import {memoize} from '@typeschema/core';
 
 const importSerializationModule = memoize(async () => {
   try {
-    const {toJSONSchema} = await import(
-      /* webpackIgnore: true */ '@gcornut/valibot-json-schema'
-    );
+    const moduleName = '@gcornut/valibot-json-schema';
+    const {toJSONSchema} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@gcornut/valibot-json-schema');
     return {toJSONSchema};
   } catch (error) {
     throw error;

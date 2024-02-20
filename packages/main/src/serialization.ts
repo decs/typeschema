@@ -11,8 +11,9 @@ import {select} from './selector';
 
 const importValibotSerializationAdapter = memoize(async () => {
   try {
+    const moduleName = '@typeschema/valibot';
     const {serializationAdapter} = await import(
-      /* webpackIgnore: true */ '@typeschema/valibot'
+      /* webpackIgnore: true */ moduleName
     );
     return serializationAdapter;
   } catch (error) {
@@ -22,8 +23,9 @@ const importValibotSerializationAdapter = memoize(async () => {
 
 const importYupSerializationAdapter = memoize(async () => {
   try {
+    const moduleName = '@typeschema/yup';
     const {serializationAdapter} = await import(
-      /* webpackIgnore: true */ '@typeschema/yup'
+      /* webpackIgnore: true */ moduleName
     );
     return serializationAdapter;
   } catch (error) {
@@ -33,8 +35,9 @@ const importYupSerializationAdapter = memoize(async () => {
 
 const importZodSerializationAdapter = memoize(async () => {
   try {
+    const moduleName = '@typeschema/zod';
     const {serializationAdapter} = await import(
-      /* webpackIgnore: true */ '@typeschema/zod'
+      /* webpackIgnore: true */ moduleName
     );
     return serializationAdapter;
   } catch (error) {

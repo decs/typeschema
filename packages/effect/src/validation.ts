@@ -5,13 +5,18 @@ import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
   try {
-    const {isRight} = await import(/* webpackIgnore: true */ 'effect/Either');
-    const {parseEither} = await import(
-      /* webpackIgnore: true */ '@effect/schema/Schema'
-    );
-    const {formatError} = await import(
-      /* webpackIgnore: true */ '@effect/schema/TreeFormatter'
-    );
+    const eitherModuleName = 'effect/Either';
+    const {isRight} = (await import(
+      /* webpackIgnore: true */ eitherModuleName
+    )) as typeof import('effect/Either');
+    const schemaModuleName = '@effect/schema/Schema';
+    const {parseEither} = (await import(
+      /* webpackIgnore: true */ schemaModuleName
+    )) as typeof import('@effect/schema/Schema');
+    const formatterModuleName = '@effect/schema/TreeFormatter';
+    const {formatError} = (await import(
+      /* webpackIgnore: true */ formatterModuleName
+    )) as typeof import('@effect/schema/TreeFormatter');
     return {formatError, isRight, parseEither};
   } catch (error) {
     throw error;

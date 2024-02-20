@@ -5,7 +5,10 @@ import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
   try {
-    const {validate} = await import(/* webpackIgnore: true */ '@deepkit/type');
+    const moduleName = '@deepkit/type';
+    const {validate} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@deepkit/type');
     return {validate};
   } catch (error) {
     throw error;
