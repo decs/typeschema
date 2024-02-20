@@ -5,7 +5,8 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
-import {memoize} from '@typeschema/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {memoize, unsupportedAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 

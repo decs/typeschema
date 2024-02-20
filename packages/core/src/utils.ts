@@ -30,3 +30,9 @@ export function memoizeWithKey<TKey, TValue>(
   memoizedFn.clear = () => cache.clear();
   return memoizedFn;
 }
+
+export function unsupportedAdapter(adapterName: string): () => Promise<void> {
+  return async () => {
+    throw new Error(`This feature is unsupported for ${adapterName}`);
+  };
+}

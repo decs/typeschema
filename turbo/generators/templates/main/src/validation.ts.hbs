@@ -1,7 +1,8 @@
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
-import {memoize} from '@typeschema/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {memoize, unsupportedAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 
@@ -26,9 +27,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
 {{#if hasModule.validation}}
   {{camelCase name}}: async schema => (await import{{pascalCase name}}ValidationAdapter())(schema),
 {{else}}
-  {{camelCase name}}: async () => {
-    throw new Error('Unsupported');
-  },
+  {{camelCase name}}: unsupportedAdapter('@typeschema/{{name}}'),
 {{/if}}
 {{/each}}
 });
