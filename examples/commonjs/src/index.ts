@@ -1,4 +1,4 @@
-import {validate, toJSONSchema} from '@typeschema/all';
+import {toJSONSchema, validate} from '@typeschema/all';
 import ow from 'ow';
 
 validate(ow.string, 'hello').then(console.log);
@@ -8,7 +8,7 @@ toJSONSchema(ow.string)
     throw new Error('Unexpected success');
   })
   .catch(error => {
-    if (!error.message.startsWith('Unsupported')) {
+    if (error.message !== 'This feature is unsupported for @typeschema/ow') {
       throw new Error(`Unexpected error: ${error.message}`);
     }
   });
