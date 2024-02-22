@@ -4,15 +4,10 @@ export interface Resolver<TSchema = unknown> {
   schema: TSchema;
   input: unknown;
   output: unknown;
-  jsonSchema: unknown;
   base: unknown;
 }
 
 export type Schema<TResolver extends Resolver> = IfDefined<TResolver['base']>;
-
-export type JSONSchema<TResolver extends Resolver> = IfDefined<
-  TResolver['jsonSchema']
->;
 
 export type Input<
   TResolver extends Resolver,

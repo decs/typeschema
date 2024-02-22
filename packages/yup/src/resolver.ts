@@ -1,4 +1,3 @@
-import type {convertSchema} from '@sodaru/yup-to-json-schema';
 import type {Resolver} from '@typeschema/core';
 import type {InferType, Schema} from 'yup';
 
@@ -10,5 +9,4 @@ export interface AdapterResolver extends Resolver {
   output: this['schema'] extends this['base']
     ? InferType<this['schema']>
     : never;
-  jsonSchema: ReturnType<typeof convertSchema>;
 }

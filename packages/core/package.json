@@ -18,8 +18,7 @@
     "email": "andrefonsecacosta@gmail.com"
   },
   "files": [
-    "/dist",
-    "/assets"
+    "/dist"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -44,8 +43,17 @@
   "scripts": {
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
-    "lint:package": "publint && attw --pack",
-    "prepack": "cp ../../README.md README.md && cp -R ../../assets assets",
-    "postpack": "rm README.md && rm -r assets"
+    "lint:package": "publint && attw --pack"
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.15"
+  },
+  "peerDependencies": {
+    "@types/json-schema": "^7.0.15"
+  },
+  "peerDependenciesMeta": {
+    "@types/json-schema": {
+      "optional": true
+    }
   }
 }

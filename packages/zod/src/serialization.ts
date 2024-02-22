@@ -19,5 +19,6 @@ export const serializationAdapter: SerializationAdapter<
   AdapterResolver
 > = async schema => {
   const {zodToJsonSchema} = await importSerializationModule();
-  return zodToJsonSchema(schema);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return zodToJsonSchema(schema) as any;
 };

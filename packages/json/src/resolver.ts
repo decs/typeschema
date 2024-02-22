@@ -5,5 +5,4 @@ export interface AdapterResolver extends Resolver {
   base: SchemaObject;
   input: this['schema'] extends this['base'] ? unknown : never;
   output: this['schema'] extends this['base'] ? unknown : never;
-  jsonSchema: SchemaObject;
 }

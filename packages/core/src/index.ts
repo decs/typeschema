@@ -1,4 +1,4 @@
-export {Input, JSONSchema, Output, Resolver, Schema} from './resolver';
+export {Input, Output, Resolver, Schema} from './resolver';
 export {
   createToJSONSchema,
   SerializationAdapter,

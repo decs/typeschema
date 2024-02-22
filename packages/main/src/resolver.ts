@@ -3,7 +3,7 @@
  */
 
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
-import type {Input, JSONSchema, Output, Resolver, Schema} from '@typeschema/core';
+import type {Input, Output, Resolver, Schema} from '@typeschema/core';
 import type {AdapterResolver as DeepkitResolver} from '@typeschema/deepkit';
 import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
 import type {AdapterResolver as FunctionResolver} from '@typeschema/function';
@@ -52,8 +52,5 @@ export interface AdapterResolver extends Resolver {
     >
       ? Output<AdapterResolverMap[Adapter], this['schema']>
       : never;
-  }[keyof AdapterResolverMap];
-  jsonSchema: {
-    [Adapter in keyof AdapterResolverMap]: JSONSchema<AdapterResolverMap[Adapter]>;
   }[keyof AdapterResolverMap];
 }

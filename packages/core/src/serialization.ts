@@ -1,4 +1,5 @@
-import type {JSONSchema, Resolver, Schema} from './resolver';
+import type {Resolver, Schema} from './resolver';
+import type {JSONSchema7} from 'json-schema';
 
 import {memoizeWithKey} from './utils';
 
@@ -6,13 +7,13 @@ export type SerializationAdapter<TResolver extends Resolver> = <
   TSchema extends Schema<TResolver>,
 >(
   schema: TSchema,
-) => Promise<JSONSchema<TResolver>>;
+) => Promise<JSONSchema7>;
 
 export type ToJSONSchema<TResolver extends Resolver> = <
   TSchema extends Schema<TResolver>,
 >(
   schema: TSchema,
-) => Promise<JSONSchema<TResolver>>;
+) => Promise<JSONSchema7>;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function createToJSONSchema<TResolver extends Resolver>(

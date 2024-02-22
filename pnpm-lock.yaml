@@ -338,7 +338,11 @@ importers:
         specifier: ^1.0.29-alpha
         version: 1.0.29-alpha
 
-  packages/core: {}
+  packages/core:
+    devDependencies:
+      '@types/json-schema':
+        specifier: ^7.0.15
+        version: 7.0.15
 
   packages/deepkit:
     dependencies:
