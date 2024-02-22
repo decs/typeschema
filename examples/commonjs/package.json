@@ -1,7 +1,7 @@
 {
-  "name": "commonjs",
-  "private": true,
+  "name": "@examples/commonjs",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "build": "tsup --config ../../tsup.config.ts --format cjs",
     "//test": "pnpm build && node dist/index.js"

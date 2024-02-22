@@ -1,7 +1,7 @@
 {
-  "name": "bundlers",
-  "private": true,
+  "name": "@examples/bundlers",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "test": "pnpm test:bun && pnpm test:esbuild && pnpm test:parcel && pnpm test:rollup && pnpm test:swc && pnpm test:vite && pnpm test:webpack",

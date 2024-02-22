@@ -1,7 +1,7 @@
 {
-  "name": "missing-adapter",
-  "private": true,
+  "name": "@examples/missing-adapter",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "build": "tsup --config ../../tsup.config.ts --format cjs",
     "test": "pnpm build && node dist/index.js"
