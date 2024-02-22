@@ -163,7 +163,10 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         ...adapters.flatMap(adapter =>
           getAddActions({
             base: 'templates/adapter',
-            data: adapter,
+            data: {
+              ...adapter,
+              isMultipleAdapter: multiAdapterNames.includes(adapter.name),
+            },
             destination: `packages/${adapter.name}`,
           }),
         ),

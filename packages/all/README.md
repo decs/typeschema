@@ -14,8 +14,6 @@
   <a href="https://typeschema.com">https://typeschema.com</a> ✨
 </p>
 
-Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
-
 ## API
 
 ### Inference
