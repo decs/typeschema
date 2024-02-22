@@ -10,6 +10,18 @@ import {memoize, unsupportedAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 
+const importJsonSerializationAdapter = memoize(async () => {
+  try {
+    const moduleName = '@typeschema/json';
+    const {serializationAdapter} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@typeschema/json');
+    return serializationAdapter;
+  } catch (error) {
+    throw error;
+  }
+});
+
 const importValibotSerializationAdapter = memoize(async () => {
   try {
     const moduleName = '@typeschema/valibot';
@@ -53,7 +65,7 @@ export const serializationAdapter: SerializationAdapter<AdapterResolver> = selec
   function: unsupportedAdapter('@typeschema/function'),
   ioTs: unsupportedAdapter('@typeschema/io-ts'),
   joi: unsupportedAdapter('@typeschema/joi'),
-  json: unsupportedAdapter('@typeschema/json'),
+  json: async schema => (await importJsonSerializationAdapter())(schema),
   ow: unsupportedAdapter('@typeschema/ow'),
   runtypes: unsupportedAdapter('@typeschema/runtypes'),
   superstruct: unsupportedAdapter('@typeschema/superstruct'),

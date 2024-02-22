@@ -8,7 +8,7 @@ import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {describe, expect, test} from 'vitest';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 describe('json', () => {
   const schema = {
@@ -74,5 +74,21 @@ describe('json', () => {
     const createCaller = tRPC.createCallerFactory(router);
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(data);
+  });
+
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      additionalProperties: false,
+      properties: {
+        age: {type: 'integer'},
+        createdAt: {type: 'string'},
+        email: {type: 'string'},
+        id: {type: 'string'},
+        name: {type: 'string'},
+        updatedAt: {type: 'string'},
+      },
+      required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+      type: 'object',
+    });
   });
 });
