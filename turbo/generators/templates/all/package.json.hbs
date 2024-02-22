@@ -1,0 +1,17 @@
+{
+{{> packageJson name="all" adapters=adapters}}
+  "dependencies": {
+    "@typeschema/core": "workspace:*",
+    "@typeschema/main": "workspace:*",
+{{#each adapters}}
+    "@typeschema/{{name}}": "workspace:*",
+{{/each}}
+  },
+  "devDependencies": {
+{{#each adapters}}
+{{#each packageJson.devDependencies}}
+    "{{@key}}": "{{this}}",
+{{/each}}
+{{/each}}
+  }
+}

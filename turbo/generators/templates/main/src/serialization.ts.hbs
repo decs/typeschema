@@ -1,0 +1,33 @@
+import type {AdapterResolver} from './resolver';
+import type {SerializationAdapter} from '@typeschema/core';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {memoize, unsupportedAdapter} from '@typeschema/core';
+
+import {select} from './selector';
+
+{{#each adapters}}
+{{#if hasModule.serialization}}
+const import{{pascalCase name}}SerializationAdapter = memoize(async () => {
+  try {
+    const moduleName = '@typeschema/{{name}}';
+    const {serializationAdapter} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@typeschema/{{name}}');
+    return serializationAdapter;
+  } catch (error) {
+    throw error;
+  }
+});
+
+{{/if}}
+{{/each}}
+export const serializationAdapter: SerializationAdapter<AdapterResolver> = select({
+{{#each adapters}}
+{{#if hasModule.serialization}}
+  {{camelCase name}}: async schema => (await import{{pascalCase name}}SerializationAdapter())(schema),
+{{else}}
+  {{camelCase name}}: unsupportedAdapter('@typeschema/{{name}}'),
+{{/if}}
+{{/each}}
+});

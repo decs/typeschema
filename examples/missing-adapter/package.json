@@ -1,0 +1,18 @@
+{
+  "name": "missing-adapter",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsup --config ../../tsup.config.ts --format cjs",
+    "test": "pnpm build && node dist/index.js"
+  },
+  "dependencies": {
+    "@typeschema/main": "workspace:*",
+    "valibot": "^0.27.1"
+  },
+  "dependenciesMeta": {
+    "@typeschema/main": {
+      "injected": true
+    }
+  }
+}

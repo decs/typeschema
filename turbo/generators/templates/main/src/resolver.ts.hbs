@@ -1,0 +1,30 @@
+import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+{{#each adapters}}
+import type {AdapterResolver as {{pascalCase name}}Resolver} from '@typeschema/{{name}}';
+{{/each}}
+
+export type AdapterResolverMap = {
+{{#each adapters}}
+  {{camelCase name}}: {{pascalCase name}}Resolver;
+{{/each}}
+};
+
+export interface AdapterResolver extends Resolver {
+  base: {
+    [Adapter in keyof AdapterResolverMap]: Schema<AdapterResolverMap[Adapter]>;
+  }[keyof AdapterResolverMap];
+  input: {
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+      AdapterResolverMap[Adapter]
+    >
+      ? Input<AdapterResolverMap[Adapter], this['schema']>
+      : never;
+  }[keyof AdapterResolverMap];
+  output: {
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+      AdapterResolverMap[Adapter]
+    >
+      ? Output<AdapterResolverMap[Adapter], this['schema']>
+      : never;
+  }[keyof AdapterResolverMap];
+}

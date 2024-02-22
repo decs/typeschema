@@ -1,0 +1,25 @@
+import type {AdapterResolver} from './resolver';
+import type {ValidationAdapter} from '@typeschema/core';
+
+import {memoize} from '@typeschema/core';
+
+const importValidationModule = memoize(async () => {
+  try {
+    const moduleName = '$FixMe';
+    const {$FixMe} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('$FixMe');
+    return {$FixMe};
+  } catch (error) {
+    throw error;
+  }
+});
+
+export const validationAdapter: ValidationAdapter<
+  AdapterResolver
+> = async schema => {
+  const {$FixMe} = await importValidationModule();
+  return async data => {
+    return $FixMe;
+  };
+};

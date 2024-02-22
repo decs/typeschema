@@ -1,0 +1,43 @@
+{
+  "name": "bundlers",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "pnpm test:bun && pnpm test:esbuild && pnpm test:parcel && pnpm test:rollup && pnpm test:swc && pnpm test:vite && pnpm test:webpack",
+    "test:bun": "bun build src/main.ts --outdir=bun_dist && node bun_dist/main.js",
+    "test:esbuild": "esbuild src/main.ts --bundle --outdir=esbuild_dist && node esbuild_dist/main.js",
+    "test:parcel": "parcel build src/main.ts --dist-dir=parcel_dist --no-cache && node parcel_dist/main.js",
+    "test:rollup": "rollup --config && node rollup_dist/main.js",
+    "test:swc": "swc src/main.ts --out-dir=swc_dist && node swc_dist/src/main.js",
+    "test:vite": "vite build --outDir=vite_dist",
+    "test:webpack": "webpack --fail-on-warnings && node webpack_dist/main.js"
+  },
+  "dependencies": {
+    "@typeschema/main": "workspace:*",
+    "@typeschema/zod": "workspace:*",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@swc/cli": "^0.3.9",
+    "@swc/core": "^1.4.2",
+    "bun": "^1.0.27",
+    "esbuild": "^0.20.0",
+    "parcel": "^2.11.0",
+    "rollup": "^4.12.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "webpack": "^5.90.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependenciesMeta": {
+    "@typeschema/main": {
+      "injected": true
+    },
+    "@typeschema/zod": {
+      "injected": true
+    }
+  }
+}

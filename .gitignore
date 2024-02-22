@@ -1,9 +1,11 @@
 .DS_Store
 node_modules
+
 .next
+.parcel-cache
+.turbo
 
 dist/
-deno_dist/
+*_dist/
 
-yarn-debug.log*
-yarn-error.log*
+*.tmp

@@ -1,0 +1,69 @@
+{
+  "//": "This file is partially generated. Only some fields can be modified manually!",
+  "name": "@typeschema/arktype",
+  "//version": "This field is manually maintained.",
+  "version": "0.13.0",
+  "//description": "This field is manually maintained.",
+  "description": "Reusable adapter for ArkType schemas",
+  "keywords": [
+    "typescript",
+    "type",
+    "schema",
+    "adapter",
+    "validation",
+    "inference",
+    "assert"
+  ],
+  "homepage": "https://typeschema.com",
+  "license": "MIT",
+  "author": {
+    "name": "André Costa",
+    "email": "andrefonsecacosta@gmail.com"
+  },
+  "files": [
+    "/dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decs/typeschema.git"
+  },
+  "scripts": {
+    "build": "tsup --config ../../tsup.config.ts",
+    "lint": "eslint src --fix",
+    "lint:package": "publint && attw --pack",
+    "test": "vitest --config ../../vitest.config.ts"
+  },
+  "dependencies": {
+    "@typeschema/core": "workspace:*"
+  },
+  "//devDependencies": "This field is manually maintained.",
+  "devDependencies": {
+    "arktype": "^1.0.29-alpha"
+  },
+  "//peerDependencies": "This field is manually maintained.",
+  "peerDependencies": {
+    "arktype": "^1.0.29-alpha"
+  },
+  "//peerDependenciesMeta": "This field is manually maintained.",
+  "peerDependenciesMeta": {
+    "arktype": {
+      "optional": true
+    }
+  }
+}

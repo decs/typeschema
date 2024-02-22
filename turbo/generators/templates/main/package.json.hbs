@@ -1,0 +1,26 @@
+{
+{{> packageJson name="main" adapters=adapters}}
+  "dependencies": {
+    "@typeschema/core": "workspace:*"
+  },
+  "devDependencies": {
+{{#each adapters}}
+    "@typeschema/{{name}}": "workspace:*",
+{{#each packageJson.devDependencies}}
+    "{{@key}}": "{{this}}",
+{{/each}}
+{{/each}}
+  },
+  "peerDependencies": {
+{{#each adapters}}
+    "@typeschema/{{name}}": "workspace:*",
+{{/each}}
+  },
+  "peerDependenciesMeta": {
+{{#each adapters}}
+    "@typeschema/{{name}}": {
+      "optional": true
+    },
+{{/each}}
+  }
+}
