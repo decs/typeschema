@@ -100,25 +100,38 @@ function getAddActions(config: {
 }
 
 function getAdapters(adapterNames: Array<string>) {
-  return adapterNames.map(adapterName => ({
-    example: maybeReadFile(
-      `packages/${adapterName}/src/__tests__/example.ts`,
-    )?.replace("'..'", `'@typeschema/${adapterName}'`),
-    hasModule: ['validation', 'serialization'].reduce(
-      (result, moduleName) => ({
-        ...result,
-        [moduleName]:
-          fs.statSync(`packages/${adapterName}/src/${moduleName}.ts`, {
-            throwIfNoEntry: false,
-          }) != null,
-      }),
-      {},
-    ),
-    name: adapterName,
-    packageJson: JSON.parse(
-      fs.readFileSync(`packages/${adapterName}/package.json`, 'utf-8'),
-    ),
-  }));
+  return adapterNames.map(adapterName => {
+    const resolver = maybeReadFile(`packages/${adapterName}/src/resolver.ts`);
+    return {
+      canInfer: ['input', 'output'].reduce(
+        (result, type) => ({
+          ...result,
+          [type]:
+            resolver?.includes(
+              `${type}: this['schema'] extends this['base'] ? unknown : never;`,
+            ) === false,
+        }),
+        {},
+      ),
+      example: maybeReadFile(
+        `packages/${adapterName}/src/__tests__/example.ts`,
+      )?.replace("'..'", `'@typeschema/${adapterName}'`),
+      hasModule: ['validation', 'serialization'].reduce(
+        (result, moduleName) => ({
+          ...result,
+          [moduleName]:
+            fs.statSync(`packages/${adapterName}/src/${moduleName}.ts`, {
+              throwIfNoEntry: false,
+            }) != null,
+        }),
+        {},
+      ),
+      name: adapterName,
+      packageJson: JSON.parse(
+        fs.readFileSync(`packages/${adapterName}/package.json`, 'utf-8'),
+      ),
+    };
+  });
 }
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
