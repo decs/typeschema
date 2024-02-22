@@ -47,13 +47,13 @@ const importZodSerializationAdapter = memoize(async () => {
 });
 
 export const serializationAdapter: SerializationAdapter<AdapterResolver> = select({
-  ajv: unsupportedAdapter('@typeschema/ajv'),
   arktype: unsupportedAdapter('@typeschema/arktype'),
   deepkit: unsupportedAdapter('@typeschema/deepkit'),
   effect: unsupportedAdapter('@typeschema/effect'),
   function: unsupportedAdapter('@typeschema/function'),
   ioTs: unsupportedAdapter('@typeschema/io-ts'),
   joi: unsupportedAdapter('@typeschema/joi'),
+  json: unsupportedAdapter('@typeschema/json'),
   ow: unsupportedAdapter('@typeschema/ow'),
   runtypes: unsupportedAdapter('@typeschema/runtypes'),
   superstruct: unsupportedAdapter('@typeschema/superstruct'),

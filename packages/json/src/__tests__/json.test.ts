@@ -6,7 +6,7 @@ import {describe, expect, test} from 'vitest';
 
 import {assert, validate, wrap} from '..';
 
-describe('ajv', () => {
+describe('json', () => {
   const schema = {
     additionalProperties: false,
     properties: {

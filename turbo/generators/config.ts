@@ -223,7 +223,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 url: 'https://joi.dev',
               },
               {
-                adapter: adapters.find(adapter => adapter.name === 'ajv'),
+                adapter: adapters.find(adapter => adapter.name === 'json'),
                 github: 'ajv-validator/ajv',
                 name: 'ajv',
                 url: 'https://ajv.js.org',

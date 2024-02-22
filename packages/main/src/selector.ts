@@ -1,6 +1,6 @@
 import type {AdapterResolver, AdapterResolverMap} from './resolver';
-import type {AdapterResolver as AjvResolver} from '@typeschema/ajv';
 import type {Schema} from '@typeschema/core';
+import type {AdapterResolver as AjvResolver} from '@typeschema/json';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 
 function isTypeboxSchema(
@@ -40,6 +40,6 @@ export const select: (is: {
         if ('ast' in schema) return is.effect(notJSON(schema));
         if ('kind' in schema) return is.deepkit(notJSON(schema));
         if ('context' in schema) return is.ow(notJSON(schema));
-        return is.ajv(schema);
+        return is.json(schema);
     }
   };

@@ -1,11 +1,11 @@
 <!-- This file is generated. Do not modify it manually! -->
 
 <img src="https://typeschema.com/assets/logo.png" width="64px" alt="TypeSchema" />
-<h1>@typeschema/ajv</h1>
+<h1>@typeschema/json</h1>
 <p>
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
-  <a href="https://bundlephobia.com/package/@typeschema/ajv" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2Fajv" alt="Bundle size"></a>
-  <a href="https://www.npmjs.com/package/@typeschema/ajv" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/ajv.svg" alt="npm downloads"></a>
+  <a href="https://bundlephobia.com/package/@typeschema/json" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2Fjson" alt="Bundle size"></a>
+  <a href="https://www.npmjs.com/package/@typeschema/json" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/json.svg" alt="npm downloads"></a>
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
 <p>
@@ -17,7 +17,7 @@
 ```ts
 import {initTRPC} from '@trpc/server';
 
-import {wrap} from '@typeschema/ajv';
+import {wrap} from '@typeschema/json';
 
 const schema = {
   additionalProperties: false,

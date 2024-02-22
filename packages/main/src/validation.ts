@@ -10,18 +10,6 @@ import {memoize, unsupportedAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 
-const importAjvValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/ajv';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/ajv');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
-});
-
 const importArktypeValidationAdapter = memoize(async () => {
   try {
     const moduleName = '@typeschema/arktype';
@@ -88,6 +76,18 @@ const importJoiValidationAdapter = memoize(async () => {
     const {validationAdapter} = (await import(
       /* webpackIgnore: true */ moduleName
     )) as typeof import('@typeschema/joi');
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+});
+
+const importJsonValidationAdapter = memoize(async () => {
+  try {
+    const moduleName = '@typeschema/json';
+    const {validationAdapter} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@typeschema/json');
     return validationAdapter;
   } catch (error) {
     throw error;
@@ -179,13 +179,13 @@ const importZodValidationAdapter = memoize(async () => {
 });
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
-  ajv: async schema => (await importAjvValidationAdapter())(schema),
   arktype: async schema => (await importArktypeValidationAdapter())(schema),
   deepkit: async schema => (await importDeepkitValidationAdapter())(schema),
   effect: async schema => (await importEffectValidationAdapter())(schema),
   function: async schema => (await importFunctionValidationAdapter())(schema),
   ioTs: async schema => (await importIoTsValidationAdapter())(schema),
   joi: async schema => (await importJoiValidationAdapter())(schema),
+  json: async schema => (await importJsonValidationAdapter())(schema),
   ow: async schema => (await importOwValidationAdapter())(schema),
   runtypes: async schema => (await importRuntypesValidationAdapter())(schema),
   superstruct: async schema => (await importSuperstructValidationAdapter())(schema),

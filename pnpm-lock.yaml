@@ -213,21 +213,8 @@ importers:
       '@typeschema/zod':
         injected: true
 
-  packages/ajv:
-    dependencies:
-      '@typeschema/core':
-        specifier: workspace:*
-        version: link:../core
-    devDependencies:
-      ajv:
-        specifier: ^8.12.0
-        version: 8.12.0
-
   packages/all:
     dependencies:
-      '@typeschema/ajv':
-        specifier: workspace:*
-        version: link:../ajv
       '@typeschema/arktype':
         specifier: workspace:*
         version: link:../arktype
@@ -249,6 +236,9 @@ importers:
       '@typeschema/joi':
         specifier: workspace:*
         version: link:../joi
+      '@typeschema/json':
+        specifier: workspace:*
+        version: link:../json
       '@typeschema/main':
         specifier: workspace:*
         version: link:../main
@@ -412,6 +402,16 @@ importers:
         specifier: ^17.12.0
         version: 17.12.1
 
+  packages/json:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      ajv:
+        specifier: ^8.12.0
+        version: 8.12.0
+
   packages/main:
     dependencies:
       '@typeschema/core':
@@ -436,9 +436,6 @@ importers:
       '@sodaru/yup-to-json-schema':
         specifier: ^2.0.1
         version: 2.0.1
-      '@typeschema/ajv':
-        specifier: workspace:*
-        version: link:../ajv
       '@typeschema/arktype':
         specifier: workspace:*
         version: link:../arktype
@@ -457,6 +454,9 @@ importers:
       '@typeschema/joi':
         specifier: workspace:*
         version: link:../joi
+      '@typeschema/json':
+        specifier: workspace:*
+        version: link:../json
       '@typeschema/ow':
         specifier: workspace:*
         version: link:../ow
@@ -10952,6 +10952,7 @@ packages:
       '@typeschema/function': link:packages/function
       '@typeschema/io-ts': link:packages/io-ts
       '@typeschema/joi': link:packages/joi
+      '@typeschema/json': link:packages/json
       '@typeschema/main': link:packages/main
       '@typeschema/ow': link:packages/ow
       '@typeschema/runtypes': link:packages/runtypes
@@ -10967,13 +10968,13 @@ packages:
     id: file:packages/main
     name: '@typeschema/main'
     peerDependencies:
-      '@typeschema/ajv': workspace:*
       '@typeschema/arktype': workspace:*
       '@typeschema/deepkit': workspace:*
       '@typeschema/effect': workspace:*
       '@typeschema/function': workspace:*
       '@typeschema/io-ts': workspace:*
       '@typeschema/joi': workspace:*
+      '@typeschema/json': workspace:*
       '@typeschema/ow': workspace:*
       '@typeschema/runtypes': workspace:*
       '@typeschema/superstruct': workspace:*
@@ -10982,8 +10983,6 @@ packages:
       '@typeschema/yup': workspace:*
       '@typeschema/zod': workspace:*
     peerDependenciesMeta:
-      '@typeschema/ajv':
-        optional: true
       '@typeschema/arktype':
         optional: true
       '@typeschema/deepkit':
@@ -10995,6 +10994,8 @@ packages:
       '@typeschema/io-ts':
         optional: true
       '@typeschema/joi':
+        optional: true
+      '@typeschema/json':
         optional: true
       '@typeschema/ow':
         optional: true
