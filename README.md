@@ -58,7 +58,7 @@ await validate(valibotSchema, 123);
 
 We value flexibility, which is why there are multiple ways of using TypeSchema:
 1. **Using an adapter directly** (e.g. [`@typeschema/valibot`](https://github.com/decs/typeschema/tree/main/packages/valibot)): Best pick for end developers, when the validation library is known ahead of time. This is particularly useful for supporting more validation libraries on [tRPC](https://trpc.io/).
-2. **Handpicking adapters** with [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main): Recommended for library maintainers. Any validation library can be used, but adapters have to be explicitly installed. This allows trading off between coverage and bundle size.
+2. **Handpicking adapters** with [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main): Recommended for library maintainers. Any validation library can be used, but adapters have to be explicitly installed. This allows end developers to trade-off between coverage and bundle size.
 3. **Batteries included** with [`@typeschema/all`](https://github.com/decs/typeschema/tree/main/packages/all): Easiest to use. All adapters are automatically installed, including future ones. This is a drop-in replacement for the deprecated [`@decs/typeschema`](https://www.npmjs.com/package/@decs/typeschema).
 
 ## Coverage
