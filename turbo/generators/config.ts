@@ -101,10 +101,9 @@ function getAddActions(config: {
 
 function getAdapters(adapterNames: Array<string>) {
   return adapterNames.map(adapterName => ({
-    name: adapterName,
-    packageJson: JSON.parse(
-      fs.readFileSync(`packages/${adapterName}/package.json`, 'utf-8'),
-    ),
+    example: maybeReadFile(
+      `packages/${adapterName}/src/__tests__/example.ts`,
+    )?.replace("'..'", `'@typeschema/${adapterName}'`),
     hasModule: ['validation', 'serialization'].reduce(
       (result, moduleName) => ({
         ...result,
@@ -115,9 +114,10 @@ function getAdapters(adapterNames: Array<string>) {
       }),
       {},
     ),
-    example: maybeReadFile(
-      `packages/${adapterName}/src/__tests__/example.ts`,
-    )?.replace("'..'", `'@typeschema/${adapterName}'`),
+    name: adapterName,
+    packageJson: JSON.parse(
+      fs.readFileSync(`packages/${adapterName}/package.json`, 'utf-8'),
+    ),
   }));
 }
 
@@ -137,6 +137,8 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     fs.readFileSync('turbo/generators/templates/package.json.hbs', 'utf-8'),
   );
 
+  plop.addHelper('icon', (value: boolean) => (value ? '✅' : '🧐'));
+
   plop.setGenerator('all', {
     actions: () => {
       const packageFiles = fs
@@ -147,9 +149,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         .filter(filePath => filePath.endsWith('/package.json'))
         .map(filePath => filePath.replace(/\/package\.json$/, ''));
       const adapters = getAdapters(
-        packageNames.filter(
-          packageName => !['core', 'typeschema'].includes(packageName),
-        ),
+        packageNames.filter(packageName => packageName !== 'core'),
       );
       const multiAdapterNames = ['main', 'all'];
       const singleAdapters = adapters.filter(
@@ -158,8 +158,8 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       const actions: Array<PlopTypes.ActionConfig> = [
         ...adapters.flatMap(adapter =>
           getAddActions({
-            data: adapter,
             base: 'templates/adapter',
+            data: adapter,
             destination: `packages/${adapter.name}`,
           }),
         ),
@@ -179,6 +179,100 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         getAddAction({
           path: 'packages/core/tsconfig.json',
           templateFile: 'templates/adapter/tsconfig.json.hbs',
+        }),
+        getAddAction({
+          data: {
+            libraries: [
+              {
+                adapter: adapters.find(adapter => adapter.name === 'zod'),
+                github: 'colinhacks/zod',
+                name: 'zod',
+                url: 'https://zod.dev',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'yup'),
+                github: 'jquense/yup',
+                name: 'yup',
+                url: 'https://github.com/jquense/yup',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'joi'),
+                github: 'hapijs/joi',
+                name: 'joi',
+                url: 'https://joi.dev',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'ajv'),
+                github: 'ajv-validator/ajv',
+                name: 'ajv',
+                url: 'https://ajv.js.org',
+              },
+              {
+                adapter: adapters.find(
+                  adapter => adapter.name === 'superstruct',
+                ),
+                github: 'ianstormtaylor/superstruct',
+                name: 'superstruct',
+                url: 'https://docs.superstructjs.org',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'io-ts'),
+                github: 'gcanti/io-ts',
+                name: 'io-ts',
+                url: 'https://gcanti.github.io/io-ts',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'valibot'),
+                github: 'fabian-hiller/valibot',
+                name: 'valibot',
+                url: 'https://valibot.dev',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'typebox'),
+                github: 'sinclairzx81/typebox',
+                name: 'typebox',
+                url: 'https://github.com/sinclairzx81/typebox',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'function'),
+                github: 'samchon/typia',
+                name: 'typia',
+                url: 'https://typia.io',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'ow'),
+                github: 'sindresorhus/ow',
+                name: 'ow',
+                url: 'https://sindresorhus.com/ow',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'effect'),
+                github: 'effect-ts/effect',
+                name: 'effect',
+                url: 'https://effect.website',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'arktype'),
+                github: 'arktypeio/arktype',
+                name: 'arktype',
+                url: 'https://arktype.io',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'deepkit'),
+                github: 'deepkit/deepkit-framework',
+                name: 'deepkit',
+                url: 'https://deepkit.io',
+              },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'runtypes'),
+                github: 'pelotom/runtypes',
+                name: 'runtypes',
+                url: 'https://github.com/pelotom/runtypes',
+              },
+            ],
+          },
+          path: 'README.md',
+          templateFile: 'templates/README.md.hbs',
         }),
       ].sort((a, b) => a.path.localeCompare(b.path));
       actions.push({type: 'list'});

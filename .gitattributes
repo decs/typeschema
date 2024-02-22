@@ -1,6 +1,7 @@
 # This file is generated. Do not modify it manually!
 
 .gitattributes linguist-generated
+README.md linguist-generated
 packages/ajv/README.md linguist-generated
 packages/ajv/src/index.ts linguist-generated
 packages/ajv/tsconfig.json linguist-generated
