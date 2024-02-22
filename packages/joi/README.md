@@ -32,23 +32,6 @@ const appRouter = t.router({
 
 ```
 
-## Setup
-
-<table>
-  <tr>
-    <th>npm</th>
-    <td><code>npm install @typeschema/joi</code></td>
-  </tr>
-  <tr>
-    <th>Yarn</th>
-    <td><code>yarn add @typeschema/joi</code></td>
-  </tr>
-  <tr>
-    <th>pnpm</th>
-    <td><code>pnpm add @typeschema/joi</code></td>
-  </tr>
-</table>
-
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## API
@@ -58,5 +41,5 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 - `InferIn<TSchema>`: Extracts the input type of a schema
 ### Validation
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
-- `validate(schema, data)`: Returns the validated data or a list of `ValidationIssue`s
+- `validate(schema, data)`: Returns the validated data or a list of validation issues
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`

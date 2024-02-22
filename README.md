@@ -2,7 +2,7 @@
 
 <br />
 <p align="center">
-  <img src="assets/logo.png" width="64px" alt="TypeSchema" />
+  <img src="https://typeschema.com/assets/logo.png" width="64px" alt="TypeSchema" />
 </p>
 <h1 align="center">
   TypeSchema
@@ -29,7 +29,7 @@
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
   <a href="https://github.com/decs/typeschema">GitHub</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="https://www.npmjs.com/package/@decs/typeschema">npm</a>
+  <a href="https://www.npmjs.com/package/@typeschema/main">npm</a>
 </p>
 <br />
 
@@ -59,7 +59,7 @@ await validate(valibotSchema, 123);
 We value flexibility, which is why there are multiple ways of using TypeSchema:
 1. **Using an adapter directly** (e.g. [`@typeschema/valibot`](https://github.com/decs/typeschema/tree/main/packages/valibot)): Best pick for end developers, when the validation library is known ahead of time. This is particularly useful for extending support to more validation libraries on [tRPC](https://trpc.io/).
 2. **Handpicking adapters** through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main): Recommended for library maintainers. Any validation library can be used, but adapters have to be explicitly installed. This allows trading off between coverage and bundle size.
-3. **All batteries included** through [`@typeschema/all`](https://github.com/decs/typeschema/tree/main/packages/all): Easiest to use. All adapters are automatically installed, including future ones. This is a drop-in replacement for the old [`@decs/typeschema`](https://www.npmjs.com/package/@decs/typeschema).
+3. **All batteries included** through [`@typeschema/all`](https://github.com/decs/typeschema/tree/main/packages/all): Easiest to use. All adapters are automatically installed, including future ones. This is a drop-in replacement for the deprecated [`@decs/typeschema`](https://www.npmjs.com/package/@decs/typeschema).
 
 ## Coverage
 
@@ -85,12 +85,10 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 ### Inference
 - `Infer<TSchema>`: Extracts the output type of a schema
 - `InferIn<TSchema>`: Extracts the input type of a schema
-
 ### Validation
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
-
 ### Serialization
 - `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema
 

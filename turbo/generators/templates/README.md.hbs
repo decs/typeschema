@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-  <img src="assets/logo.png" width="64px" alt="TypeSchema" />
+  <img src="https://typeschema.com/assets/logo.png" width="64px" alt="TypeSchema" />
 </p>
 <h1 align="center">
   TypeSchema
@@ -14,8 +14,8 @@
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
-  <a href="https://bundlephobia.com/package/@typeschema/main" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2Fmain" alt="Bundle size"></a>
-  <a href="https://www.npmjs.com/package/@typeschema/main" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/main.svg" alt="npm downloads"></a>
+  <a href="https://bundlephobia.com/package/@typeschema/{{adapter.name}}" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2F{{adapter.name}}" alt="Bundle size"></a>
+  <a href="https://www.npmjs.com/package/@typeschema/{{adapter.name}}" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/{{adapter.name}}.svg" alt="npm downloads"></a>
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
 <p align="center">
@@ -27,7 +27,7 @@
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
   <a href="https://github.com/decs/typeschema">GitHub</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="https://www.npmjs.com/package/@decs/typeschema">npm</a>
+  <a href="https://www.npmjs.com/package/@typeschema/{{adapter.name}}">npm</a>
 </p>
 <br />
 
@@ -38,7 +38,7 @@
 > TypeSchema enables writing code that [works with any validation library](#coverage) out-of-the-box. It provides a universal adapter for interacting with any validation schema, decoupling from implementation specifics and increasing compatibility.
 
 ```ts
-import {validate} from '@typeschema/main';
+import {validate} from '@typeschema/{{adapter.name}}';
 
 import {z} from 'zod';
 import {string} from 'valibot';
@@ -67,19 +67,7 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 | [{{name}}]({{url}}) | <a href="https://github.com/{{github}}" rel="nofollow"><img src="https://img.shields.io/github/stars/{{github}}?style=social" alt="GitHub stars"></a> | {{icon adapter.hasModule.validation}} | {{icon adapter.hasModule.validation}} | {{icon adapter.hasModule.validation}} | {{icon adapter.hasModule.serialization}} | [`@typeschema/{{adapter.name}}`](https://github.com/decs/typeschema/tree/main/packages/{{adapter.name}}) |
 {{/each}}
 
-## API
-
-### Inference
-- `Infer<TSchema>`: Extracts the output type of a schema
-- `InferIn<TSchema>`: Extracts the input type of a schema
-
-### Validation
-- `wrap(schema)`: Returns the wrapped schema with access to its operations
-- `validate(schema, data)`: Returns the validated data or a list of validation issues
-- `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
-
-### Serialization
-- `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema
+{{> readmeAPI adapter}}
 
 ## Acknowledgements
 

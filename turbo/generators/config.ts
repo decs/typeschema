@@ -136,6 +136,10 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     'packageJson',
     fs.readFileSync('turbo/generators/templates/package.json.hbs', 'utf-8'),
   );
+  plop.setPartial(
+    'readmeAPI',
+    fs.readFileSync('turbo/generators/templates/README-api.md.hbs', 'utf-8'),
+  );
 
   plop.addHelper('icon', (value: boolean) => (value ? '✅' : '🧐'));
 
@@ -182,6 +186,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         }),
         getAddAction({
           data: {
+            adapter: adapters.find(adapter => adapter.name === 'main'),
             libraries: [
               {
                 adapter: adapters.find(adapter => adapter.name === 'zod'),
