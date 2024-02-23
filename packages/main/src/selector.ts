@@ -1,27 +1,27 @@
 import type {AdapterResolver, AdapterResolverMap} from './resolver';
-import type {Schema} from '@typeschema/core';
+import type {SchemaFrom} from '@typeschema/core';
 import type {AdapterResolver as AjvResolver} from '@typeschema/json';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 
 function isTypeboxSchema(
-  schema: Schema<AdapterResolver>,
-): schema is Schema<TypeboxResolver> {
+  schema: SchemaFrom<AdapterResolver>,
+): schema is SchemaFrom<TypeboxResolver> {
   return Symbol.for('TypeBox.Kind') in schema;
 }
 
 function notJSON<TSchema>(
   schema: TSchema,
-): Exclude<TSchema, Schema<AjvResolver>> {
+): Exclude<TSchema, SchemaFrom<AjvResolver>> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return schema as any;
 }
 
 export const select: (is: {
   [Adapter in keyof AdapterResolverMap]: (
-    schema: Schema<AdapterResolverMap[Adapter]>,
+    schema: SchemaFrom<AdapterResolverMap[Adapter]>,
   ) => unknown;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) => (schema: Schema<AdapterResolver>) => any =
+}) => (schema: SchemaFrom<AdapterResolver>) => any =
   /* @__NO_SIDE_EFFECTS__ */
   is => schema => {
     switch (typeof schema) {
