@@ -1,4 +1,4 @@
-import type {Output, Resolver, Schema} from './resolver';
+import type {OutputFrom, Resolver, SchemaFrom} from './resolver';
 
 import {memoizeWithKey} from './utils';
 
@@ -12,26 +12,26 @@ export type ValidationResult<TOutput> =
   | {success: false; issues: Array<ValidationIssue>};
 
 export type ValidationAdapter<TResolver extends Resolver> = <
-  TSchema extends Schema<TResolver>,
+  TSchema extends SchemaFrom<TResolver>,
 >(
   schema: TSchema,
 ) => Promise<
-  (data: unknown) => Promise<ValidationResult<Output<TResolver, TSchema>>>
+  (data: unknown) => Promise<ValidationResult<OutputFrom<TResolver, TSchema>>>
 >;
 
 export type Validate<TResolver extends Resolver> = <
-  TSchema extends Schema<TResolver>,
+  TSchema extends SchemaFrom<TResolver>,
 >(
   schema: TSchema,
   data: unknown,
-) => Promise<ValidationResult<Output<TResolver, TSchema>>>;
+) => Promise<ValidationResult<OutputFrom<TResolver, TSchema>>>;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function createValidate<TResolver extends Resolver>(
   validationAdapter: ValidationAdapter<TResolver>,
 ): Validate<TResolver> {
   const memoizedValidationAdapter = memoizeWithKey(
-    (schema: Schema<TResolver>) => validationAdapter(schema),
+    (schema: SchemaFrom<TResolver>) => validationAdapter(schema),
   );
   return async (schema, data) => {
     const validateSchema = await memoizedValidationAdapter(schema);
@@ -40,11 +40,11 @@ export function createValidate<TResolver extends Resolver>(
 }
 
 export type Assert<TResolver extends Resolver> = <
-  TSchema extends Schema<TResolver>,
+  TSchema extends SchemaFrom<TResolver>,
 >(
   schema: TSchema,
   data: unknown,
-) => Promise<Output<TResolver, TSchema>>;
+) => Promise<OutputFrom<TResolver, TSchema>>;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function createAssert<TResolver extends Resolver>(

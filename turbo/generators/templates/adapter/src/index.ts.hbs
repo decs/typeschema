@@ -1,4 +1,9 @@
-import type {Input, Output, Schema, UnknownIfNever} from '@typeschema/core';
+import type {
+  InputFrom,
+  OutputFrom,
+  SchemaFrom,
+  UnknownIfNever,
+} from '@typeschema/core';
 
 import {
 {{#if hasModule.validation}}
@@ -19,11 +24,12 @@ import {validationAdapter} from './validation';
 import {serializationAdapter} from './serialization';
 {{/if}}
 
-export type Infer<TSchema extends Schema<AdapterResolver>> = UnknownIfNever<
-  Output<AdapterResolver, TSchema>
+export type Schema = SchemaFrom<AdapterResolver>;
+export type Infer<TSchema extends Schema> = UnknownIfNever<
+  OutputFrom<AdapterResolver, TSchema>
 >;
-export type InferIn<TSchema extends Schema<AdapterResolver>> = UnknownIfNever<
-  Input<AdapterResolver, TSchema>
+export type InferIn<TSchema extends Schema> = UnknownIfNever<
+  InputFrom<AdapterResolver, TSchema>
 >;
 
 {{#if hasModule.validation}}

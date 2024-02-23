@@ -3,7 +3,12 @@
  */
 
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
-import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {
+  InputFrom,
+  OutputFrom,
+  Resolver,
+  SchemaFrom,
+} from '@typeschema/core';
 import type {AdapterResolver as DeepkitResolver} from '@typeschema/deepkit';
 import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
 import type {AdapterResolver as FunctionResolver} from '@typeschema/function';
@@ -37,20 +42,22 @@ export type AdapterResolverMap = {
 
 export interface AdapterResolver extends Resolver {
   base: {
-    [Adapter in keyof AdapterResolverMap]: Schema<AdapterResolverMap[Adapter]>;
+    [Adapter in keyof AdapterResolverMap]: SchemaFrom<
+      AdapterResolverMap[Adapter]
+    >;
   }[keyof AdapterResolverMap];
   input: {
-    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends SchemaFrom<
       AdapterResolverMap[Adapter]
     >
-      ? Input<AdapterResolverMap[Adapter], this['schema']>
+      ? InputFrom<AdapterResolverMap[Adapter], this['schema']>
       : never;
   }[keyof AdapterResolverMap];
   output: {
-    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends SchemaFrom<
       AdapterResolverMap[Adapter]
     >
-      ? Output<AdapterResolverMap[Adapter], this['schema']>
+      ? OutputFrom<AdapterResolverMap[Adapter], this['schema']>
       : never;
   }[keyof AdapterResolverMap];
 }

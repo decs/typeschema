@@ -7,14 +7,16 @@ export interface Resolver<TSchema = unknown> {
   base: unknown;
 }
 
-export type Schema<TResolver extends Resolver> = IfDefined<TResolver['base']>;
+export type SchemaFrom<TResolver extends Resolver> = IfDefined<
+  TResolver['base']
+>;
 
-export type Input<
+export type InputFrom<
   TResolver extends Resolver,
-  TSchema extends Schema<TResolver>,
+  TSchema extends SchemaFrom<TResolver>,
 > = IfDefined<(TResolver & {schema: TSchema})['input']>;
 
-export type Output<
+export type OutputFrom<
   TResolver extends Resolver,
-  TSchema extends Schema<TResolver>,
+  TSchema extends SchemaFrom<TResolver>,
 > = IfDefined<(TResolver & {schema: TSchema})['output']>;

@@ -1,4 +1,9 @@
-import type {Input, Output, Resolver, Schema} from '@typeschema/core';
+import type {
+  InputFrom,
+  OutputFrom,
+  Resolver,
+  SchemaFrom,
+} from '@typeschema/core';
 {{#each adapters}}
 import type {AdapterResolver as {{pascalCase name}}Resolver} from '@typeschema/{{name}}';
 {{/each}}
@@ -11,20 +16,22 @@ export type AdapterResolverMap = {
 
 export interface AdapterResolver extends Resolver {
   base: {
-    [Adapter in keyof AdapterResolverMap]: Schema<AdapterResolverMap[Adapter]>;
+    [Adapter in keyof AdapterResolverMap]: SchemaFrom<
+      AdapterResolverMap[Adapter]
+    >;
   }[keyof AdapterResolverMap];
   input: {
-    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends SchemaFrom<
       AdapterResolverMap[Adapter]
     >
-      ? Input<AdapterResolverMap[Adapter], this['schema']>
+      ? InputFrom<AdapterResolverMap[Adapter], this['schema']>
       : never;
   }[keyof AdapterResolverMap];
   output: {
-    [Adapter in keyof AdapterResolverMap]: this['schema'] extends Schema<
+    [Adapter in keyof AdapterResolverMap]: this['schema'] extends SchemaFrom<
       AdapterResolverMap[Adapter]
     >
-      ? Output<AdapterResolverMap[Adapter], this['schema']>
+      ? OutputFrom<AdapterResolverMap[Adapter], this['schema']>
       : never;
   }[keyof AdapterResolverMap];
 }
