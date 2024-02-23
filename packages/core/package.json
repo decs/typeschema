@@ -1,6 +1,6 @@
 {
   "name": "@typeschema/core",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "description": "Universal adapter for schema validation",
   "keywords": [
     "typescript",
@@ -16,6 +16,10 @@
   "author": {
     "name": "André Costa",
     "email": "andrefonsecacosta@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "files": [
     "/dist"
