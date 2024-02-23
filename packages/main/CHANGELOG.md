@@ -1,5 +1,11 @@
 # @typeschema/main
 
+## 0.13.2
+
+### Patch Changes
+
+- Fix adapter selector
+
 ## 0.13.1
 
 ### Patch Changes
