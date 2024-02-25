@@ -65,9 +65,9 @@ jobs:
     steps:
       - name: Release packages
         uses: changesets/action@v1
-          with:
-            title: "chore(release): version packages"
-            commit: "chore(release): version packages"
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-            NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        with:
+          title: 'chore(release): version packages'
+          commit: 'chore(release): version packages'
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
