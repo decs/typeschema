@@ -19,6 +19,7 @@
     "build": "turbo build --filter=@typeschema/*",
     "test": "turbo test --filter=@typeschema/*",
     "test:e2e": "pnpm build && pnpm install && turbo test --filter=./examples/*",
+    "release": "pnpm build && changeset publish",
     "upgrade:deps": "turbo upgrade:deps",
     "create:adapter": "turbo gen create-adapter && pnpm gen",
     "prepare": "ts-patch install && typia patch",
