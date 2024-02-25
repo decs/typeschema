@@ -6,7 +6,7 @@
 
 - Updated dependencies [be86c4d]
   - @typeschema/class-validator@0.1.0
-  - @typeschema/main@1.0.0
+  - @typeschema/main@0.13.3
 
 ## 0.13.2
 
