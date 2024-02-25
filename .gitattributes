@@ -4,6 +4,7 @@
 README.md linguist-generated
 packages/all/README.md linguist-generated
 packages/all/src/__tests__/arktype.test.ts linguist-generated
+packages/all/src/__tests__/class-validator.test.ts linguist-generated
 packages/all/src/__tests__/deepkit.test.ts linguist-generated
 packages/all/src/__tests__/effect.test.ts linguist-generated
 packages/all/src/__tests__/function.test.ts linguist-generated
@@ -24,6 +25,10 @@ packages/arktype/README.md linguist-generated
 packages/arktype/src/index.ts linguist-generated
 packages/arktype/tsconfig.json linguist-generated
 packages/arktype/tsconfig.test.json linguist-generated
+packages/class-validator/README.md linguist-generated
+packages/class-validator/src/index.ts linguist-generated
+packages/class-validator/tsconfig.json linguist-generated
+packages/class-validator/tsconfig.test.json linguist-generated
 packages/core/tsconfig.json linguist-generated
 packages/deepkit/README.md linguist-generated
 packages/deepkit/src/index.ts linguist-generated
@@ -51,6 +56,7 @@ packages/json/tsconfig.json linguist-generated
 packages/json/tsconfig.test.json linguist-generated
 packages/main/README.md linguist-generated
 packages/main/src/__tests__/arktype.test.ts linguist-generated
+packages/main/src/__tests__/class-validator.test.ts linguist-generated
 packages/main/src/__tests__/deepkit.test.ts linguist-generated
 packages/main/src/__tests__/effect.test.ts linguist-generated
 packages/main/src/__tests__/function.test.ts linguist-generated

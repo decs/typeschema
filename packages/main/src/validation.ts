@@ -22,6 +22,18 @@ const importArktypeValidationAdapter = memoize(async () => {
   }
 });
 
+const importClassValidatorValidationAdapter = memoize(async () => {
+  try {
+    const moduleName = '@typeschema/class-validator';
+    const {validationAdapter} = (await import(
+      /* webpackIgnore: true */ moduleName
+    )) as typeof import('@typeschema/class-validator');
+    return validationAdapter;
+  } catch (error) {
+    throw error;
+  }
+});
+
 const importDeepkitValidationAdapter = memoize(async () => {
   try {
     const moduleName = '@typeschema/deepkit';
@@ -180,6 +192,7 @@ const importZodValidationAdapter = memoize(async () => {
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   arktype: async schema => (await importArktypeValidationAdapter())(schema),
+  classValidator: async schema => (await importClassValidatorValidationAdapter())(schema),
   deepkit: async schema => (await importDeepkitValidationAdapter())(schema),
   effect: async schema => (await importEffectValidationAdapter())(schema),
   function: async schema => (await importFunctionValidationAdapter())(schema),

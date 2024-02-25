@@ -14,6 +14,7 @@
     "inference",
     "assert",
     "arktype",
+    "class-validator",
     "deepkit",
     "effect",
     "function",
@@ -71,6 +72,7 @@
     "@typeschema/core": "workspace:*",
     "@typeschema/main": "workspace:*",
     "@typeschema/arktype": "workspace:*",
+    "@typeschema/class-validator": "workspace:*",
     "@typeschema/deepkit": "workspace:*",
     "@typeschema/effect": "workspace:*",
     "@typeschema/function": "workspace:*",
@@ -87,6 +89,7 @@
   },
   "devDependencies": {
     "arktype": "^1.0.29-alpha",
+    "class-validator": "^0.14.1",
     "@deepkit/type": "^1.0.1-alpha.132",
     "@deepkit/type-compiler": "^1.0.1-alpha.123",
     "@effect/schema": "^0.60.6",

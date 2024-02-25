@@ -1,4 +1,5 @@
 import type {AdapterResolver, AdapterResolverMap} from './resolver';
+import type {AdapterResolver as ClassValidatorResolver} from '@typeschema/class-validator';
 import type {SchemaFrom} from '@typeschema/core';
 import type {AdapterResolver as AjvResolver} from '@typeschema/json';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
@@ -7,6 +8,12 @@ function isTypeboxSchema(
   schema: SchemaFrom<AdapterResolver>,
 ): schema is SchemaFrom<TypeboxResolver> {
   return Symbol.for('TypeBox.Kind') in schema;
+}
+
+function isClassValidatorSchema(
+  schema: SchemaFrom<AdapterResolver>,
+): schema is SchemaFrom<ClassValidatorResolver> {
+  return /^\s*class[^\w]+/.test(schema.toString());
 }
 
 function notJSON<TSchema>(
@@ -27,6 +34,7 @@ export const select: (is: {
     switch (typeof schema) {
       case 'function':
         if ('assert' in schema) return is.arktype(schema);
+        if (isClassValidatorSchema(schema)) return is.classValidator(schema);
         return is.function(schema);
       case 'object':
         if (isTypeboxSchema(schema)) return is.typebox(schema);

@@ -60,6 +60,7 @@ const importZodSerializationAdapter = memoize(async () => {
 
 export const serializationAdapter: SerializationAdapter<AdapterResolver> = select({
   arktype: unsupportedAdapter('@typeschema/arktype'),
+  classValidator: unsupportedAdapter('@typeschema/class-validator'),
   deepkit: unsupportedAdapter('@typeschema/deepkit'),
   effect: unsupportedAdapter('@typeschema/effect'),
   function: unsupportedAdapter('@typeschema/function'),

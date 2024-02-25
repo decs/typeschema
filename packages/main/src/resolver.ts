@@ -3,6 +3,7 @@
  */
 
 import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
+import type {AdapterResolver as ClassValidatorResolver} from '@typeschema/class-validator';
 import type {
   InputFrom,
   OutputFrom,
@@ -25,6 +26,7 @@ import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
 export type AdapterResolverMap = {
   arktype: ArktypeResolver;
+  classValidator: ClassValidatorResolver;
   deepkit: DeepkitResolver;
   effect: EffectResolver;
   function: FunctionResolver;

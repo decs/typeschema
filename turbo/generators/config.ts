@@ -128,7 +128,7 @@ function getAdapters(adapterNames: Array<string>) {
       ),
       name: adapterName,
       packageJson: JSON.parse(
-        fs.readFileSync(`packages/${adapterName}/package.json`, 'utf-8'),
+        maybeReadFile(`packages/${adapterName}/package.json`) ?? '{}',
       ),
     };
   });
@@ -158,13 +158,10 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
 
   plop.setGenerator('all', {
     actions: () => {
-      const packageFiles = fs
-        .readdirSync('packages', {recursive: true})
-        .map(String)
-        .filter(filePath => !filePath.includes('/node_modules/'));
-      const packageNames = packageFiles
-        .filter(filePath => filePath.endsWith('/package.json'))
-        .map(filePath => filePath.replace(/\/package\.json$/, ''));
+      const packageNames = fs
+        .readdirSync('packages', {withFileTypes: true})
+        .filter(file => file.isDirectory())
+        .map(file => file.name);
       const adapters = getAdapters(
         packageNames.filter(packageName => packageName !== 'core'),
       );
@@ -227,6 +224,14 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 github: 'ajv-validator/ajv',
                 name: 'ajv',
                 url: 'https://ajv.js.org',
+              },
+              {
+                adapter: adapters.find(
+                  adapter => adapter.name === 'class-validator',
+                ),
+                github: 'typestack/class-validator',
+                name: 'class-validator',
+                url: 'https://github.com/typestack/class-validator',
               },
               {
                 adapter: adapters.find(
