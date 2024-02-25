@@ -6,12 +6,12 @@ export default defineConfig({
   esbuild: false,
   plugins: [
     typescript({
-      tsconfig: './tsconfig.test.json',
       exclude: './**/deepkit.test.ts',
+      tsconfig: './src/__tests__/tsconfig.json',
     }),
     deepkitType({
-      tsConfig: './tsconfig.test.json',
       include: './**/deepkit.test.ts',
+      tsConfig: './src/__tests__/tsconfig.json',
     }),
   ],
   test: {watch: false},

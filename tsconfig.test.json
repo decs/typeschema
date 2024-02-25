@@ -4,7 +4,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "plugins": [{"transform": "typia/lib/transform"}],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "tslib": ["./node_modules/tslib/tslib.d.ts"]
+    }
   },
   "reflection": true
 }
