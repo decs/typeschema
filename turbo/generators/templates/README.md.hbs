@@ -63,23 +63,23 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 
 <table>
   <tr>
-    <th>Project</th>
+    <th align="left">Project</th>
     <th align="center">Popularity</th>
     <th align="center"><code>Infer</code></th>
     <th align="center"><code>InferIn</code></th>
     <th align="center">Validation</th>
     <th align="center">Serialization</th>
-    <th>Adapter</th>
+    <th align="left">Adapter</th>
   </tr>
 {{#each libraries}}
   <tr>
-    <td><nobr><a href="{{url}}" rel="nofollow">{{name}}</a></nobr></td>
+    <td align="left"><nobr><a href="{{url}}" rel="nofollow">{{name}}</a></nobr></td>
     <td align="center"><a href="https://github.com/{{github}}" rel="nofollow"><img src="https://img.shields.io/github/stars/{{github}}?style=social" alt="GitHub stars"></a></td>
     <td align="center">{{icon adapter.canInfer.output}}</td>
     <td align="center">{{icon adapter.canInfer.input}}</td>
     <td align="center">{{icon adapter.hasModule.validation}}</td>
     <td align="center">{{icon adapter.hasModule.serialization}}</td>
-    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/{{adapter.name}}">@typeschema/{{adapter.name}}</a></code></nobr></td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/{{adapter.name}}">@typeschema/{{adapter.name}}</a></code></nobr></td>
   </tr>
 {{/each}}
 </table>
