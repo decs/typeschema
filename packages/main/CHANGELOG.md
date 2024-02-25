@@ -1,5 +1,12 @@
 # @typeschema/main
 
+## 1.0.0
+
+### Patch Changes
+
+- Updated dependencies [be86c4d]
+  - @typeschema/class-validator@0.1.0
+
 ## 0.13.2
 
 ### Patch Changes
