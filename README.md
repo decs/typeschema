@@ -63,23 +63,152 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 
 ## Coverage
 
-| Project             | Popularity                                                                                                                                            | `Infer`                          | `InferIn`                       | Validation                            | Serialization                            | Adapter                                                                                                  |
-| :------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------: | :-----------------------------: | :-----------------------------------: | :--------------------------------------: | :------------------------------------------------------------------------------------------------------- |
-| [zod](https://zod.dev) | <a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | ✅ | [`@typeschema/zod`](https://github.com/decs/typeschema/tree/main/packages/zod) |
-| [yup](https://github.com/jquense/yup) | <a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | ✅ | [`@typeschema/yup`](https://github.com/decs/typeschema/tree/main/packages/yup) |
-| [joi](https://joi.dev) | <a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a> | 🧐 | 🧐 | ✅ | 🧐 | [`@typeschema/joi`](https://github.com/decs/typeschema/tree/main/packages/joi) |
-| [ajv](https://ajv.js.org) | <a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a> | 🧐 | 🧐 | ✅ | ✅ | [`@typeschema/json`](https://github.com/decs/typeschema/tree/main/packages/json) |
-| [class-validator](https://github.com/typestack/class-validator) | <a href="https://github.com/typestack/class-validator" rel="nofollow"><img src="https://img.shields.io/github/stars/typestack/class-validator?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/class-validator`](https://github.com/decs/typeschema/tree/main/packages/class-validator) |
-| [superstruct](https://docs.superstructjs.org) | <a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a> | ✅ | 🧐 | ✅ | 🧐 | [`@typeschema/superstruct`](https://github.com/decs/typeschema/tree/main/packages/superstruct) |
-| [io-ts](https://gcanti.github.io/io-ts) | <a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/io-ts`](https://github.com/decs/typeschema/tree/main/packages/io-ts) |
-| [valibot](https://valibot.dev) | <a href="https://github.com/fabian-hiller/valibot" rel="nofollow"><img src="https://img.shields.io/github/stars/fabian-hiller/valibot?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | ✅ | [`@typeschema/valibot`](https://github.com/decs/typeschema/tree/main/packages/valibot) |
-| [typebox](https://github.com/sinclairzx81/typebox) | <a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/typebox`](https://github.com/decs/typeschema/tree/main/packages/typebox) |
-| [typia](https://typia.io) | <a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/function`](https://github.com/decs/typeschema/tree/main/packages/function) |
-| [ow](https://sindresorhus.com/ow) | <a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/ow`](https://github.com/decs/typeschema/tree/main/packages/ow) |
-| [effect](https://effect.website) | <a href="https://github.com/effect-ts/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/effect`](https://github.com/decs/typeschema/tree/main/packages/effect) |
-| [arktype](https://arktype.io) | <a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/arktype`](https://github.com/decs/typeschema/tree/main/packages/arktype) |
-| [deepkit](https://deepkit.io) | <a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a> | 🧐 | 🧐 | ✅ | 🧐 | [`@typeschema/deepkit`](https://github.com/decs/typeschema/tree/main/packages/deepkit) |
-| [runtypes](https://github.com/pelotom/runtypes) | <a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a> | ✅ | ✅ | ✅ | 🧐 | [`@typeschema/runtypes`](https://github.com/decs/typeschema/tree/main/packages/runtypes) |
+<table>
+  <tr>
+    <th>Project</th>
+    <th align="center">Popularity</th>
+    <th align="center"><code>Infer</code></th>
+    <th align="center"><code>InferIn</code></th>
+    <th align="center">Validation</th>
+    <th align="center">Serialization</th>
+    <th>Adapter</th>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://zod.dev" rel="nofollow">zod</a></nobr></td>
+    <td align="center"><a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/zod">@typeschema/zod</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://github.com/jquense/yup" rel="nofollow">yup</a></nobr></td>
+    <td align="center"><a href="https://github.com/jquense/yup" rel="nofollow"><img src="https://img.shields.io/github/stars/jquense/yup?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/yup">@typeschema/yup</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://joi.dev" rel="nofollow">joi</a></nobr></td>
+    <td align="center"><a href="https://github.com/hapijs/joi" rel="nofollow"><img src="https://img.shields.io/github/stars/hapijs/joi?style=social" alt="GitHub stars"></a></td>
+    <td align="center">🧐</td>
+    <td align="center">🧐</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/joi">@typeschema/joi</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://ajv.js.org" rel="nofollow">ajv</a></nobr></td>
+    <td align="center"><a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a></td>
+    <td align="center">🧐</td>
+    <td align="center">🧐</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/json">@typeschema/json</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://github.com/typestack/class-validator" rel="nofollow">class-validator</a></nobr></td>
+    <td align="center"><a href="https://github.com/typestack/class-validator" rel="nofollow"><img src="https://img.shields.io/github/stars/typestack/class-validator?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/class-validator">@typeschema/class-validator</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://docs.superstructjs.org" rel="nofollow">superstruct</a></nobr></td>
+    <td align="center"><a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/superstruct">@typeschema/superstruct</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://gcanti.github.io/io-ts" rel="nofollow">io-ts</a></nobr></td>
+    <td align="center"><a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/io-ts">@typeschema/io-ts</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://valibot.dev" rel="nofollow">valibot</a></nobr></td>
+    <td align="center"><a href="https://github.com/fabian-hiller/valibot" rel="nofollow"><img src="https://img.shields.io/github/stars/fabian-hiller/valibot?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/valibot">@typeschema/valibot</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://github.com/sinclairzx81/typebox" rel="nofollow">typebox</a></nobr></td>
+    <td align="center"><a href="https://github.com/sinclairzx81/typebox" rel="nofollow"><img src="https://img.shields.io/github/stars/sinclairzx81/typebox?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/typebox">@typeschema/typebox</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://typia.io" rel="nofollow">typia</a></nobr></td>
+    <td align="center"><a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/function">@typeschema/function</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://sindresorhus.com/ow" rel="nofollow">ow</a></nobr></td>
+    <td align="center"><a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/ow">@typeschema/ow</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://effect.website" rel="nofollow">effect</a></nobr></td>
+    <td align="center"><a href="https://github.com/effect-ts/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/effect">@typeschema/effect</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://arktype.io" rel="nofollow">arktype</a></nobr></td>
+    <td align="center"><a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/arktype">@typeschema/arktype</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://deepkit.io" rel="nofollow">deepkit</a></nobr></td>
+    <td align="center"><a href="https://github.com/deepkit/deepkit-framework" rel="nofollow"><img src="https://img.shields.io/github/stars/deepkit/deepkit-framework?style=social" alt="GitHub stars"></a></td>
+    <td align="center">🧐</td>
+    <td align="center">🧐</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/deepkit">@typeschema/deepkit</a></code></nobr></td>
+  </tr>
+  <tr>
+    <td><nobr><a href="https://github.com/pelotom/runtypes" rel="nofollow">runtypes</a></nobr></td>
+    <td align="center"><a href="https://github.com/pelotom/runtypes" rel="nofollow"><img src="https://img.shields.io/github/stars/pelotom/runtypes?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/runtypes">@typeschema/runtypes</a></code></nobr></td>
+  </tr>
+</table>
 
 ## API
 
