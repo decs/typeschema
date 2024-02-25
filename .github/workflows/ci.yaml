@@ -57,3 +57,17 @@ jobs:
         uses: ./.github/actions/setup
       - name: Run e2e tests
         run: pnpm test:e2e
+  release:
+    name: Release packages
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: [gen, lint, test, test-e2e]
+    steps:
+      - name: Release packages
+        uses: changesets/action@v1
+          with:
+            title: "chore(release): version packages"
+            commit: "chore(release): version packages"
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            NPM_TOKEN: ${{secrets.NPM_TOKEN}}
