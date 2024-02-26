@@ -3,4 +3,5 @@ import type {SerializationAdapter} from '@typeschema/core';
 
 export const serializationAdapter: SerializationAdapter<
   AdapterResolver
-> = async schema => schema;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+> = async schema => schema as any;
