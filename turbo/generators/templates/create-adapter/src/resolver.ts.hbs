@@ -1,7 +1,7 @@
 import type {Resolver} from '@typeschema/core';
 
 export interface AdapterResolver extends Resolver {
-  base: $FixMe;
+  base: IfDefined<$FixMe, '$FixMe'>;
   input: this['schema'] extends this['base'] ? $FixMe : never;
   output: this['schema'] extends this['base'] ? $FixMe : never;
 }
