@@ -58,15 +58,20 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "ajv": "^8.12.0"
+    "ajv": "^8.12.0",
+    "json-schema-to-ts": "^3.0.0"
   },
   "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
-    "ajv": "^8.12.0"
+    "ajv": "^8.12.0",
+    "json-schema-to-ts": "^3.0.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
     "ajv": {
+      "optional": true
+    },
+    "json-schema-to-ts": {
       "optional": true
     }
   }
