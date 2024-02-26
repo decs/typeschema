@@ -5,7 +5,8 @@
   "scripts": {
     "test": "pnpm test:webpack && pnpm test:turbopack",
     "test:webpack": "next build",
-    "test:turbopack": "./turbopack.sh"
+    "test:turbopack": "./turbopack.sh",
+    "sync:pnpm": "sync-dependencies-meta-injected"
   },
   "dependencies": {
     "@typeschema/main": "workspace:*",

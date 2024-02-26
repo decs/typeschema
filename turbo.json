@@ -10,7 +10,7 @@
   ],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["sync:pnpm"],
       "outputs": ["dist/**"]
     },
     "lint": {},
@@ -19,8 +19,12 @@
     },
     "test": {
       "cache": false,
-      "dependsOn": ["^build"]
+      "dependsOn": ["sync:pnpm"]
     },
-    "upgrade:deps": {}
+    "upgrade:deps": {},
+    "sync:pnpm": {
+      "cache": false,
+      "dependsOn": ["^build"]
+    }
   }
 }

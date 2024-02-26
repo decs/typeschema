@@ -11,7 +11,8 @@
     "test:rollup": "rollup --config && node rollup_dist/main.js",
     "test:swc": "swc src/main.ts --out-dir=swc_dist && node swc_dist/src/main.js",
     "test:vite": "vite build --outDir=vite_dist",
-    "test:webpack": "webpack --fail-on-warnings && node webpack_dist/main.js"
+    "test:webpack": "webpack --fail-on-warnings && node webpack_dist/main.js",
+    "sync:pnpm": "sync-dependencies-meta-injected"
   },
   "dependencies": {
     "@typeschema/main": "workspace:*",
