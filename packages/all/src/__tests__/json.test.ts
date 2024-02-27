@@ -23,7 +23,7 @@ describe('json', () => {
     },
     required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
     type: 'object',
-  };
+  } as const;
 
   const data = {
     age: 123,
@@ -43,8 +43,8 @@ describe('json', () => {
   };
 
   test('infer', () => {
-    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf<unknown>();
-    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf<unknown>();
+    expectTypeOf<Infer<typeof schema>>().toEqualTypeOf(data);
+    expectTypeOf<InferIn<typeof schema>>().toEqualTypeOf(data);
   });
 
   test('validate', async () => {
@@ -67,7 +67,7 @@ describe('json', () => {
     const tRPC = initTRPC.create();
     const router = tRPC.router({
       hello: tRPC.procedure.input(wrap(schema)).query(({input}) => {
-        expectTypeOf<typeof input>().toEqualTypeOf<unknown>();
+        expectTypeOf<typeof input>().toEqualTypeOf(data);
         return input;
       }),
     });
