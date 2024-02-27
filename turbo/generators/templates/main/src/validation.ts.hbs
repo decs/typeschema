@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type {AdapterResolvers} from './adapters';
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
@@ -27,7 +29,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
 {{#if hasModule.validation}}
   {{camelCase name}}: async schema => (await import{{pascalCase name}}ValidationAdapter())(schema),
 {{else}}
-  {{camelCase name}}: unsupportedAdapter('@typeschema/{{name}}'),
+  {{camelCase name}}: unsupportedAdapter<AdapterResolvers['{{camelCase name}}']>('@typeschema/{{name}}'),
 {{/if}}
 {{/each}}
 });

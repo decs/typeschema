@@ -18,7 +18,7 @@ import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
 import type {AdapterResolver as YupResolver} from '@typeschema/yup';
 import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
-export type AdapterResolverMap = {
+export type AdapterResolvers = {
   arktype: ArktypeResolver;
   classValidator: ClassValidatorResolver;
   deepkit: DeepkitResolver;

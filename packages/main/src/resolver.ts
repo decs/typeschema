@@ -1,4 +1,4 @@
-import type {AdapterResolverMap} from './adapters';
+import type {AdapterResolvers} from './adapters';
 import type {Select} from './selector';
 import type {
   InputFrom,
@@ -9,13 +9,8 @@ import type {
 
 export interface AdapterResolver extends Resolver {
   base: {
-    [TModule in keyof AdapterResolverMap]: SchemaFrom<
-      AdapterResolverMap[TModule]
-    >;
-  }[keyof AdapterResolverMap];
-  input: InputFrom<AdapterResolverMap[Select<this['schema']>], this['schema']>;
-  output: OutputFrom<
-    AdapterResolverMap[Select<this['schema']>],
-    this['schema']
-  >;
+    [TModule in keyof AdapterResolvers]: SchemaFrom<AdapterResolvers[TModule]>;
+  }[keyof AdapterResolvers];
+  input: InputFrom<AdapterResolvers[Select<this['schema']>], this['schema']>;
+  output: OutputFrom<AdapterResolvers[Select<this['schema']>], this['schema']>;
 }

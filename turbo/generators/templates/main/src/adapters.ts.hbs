@@ -2,7 +2,7 @@
 import type {AdapterResolver as {{pascalCase name}}Resolver} from '@typeschema/{{name}}';
 {{/each}}
 
-export type AdapterResolverMap = {
+export type AdapterResolvers = {
 {{#each adapters}}
   {{camelCase name}}: {{pascalCase name}}Resolver;
 {{/each}}

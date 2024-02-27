@@ -1,3 +1,5 @@
+import type {Resolver, SchemaFrom} from './resolver';
+
 export type IfDefined<TValue, TModule extends string = ''> = 0 extends 1 &
   TValue
   ? TModule extends ''
@@ -38,7 +40,9 @@ export function memoizeWithKey<TKey, TValue>(
 }
 
 /* @__NO_SIDE_EFFECTS__ */
-export function unsupportedAdapter(adapterName: string): () => Promise<void> {
+export function unsupportedAdapter<TResolver extends Resolver>(
+  adapterName: string,
+): (schema: SchemaFrom<TResolver>) => Promise<never> {
   return async () => {
     throw new Error(`This feature is unsupported for ${adapterName}`);
   };
