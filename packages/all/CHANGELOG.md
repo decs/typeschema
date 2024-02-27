@@ -1,5 +1,30 @@
 # @typeschema/all
 
+## 0.13.4
+
+### Patch Changes
+
+- 3087916: Improve handling missing types
+- Updated dependencies [3087916]
+- Updated dependencies [3087916]
+  - @typeschema/json@0.13.2
+  - @typeschema/superstruct@0.13.2
+  - @typeschema/runtypes@0.13.2
+  - @typeschema/arktype@0.13.2
+  - @typeschema/deepkit@0.13.2
+  - @typeschema/typebox@0.13.2
+  - @typeschema/valibot@0.13.2
+  - @typeschema/effect@0.13.2
+  - @typeschema/io-ts@0.13.2
+  - @typeschema/core@0.13.2
+  - @typeschema/main@0.13.4
+  - @typeschema/joi@0.13.2
+  - @typeschema/yup@0.13.2
+  - @typeschema/zod@0.13.2
+  - @typeschema/ow@0.13.2
+  - @typeschema/class-validator@0.1.1
+  - @typeschema/function@0.13.2
+
 ## 0.13.3
 
 ### Patch Changes

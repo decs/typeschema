@@ -1,5 +1,14 @@
 # @typeschema/json
 
+## 0.13.2
+
+### Patch Changes
+
+- 3087916: Add support for type inference
+- 3087916: Improve handling missing types
+- Updated dependencies [3087916]
+  - @typeschema/core@0.13.2
+
 ## 0.13.1
 
 ### Patch Changes
