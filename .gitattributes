@@ -71,8 +71,8 @@ packages/main/src/__tests__/typebox.test.ts linguist-generated
 packages/main/src/__tests__/valibot.test.ts linguist-generated
 packages/main/src/__tests__/yup.test.ts linguist-generated
 packages/main/src/__tests__/zod.test.ts linguist-generated
+packages/main/src/adapters.ts linguist-generated
 packages/main/src/index.ts linguist-generated
-packages/main/src/resolver.ts linguist-generated
 packages/main/src/serialization.ts linguist-generated
 packages/main/src/validation.ts linguist-generated
 packages/main/tsconfig.json linguist-generated
