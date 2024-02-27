@@ -1,5 +1,12 @@
 # @typeschema/all
 
+## 0.13.5
+
+### Patch Changes
+
+- Updated dependencies [0e597a5]
+  - @typeschema/main@0.13.5
+
 ## 0.13.4
 
 ### Patch Changes

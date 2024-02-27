@@ -1,5 +1,11 @@
 # @typeschema/main
 
+## 0.13.5
+
+### Patch Changes
+
+- 0e597a5: Fix type inference
+
 ## 0.13.4
 
 ### Patch Changes
