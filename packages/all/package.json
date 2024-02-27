@@ -2,7 +2,7 @@
   "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/all",
   "//version": "This field is manually maintained.",
-  "version": "0.13.4",
+  "version": "0.13.5",
   "//description": "This field is manually maintained.",
   "description": "Universal adapter for schema validation",
   "keywords": [
