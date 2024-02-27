@@ -315,9 +315,6 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.1
-      json-schema-to-ts:
-        specifier: ^3.0.0
-        version: 3.0.0
       ow:
         specifier: ^0.28.2
         version: 0.28.2
@@ -440,9 +437,6 @@ importers:
       ajv:
         specifier: ^8.12.0
         version: 8.12.0
-      json-schema-to-ts:
-        specifier: ^3.0.0
-        version: 3.0.0
 
   packages/main:
     dependencies:
@@ -537,9 +531,6 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.1
-      json-schema-to-ts:
-        specifier: ^3.0.0
-        version: 3.0.0
       ow:
         specifier: ^0.28.2
         version: 0.28.2
@@ -7574,15 +7565,6 @@ packages:
       jju: 1.4.0
     dev: true
 
-  /json-schema-to-ts@3.0.0:
-    resolution: {integrity: sha512-2adDesYifYEXYxNySx3gG0RR69rDWIjqAFzK/JPXdOvjHLZ/UP6d2rkpy6a+AxyhtRp2SvFPZ4+EW36jBinUbA==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@babel/runtime': 7.23.9
-      '@types/json-schema': 7.0.15
-      ts-algebra: 1.2.2
-    dev: true
-
   /json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
     dev: true
@@ -10814,10 +10796,6 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       escape-string-regexp: 5.0.0
-    dev: true
-
-  /ts-algebra@1.2.2:
-    resolution: {integrity: sha512-kloPhf1hq3JbCPOTYoOWDKxebWjNb2o/LKnNfkWhxVVisFFmMJPPdJeGoGmM+iRLyoXAR61e08Pb+vUXINg8aA==}
     dev: true
 
   /ts-api-utils@1.2.1(typescript@5.3.3):

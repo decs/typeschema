@@ -1,9 +1,5 @@
-export type IfDefined<TValue, TModule extends string = ''> = 0 extends 1 &
-  TValue
-  ? TModule extends ''
-    ? never
-    : `Cannot find module '${TModule}'`
-  : TValue;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type IfDefined<T> = any extends T ? never : T;
 
 export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
 

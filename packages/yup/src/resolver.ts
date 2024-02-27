@@ -1,8 +1,8 @@
-import type {IfDefined, Resolver} from '@typeschema/core';
+import type {Resolver} from '@typeschema/core';
 import type {InferType, Schema} from 'yup';
 
 export interface AdapterResolver extends Resolver {
-  base: IfDefined<Schema, 'yup'>;
+  base: Schema;
   input: this['schema'] extends this['base']
     ? InferType<this['schema']>
     : never;
