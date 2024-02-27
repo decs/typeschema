@@ -24,14 +24,14 @@ const schema = {
   properties: {name: {type: 'string'}},
   required: ['name'],
   type: 'object',
-} as const;
+};
 
 const t = initTRPC.create();
 const appRouter = t.router({
   hello: t.procedure
     .input(wrap(schema))
     .query(({input}) => `Hello, ${(input as any).name}!`),
-  //         ^? {name: string}
+  //         ^? unknown
 });
 
 ```
@@ -40,9 +40,6 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 
 ## API
 
-### Inference
-- `Infer<TSchema>`: Extracts the output type of a schema
-- `InferIn<TSchema>`: Extracts the input type of a schema
 ### Validation
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues

@@ -7,12 +7,12 @@ const schema = {
   properties: {name: {type: 'string'}},
   required: ['name'],
   type: 'object',
-} as const;
+};
 
 const t = initTRPC.create();
 const appRouter = t.router({
   hello: t.procedure
     .input(wrap(schema))
     .query(({input}) => `Hello, ${(input as any).name}!`),
-  //         ^? {name: string}
+  //         ^? unknown
 });
