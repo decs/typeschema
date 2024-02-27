@@ -1,12 +1,13 @@
 import type {IfDefined, Resolver} from '@typeschema/core';
-import type {FromSchema, JSONSchema} from 'json-schema-to-ts';
+import type {SchemaObject} from 'ajv';
+import type {FromSchema} from 'json-schema-to-ts';
 
 export interface AdapterResolver extends Resolver {
-  base: IfDefined<JSONSchema, 'json-schema-to-ts'>;
+  base: IfDefined<Readonly<SchemaObject>, 'ajv'>;
   input: this['schema'] extends this['base']
-    ? FromSchema<this['schema']>
+    ? IfDefined<FromSchema<this['schema']>, 'json-schema-to-ts'>
     : never;
   output: this['schema'] extends this['base']
-    ? FromSchema<this['schema']>
+    ? IfDefined<FromSchema<this['schema']>, 'json-schema-to-ts'>
     : never;
 }
