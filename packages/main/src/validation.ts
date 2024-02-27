@@ -2,6 +2,8 @@
  * This file is generated. Do not modify it manually!
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type {AdapterResolvers} from './adapters';
 import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 

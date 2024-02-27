@@ -1,5 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IfDefined<T> = any extends T ? never : T;
+import type {Resolver, SchemaFrom} from './resolver';
+
+export type IfDefined<TValue, TModule extends string = ''> = 0 extends 1 &
+  TValue
+  ? TModule extends ''
+    ? never
+    : `Cannot find module '${TModule}'`
+  : TValue;
 
 export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
 
@@ -34,7 +40,9 @@ export function memoizeWithKey<TKey, TValue>(
 }
 
 /* @__NO_SIDE_EFFECTS__ */
-export function unsupportedAdapter(adapterName: string): () => Promise<void> {
+export function unsupportedAdapter<TResolver extends Resolver>(
+  adapterName: string,
+): (schema: SchemaFrom<TResolver>) => Promise<never> {
   return async () => {
     throw new Error(`This feature is unsupported for ${adapterName}`);
   };

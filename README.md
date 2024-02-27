@@ -103,8 +103,8 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
   <tr>
     <td align="left"><nobr><a href="https://ajv.js.org" rel="nofollow">ajv</a></nobr></td>
     <td align="center"><a href="https://github.com/ajv-validator/ajv" rel="nofollow"><img src="https://img.shields.io/github/stars/ajv-validator/ajv?style=social" alt="GitHub stars"></a></td>
-    <td align="center">🧐</td>
-    <td align="center">🧐</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
     <td align="center">✅</td>
     <td align="center">✅</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/json">@typeschema/json</a></code></nobr></td>

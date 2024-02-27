@@ -1,34 +1,74 @@
-import type {AdapterResolver, AdapterResolverMap} from './resolver';
-import type {AdapterResolver as ClassValidatorResolver} from '@typeschema/class-validator';
+import type {AdapterResolvers} from './adapters';
+import type {AdapterResolver} from './resolver';
+import type {Kind} from '@sinclair/typebox';
 import type {SchemaFrom} from '@typeschema/core';
-import type {AdapterResolver as AjvResolver} from '@typeschema/json';
-import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 
 function isTypeboxSchema(
   schema: SchemaFrom<AdapterResolver>,
-): schema is SchemaFrom<TypeboxResolver> {
-  return Symbol.for('TypeBox.Kind') in schema;
+): schema is SchemaFrom<AdapterResolvers['typebox']> {
+  return typeof schema === 'object' && Symbol.for('TypeBox.Kind') in schema;
 }
 
+type ClassValidatorSchema = new (...args: unknown[]) => object;
 function isClassValidatorSchema(
   schema: SchemaFrom<AdapterResolver>,
-): schema is SchemaFrom<ClassValidatorResolver> {
-  return /^\s*class[^\w]+/.test(schema.toString());
+): schema is SchemaFrom<AdapterResolvers['classValidator']> {
+  return (
+    typeof schema === 'function' && /^\s*class[^\w]+/.test(schema.toString())
+  );
 }
 
 function notJSON<TSchema>(
   schema: TSchema,
-): Exclude<TSchema, SchemaFrom<AjvResolver>> {
+): Exclude<TSchema, SchemaFrom<AdapterResolvers['json']>> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return schema as any;
 }
 
-export const select: (is: {
-  [Adapter in keyof AdapterResolverMap]: (
-    schema: SchemaFrom<AdapterResolverMap[Adapter]>,
-  ) => unknown;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}) => (schema: SchemaFrom<AdapterResolver>) => any =
+export type Select<TSchema> =
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  TSchema extends Function
+    ? TSchema extends {assert: unknown}
+      ? 'arktype'
+      : TSchema extends ClassValidatorSchema
+        ? 'classValidator'
+        : 'function'
+    : TSchema extends {[Kind]: unknown}
+      ? 'typebox'
+      : TSchema extends {__isYupSchema__: unknown}
+        ? 'yup'
+        : TSchema extends {_def: unknown}
+          ? 'zod'
+          : TSchema extends {async: unknown}
+            ? 'valibot'
+            : TSchema extends {refiner: unknown}
+              ? 'superstruct'
+              : TSchema extends {_flags: unknown}
+                ? 'joi'
+                : TSchema extends {encode: unknown}
+                  ? 'ioTs'
+                  : TSchema extends {reflect: unknown}
+                    ? 'runtypes'
+                    : TSchema extends {ast: unknown}
+                      ? 'effect'
+                      : TSchema extends {kind: unknown}
+                        ? 'deepkit'
+                        : TSchema extends {addValidator: unknown}
+                          ? 'ow'
+                          : 'json';
+
+export const select: <
+  TMap extends {
+    [TModule in keyof AdapterResolvers]: (
+      schema: SchemaFrom<AdapterResolvers[TModule]>,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ) => any;
+  },
+>(
+  is: TMap,
+) => <TSchema extends SchemaFrom<AdapterResolver>>(
+  schema: TSchema,
+) => ReturnType<TMap[Select<TSchema>]> =
   /* @__NO_SIDE_EFFECTS__ */
   is => schema => {
     switch (typeof schema) {
@@ -47,7 +87,7 @@ export const select: (is: {
         if ('reflect' in schema) return is.runtypes(notJSON(schema));
         if ('ast' in schema) return is.effect(notJSON(schema));
         if ('kind' in schema) return is.deepkit(notJSON(schema));
-        if ('context' in schema) return is.ow(notJSON(schema));
+        if ('addValidator' in schema) return is.ow(notJSON(schema));
         return is.json(schema);
     }
   };
