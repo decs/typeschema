@@ -1,15 +1,24 @@
 import type {AdapterResolvers} from './adapters';
 import type {AdapterResolver} from './resolver';
 import type {Kind} from '@sinclair/typebox';
-import type {SchemaFrom} from '@typeschema/core';
+import type {IfDefined, SchemaFrom} from '@typeschema/core';
 
+type IsTypeboxSchema<TSchema> = [IfDefined<typeof Kind>] extends [never]
+  ? false
+  : TSchema extends {[Kind]: unknown}
+    ? true
+    : false;
 function isTypeboxSchema(
   schema: SchemaFrom<AdapterResolver>,
 ): schema is SchemaFrom<AdapterResolvers['typebox']> {
   return typeof schema === 'object' && Symbol.for('TypeBox.Kind') in schema;
 }
 
-type ClassValidatorSchema = new (...args: unknown[]) => object;
+type IsClassValidatorSchema<TSchema> = TSchema extends new (
+  ...args: unknown[]
+) => object
+  ? true
+  : false;
 function isClassValidatorSchema(
   schema: SchemaFrom<AdapterResolver>,
 ): schema is SchemaFrom<AdapterResolvers['classValidator']> {
@@ -30,10 +39,10 @@ export type Select<TSchema> =
   TSchema extends Function
     ? TSchema extends {assert: unknown}
       ? 'arktype'
-      : TSchema extends ClassValidatorSchema
+      : IsClassValidatorSchema<TSchema> extends true
         ? 'classValidator'
         : 'function'
-    : TSchema extends {[Kind]: unknown}
+    : IsTypeboxSchema<TSchema> extends true
       ? 'typebox'
       : TSchema extends {__isYupSchema__: unknown}
         ? 'yup'
