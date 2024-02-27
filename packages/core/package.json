@@ -1,6 +1,6 @@
 {
   "name": "@typeschema/core",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "Universal adapter for schema validation",
   "keywords": [
     "typescript",
