@@ -22,4 +22,13 @@
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 {{/unless}}
 
+{{#unless isMultipleAdapter}}
+{{#unless (isEmpty packageJson.peerDependencies)}}
+## Dependencies
+{{#each packageJson.peerDependencies}}
+- [`{{@key}}`](https://www.npmjs.com/package/{{@key}}): {{lookup @root/packageJson.[//peerDependencies] @key}} (`{{this}}`)
+{{/each}}
+
+{{/unless}}
+{{/unless}}
 {{> readmeAPI this}}

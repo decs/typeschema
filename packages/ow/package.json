@@ -60,7 +60,10 @@
   "devDependencies": {
     "ow": "^0.28.2"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "ow": "Required for inference and validation"
+  },
   "peerDependencies": {
     "ow": "^0.28.2"
   },

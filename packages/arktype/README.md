@@ -34,6 +34,9 @@ const appRouter = t.router({
 
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
+## Dependencies
+- [`arktype`](https://www.npmjs.com/package/arktype): Required for inference and validation (`^1.0.29-alpha`)
+
 ## API
 
 ### Inference

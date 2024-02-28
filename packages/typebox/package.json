@@ -60,7 +60,10 @@
   "devDependencies": {
     "@sinclair/typebox": "^0.32.11"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "@sinclair/typebox": "Required for inference and validation"
+  },
   "peerDependencies": {
     "@sinclair/typebox": "^0.32.11"
   },

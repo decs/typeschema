@@ -60,7 +60,10 @@
   "devDependencies": {
     "arktype": "^1.0.29-alpha"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "arktype": "Required for inference and validation"
+  },
   "peerDependencies": {
     "arktype": "^1.0.29-alpha"
   },

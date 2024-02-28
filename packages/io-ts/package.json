@@ -62,7 +62,11 @@
     "io-ts": "^2.2.21",
     "io-ts-types": "^0.5.19"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "fp-ts": "Required for inference and validation",
+    "io-ts": "Required for inference and validation"
+  },
   "peerDependencies": {
     "fp-ts": "^2.16.2",
     "io-ts": "^2.2.21"

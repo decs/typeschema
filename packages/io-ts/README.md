@@ -34,6 +34,10 @@ const appRouter = t.router({
 
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
+## Dependencies
+- [`fp-ts`](https://www.npmjs.com/package/fp-ts): Required for inference and validation (`^2.16.2`)
+- [`io-ts`](https://www.npmjs.com/package/io-ts): Required for inference and validation (`^2.2.21`)
+
 ## API
 
 ### Inference

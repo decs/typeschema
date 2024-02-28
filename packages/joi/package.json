@@ -60,7 +60,10 @@
   "devDependencies": {
     "joi": "^17.12.0"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "joi": "Required for validation"
+  },
   "peerDependencies": {
     "joi": "^17.12.0"
   },

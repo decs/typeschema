@@ -34,6 +34,10 @@ const appRouter = t.router({
 
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
+## Dependencies
+- [`@sodaru/yup-to-json-schema`](https://www.npmjs.com/package/@sodaru/yup-to-json-schema): Required for serialization (`^2.0.1`)
+- [`yup`](https://www.npmjs.com/package/yup): Required for inference and validation (`^1.3.3`)
+
 ## API
 
 ### Inference

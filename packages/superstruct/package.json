@@ -60,7 +60,10 @@
   "devDependencies": {
     "superstruct": "^1.0.3"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "superstruct": "Required for inference and validation"
+  },
   "peerDependencies": {
     "superstruct": "^1.0.3"
   },

@@ -61,7 +61,11 @@
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.4"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "zod": "Required for inference and validation",
+    "zod-to-json-schema": "Required for serialization"
+  },
   "peerDependencies": {
     "zod": "^3.22.4",
     "zod-to-json-schema": "^3.22.4"

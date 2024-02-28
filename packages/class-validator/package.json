@@ -60,7 +60,10 @@
   "devDependencies": {
     "class-validator": "^0.14.1"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "class-validator": "Required for inference and validation"
+  },
   "peerDependencies": {
     "class-validator": "^0.14.1"
   },

@@ -34,6 +34,10 @@ const appRouter = t.router({
 
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
+## Dependencies
+- [`zod`](https://www.npmjs.com/package/zod): Required for inference and validation (`^3.22.4`)
+- [`zod-to-json-schema`](https://www.npmjs.com/package/zod-to-json-schema): Required for serialization (`^3.22.4`)
+
 ## API
 
 ### Inference

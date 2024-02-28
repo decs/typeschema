@@ -61,7 +61,11 @@
     "@effect/schema": "^0.60.6",
     "effect": "^2.1.2"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "@effect/schema": "Required for inference and validation",
+    "effect": "Required for inference and validation"
+  },
   "peerDependencies": {
     "@effect/schema": "^0.60.6",
     "effect": "^2.1.2"

@@ -50,7 +50,7 @@ function getAddAction(config: {
           let object = JSON.parse(content.replace(/,(\s+[\}\]\)])/g, '$1'));
           const manualFields = Object.keys(object)
             .filter(field => field.startsWith('//'))
-            .map(field => field.replace(/^\/\//, ''));
+            .flatMap(field => [field, field.replace(/^\/\//, '')]);
           if (manualFields.length > 0 && originalContent != null) {
             const originalObject = JSON.parse(originalContent);
             manualFields
@@ -155,6 +155,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
   );
 
   plop.addHelper('icon', (value: boolean) => (value ? '✅' : '🧐'));
+  plop.addHelper('isEmpty', (value: object) => Object.keys(value).length === 0);
 
   plop.setGenerator('all', {
     actions: () => {

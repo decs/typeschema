@@ -61,7 +61,11 @@
     "@gcornut/valibot-json-schema": "^0.0.23",
     "valibot": "^0.27.1"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "@gcornut/valibot-json-schema": "Required for serialization",
+    "valibot": "Required for inference and validation"
+  },
   "peerDependencies": {
     "@gcornut/valibot-json-schema": "^0.0.23",
     "valibot": "^0.27.1"

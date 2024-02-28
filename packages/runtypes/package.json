@@ -60,7 +60,10 @@
   "devDependencies": {
     "runtypes": "^6.7.0"
   },
-  "//peerDependencies": "This field is manually maintained.",
+  "//peerDependencies": {
+    "//": "This field is manually maintained.",
+    "runtypes": "Required for inference and validation"
+  },
   "peerDependencies": {
     "runtypes": "^6.7.0"
   },
