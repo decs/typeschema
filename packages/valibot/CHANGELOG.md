@@ -1,5 +1,11 @@
 # @typeschema/valibot
 
+## 0.13.3
+
+### Patch Changes
+
+- 6c178f0: Fix Vite support
+
 ## 0.13.2
 
 ### Patch Changes

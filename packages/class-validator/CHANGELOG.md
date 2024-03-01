@@ -1,5 +1,11 @@
 # @typeschema/class-validator
 
+## 0.1.2
+
+### Patch Changes
+
+- 6c178f0: Fix Vite support
+
 ## 0.1.1
 
 ### Patch Changes
