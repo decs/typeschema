@@ -1,5 +1,22 @@
 # @typeschema/main
 
+## 0.13.6
+
+### Patch Changes
+
+- 6c178f0: Fix Vite support
+- Updated dependencies [6c178f0]
+  - @typeschema/class-validator@0.1.2
+  - @typeschema/deepkit@0.13.3
+  - @typeschema/typebox@0.13.3
+  - @typeschema/valibot@0.13.3
+  - @typeschema/effect@0.13.3
+  - @typeschema/io-ts@0.13.3
+  - @typeschema/json@0.13.3
+  - @typeschema/yup@0.13.3
+  - @typeschema/zod@0.13.3
+  - @typeschema/ow@0.13.3
+
 ## 0.13.5
 
 ### Patch Changes
