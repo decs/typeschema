@@ -58,7 +58,7 @@ jobs:
         run: pnpm test:e2e
   release:
     name: Release packages
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref_name == 'main'
     runs-on: ubuntu-latest
     needs: [gen, lint, test, test-e2e]
     steps:
