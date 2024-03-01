@@ -4,15 +4,8 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
-  try {
-    const moduleName = 'valibot';
-    const {safeParseAsync} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('valibot');
-    return {safeParseAsync};
-  } catch (error) {
-    throw error;
-  }
+  const {safeParseAsync} = await import('valibot');
+  return {safeParseAsync};
 });
 
 export const validationAdapter: ValidationAdapter<

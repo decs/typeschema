@@ -35,6 +35,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.19.0
         version: 6.21.0(eslint@8.56.0)(typescript@5.3.3)
+      esbuild:
+        specifier: ^0.20.0
+        version: 0.20.0
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -106,7 +109,7 @@ importers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.1)
+        version: file:packages/main(@typeschema/zod@0.13.2)
       '@typeschema/zod':
         specifier: workspace:*
         version: file:packages/zod(zod@3.22.4)
@@ -172,7 +175,7 @@ importers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.1)
+        version: file:packages/main(@typeschema/zod@0.13.2)
       valibot:
         specifier: ^0.27.1
         version: 0.27.1
@@ -184,7 +187,7 @@ importers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.1)
+        version: file:packages/main(@typeschema/zod@0.13.2)
       '@typeschema/zod':
         specifier: workspace:*
         version: file:packages/zod(zod@3.22.4)
@@ -11858,7 +11861,7 @@ packages:
       '@typeschema/zod': link:packages/zod
     dev: false
 
-  file:packages/main(@typeschema/zod@0.13.1):
+  file:packages/main(@typeschema/zod@0.13.2):
     resolution: {directory: packages/main, type: directory}
     id: file:packages/main
     name: '@typeschema/main'

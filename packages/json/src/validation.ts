@@ -4,15 +4,8 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
-  try {
-    const moduleName = 'ajv';
-    const {default: Ajv} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('ajv');
-    return new Ajv();
-  } catch (error) {
-    throw error;
-  }
+  const {default: Ajv} = await import('ajv');
+  return new Ajv();
 });
 
 export const validationAdapter: ValidationAdapter<

@@ -13,51 +13,23 @@ import {memoize, unsupportedAdapter} from '@typeschema/core';
 import {select} from './selector';
 
 const importJsonSerializationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/json';
-    const {serializationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/json');
-    return serializationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {serializationAdapter} = await import('@typeschema/json');
+  return serializationAdapter;
 });
 
 const importValibotSerializationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/valibot';
-    const {serializationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/valibot');
-    return serializationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {serializationAdapter} = await import('@typeschema/valibot');
+  return serializationAdapter;
 });
 
 const importYupSerializationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/yup';
-    const {serializationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/yup');
-    return serializationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {serializationAdapter} = await import('@typeschema/yup');
+  return serializationAdapter;
 });
 
 const importZodSerializationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/zod';
-    const {serializationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/zod');
-    return serializationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {serializationAdapter} = await import('@typeschema/zod');
+  return serializationAdapter;
 });
 
 export const serializationAdapter: SerializationAdapter<AdapterResolver> = select({

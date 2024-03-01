@@ -4,15 +4,8 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
-  try {
-    const moduleName = '@deepkit/type';
-    const {validate} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@deepkit/type');
-    return {validate};
-  } catch (error) {
-    throw error;
-  }
+  const {validate} = await import('@deepkit/type');
+  return {validate};
 });
 
 export const validationAdapter: ValidationAdapter<
