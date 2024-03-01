@@ -13,183 +13,78 @@ import {memoize, unsupportedAdapter} from '@typeschema/core';
 import {select} from './selector';
 
 const importArktypeValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/arktype';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/arktype');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/arktype');
+  return validationAdapter;
 });
 
 const importClassValidatorValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/class-validator';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/class-validator');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/class-validator');
+  return validationAdapter;
 });
 
 const importDeepkitValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/deepkit';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/deepkit');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/deepkit');
+  return validationAdapter;
 });
 
 const importEffectValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/effect';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/effect');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/effect');
+  return validationAdapter;
 });
 
 const importFunctionValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/function';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/function');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/function');
+  return validationAdapter;
 });
 
 const importIoTsValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/io-ts';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/io-ts');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/io-ts');
+  return validationAdapter;
 });
 
 const importJoiValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/joi';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/joi');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/joi');
+  return validationAdapter;
 });
 
 const importJsonValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/json';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/json');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/json');
+  return validationAdapter;
 });
 
 const importOwValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/ow';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/ow');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/ow');
+  return validationAdapter;
 });
 
 const importRuntypesValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/runtypes';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/runtypes');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/runtypes');
+  return validationAdapter;
 });
 
 const importSuperstructValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/superstruct';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/superstruct');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/superstruct');
+  return validationAdapter;
 });
 
 const importTypeboxValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/typebox';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/typebox');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/typebox');
+  return validationAdapter;
 });
 
 const importValibotValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/valibot';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/valibot');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/valibot');
+  return validationAdapter;
 });
 
 const importYupValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/yup';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/yup');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/yup');
+  return validationAdapter;
 });
 
 const importZodValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/zod';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/zod');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/zod');
+  return validationAdapter;
 });
 
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({

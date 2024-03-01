@@ -4,15 +4,8 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
-  try {
-    const moduleName = 'ow';
-    const {default: ow, ArgumentError} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('ow');
-    return {ArgumentError, ow};
-  } catch (error) {
-    throw error;
-  }
+  const {default: ow, ArgumentError} = await import('ow');
+  return {ArgumentError, ow};
 });
 
 export const validationAdapter: ValidationAdapter<

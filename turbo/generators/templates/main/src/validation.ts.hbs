@@ -11,15 +11,8 @@ import {select} from './selector';
 {{#each adapters}}
 {{#if hasModule.validation}}
 const import{{pascalCase name}}ValidationAdapter = memoize(async () => {
-  try {
-    const moduleName = '@typeschema/{{name}}';
-    const {validationAdapter} = (await import(
-      /* webpackIgnore: true */ moduleName
-    )) as typeof import('@typeschema/{{name}}');
-    return validationAdapter;
-  } catch (error) {
-    throw error;
-  }
+  const {validationAdapter} = await import('@typeschema/{{name}}');
+  return validationAdapter;
 });
 
 {{/if}}
