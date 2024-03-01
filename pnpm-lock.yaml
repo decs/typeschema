@@ -109,7 +109,7 @@ importers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.2)
+        version: file:packages/main(@typeschema/zod@0.13.3)
       '@typeschema/zod':
         specifier: workspace:*
         version: file:packages/zod(zod@3.22.4)
@@ -175,7 +175,7 @@ importers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.2)
+        version: file:packages/main(@typeschema/zod@0.13.3)
       valibot:
         specifier: ^0.27.1
         version: 0.27.1
@@ -187,7 +187,7 @@ importers:
     dependencies:
       '@typeschema/main':
         specifier: workspace:*
-        version: file:packages/main(@typeschema/zod@0.13.2)
+        version: file:packages/main(@typeschema/zod@0.13.3)
       '@typeschema/zod':
         specifier: workspace:*
         version: file:packages/zod(zod@3.22.4)
@@ -318,6 +318,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.1
+      joi-to-json:
+        specifier: ^4.2.1
+        version: 4.2.1
       json-schema-to-ts:
         specifier: ^3.0.0
         version: 3.0.0
@@ -433,6 +436,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.1
+      joi-to-json:
+        specifier: ^4.2.1
+        version: 4.2.1
 
   packages/json:
     dependencies:
@@ -540,6 +546,9 @@ importers:
       joi:
         specifier: ^17.12.0
         version: 17.12.1
+      joi-to-json:
+        specifier: ^4.2.1
+        version: 4.2.1
       json-schema-to-ts:
         specifier: ^3.0.0
         version: 3.0.0
@@ -5186,6 +5195,10 @@ packages:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
     dev: true
 
+  /combinations@1.0.0:
+    resolution: {integrity: sha512-aVgTfI/dewHblSn4gF+NZHvS7wtwg9YAPF2EknHMdH+xLsXLLIMpmHkSj64Zxs/R2m9VAAgn3bENjssrn7V4vQ==}
+    dev: true
+
   /commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
@@ -7523,6 +7536,14 @@ packages:
 
   /jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
+    dev: true
+
+  /joi-to-json@4.2.1:
+    resolution: {integrity: sha512-HIPyrmT9akm2C4zOZ3qR30GkQs7JBr3LX1/oXXWyC2E1NUnDHjTczqHT0H6l495B99xAyFaJ6LM6KRFTdkKoxQ==}
+    dependencies:
+      combinations: 1.0.0
+      lodash: 4.17.21
+      semver-compare: 1.0.0
     dev: true
 
   /joi@17.12.1:
@@ -10022,6 +10043,10 @@ packages:
       ajv-keywords: 3.5.2(ajv@6.12.6)
     dev: true
 
+  /semver-compare@1.0.0:
+    resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
+    dev: true
+
   /semver-diff@4.0.0:
     resolution: {integrity: sha512-0Ju4+6A8iOnpL/Thra7dZsSlOHYAHIeMxfhWQRI1/VLcT3WDBZKKtQt/QkBOsiIN9ZpuvHE6cGZ0x4glCMmfiA==}
     engines: {node: '>=12'}
@@ -11861,7 +11886,7 @@ packages:
       '@typeschema/zod': link:packages/zod
     dev: false
 
-  file:packages/main(@typeschema/zod@0.13.2):
+  file:packages/main(@typeschema/zod@0.13.3):
     resolution: {directory: packages/main, type: directory}
     id: file:packages/main
     name: '@typeschema/main'

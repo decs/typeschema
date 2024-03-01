@@ -12,6 +12,11 @@ import {memoize, unsupportedAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 
+const importJoiSerializationAdapter = memoize(async () => {
+  const {serializationAdapter} = await import('@typeschema/joi');
+  return serializationAdapter;
+});
+
 const importJsonSerializationAdapter = memoize(async () => {
   const {serializationAdapter} = await import('@typeschema/json');
   return serializationAdapter;
@@ -39,7 +44,7 @@ export const serializationAdapter: SerializationAdapter<AdapterResolver> = selec
   effect: unsupportedAdapter<AdapterResolvers['effect']>('@typeschema/effect'),
   function: unsupportedAdapter<AdapterResolvers['function']>('@typeschema/function'),
   ioTs: unsupportedAdapter<AdapterResolvers['ioTs']>('@typeschema/io-ts'),
-  joi: unsupportedAdapter<AdapterResolvers['joi']>('@typeschema/joi'),
+  joi: async schema => (await importJoiSerializationAdapter())(schema),
   json: async schema => (await importJsonSerializationAdapter())(schema),
   ow: unsupportedAdapter<AdapterResolvers['ow']>('@typeschema/ow'),
   runtypes: unsupportedAdapter<AdapterResolvers['runtypes']>('@typeschema/runtypes'),

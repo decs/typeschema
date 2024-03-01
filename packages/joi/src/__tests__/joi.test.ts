@@ -5,7 +5,7 @@ import {expectTypeOf} from 'expect-type';
 import Joi from 'joi';
 import {describe, expect, test} from 'vitest';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 describe('joi', () => {
   const schema = Joi.object({
@@ -66,5 +66,21 @@ describe('joi', () => {
     const createCaller = tRPC.createCallerFactory(router);
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(data);
+  });
+
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      additionalProperties: false,
+      properties: {
+        age: {type: 'number'},
+        createdAt: {type: 'integer'},
+        email: {format: 'email', type: 'string'},
+        id: {type: 'string'},
+        name: {type: 'string'},
+        updatedAt: {type: 'integer'},
+      },
+      required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+      type: 'object',
+    });
   });
 });

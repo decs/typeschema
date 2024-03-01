@@ -36,6 +36,7 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 
 ## Dependencies
 - [`joi`](https://www.npmjs.com/package/joi): Required for validation (`^17.12.0`)
+- [`joi-to-json`](https://www.npmjs.com/package/joi-to-json): Required for serialization (`^4.2.1`)
 
 ## API
 
@@ -43,3 +44,5 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
+### Serialization
+- `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema

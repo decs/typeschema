@@ -97,7 +97,7 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="center">🧐</td>
     <td align="center">🧐</td>
     <td align="center">✅</td>
-    <td align="center">🧐</td>
+    <td align="center">✅</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/joi">@typeschema/joi</a></code></nobr></td>
   </tr>
   <tr>
