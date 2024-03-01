@@ -3,6 +3,10 @@ name: ci
 on:
   push:
 
+env:
+  TURBO_TOKEN: ${{secrets.TURBO_TOKEN}}
+  TURBO_TEAM: ${{vars.TURBO_TEAM}}
+
 jobs:
   gen:
     name: Check generated code
