@@ -11,8 +11,7 @@ const dynamicImportsPlugin: Plugin = {
       contents: fs.readFileSync(args.path, 'utf-8').replace(
         /([ \t]*)const (\w+|{.+}) = await import\((.*)\);\s*return ([^;]+);/g,
         `$1try {
-$1  const moduleName = $3;
-$1  const $2 = await import(/* webpackIgnore: true */ moduleName);
+$1  const $2 = await import(/* webpackIgnore: true */ $3);
 $1  return $4;
 $1} catch (error) {
 $1  throw error;
