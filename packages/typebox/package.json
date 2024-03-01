@@ -62,7 +62,7 @@
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
-    "@sinclair/typebox": "Required for inference and validation"
+    "@sinclair/typebox": "Required for inference, validation, and serialization"
   },
   "peerDependencies": {
     "@sinclair/typebox": "^0.32.11"

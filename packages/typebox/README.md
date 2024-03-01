@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@sinclair/typebox`](https://www.npmjs.com/package/@sinclair/typebox): Required for inference and validation (`^0.32.11`)
+- [`@sinclair/typebox`](https://www.npmjs.com/package/@sinclair/typebox): Required for inference, validation, and serialization (`^0.32.11`)
 
 ## API
 
@@ -46,3 +46,5 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
+### Serialization
+- `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema

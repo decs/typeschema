@@ -1,11 +1,11 @@
 import type {Infer, InferIn} from '..';
 
-import {Type} from '@sinclair/typebox';
+import {Kind, Type} from '@sinclair/typebox';
 import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {describe, expect, test} from 'vitest';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 describe('typebox', () => {
   const schema = Type.Object({
@@ -66,5 +66,21 @@ describe('typebox', () => {
     const createCaller = tRPC.createCallerFactory(router);
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(data);
+  });
+
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      [Kind]: 'Object',
+      properties: {
+        age: {[Kind]: 'Number', type: 'number'},
+        createdAt: {[Kind]: 'String', type: 'string'},
+        email: {[Kind]: 'String', type: 'string'},
+        id: {[Kind]: 'String', type: 'string'},
+        name: {[Kind]: 'String', type: 'string'},
+        updatedAt: {[Kind]: 'String', type: 'string'},
+      },
+      required: ['age', 'createdAt', 'email', 'id', 'name', 'updatedAt'],
+      type: 'object',
+    });
   });
 });
