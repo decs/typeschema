@@ -1,5 +1,12 @@
 # @typeschema/typebox
 
+## 0.13.4
+
+### Patch Changes
+
+- 8fa21a3: Upgrade dependencies
+- 95f9616: Add serialization support to TypeBox
+
 ## 0.13.3
 
 ### Patch Changes
