@@ -64,7 +64,7 @@
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
-    "@effect/schema": "Required for inference and validation",
+    "@effect/schema": "Required for inference, validation, and serialization",
     "effect": "Required for inference and validation"
   },
   "peerDependencies": {

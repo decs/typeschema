@@ -5,18 +5,27 @@ import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {describe, expect, test} from 'vitest';
 
-import {assert, validate, wrap} from '..';
+import {assert, toJSONSchema, validate, wrap} from '..';
 
 const readonly = <A extends Record<string, unknown>>(a: A): Readonly<A> => a;
+
+const DateFromString = S.DateFromString.pipe(
+  S.jsonSchema({
+    type: 'string',
+    description: 'an ISO-date string',
+    title: 'ISOString',
+    format: 'date-time',
+  }),
+);
 
 describe('effect', () => {
   const schema = S.struct({
     age: S.number,
-    createdAt: S.DateFromString,
+    createdAt: DateFromString,
     email: S.string,
     id: S.string,
     name: S.string,
-    updatedAt: S.DateFromString,
+    updatedAt: DateFromString,
   });
 
   const data = readonly({
@@ -82,5 +91,50 @@ describe('effect', () => {
     const createCaller = tRPC.createCallerFactory(router);
     const caller = createCaller({});
     expect(await caller.hello(data)).toStrictEqual(outputData);
+  });
+
+  test('toJSONSchema', async () => {
+    expect(await toJSONSchema(schema)).toStrictEqual({
+      $defs: {
+        DateFromString: {
+          description: 'an ISO-date string',
+          format: 'date-time',
+          title: 'ISOString',
+          type: 'string',
+        },
+      },
+      $schema: 'http://json-schema.org/draft-07/schema#',
+      additionalProperties: false,
+      properties: {
+        age: {
+          description: 'a number',
+          title: 'number',
+          type: 'number',
+        },
+        createdAt: {
+          $ref: '#/$defs/DateFromString',
+        },
+        email: {
+          description: 'a string',
+          title: 'string',
+          type: 'string',
+        },
+        id: {
+          description: 'a string',
+          title: 'string',
+          type: 'string',
+        },
+        name: {
+          description: 'a string',
+          title: 'string',
+          type: 'string',
+        },
+        updatedAt: {
+          $ref: '#/$defs/DateFromString',
+        },
+      },
+      required: ['age', 'email', 'id', 'name', 'createdAt', 'updatedAt'],
+      type: 'object',
+    });
   });
 });

@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@effect/schema`](https://www.npmjs.com/package/@effect/schema): Required for inference and validation (`^0.63.2`)
+- [`@effect/schema`](https://www.npmjs.com/package/@effect/schema): Required for inference, validation, and serialization (`^0.63.2`)
 - [`effect`](https://www.npmjs.com/package/effect): Required for inference and validation (`^2.4.1`)
 
 ## API
@@ -47,3 +47,5 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
+### Serialization
+- `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema
