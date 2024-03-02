@@ -1,5 +1,12 @@
 # @typeschema/effect
 
+## 0.13.4
+
+### Patch Changes
+
+- 75dd140: Add serialization support to Effect
+- 8fa21a3: Upgrade dependencies
+
 ## 0.13.3
 
 ### Patch Changes

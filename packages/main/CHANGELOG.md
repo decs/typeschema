@@ -1,5 +1,29 @@
 # @typeschema/main
 
+## 1.0.0
+
+### Patch Changes
+
+- 75dd140: Add serialization support to Effect
+- 2cb436f: Add serialization support to Joi
+- 8fa21a3: Upgrade dependencies
+- 14236e6: Add support for suretype
+- 95f9616: Add serialization support to TypeBox
+- 85a0334: Add support for valita
+- Updated dependencies [75dd140]
+- Updated dependencies [2cb436f]
+- Updated dependencies [8fa21a3]
+- Updated dependencies [14236e6]
+- Updated dependencies [95f9616]
+- Updated dependencies [85a0334]
+  - @typeschema/effect@0.13.4
+  - @typeschema/joi@0.13.3
+  - @typeschema/deepkit@0.13.4
+  - @typeschema/typebox@0.13.4
+  - @typeschema/valibot@0.13.4
+  - @typeschema/suretype@0.1.0
+  - @typeschema/valita@0.1.0
+
 ## 0.13.6
 
 ### Patch Changes

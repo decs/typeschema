@@ -1,5 +1,12 @@
 # @typeschema/joi
 
+## 0.13.3
+
+### Patch Changes
+
+- 2cb436f: Add serialization support to Joi
+- 8fa21a3: Upgrade dependencies
+
 ## 0.13.2
 
 ### Patch Changes
