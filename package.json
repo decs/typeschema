@@ -45,6 +45,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-sort-keys": "^2.3.5",
     "expect-type": "^0.17.3",
+    "magic-regexp": "^0.7.0",
     "npm-check-updates": "^16.14.12",
     "pnpm-sync-dependencies-meta-injected": "^0.0.10",
     "prettier": "^3.2.4",
