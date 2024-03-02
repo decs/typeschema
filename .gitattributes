@@ -14,6 +14,7 @@ packages/all/src/__tests__/json.test.ts linguist-generated
 packages/all/src/__tests__/ow.test.ts linguist-generated
 packages/all/src/__tests__/runtypes.test.ts linguist-generated
 packages/all/src/__tests__/superstruct.test.ts linguist-generated
+packages/all/src/__tests__/suretype.test.ts linguist-generated
 packages/all/src/__tests__/tsconfig.json linguist-generated
 packages/all/src/__tests__/typebox.test.ts linguist-generated
 packages/all/src/__tests__/valibot.test.ts linguist-generated
@@ -66,6 +67,7 @@ packages/main/src/__tests__/json.test.ts linguist-generated
 packages/main/src/__tests__/ow.test.ts linguist-generated
 packages/main/src/__tests__/runtypes.test.ts linguist-generated
 packages/main/src/__tests__/superstruct.test.ts linguist-generated
+packages/main/src/__tests__/suretype.test.ts linguist-generated
 packages/main/src/__tests__/tsconfig.json linguist-generated
 packages/main/src/__tests__/typebox.test.ts linguist-generated
 packages/main/src/__tests__/valibot.test.ts linguist-generated
@@ -88,6 +90,10 @@ packages/superstruct/README.md linguist-generated
 packages/superstruct/src/__tests__/tsconfig.json linguist-generated
 packages/superstruct/src/index.ts linguist-generated
 packages/superstruct/tsconfig.json linguist-generated
+packages/suretype/README.md linguist-generated
+packages/suretype/src/__tests__/tsconfig.json linguist-generated
+packages/suretype/src/index.ts linguist-generated
+packages/suretype/tsconfig.json linguist-generated
 packages/typebox/README.md linguist-generated
 packages/typebox/src/__tests__/tsconfig.json linguist-generated
 packages/typebox/src/index.ts linguist-generated

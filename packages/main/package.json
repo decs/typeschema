@@ -24,6 +24,7 @@
     "ow",
     "runtypes",
     "superstruct",
+    "suretype",
     "typebox",
     "valibot",
     "yup",
@@ -101,6 +102,8 @@
     "runtypes": "^6.7.0",
     "@typeschema/superstruct": "workspace:*",
     "superstruct": "^1.0.3",
+    "@typeschema/suretype": "workspace:*",
+    "suretype": "^3.3.1",
     "@typeschema/typebox": "workspace:*",
     "@sinclair/typebox": "^0.32.15",
     "@typeschema/valibot": "workspace:*",
@@ -125,6 +128,7 @@
     "@typeschema/ow": "workspace:*",
     "@typeschema/runtypes": "workspace:*",
     "@typeschema/superstruct": "workspace:*",
+    "@typeschema/suretype": "workspace:*",
     "@typeschema/typebox": "workspace:*",
     "@typeschema/valibot": "workspace:*",
     "@typeschema/yup": "workspace:*",
@@ -162,6 +166,9 @@
       "optional": true
     },
     "@typeschema/superstruct": {
+      "optional": true
+    },
+    "@typeschema/suretype": {
       "optional": true
     },
     "@typeschema/typebox": {

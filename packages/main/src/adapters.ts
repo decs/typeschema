@@ -13,6 +13,7 @@ import type {AdapterResolver as JsonResolver} from '@typeschema/json';
 import type {AdapterResolver as OwResolver} from '@typeschema/ow';
 import type {AdapterResolver as RuntypesResolver} from '@typeschema/runtypes';
 import type {AdapterResolver as SuperstructResolver} from '@typeschema/superstruct';
+import type {AdapterResolver as SuretypeResolver} from '@typeschema/suretype';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
 import type {AdapterResolver as YupResolver} from '@typeschema/yup';
@@ -30,6 +31,7 @@ export type AdapterResolvers = {
   ow: OwResolver;
   runtypes: RuntypesResolver;
   superstruct: SuperstructResolver;
+  suretype: SuretypeResolver;
   typebox: TypeboxResolver;
   valibot: ValibotResolver;
   yup: YupResolver;

@@ -266,6 +266,9 @@ importers:
       '@typeschema/superstruct':
         specifier: workspace:*
         version: link:../superstruct
+      '@typeschema/suretype':
+        specifier: workspace:*
+        version: link:../suretype
       '@typeschema/typebox':
         specifier: workspace:*
         version: link:../typebox
@@ -336,6 +339,9 @@ importers:
       superstruct:
         specifier: ^1.0.3
         version: 1.0.3
+      suretype:
+        specifier: ^3.3.1
+        version: 3.3.1
       typia:
         specifier: ^5.4.14
         version: 5.4.14(typescript@5.3.3)
@@ -513,6 +519,9 @@ importers:
       '@typeschema/superstruct':
         specifier: workspace:*
         version: link:../superstruct
+      '@typeschema/suretype':
+        specifier: workspace:*
+        version: link:../suretype
       '@typeschema/typebox':
         specifier: workspace:*
         version: link:../typebox
@@ -564,6 +573,9 @@ importers:
       superstruct:
         specifier: ^1.0.3
         version: 1.0.3
+      suretype:
+        specifier: ^3.3.1
+        version: 3.3.1
       typia:
         specifier: ^5.4.14
         version: 5.4.14(typescript@5.3.3)
@@ -609,6 +621,16 @@ importers:
       superstruct:
         specifier: ^1.0.3
         version: 1.0.3
+
+  packages/suretype:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      suretype:
+        specifier: ^3.3.1
+        version: 3.3.1
 
   packages/typebox:
     dependencies:
@@ -4492,6 +4514,13 @@ packages:
       type-fest: 0.21.3
     dev: true
 
+  /ansi-escapes@5.0.0:
+    resolution: {integrity: sha512-5GFMVX8HqE/TB+FuBJGuO5XG0WrsA6ptUqoODaT/n9mmUaZFkqnBueB4leqGBCmrUHnCnC4PCZTCd0E7QQ83bA==}
+    engines: {node: '>=12'}
+    dependencies:
+      type-fest: 1.4.0
+    dev: true
+
   /ansi-escapes@6.2.0:
     resolution: {integrity: sha512-kzRaCqXnpzWs+3z5ABPQiVke+iq0KXkHo8xiWV4RPTi5Yli0l97BEQuhXV1s7+aSU/fu1kUuxgS4MsQ0fRuygw==}
     engines: {node: '>=14.16'}
@@ -4707,6 +4736,31 @@ packages:
   /available-typed-arrays@1.0.6:
     resolution: {integrity: sha512-j1QzY8iPNPG4o4xmO3ptzpRxTciqD3MgEHtifP/YnJpIo58Xu+ne4BejlbkuaLfXn/nz6HFiw29bLpj2PNMdGg==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /awesome-ajv-errors@5.1.0(ajv@6.12.6):
+    resolution: {integrity: sha512-kXak1TPsFI3hMFWc5ase0EQJEBgVSo/iLil4QZnogyEg6/rYxnywCvuF0doB9iKzqDUUOwzVTduq0Z16CxWICQ==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      ajv: ^6 || ^7 || ^8
+    dependencies:
+      ajv: 6.12.6
+      awesome-code-frame: 1.1.0
+      chalk: 5.3.0
+      jsonpointer: 5.0.1
+      jsonpos: 4.1.2
+      leven: 4.0.0
+      terminal-link: 3.0.0
+    dev: true
+
+  /awesome-code-frame@1.1.0:
+    resolution: {integrity: sha512-FJH2rUCFpCMIm1YU1n5Oit59Sy9Okc+K5z77MbbKDcLoNuFbskq55qZO7ePoVuImoMEQ+G5FgLneUWUlJ89FEQ==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    dependencies:
+      '@babel/helper-validator-identifier': 7.22.20
+      chalk: 5.3.0
+      charcodes: 0.2.0
+      js-tokens: 8.0.3
     dev: true
 
   /balanced-match@1.0.2:
@@ -5125,6 +5179,11 @@ packages:
   /char-regex@1.0.2:
     resolution: {integrity: sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==}
     engines: {node: '>=10'}
+    dev: true
+
+  /charcodes@0.2.0:
+    resolution: {integrity: sha512-Y4kiDb+AM4Ecy58YkuZrrSRJBDQdQ2L+NyS1vHHFtNtUjgutcZfx3yp1dAONI/oPaPmyGfCLx5CxL+zauIMyKQ==}
+    engines: {node: '>=6'}
     dev: true
 
   /chardet@0.7.0:
@@ -7730,6 +7789,17 @@ packages:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
     dev: true
 
+  /json-cst@1.2.0:
+    resolution: {integrity: sha512-liC8jqILo2mZjKs/c/zDknohoLo2FocQH5ZGyPZzPNNHSC/LarVq42R4WA58lqPdH9ssP/JKArp6SZ6aP7vyhA==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    dependencies:
+      json-lexer: 1.2.0
+    dev: true
+
+  /json-lexer@1.2.0:
+    resolution: {integrity: sha512-7otpx5UPFeSELoF8nkZPHCfywg86wOsJV0WNOaysuO7mfWj1QFp2vlqESRRCeJKBXr+tqDgHh4HgqUFKTLcifQ==}
+    dev: true
+
   /json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
     dev: true
@@ -7810,6 +7880,18 @@ packages:
     engines: {'0': node >= 0.2.0}
     dev: true
 
+  /jsonpointer@5.0.1:
+    resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
+  /jsonpos@4.1.2:
+    resolution: {integrity: sha512-cn+7TiBMq9VUsHKp+8uZeSY0K2ZnjEwurSA8uJlBoOmMA7w67axpvfv+v77A/8iEXLkXMN06uvEzblGj51+VBQ==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    dependencies:
+      json-cst: 1.2.0
+    dev: true
+
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
     dependencies:
@@ -7831,6 +7913,11 @@ packages:
     engines: {node: '>=14.16'}
     dependencies:
       package-json: 8.1.1
+    dev: true
+
+  /leven@4.0.0:
+    resolution: {integrity: sha512-puehA3YKku3osqPlNuzGDUHq8WpwXupUg1V6NXdV38G+gr+gkBwFC8g1b/+YcIvp8gnqVIus+eJCH/eGsRmJNw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
   /levn@0.4.1:
@@ -8278,6 +8365,11 @@ packages:
   /merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
+    dev: true
+
+  /meta-types@2.0.0:
+    resolution: {integrity: sha512-I/UKzOsGtZuMuUPo17+J7dthEDWLorxnOvD5z6I0fgdDm2bJbo6VmMu+WVppOV3uog78iKjyenlRUMywgd3TPA==}
+    engines: {node: '>=14'}
     dev: true
 
   /micromatch@4.0.5:
@@ -10751,6 +10843,14 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /supports-hyperlinks@2.3.0:
+    resolution: {integrity: sha512-RpsAZlpWcDwOPQA22aCH4J0t7L8JmAvsCxfOSEwm7cQs3LshN36QaTkwd70DnBOXDWGssw2eUoc8CaRWT0XunA==}
+    engines: {node: '>=8'}
+    dependencies:
+      has-flag: 4.0.0
+      supports-color: 7.2.0
+    dev: true
+
   /supports-hyperlinks@3.0.0:
     resolution: {integrity: sha512-QBDPHyPQDRTy9ku4URNGY5Lah8PAaXs6tAAwp55sL5WCsSW7GIfdf6W5ixfziW+t7wh3GVvHyHHyQ1ESsoRvaA==}
     engines: {node: '>=14.18'}
@@ -10762,6 +10862,15 @@ packages:
   /supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /suretype@3.3.1:
+    resolution: {integrity: sha512-eTb/gmWy8hvax6sRIEzNiPSX630DaPgosKk3oOYsdE0sebPYgHMn9QJ7XOidlKvRjrWBV7X+Qb/pIC5y8ZYNHA==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+    dependencies:
+      ajv: 6.12.6
+      awesome-ajv-errors: 5.1.0(ajv@6.12.6)
+      meta-types: 2.0.0
     dev: true
 
   /svgo@2.8.0:
@@ -10813,6 +10922,14 @@ packages:
   /term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
     engines: {node: '>=8'}
+    dev: true
+
+  /terminal-link@3.0.0:
+    resolution: {integrity: sha512-flFL3m4wuixmf6IfhFJd1YPiLiMuxEc8uHRM1buzIeZPm22Au2pDqBJQgdo7n1WfPU1ONFGv7YDwpFBmHGF6lg==}
+    engines: {node: '>=12'}
+    dependencies:
+      ansi-escapes: 5.0.0
+      supports-hyperlinks: 2.3.0
     dev: true
 
   /terser-webpack-plugin@5.3.10(@swc/core@1.4.2)(esbuild@0.20.0)(webpack@5.90.2):
@@ -12036,6 +12153,7 @@ packages:
       '@typeschema/ow': link:packages/ow
       '@typeschema/runtypes': link:packages/runtypes
       '@typeschema/superstruct': link:packages/superstruct
+      '@typeschema/suretype': link:packages/suretype
       '@typeschema/typebox': link:packages/typebox
       '@typeschema/valibot': link:packages/valibot
       '@typeschema/yup': link:packages/yup
@@ -12058,6 +12176,7 @@ packages:
       '@typeschema/ow': workspace:*
       '@typeschema/runtypes': workspace:*
       '@typeschema/superstruct': workspace:*
+      '@typeschema/suretype': workspace:*
       '@typeschema/typebox': workspace:*
       '@typeschema/valibot': workspace:*
       '@typeschema/yup': workspace:*
@@ -12084,6 +12203,8 @@ packages:
       '@typeschema/runtypes':
         optional: true
       '@typeschema/superstruct':
+        optional: true
+      '@typeschema/suretype':
         optional: true
       '@typeschema/typebox':
         optional: true

@@ -67,6 +67,11 @@ const importSuperstructValidationAdapter = memoize(async () => {
   return validationAdapter;
 });
 
+const importSuretypeValidationAdapter = memoize(async () => {
+  const {validationAdapter} = await import('@typeschema/suretype');
+  return validationAdapter;
+});
+
 const importTypeboxValidationAdapter = memoize(async () => {
   const {validationAdapter} = await import('@typeschema/typebox');
   return validationAdapter;
@@ -99,6 +104,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   ow: async schema => (await importOwValidationAdapter())(schema),
   runtypes: async schema => (await importRuntypesValidationAdapter())(schema),
   superstruct: async schema => (await importSuperstructValidationAdapter())(schema),
+  suretype: async schema => (await importSuretypeValidationAdapter())(schema),
   typebox: async schema => (await importTypeboxValidationAdapter())(schema),
   valibot: async schema => (await importValibotValidationAdapter())(schema),
   yup: async schema => (await importYupValidationAdapter())(schema),

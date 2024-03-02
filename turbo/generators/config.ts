@@ -296,6 +296,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 name: 'runtypes',
                 url: 'https://github.com/pelotom/runtypes',
               },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'suretype'),
+                github: 'grantila/suretype',
+                name: 'suretype',
+                url: 'https://github.com/grantila/suretype',
+              },
             ],
           },
           path: 'README.md',

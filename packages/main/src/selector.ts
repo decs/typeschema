@@ -2,6 +2,7 @@ import type {AdapterResolvers} from './adapters';
 import type {AdapterResolver} from './resolver';
 import type {Kind} from '@sinclair/typebox';
 import type {IfDefined, SchemaFrom} from '@typeschema/core';
+import type {CoreValidator} from 'suretype';
 
 type IsTypeboxSchema<TSchema> = [IfDefined<typeof Kind>] extends [never]
   ? false
@@ -12,6 +13,19 @@ function isTypeboxSchema(
   schema: SchemaFrom<AdapterResolver>,
 ): schema is SchemaFrom<AdapterResolvers['typebox']> {
   return typeof schema === 'object' && Symbol.for('TypeBox.Kind') in schema;
+}
+
+type IsSuretypeSchema<TSchema> = [IfDefined<CoreValidator<unknown>>] extends [
+  never,
+]
+  ? false
+  : TSchema extends CoreValidator<unknown>
+    ? true
+    : false;
+function isSuretypeSchema(
+  schema: SchemaFrom<AdapterResolver>,
+): schema is SchemaFrom<AdapterResolvers['typebox']> {
+  return typeof schema === 'object' && '_annotations' in schema;
 }
 
 type IsClassValidatorSchema<TSchema> = TSchema extends new (
@@ -44,27 +58,29 @@ export type Select<TSchema> =
         : 'function'
     : IsTypeboxSchema<TSchema> extends true
       ? 'typebox'
-      : TSchema extends {__isYupSchema__: unknown}
-        ? 'yup'
-        : TSchema extends {_def: unknown}
-          ? 'zod'
-          : TSchema extends {async: unknown}
-            ? 'valibot'
-            : TSchema extends {refiner: unknown}
-              ? 'superstruct'
-              : TSchema extends {_flags: unknown}
-                ? 'joi'
-                : TSchema extends {encode: unknown}
-                  ? 'ioTs'
-                  : TSchema extends {reflect: unknown}
-                    ? 'runtypes'
-                    : TSchema extends {ast: unknown}
-                      ? 'effect'
-                      : TSchema extends {kind: unknown}
-                        ? 'deepkit'
-                        : TSchema extends {addValidator: unknown}
-                          ? 'ow'
-                          : 'json';
+      : IsSuretypeSchema<TSchema> extends true
+        ? 'suretype'
+        : TSchema extends {__isYupSchema__: unknown}
+          ? 'yup'
+          : TSchema extends {_def: unknown}
+            ? 'zod'
+            : TSchema extends {async: unknown}
+              ? 'valibot'
+              : TSchema extends {refiner: unknown}
+                ? 'superstruct'
+                : TSchema extends {_flags: unknown}
+                  ? 'joi'
+                  : TSchema extends {encode: unknown}
+                    ? 'ioTs'
+                    : TSchema extends {reflect: unknown}
+                      ? 'runtypes'
+                      : TSchema extends {ast: unknown}
+                        ? 'effect'
+                        : TSchema extends {kind: unknown}
+                          ? 'deepkit'
+                          : TSchema extends {addValidator: unknown}
+                            ? 'ow'
+                            : 'json';
 
 export const select: <
   TMap extends {
@@ -87,6 +103,7 @@ export const select: <
         return is.function(schema);
       case 'object':
         if (isTypeboxSchema(schema)) return is.typebox(schema);
+        if (isSuretypeSchema(schema)) return is.suretype(notJSON(schema));
         if ('__isYupSchema__' in schema) return is.yup(notJSON(schema));
         if ('_def' in schema) return is.zod(notJSON(schema));
         if ('async' in schema) return is.valibot(notJSON(schema));
