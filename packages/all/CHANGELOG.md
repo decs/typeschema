@@ -17,7 +17,7 @@
 - Updated dependencies [95f9616]
 - Updated dependencies [85a0334]
   - @typeschema/effect@0.13.4
-  - @typeschema/main@1.0.0
+  - @typeschema/main@0.13.7
   - @typeschema/joi@0.13.3
   - @typeschema/deepkit@0.13.4
   - @typeschema/typebox@0.13.4
