@@ -24,7 +24,7 @@ type IsSuretypeSchema<TSchema> = [IfDefined<CoreValidator<unknown>>] extends [
     : false;
 function isSuretypeSchema(
   schema: SchemaFrom<AdapterResolver>,
-): schema is SchemaFrom<AdapterResolvers['typebox']> {
+): schema is SchemaFrom<AdapterResolvers['suretype']> {
   return typeof schema === 'object' && '_annotations' in schema;
 }
 
@@ -103,7 +103,7 @@ export const select: <
         return is.function(schema);
       case 'object':
         if (isTypeboxSchema(schema)) return is.typebox(schema);
-        if (isSuretypeSchema(schema)) return is.suretype(notJSON(schema));
+        if (isSuretypeSchema(schema)) return is.suretype(schema);
         if ('__isYupSchema__' in schema) return is.yup(notJSON(schema));
         if ('_def' in schema) return is.zod(notJSON(schema));
         if ('async' in schema) return is.valibot(notJSON(schema));
