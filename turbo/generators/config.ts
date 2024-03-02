@@ -302,6 +302,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 name: 'suretype',
                 url: 'https://github.com/grantila/suretype',
               },
+              {
+                adapter: adapters.find(adapter => adapter.name === 'valita'),
+                github: 'badrap/valita',
+                name: 'valita',
+                url: 'https://github.com/badrap/valita',
+              },
             ],
           },
           path: 'README.md',

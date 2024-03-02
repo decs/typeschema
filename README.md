@@ -217,6 +217,15 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="center">✅</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/suretype">@typeschema/suretype</a></code></nobr></td>
   </tr>
+  <tr>
+    <td align="left"><nobr><a href="https://github.com/badrap/valita" rel="nofollow">valita</a></nobr></td>
+    <td align="center"><a href="https://github.com/badrap/valita" rel="nofollow"><img src="https://img.shields.io/github/stars/badrap/valita?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/valita">@typeschema/valita</a></code></nobr></td>
+  </tr>
 </table>
 
 ## API
