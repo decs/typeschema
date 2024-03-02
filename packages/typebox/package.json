@@ -51,21 +51,22 @@
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "vitest --config ../../vitest.config.ts"
+    "test": "vitest --config ../../vitest.config.ts",
+    "upgrade:deps": "ncu -u --dep=dev,peer --reject ow"
   },
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@sinclair/typebox": "^0.32.11"
+    "@sinclair/typebox": "^0.32.15"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "@sinclair/typebox": "Required for inference, validation, and serialization"
   },
   "peerDependencies": {
-    "@sinclair/typebox": "^0.32.11"
+    "@sinclair/typebox": "^0.32.15"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

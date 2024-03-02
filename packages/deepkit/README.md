@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@deepkit/type`](https://www.npmjs.com/package/@deepkit/type): Required for validation (`^1.0.1-alpha.132`)
+- [`@deepkit/type`](https://www.npmjs.com/package/@deepkit/type): Required for validation (`^1.0.1-alpha.139`)
 
 ## API
 

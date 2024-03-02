@@ -52,5 +52,6 @@
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "vitest --config ../../vitest.config.ts"
+    "test": "vitest --config ../../vitest.config.ts",
+    "upgrade:deps": "ncu -u --dep=dev,peer --reject ow"
   },

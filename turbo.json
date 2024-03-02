@@ -21,7 +21,9 @@
       "cache": false,
       "dependsOn": ["sync:pnpm"]
     },
-    "upgrade:deps": {},
+    "upgrade:deps": {
+      "outputs": ["package.json"]
+    },
     "sync:pnpm": {
       "cache": false,
       "dependsOn": ["^build"]

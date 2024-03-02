@@ -51,14 +51,15 @@
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "vitest --config ../../vitest.config.ts"
+    "test": "vitest --config ../../vitest.config.ts",
+    "upgrade:deps": "ncu -u --dep=dev,peer --reject ow"
   },
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "joi": "^17.12.0",
+    "joi": "^17.12.2",
     "joi-to-json": "^4.2.1"
   },
   "//peerDependencies": {
@@ -67,7 +68,7 @@
     "joi-to-json": "Required for serialization"
   },
   "peerDependencies": {
-    "joi": "^17.12.0",
+    "joi": "^17.12.2",
     "joi-to-json": "^4.2.1"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",

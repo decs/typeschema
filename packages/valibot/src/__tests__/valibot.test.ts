@@ -53,7 +53,12 @@ describe('valibot', () => {
       success: true,
     });
     expect(await validate(schema, badData)).toStrictEqual({
-      issues: [{message: 'Invalid type', path: ['age']}],
+      issues: [
+        {
+          message: 'Invalid type: Expected number but received "123"',
+          path: ['age'],
+        },
+      ],
       success: false,
     });
   });

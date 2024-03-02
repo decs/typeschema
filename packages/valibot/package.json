@@ -51,15 +51,16 @@
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "vitest --config ../../vitest.config.ts"
+    "test": "vitest --config ../../vitest.config.ts",
+    "upgrade:deps": "ncu -u --dep=dev,peer --reject ow"
   },
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@gcornut/valibot-json-schema": "^0.0.23",
-    "valibot": "^0.27.1"
+    "@gcornut/valibot-json-schema": "^0.0.25",
+    "valibot": "^0.29.0"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
@@ -67,8 +68,8 @@
     "valibot": "Required for inference and validation"
   },
   "peerDependencies": {
-    "@gcornut/valibot-json-schema": "^0.0.23",
-    "valibot": "^0.27.1"
+    "@gcornut/valibot-json-schema": "^0.0.25",
+    "valibot": "^0.29.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

@@ -5,16 +5,16 @@ import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
   const {isRight} = await import('effect/Either');
-  const {parseEither} = await import('@effect/schema/Schema');
+  const {decodeEither} = await import('@effect/schema/Schema');
   const {formatError} = await import('@effect/schema/TreeFormatter');
-  return {formatError, isRight, parseEither};
+  return {decodeEither, formatError, isRight};
 });
 
 export const validationAdapter: ValidationAdapter<
   AdapterResolver
 > = async schema => {
-  const {formatError, isRight, parseEither} = await importValidationModule();
-  const parseSchema = parseEither(schema);
+  const {decodeEither, formatError, isRight} = await importValidationModule();
+  const parseSchema = decodeEither(schema);
   return async data => {
     const result = parseSchema(data);
     if (isRight(result)) {

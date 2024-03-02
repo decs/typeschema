@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@sinclair/typebox`](https://www.npmjs.com/package/@sinclair/typebox): Required for inference, validation, and serialization (`^0.32.11`)
+- [`@sinclair/typebox`](https://www.npmjs.com/package/@sinclair/typebox): Required for inference, validation, and serialization (`^0.32.15`)
 
 ## API
 

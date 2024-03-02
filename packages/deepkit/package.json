@@ -51,22 +51,23 @@
     "build": "tsup --config ../../tsup.config.ts",
     "lint": "eslint src --fix",
     "lint:package": "publint && attw --pack",
-    "test": "vitest --config ../../vitest.config.ts"
+    "test": "vitest --config ../../vitest.config.ts",
+    "upgrade:deps": "ncu -u --dep=dev,peer --reject ow"
   },
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@deepkit/type": "^1.0.1-alpha.132",
-    "@deepkit/type-compiler": "^1.0.1-alpha.123"
+    "@deepkit/type": "^1.0.1-alpha.139",
+    "@deepkit/type-compiler": "^1.0.1-alpha.139"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "@deepkit/type": "Required for validation"
   },
   "peerDependencies": {
-    "@deepkit/type": "^1.0.1-alpha.132"
+    "@deepkit/type": "^1.0.1-alpha.139"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
