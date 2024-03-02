@@ -11,10 +11,10 @@ const readonly = <A extends Record<string, unknown>>(a: A): Readonly<A> => a;
 
 const DateFromString = S.DateFromString.pipe(
   S.jsonSchema({
-    type: 'string',
     description: 'an ISO-date string',
-    title: 'ISOString',
     format: 'date-time',
+    title: 'ISOString',
+    type: 'string',
   }),
 );
 
