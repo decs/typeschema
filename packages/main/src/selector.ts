@@ -80,7 +80,9 @@ export type Select<TSchema> =
                           ? 'deepkit'
                           : TSchema extends {addValidator: unknown}
                             ? 'ow'
-                            : 'json';
+                            : TSchema extends {toTerminals: unknown}
+                              ? 'valita'
+                              : 'json';
 
 export const select: <
   TMap extends {
@@ -114,6 +116,7 @@ export const select: <
         if ('ast' in schema) return is.effect(notJSON(schema));
         if ('kind' in schema) return is.deepkit(notJSON(schema));
         if ('addValidator' in schema) return is.ow(notJSON(schema));
+        if ('toTerminals' in schema) return is.valita(notJSON(schema));
         return is.json(schema);
     }
   };

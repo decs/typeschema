@@ -275,6 +275,9 @@ importers:
       '@typeschema/valibot':
         specifier: workspace:*
         version: link:../valibot
+      '@typeschema/valita':
+        specifier: workspace:*
+        version: link:../valita
       '@typeschema/yup':
         specifier: workspace:*
         version: link:../yup
@@ -282,6 +285,9 @@ importers:
         specifier: workspace:*
         version: link:../zod
     devDependencies:
+      '@badrap/valita':
+        specifier: ^0.3.6
+        version: 0.3.6
       '@deepkit/type':
         specifier: ^1.0.1-alpha.139
         version: 1.0.1-alpha.139(@deepkit/core@1.0.1-alpha.124)
@@ -468,6 +474,9 @@ importers:
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@badrap/valita':
+        specifier: ^0.3.6
+        version: 0.3.6
       '@deepkit/type':
         specifier: ^1.0.1-alpha.139
         version: 1.0.1-alpha.139(@deepkit/core@1.0.1-alpha.124)
@@ -528,6 +537,9 @@ importers:
       '@typeschema/valibot':
         specifier: workspace:*
         version: link:../valibot
+      '@typeschema/valita':
+        specifier: workspace:*
+        version: link:../valita
       '@typeschema/yup':
         specifier: workspace:*
         version: link:../yup
@@ -655,6 +667,16 @@ importers:
         specifier: ^0.29.0
         version: 0.29.0
 
+  packages/valita:
+    dependencies:
+      '@typeschema/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      '@badrap/valita':
+        specifier: ^0.3.6
+        version: 0.3.6
+
   packages/yup:
     dependencies:
       '@typeschema/core':
@@ -753,6 +775,11 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.1
+    dev: true
+
+  /@badrap/valita@0.3.6:
+    resolution: {integrity: sha512-muC3CXyRXw95wpLhWoPPp0grzjq8p50Z8taaaGZnWZaEEUY7O2mQ6xPhiNkv/kJbpYDI7bVlZ6pSZsmsrJv+3g==}
+    engines: {node: '>= 16'}
     dev: true
 
   /@changesets/apply-release-plan@7.0.0:
@@ -12156,6 +12183,7 @@ packages:
       '@typeschema/suretype': link:packages/suretype
       '@typeschema/typebox': link:packages/typebox
       '@typeschema/valibot': link:packages/valibot
+      '@typeschema/valita': link:packages/valita
       '@typeschema/yup': link:packages/yup
       '@typeschema/zod': link:packages/zod
     dev: false
@@ -12179,6 +12207,7 @@ packages:
       '@typeschema/suretype': workspace:*
       '@typeschema/typebox': workspace:*
       '@typeschema/valibot': workspace:*
+      '@typeschema/valita': workspace:*
       '@typeschema/yup': workspace:*
       '@typeschema/zod': workspace:*
     peerDependenciesMeta:
@@ -12209,6 +12238,8 @@ packages:
       '@typeschema/typebox':
         optional: true
       '@typeschema/valibot':
+        optional: true
+      '@typeschema/valita':
         optional: true
       '@typeschema/yup':
         optional: true
