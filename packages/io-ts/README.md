@@ -43,6 +43,7 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 ### Inference
 - `Infer<TSchema>`: Extracts the output type of a schema
 - `InferIn<TSchema>`: Extracts the input type of a schema
+
 ### Validation
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues

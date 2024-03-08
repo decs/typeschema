@@ -64,25 +64,32 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 <table>
   <tr>
     <th align="left">Project</th>
-    <th align="center">Popularity</th>
+    <th align="left">Popularity</th>
     <th align="center"><code>Infer</code></th>
     <th align="center"><code>InferIn</code></th>
     <th align="center">Validation</th>
     <th align="center">Serialization</th>
     <th align="left">Adapter</th>
+    <th align="right">Downloads</th>
   </tr>
 {{#each libraries}}
   <tr>
     <td align="left"><nobr><a href="{{url}}" rel="nofollow">{{name}}</a></nobr></td>
-    <td align="center"><a href="https://github.com/{{github}}" rel="nofollow"><img src="https://img.shields.io/github/stars/{{github}}?style=social" alt="GitHub stars"></a></td>
+    <td align="left"><a href="https://github.com/{{github}}" rel="nofollow"><img src="https://img.shields.io/github/stars/{{github}}?style=social" alt="GitHub stars"></a></td>
     <td align="center">{{icon adapter.canInfer.output}}</td>
     <td align="center">{{icon adapter.canInfer.input}}</td>
     <td align="center">{{icon adapter.hasModule.validation}}</td>
     <td align="center">{{icon adapter.hasModule.serialization}}</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/{{adapter.name}}">@typeschema/{{adapter.name}}</a></code></nobr></td>
+    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/{{adapter.name}}" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/{{adapter.name}}.svg?label=" alt="npm downloads"></a></td>
   </tr>
 {{/each}}
 </table>
+
+> [!NOTE]
+> Don't see your favorite validation library?
+> We welcome [PRs](https://github.com/decs/typeschema/pulls)!
+> Otherwise, please [file an issue](https://github.com/decs/typeschema/issues) to help us prioritize. 🙌
 
 {{> readmeAPI adapter}}
 

@@ -1,6 +1,6 @@
 ## API
-
 {{#if canInfer.output}}
+
 ### Inference
 - `Infer<TSchema>`: Extracts the output type of a schema
 {{#if canInfer.input}}
@@ -8,12 +8,14 @@
 {{/if}}
 {{/if}}
 {{#if hasModule.validation}}
+
 ### Validation
 - `wrap(schema)`: Returns the wrapped schema with access to its operations
 - `validate(schema, data)`: Returns the validated data or a list of validation issues
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
 {{/if}}
 {{#if hasModule.serialization}}
+
 ### Serialization
 - `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema
 {{/if}}
