@@ -22,7 +22,7 @@
       "dependsOn": ["sync:pnpm"]
     },
     "upgrade:deps": {
-      "outputs": ["package.json"]
+      "cache": false
     },
     "sync:pnpm": {
       "cache": false,

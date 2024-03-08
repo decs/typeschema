@@ -59,7 +59,7 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "typia": "^5.4.14"
+    "typia": "^5.5.3"
   },
   "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {},
