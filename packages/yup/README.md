@@ -36,7 +36,7 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 
 ## Dependencies
 - [`@sodaru/yup-to-json-schema`](https://www.npmjs.com/package/@sodaru/yup-to-json-schema): Required for serialization (`^2.0.1`)
-- [`yup`](https://www.npmjs.com/package/yup): Required for inference and validation (`^1.3.3`)
+- [`yup`](https://www.npmjs.com/package/yup): Required for inference and validation (`^1.4.0`)
 
 ## API
 

@@ -60,7 +60,7 @@
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
     "@gcornut/valibot-json-schema": "^0.0.25",
-    "valibot": "^0.29.0"
+    "valibot": "^0.30.0"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
@@ -69,7 +69,7 @@
   },
   "peerDependencies": {
     "@gcornut/valibot-json-schema": "^0.0.25",
-    "valibot": "^0.29.0"
+    "valibot": "^0.30.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
