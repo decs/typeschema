@@ -8,6 +8,7 @@ export {
   IfDefined,
   memoize,
   memoizeWithKey,
+  Selector,
   UnknownIfNever,
   unsupportedAdapter,
 } from './utils';

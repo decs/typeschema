@@ -47,3 +47,15 @@ export function unsupportedAdapter<TResolver extends Resolver>(
     throw new Error(`This feature is unsupported for ${adapterName}`);
   };
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface Selector<T extends Record<string, any>> {
+  value: T[keyof T];
+  kind: keyof T;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fn: <TMap extends {[K in keyof T]: (value: T[K]) => any}>(
+    map: TMap,
+  ) => <U extends T[keyof T]>(
+    value: U,
+  ) => ReturnType<TMap[(this & {value: U})['kind']]>;
+}
