@@ -1,5 +1,13 @@
 # @typeschema/main
 
+## 0.13.8
+
+### Patch Changes
+
+- a7c09b6: feat: add support to fastest-validator
+- Updated dependencies [a7c09b6]
+  - @typeschema/fastest-validator@0.1.0
+
 ## 0.13.7
 
 ### Patch Changes
