@@ -32,6 +32,11 @@ const importEffectValidationAdapter = memoize(async () => {
   return validationAdapter;
 });
 
+const importFastestValidatorValidationAdapter = memoize(async () => {
+  const {validationAdapter} = await import('@typeschema/fastest-validator');
+  return validationAdapter;
+});
+
 const importFunctionValidationAdapter = memoize(async () => {
   const {validationAdapter} = await import('@typeschema/function');
   return validationAdapter;
@@ -102,6 +107,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   classValidator: async schema => (await importClassValidatorValidationAdapter())(schema),
   deepkit: async schema => (await importDeepkitValidationAdapter())(schema),
   effect: async schema => (await importEffectValidationAdapter())(schema),
+  fastestValidator: async schema => (await importFastestValidatorValidationAdapter())(schema),
   function: async schema => (await importFunctionValidationAdapter())(schema),
   ioTs: async schema => (await importIoTsValidationAdapter())(schema),
   joi: async schema => (await importJoiValidationAdapter())(schema),

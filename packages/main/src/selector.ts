@@ -41,6 +41,38 @@ function isClassValidatorSchema(
   );
 }
 
+type IsJSONSchema<TSchema> = TSchema extends {type: unknown}
+  ? true
+  : TSchema extends {const: unknown}
+    ? true
+    : TSchema extends {enum: unknown}
+      ? true
+      : TSchema extends {anyOf: unknown}
+        ? true
+        : TSchema extends {oneOf: unknown}
+          ? true
+          : TSchema extends {allOf: unknown}
+            ? true
+            : TSchema extends {not: unknown}
+              ? true
+              : TSchema extends {if: unknown}
+                ? true
+                : false;
+function isJSONSchema(
+  schema: SchemaFrom<AdapterResolver>,
+): schema is SchemaFrom<AdapterResolvers['json']> {
+  return (
+    typeof schema === 'object' &&
+    ('type' in schema ||
+      'const' in schema ||
+      'enum' in schema ||
+      'anyOf' in schema ||
+      'oneOf' in schema ||
+      'allOf' in schema ||
+      'not' in schema ||
+      'if' in schema)
+  );
+}
 function notJSON<TSchema>(
   schema: TSchema,
 ): Exclude<TSchema, SchemaFrom<AdapterResolvers['json']>> {
@@ -82,7 +114,9 @@ export type Select<TSchema> =
                             ? 'ow'
                             : TSchema extends {toTerminals: unknown}
                               ? 'valita'
-                              : 'json';
+                              : IsJSONSchema<TSchema> extends true
+                                ? 'json'
+                                : 'fastestValidator';
 
 export const select: <
   TMap extends {
@@ -117,6 +151,7 @@ export const select: <
         if ('kind' in schema) return is.deepkit(notJSON(schema));
         if ('addValidator' in schema) return is.ow(notJSON(schema));
         if ('toTerminals' in schema) return is.valita(notJSON(schema));
-        return is.json(schema);
+        if (isJSONSchema(schema)) return is.json(schema);
+        return is.fastestValidator(schema);
     }
   };

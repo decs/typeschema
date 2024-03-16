@@ -17,6 +17,7 @@
     "class-validator",
     "deepkit",
     "effect",
+    "fastest-validator",
     "function",
     "io-ts",
     "joi",
@@ -85,6 +86,8 @@
     "@typeschema/effect": "workspace:*",
     "@effect/schema": "^0.63.2",
     "effect": "^2.4.1",
+    "@typeschema/fastest-validator": "workspace:*",
+    "fastest-validator": "^1.17.0",
     "@typeschema/function": "workspace:*",
     "typia": "^5.5.3",
     "@typeschema/io-ts": "workspace:*",
@@ -124,6 +127,7 @@
     "@typeschema/class-validator": "workspace:*",
     "@typeschema/deepkit": "workspace:*",
     "@typeschema/effect": "workspace:*",
+    "@typeschema/fastest-validator": "workspace:*",
     "@typeschema/function": "workspace:*",
     "@typeschema/io-ts": "workspace:*",
     "@typeschema/joi": "workspace:*",
@@ -149,6 +153,9 @@
       "optional": true
     },
     "@typeschema/effect": {
+      "optional": true
+    },
+    "@typeschema/fastest-validator": {
       "optional": true
     },
     "@typeschema/function": {

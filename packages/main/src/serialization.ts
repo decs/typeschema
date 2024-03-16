@@ -57,6 +57,7 @@ export const serializationAdapter: SerializationAdapter<AdapterResolver> = selec
   classValidator: unsupportedAdapter<AdapterResolvers['classValidator']>('@typeschema/class-validator'),
   deepkit: unsupportedAdapter<AdapterResolvers['deepkit']>('@typeschema/deepkit'),
   effect: async schema => (await importEffectSerializationAdapter())(schema),
+  fastestValidator: unsupportedAdapter<AdapterResolvers['fastestValidator']>('@typeschema/fastest-validator'),
   function: unsupportedAdapter<AdapterResolvers['function']>('@typeschema/function'),
   ioTs: unsupportedAdapter<AdapterResolvers['ioTs']>('@typeschema/io-ts'),
   joi: async schema => (await importJoiSerializationAdapter())(schema),
