@@ -297,6 +297,14 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 url: 'https://github.com/pelotom/runtypes',
               },
               {
+                adapter: adapters.find(
+                  adapter => adapter.name === 'fastest-validator',
+                ),
+                github: 'icebob/fastest-validator',
+                name: 'fastest-validator',
+                url: 'https://github.com/icebob/fastest-validator',
+              },
+              {
                 adapter: adapters.find(adapter => adapter.name === 'suretype'),
                 github: 'grantila/suretype',
                 name: 'suretype',

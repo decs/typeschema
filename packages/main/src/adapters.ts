@@ -6,6 +6,7 @@ import type {AdapterResolver as ArktypeResolver} from '@typeschema/arktype';
 import type {AdapterResolver as ClassValidatorResolver} from '@typeschema/class-validator';
 import type {AdapterResolver as DeepkitResolver} from '@typeschema/deepkit';
 import type {AdapterResolver as EffectResolver} from '@typeschema/effect';
+import type {AdapterResolver as FastestValidatorResolver} from '@typeschema/fastest-validator';
 import type {AdapterResolver as FunctionResolver} from '@typeschema/function';
 import type {AdapterResolver as IoTsResolver} from '@typeschema/io-ts';
 import type {AdapterResolver as JoiResolver} from '@typeschema/joi';
@@ -25,6 +26,7 @@ export type AdapterResolvers = {
   classValidator: ClassValidatorResolver;
   deepkit: DeepkitResolver;
   effect: EffectResolver;
+  fastestValidator: FastestValidatorResolver;
   function: FunctionResolver;
   ioTs: IoTsResolver;
   joi: JoiResolver;
