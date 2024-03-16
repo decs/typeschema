@@ -1,6 +1,6 @@
 ---
 "@typeschema/all": patch
-"@typeschema/fastest-validator": patch
+"@typeschema/fastest-validator": minor
 "@typeschema/main": patch
 ---
 
