@@ -29,6 +29,7 @@
     "typebox",
     "valibot",
     "valita",
+    "vine",
     "yup",
     "zod"
   ],
@@ -115,6 +116,8 @@
     "valibot": "^0.30.0",
     "@typeschema/valita": "workspace:*",
     "@badrap/valita": "^0.3.6",
+    "@typeschema/vine": "workspace:*",
+    "@vinejs/vine": "^2.0.0",
     "@typeschema/yup": "workspace:*",
     "@sodaru/yup-to-json-schema": "^2.0.1",
     "yup": "^1.4.0",
@@ -139,6 +142,7 @@
     "@typeschema/typebox": "workspace:*",
     "@typeschema/valibot": "workspace:*",
     "@typeschema/valita": "workspace:*",
+    "@typeschema/vine": "workspace:*",
     "@typeschema/yup": "workspace:*",
     "@typeschema/zod": "workspace:*"
   },
@@ -189,6 +193,9 @@
       "optional": true
     },
     "@typeschema/valita": {
+      "optional": true
+    },
+    "@typeschema/vine": {
       "optional": true
     },
     "@typeschema/yup": {

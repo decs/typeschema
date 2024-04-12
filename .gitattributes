@@ -20,6 +20,7 @@ packages/all/src/__tests__/tsconfig.json linguist-generated
 packages/all/src/__tests__/typebox.test.ts linguist-generated
 packages/all/src/__tests__/valibot.test.ts linguist-generated
 packages/all/src/__tests__/valita.test.ts linguist-generated
+packages/all/src/__tests__/vine.test.ts linguist-generated
 packages/all/src/__tests__/yup.test.ts linguist-generated
 packages/all/src/__tests__/zod.test.ts linguist-generated
 packages/all/src/index.ts linguist-generated
@@ -79,6 +80,7 @@ packages/main/src/__tests__/tsconfig.json linguist-generated
 packages/main/src/__tests__/typebox.test.ts linguist-generated
 packages/main/src/__tests__/valibot.test.ts linguist-generated
 packages/main/src/__tests__/valita.test.ts linguist-generated
+packages/main/src/__tests__/vine.test.ts linguist-generated
 packages/main/src/__tests__/yup.test.ts linguist-generated
 packages/main/src/__tests__/zod.test.ts linguist-generated
 packages/main/src/adapters.ts linguist-generated
@@ -114,6 +116,10 @@ packages/valita/README.md linguist-generated
 packages/valita/src/__tests__/tsconfig.json linguist-generated
 packages/valita/src/index.ts linguist-generated
 packages/valita/tsconfig.json linguist-generated
+packages/vine/README.md linguist-generated
+packages/vine/src/__tests__/tsconfig.json linguist-generated
+packages/vine/src/index.ts linguist-generated
+packages/vine/tsconfig.json linguist-generated
 packages/yup/README.md linguist-generated
 packages/yup/src/__tests__/tsconfig.json linguist-generated
 packages/yup/src/index.ts linguist-generated

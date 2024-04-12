@@ -69,6 +69,7 @@ export const serializationAdapter: SerializationAdapter<AdapterResolver> = selec
   typebox: async schema => (await importTypeboxSerializationAdapter())(schema),
   valibot: async schema => (await importValibotSerializationAdapter())(schema),
   valita: unsupportedAdapter<AdapterResolvers['valita']>('@typeschema/valita'),
+  vine: unsupportedAdapter<AdapterResolvers['vine']>('@typeschema/vine'),
   yup: async schema => (await importYupSerializationAdapter())(schema),
   zod: async schema => (await importZodSerializationAdapter())(schema),
 });

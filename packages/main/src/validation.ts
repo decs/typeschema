@@ -92,6 +92,11 @@ const importValitaValidationAdapter = memoize(async () => {
   return validationAdapter;
 });
 
+const importVineValidationAdapter = memoize(async () => {
+  const {validationAdapter} = await import('@typeschema/vine');
+  return validationAdapter;
+});
+
 const importYupValidationAdapter = memoize(async () => {
   const {validationAdapter} = await import('@typeschema/yup');
   return validationAdapter;
@@ -119,6 +124,7 @@ export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
   typebox: async schema => (await importTypeboxValidationAdapter())(schema),
   valibot: async schema => (await importValibotValidationAdapter())(schema),
   valita: async schema => (await importValitaValidationAdapter())(schema),
+  vine: async schema => (await importVineValidationAdapter())(schema),
   yup: async schema => (await importYupValidationAdapter())(schema),
   zod: async schema => (await importZodValidationAdapter())(schema),
 });

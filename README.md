@@ -235,6 +235,16 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/fastest-validator" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/fastest-validator.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
+    <td align="left"><nobr><a href="https://vinejs.dev" rel="nofollow">vine</a></nobr></td>
+    <td align="left"><a href="https://github.com/vinejs/vine" rel="nofollow"><img src="https://img.shields.io/github/stars/vinejs/vine?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/vine">@typeschema/vine</a></code></nobr></td>
+    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/vine" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/vine.svg?label=" alt="npm downloads"></a></td>
+  </tr>
+  <tr>
     <td align="left"><nobr><a href="https://github.com/grantila/suretype" rel="nofollow">suretype</a></nobr></td>
     <td align="left"><a href="https://github.com/grantila/suretype" rel="nofollow"><img src="https://img.shields.io/github/stars/grantila/suretype?style=social" alt="GitHub stars"></a></td>
     <td align="center">✅</td>
