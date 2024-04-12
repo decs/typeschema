@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "rootDir": "..",
     "plugins": [{"transform": "typia/lib/transform"}],
     "experimentalDecorators": true,

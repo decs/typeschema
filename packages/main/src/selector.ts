@@ -92,6 +92,7 @@ export type Select<TSchema> =
     : TSchema extends {kind: unknown} ? 'deepkit'
     : TSchema extends {addValidator: unknown} ? 'ow'
     : TSchema extends {toTerminals: unknown} ? 'valita'
+    : TSchema extends {bail: unknown} ? 'vine'
     : IsJSONSchema<TSchema> extends true ? 'json'
     : 'fastestValidator'
   : never;
@@ -129,6 +130,7 @@ export const select: <
         if ('kind' in schema) return is.deepkit(notJSON(schema));
         if ('addValidator' in schema) return is.ow(notJSON(schema));
         if ('toTerminals' in schema) return is.valita(notJSON(schema));
+        if ('bail' in schema) return is.vine(notJSON(schema));
         if (isJSONSchema(schema)) return is.json(schema);
         return is.fastestValidator(schema);
     }
