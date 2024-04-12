@@ -1,5 +1,13 @@
 # @typeschema/main
 
+## 1.0.0
+
+### Patch Changes
+
+- 3fef7e0: feat: add support to vine
+- Updated dependencies [3fef7e0]
+  - @typeschema/vine@0.1.0
+
 ## 0.13.8
 
 ### Patch Changes
