@@ -18,6 +18,7 @@ import type {AdapterResolver as SuretypeResolver} from '@typeschema/suretype';
 import type {AdapterResolver as TypeboxResolver} from '@typeschema/typebox';
 import type {AdapterResolver as ValibotResolver} from '@typeschema/valibot';
 import type {AdapterResolver as ValitaResolver} from '@typeschema/valita';
+import type {AdapterResolver as VineResolver} from '@typeschema/vine';
 import type {AdapterResolver as YupResolver} from '@typeschema/yup';
 import type {AdapterResolver as ZodResolver} from '@typeschema/zod';
 
@@ -38,6 +39,7 @@ export type AdapterResolvers = {
   typebox: TypeboxResolver;
   valibot: ValibotResolver;
   valita: ValitaResolver;
+  vine: VineResolver;
   yup: YupResolver;
   zod: ZodResolver;
 };

@@ -29,6 +29,7 @@
     "typebox",
     "valibot",
     "valita",
+    "vine",
     "yup",
     "zod"
   ],
@@ -91,6 +92,7 @@
     "@typeschema/typebox": "workspace:*",
     "@typeschema/valibot": "workspace:*",
     "@typeschema/valita": "workspace:*",
+    "@typeschema/vine": "workspace:*",
     "@typeschema/yup": "workspace:*",
     "@typeschema/zod": "workspace:*"
   },
@@ -118,6 +120,7 @@
     "@gcornut/valibot-json-schema": "^0.0.25",
     "valibot": "^0.30.0",
     "@badrap/valita": "^0.3.6",
+    "@vinejs/vine": "^2.0.0",
     "@sodaru/yup-to-json-schema": "^2.0.1",
     "yup": "^1.4.0",
     "zod": "^3.22.4",
