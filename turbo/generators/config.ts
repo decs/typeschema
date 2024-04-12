@@ -305,6 +305,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
                 url: 'https://github.com/icebob/fastest-validator',
               },
               {
+                adapter: adapters.find(adapter => adapter.name === 'vine'),
+                github: 'vinejs/vine',
+                name: 'vine',
+                url: 'https://vinejs.dev',
+              },
+              {
                 adapter: adapters.find(adapter => adapter.name === 'suretype'),
                 github: 'grantila/suretype',
                 name: 'suretype',
