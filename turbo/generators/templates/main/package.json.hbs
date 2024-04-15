@@ -1,10 +1,10 @@
 {
-{{> packageJson name="main" adapters=adapters}}
+{{> packageJson name="main" adapters=singleAdapters}}
   "dependencies": {
     "@typeschema/core": "workspace:*"
   },
   "devDependencies": {
-{{#each adapters}}
+{{#each singleAdapters}}
     "@typeschema/{{name}}": "workspace:*",
 {{#each packageJson.devDependencies}}
     "{{@key}}": "{{this}}",
@@ -12,12 +12,12 @@
 {{/each}}
   },
   "peerDependencies": {
-{{#each adapters}}
+{{#each singleAdapters}}
     "@typeschema/{{name}}": "workspace:*",
 {{/each}}
   },
   "peerDependenciesMeta": {
-{{#each adapters}}
+{{#each singleAdapters}}
     "@typeschema/{{name}}": {
       "optional": true
     },

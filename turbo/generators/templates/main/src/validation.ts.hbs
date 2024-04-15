@@ -8,7 +8,7 @@ import {memoize, unsupportedAdapter} from '@typeschema/core';
 
 import {select} from './selector';
 
-{{#each adapters}}
+{{#each singleAdapters}}
 {{#if hasModule.validation}}
 const import{{pascalCase name}}ValidationAdapter = memoize(async () => {
   const {validationAdapter} = await import('@typeschema/{{name}}');
@@ -18,7 +18,7 @@ const import{{pascalCase name}}ValidationAdapter = memoize(async () => {
 {{/if}}
 {{/each}}
 export const validationAdapter: ValidationAdapter<AdapterResolver> = select({
-{{#each adapters}}
+{{#each singleAdapters}}
 {{#if hasModule.validation}}
   {{camelCase name}}: async schema => (await import{{pascalCase name}}ValidationAdapter())(schema),
 {{else}}
