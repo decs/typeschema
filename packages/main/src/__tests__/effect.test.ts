@@ -99,14 +99,6 @@ describe('effect', () => {
 
   test('toJSONSchema', async () => {
     expect(await toJSONSchema(schema)).toStrictEqual({
-      $defs: {
-        DateFromString: {
-          description: 'an ISO-date string',
-          format: 'date-time',
-          title: 'ISOString',
-          type: 'string',
-        },
-      },
       $schema: 'http://json-schema.org/draft-07/schema#',
       additionalProperties: false,
       properties: {
@@ -116,7 +108,10 @@ describe('effect', () => {
           type: 'number',
         },
         createdAt: {
-          $ref: '#/$defs/DateFromString',
+          description: 'an ISO-date string',
+          format: 'date-time',
+          title: 'ISOString',
+          type: 'string',
         },
         email: {
           description: 'a string',
@@ -134,7 +129,10 @@ describe('effect', () => {
           type: 'string',
         },
         updatedAt: {
-          $ref: '#/$defs/DateFromString',
+          description: 'an ISO-date string',
+          format: 'date-time',
+          title: 'ISOString',
+          type: 'string',
         },
       },
       required: ['age', 'email', 'id', 'name', 'createdAt', 'updatedAt'],

@@ -59,14 +59,14 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@badrap/valita": "^0.3.6"
+    "@badrap/valita": "^0.3.8"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "@badrap/valita": "Required for inference and validation"
   },
   "peerDependencies": {
-    "@badrap/valita": "^0.3.6"
+    "@badrap/valita": "^0.3.8"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
