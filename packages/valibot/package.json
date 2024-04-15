@@ -59,7 +59,7 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@gcornut/valibot-json-schema": "^0.0.25",
+    "@gcornut/valibot-json-schema": "^0.0.27",
     "valibot": "^0.30.0"
   },
   "//peerDependencies": {
@@ -68,7 +68,7 @@
     "valibot": "Required for inference and validation"
   },
   "peerDependencies": {
-    "@gcornut/valibot-json-schema": "^0.0.25",
+    "@gcornut/valibot-json-schema": "^0.0.27",
     "valibot": "^0.30.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",

@@ -59,15 +59,15 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@deepkit/type": "^1.0.1-alpha.142",
-    "@deepkit/type-compiler": "^1.0.1-alpha.142"
+    "@deepkit/type": "^1.0.1-alpha.145",
+    "@deepkit/type-compiler": "^1.0.1-alpha.143"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "@deepkit/type": "Required for validation"
   },
   "peerDependencies": {
-    "@deepkit/type": "^1.0.1-alpha.142"
+    "@deepkit/type": "^1.0.1-alpha.145"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

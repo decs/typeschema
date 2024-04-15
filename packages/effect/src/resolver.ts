@@ -5,9 +5,9 @@ export interface AdapterResolver extends Resolver {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   base: IfDefined<Schema<any>, '@effect/schema'>;
   input: this['schema'] extends this['base']
-    ? Schema.From<this['schema']>
+    ? Schema.Encoded<this['schema']>
     : never;
   output: this['schema'] extends this['base']
-    ? Schema.To<this['schema']>
+    ? Schema.Type<this['schema']>
     : never;
 }
