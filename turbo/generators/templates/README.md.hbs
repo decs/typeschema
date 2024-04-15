@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/decs/typeschema" alt="License"></a>
-  <a href="https://bundlephobia.com/package/@typeschema/{{adapter.name}}" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2F{{adapter.name}}" alt="Bundle size"></a>
+  <a href="https://bundlephobia.com/package/@typeschema/{{mainAdapter.name}}" rel="nofollow"><img src="https://img.shields.io/bundlephobia/minzip/%40typeschema%2F{{mainAdapter.name}}" alt="Bundle size"></a>
   <a href="https://www.npmjs.com/package/@typeschema/core" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/core.svg" alt="npm downloads"></a>
   <a href="https://github.com/decs/typeschema/stargazers" rel="nofollow"><img src="https://img.shields.io/github/stars/decs/typeschema" alt="GitHub stars"></a>
 </p>
@@ -27,7 +27,7 @@
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
   <a href="https://github.com/decs/typeschema">GitHub</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="https://www.npmjs.com/package/@typeschema/{{adapter.name}}">npm</a>
+  <a href="https://www.npmjs.com/package/@typeschema/{{mainAdapter.name}}">npm</a>
 </p>
 <br />
 
@@ -38,7 +38,7 @@
 > TypeSchema enables writing code that [works with any validation library](#coverage) out-of-the-box. It provides a universal adapter for interacting with any validation schema, decoupling from implementation specifics and increasing compatibility.
 
 ```ts
-import {validate} from '@typeschema/{{adapter.name}}';
+import {validate} from '@typeschema/{{mainAdapter.name}}';
 
 import {z} from 'zod';
 import {string} from 'valibot';
@@ -91,7 +91,7 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 > We welcome [PRs](https://github.com/decs/typeschema/pulls)!
 > Otherwise, please [file an issue](https://github.com/decs/typeschema/issues) to help us prioritize. 🙌
 
-{{> readmeAPI adapter}}
+{{> readmeAPI mainAdapter}}
 
 ## Acknowledgements
 

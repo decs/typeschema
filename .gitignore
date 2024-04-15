@@ -9,3 +9,5 @@ dist/
 *_dist/
 
 *.tmp
+
+/turbo/generators/stars.json
