@@ -165,6 +165,16 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/typebox" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/typebox.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
+    <td align="left"><nobr><a href="https://effect.website" rel="nofollow">effect</a></nobr></td>
+    <td align="left"><a href="https://github.com/effect-ts/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/effect">@typeschema/effect</a></code></nobr></td>
+    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/effect" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/effect.svg?label=" alt="npm downloads"></a></td>
+  </tr>
+  <tr>
     <td align="left"><nobr><a href="https://typia.io" rel="nofollow">typia</a></nobr></td>
     <td align="left"><a href="https://github.com/samchon/typia" rel="nofollow"><img src="https://img.shields.io/github/stars/samchon/typia?style=social" alt="GitHub stars"></a></td>
     <td align="center">✅</td>
@@ -183,16 +193,6 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="center">🧐</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/ow">@typeschema/ow</a></code></nobr></td>
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/ow" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/ow.svg?label=" alt="npm downloads"></a></td>
-  </tr>
-  <tr>
-    <td align="left"><nobr><a href="https://effect.website" rel="nofollow">effect</a></nobr></td>
-    <td align="left"><a href="https://github.com/effect-ts/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a></td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/effect">@typeschema/effect</a></code></nobr></td>
-    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/effect" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/effect.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
     <td align="left"><nobr><a href="https://arktype.io" rel="nofollow">arktype</a></nobr></td>

@@ -4,6 +4,11 @@ import {ESLint} from 'eslint';
 import * as fs from 'fs';
 import * as prettier from 'prettier';
 
+import {genLibraries} from './libraries';
+
+const MULTI_ADAPTER_NAMES = ['main', 'all'];
+const NON_ADAPTER_NAMES = ['core'];
+
 const DISCLAIMER = 'This file is generated. Do not modify it manually!';
 const PARTIAL_DISCLAIMER =
   'This file is partially generated. Only some fields can be modified manually!';
@@ -21,7 +26,7 @@ const eslint = new ESLint({
 
 const generatedFilePaths: Array<string> = [];
 
-function maybeReadFile(path: string): string | null {
+export function maybeReadFile(path: string): string | null {
   return fs.existsSync(path) ? fs.readFileSync(path, 'utf-8') : null;
 }
 
@@ -42,7 +47,7 @@ function getAddAction(config: {
           fs.writeFileSync(tempPath, `${SLASH_STAR_HEADER}\n\n${content}`);
           const results = await eslint.lintFiles(tempPath);
           const output =
-            results[0].output ?? fs.readFileSync(tempPath, 'utf-8');
+            results[0]?.output ?? fs.readFileSync(tempPath, 'utf-8');
           fs.unlinkSync(tempPath);
           generatedFilePaths.push(config.path);
           return output;
@@ -99,39 +104,50 @@ function getAddActions(config: {
     );
 }
 
-function getAdapters(adapterNames: Array<string>) {
-  return adapterNames.map(adapterName => {
+type Adapter = {
+  canInfer: {[key: string]: boolean};
+  example: string | null;
+  name: string;
+  hasModule: {[key: string]: boolean};
+  packageJson: {[key: string]: unknown};
+};
+
+function getAdapters(adapterNames: Array<string>): {[key: string]: Adapter} {
+  return adapterNames.reduce((adapters, adapterName) => {
     const resolver = maybeReadFile(`packages/${adapterName}/src/resolver.ts`);
     return {
-      canInfer: ['input', 'output'].reduce(
-        (result, type) => ({
-          ...result,
-          [type]:
-            resolver?.includes(
-              `${type}: this['schema'] extends this['base'] ? unknown : never;`,
-            ) === false,
-        }),
-        {},
-      ),
-      example: maybeReadFile(
-        `packages/${adapterName}/src/__tests__/example.ts`,
-      )?.replace("'..'", `'@typeschema/${adapterName}'`),
-      hasModule: ['validation', 'serialization'].reduce(
-        (result, moduleName) => ({
-          ...result,
-          [moduleName]:
-            fs.statSync(`packages/${adapterName}/src/${moduleName}.ts`, {
-              throwIfNoEntry: false,
-            }) != null,
-        }),
-        {},
-      ),
-      name: adapterName,
-      packageJson: JSON.parse(
-        maybeReadFile(`packages/${adapterName}/package.json`) ?? '{}',
-      ),
+      ...adapters,
+      [adapterName]: {
+        canInfer: ['input', 'output'].reduce(
+          (result, type) => ({
+            ...result,
+            [type]:
+              resolver?.includes(
+                `${type}: this['schema'] extends this['base'] ? unknown : never;`,
+              ) === false,
+          }),
+          {},
+        ),
+        example: maybeReadFile(
+          `packages/${adapterName}/src/__tests__/example.ts`,
+        )?.replace("'..'", `'@typeschema/${adapterName}'`),
+        hasModule: ['validation', 'serialization'].reduce(
+          (result, moduleName) => ({
+            ...result,
+            [moduleName]:
+              fs.statSync(`packages/${adapterName}/src/${moduleName}.ts`, {
+                throwIfNoEntry: false,
+              }) != null,
+          }),
+          {},
+        ),
+        name: adapterName,
+        packageJson: JSON.parse(
+          maybeReadFile(`packages/${adapterName}/package.json`) ?? '{}',
+        ),
+      },
     };
-  });
+  }, {});
 }
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
@@ -158,33 +174,27 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.addHelper('isEmpty', (value: object) => Object.keys(value).length === 0);
 
   plop.setGenerator('all', {
-    actions: () => {
-      const packageNames = fs
-        .readdirSync('packages', {withFileTypes: true})
-        .filter(file => file.isDirectory())
-        .map(file => file.name);
-      const adapters = getAdapters(
-        packageNames.filter(packageName => packageName !== 'core'),
-      );
-      const multiAdapterNames = ['main', 'all'];
-      const singleAdapters = adapters.filter(
-        adapter => !multiAdapterNames.includes(adapter.name),
-      );
+    actions: answers => {
+      const {adapters, libraries, singleAdapters} = answers as {
+        adapters: Record<string, Adapter>;
+        libraries: Record<string, unknown>;
+        singleAdapters: Array<Adapter>;
+      };
       const actions: Array<PlopTypes.ActionConfig> = [
-        ...adapters.flatMap(adapter =>
+        ...Object.values(adapters).flatMap(adapter =>
           getAddActions({
             base: 'templates/adapter',
             data: {
               ...adapter,
-              isMultipleAdapter: multiAdapterNames.includes(adapter.name),
+              isMultipleAdapter: MULTI_ADAPTER_NAMES.includes(adapter.name),
             },
             destination: `packages/${adapter.name}`,
           }),
         ),
-        ...multiAdapterNames.flatMap(multiAdapterName => [
+        ...MULTI_ADAPTER_NAMES.flatMap(multiAdapterName => [
           ...getAddActions({
             base: `templates/${multiAdapterName}`,
-            data: {adapters: singleAdapters},
+            data: {singleAdapters},
             destination: `packages/${multiAdapterName}`,
           }),
           ...singleAdapters.map(singleAdapter =>
@@ -199,131 +209,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           templateFile: 'templates/adapter/tsconfig.json.hbs',
         }),
         getAddAction({
-          data: {
-            adapter: adapters.find(adapter => adapter.name === 'main'),
-            libraries: [
-              {
-                adapter: adapters.find(adapter => adapter.name === 'zod'),
-                github: 'colinhacks/zod',
-                name: 'zod',
-                url: 'https://zod.dev',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'yup'),
-                github: 'jquense/yup',
-                name: 'yup',
-                url: 'https://github.com/jquense/yup',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'joi'),
-                github: 'hapijs/joi',
-                name: 'joi',
-                url: 'https://joi.dev',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'json'),
-                github: 'ajv-validator/ajv',
-                name: 'ajv',
-                url: 'https://ajv.js.org',
-              },
-              {
-                adapter: adapters.find(
-                  adapter => adapter.name === 'class-validator',
-                ),
-                github: 'typestack/class-validator',
-                name: 'class-validator',
-                url: 'https://github.com/typestack/class-validator',
-              },
-              {
-                adapter: adapters.find(
-                  adapter => adapter.name === 'superstruct',
-                ),
-                github: 'ianstormtaylor/superstruct',
-                name: 'superstruct',
-                url: 'https://docs.superstructjs.org',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'io-ts'),
-                github: 'gcanti/io-ts',
-                name: 'io-ts',
-                url: 'https://gcanti.github.io/io-ts',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'valibot'),
-                github: 'fabian-hiller/valibot',
-                name: 'valibot',
-                url: 'https://valibot.dev',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'typebox'),
-                github: 'sinclairzx81/typebox',
-                name: 'typebox',
-                url: 'https://github.com/sinclairzx81/typebox',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'function'),
-                github: 'samchon/typia',
-                name: 'typia',
-                url: 'https://typia.io',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'ow'),
-                github: 'sindresorhus/ow',
-                name: 'ow',
-                url: 'https://sindresorhus.com/ow',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'effect'),
-                github: 'effect-ts/effect',
-                name: 'effect',
-                url: 'https://effect.website',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'arktype'),
-                github: 'arktypeio/arktype',
-                name: 'arktype',
-                url: 'https://arktype.io',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'deepkit'),
-                github: 'deepkit/deepkit-framework',
-                name: 'deepkit',
-                url: 'https://deepkit.io',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'runtypes'),
-                github: 'pelotom/runtypes',
-                name: 'runtypes',
-                url: 'https://github.com/pelotom/runtypes',
-              },
-              {
-                adapter: adapters.find(
-                  adapter => adapter.name === 'fastest-validator',
-                ),
-                github: 'icebob/fastest-validator',
-                name: 'fastest-validator',
-                url: 'https://github.com/icebob/fastest-validator',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'vine'),
-                github: 'vinejs/vine',
-                name: 'vine',
-                url: 'https://vinejs.dev',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'suretype'),
-                github: 'grantila/suretype',
-                name: 'suretype',
-                url: 'https://github.com/grantila/suretype',
-              },
-              {
-                adapter: adapters.find(adapter => adapter.name === 'valita'),
-                github: 'badrap/valita',
-                name: 'valita',
-                url: 'https://github.com/badrap/valita',
-              },
-            ],
-          },
+          data: {libraries, mainAdapter: adapters.main},
           path: 'README.md',
           templateFile: 'templates/README.md.hbs',
         }),
@@ -332,7 +218,22 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       return actions;
     },
     description: 'Re-generates files',
-    prompts: [],
+    prompts: async () => {
+      const packageNames = fs
+        .readdirSync('packages', {withFileTypes: true})
+        .filter(file => file.isDirectory())
+        .map(file => file.name);
+      const adapters = getAdapters(
+        packageNames.filter(
+          packageName => !NON_ADAPTER_NAMES.includes(packageName),
+        ),
+      );
+      const libraries = await genLibraries(adapters);
+      const singleAdapters = Object.values(adapters).filter(
+        adapter => !MULTI_ADAPTER_NAMES.includes(adapter.name),
+      );
+      return {adapters, libraries, singleAdapters};
+    },
   });
 
   plop.setGenerator('create-adapter', {
