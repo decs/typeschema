@@ -59,8 +59,8 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@effect/schema": "^0.63.2",
-    "effect": "^2.4.1"
+    "@effect/schema": "^0.64.20",
+    "effect": "^2.4.18"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
@@ -68,8 +68,8 @@
     "effect": "Required for inference and validation"
   },
   "peerDependencies": {
-    "@effect/schema": "^0.63.2",
-    "effect": "^2.4.1"
+    "@effect/schema": "^0.64.20",
+    "effect": "^2.4.18"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

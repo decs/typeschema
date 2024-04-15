@@ -36,7 +36,7 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 
 ## Dependencies
 - [`zod`](https://www.npmjs.com/package/zod): Required for inference and validation (`^3.22.4`)
-- [`zod-to-json-schema`](https://www.npmjs.com/package/zod-to-json-schema): Required for serialization (`^3.22.4`)
+- [`zod-to-json-schema`](https://www.npmjs.com/package/zod-to-json-schema): Required for serialization (`^3.22.5`)
 
 ## API
 
