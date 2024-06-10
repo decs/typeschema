@@ -36,7 +36,7 @@ Use it directly or through [`@typeschema/main`](https://github.com/decs/typesche
 
 ## Dependencies
 - [`@gcornut/valibot-json-schema`](https://www.npmjs.com/package/@gcornut/valibot-json-schema): Required for serialization (`^0.0.27`)
-- [`valibot`](https://www.npmjs.com/package/valibot): Required for inference and validation (`^0.30.0`)
+- [`valibot`](https://www.npmjs.com/package/valibot): Required for inference and validation (`^0.31.0`)
 
 ## API
 

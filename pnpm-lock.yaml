@@ -305,7 +305,7 @@ importers:
         version: 0.64.20(effect@2.4.18)(fast-check@3.17.1)
       '@gcornut/valibot-json-schema':
         specifier: ^0.0.27
-        version: 0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.30.0)
+        version: 0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.31.0)
       '@sinclair/typebox':
         specifier: ^0.32.20
         version: 0.32.20
@@ -364,8 +364,8 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(typescript@5.4.5)
       valibot:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.31.0
+        version: 0.31.0
       yup:
         specifier: ^1.4.0
         version: 1.4.0
@@ -510,7 +510,7 @@ importers:
         version: 0.64.20(effect@2.4.18)(fast-check@3.17.1)
       '@gcornut/valibot-json-schema':
         specifier: ^0.0.27
-        version: 0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.30.0)
+        version: 0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.31.0)
       '@sinclair/typebox':
         specifier: ^0.32.20
         version: 0.32.20
@@ -626,8 +626,8 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(typescript@5.4.5)
       valibot:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.31.0
+        version: 0.31.0
       yup:
         specifier: ^1.4.0
         version: 1.4.0
@@ -696,10 +696,10 @@ importers:
     devDependencies:
       '@gcornut/valibot-json-schema':
         specifier: ^0.0.27
-        version: 0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.30.0)
+        version: 0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.31.0)
       valibot:
-        specifier: ^0.30.0
-        version: 0.30.0
+        specifier: ^0.31.0
+        version: 0.31.0
 
   packages/valita:
     dependencies:
@@ -1550,7 +1550,7 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@gcornut/valibot-json-schema@0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.30.0):
+  /@gcornut/valibot-json-schema@0.0.27(@types/json-schema@7.0.15)(esbuild-runner@2.2.2)(esbuild@0.20.2)(valibot@0.31.0):
     resolution: {integrity: sha512-xcMaUStVgQzPrK3d7PuLFbQ+3qSp6LzaLExAm52E3FKmUfjQa7Sw5cDK6Hfu/8WT0yfGsuSCuJ5uT1sosjR9Qg==}
     hasBin: true
     peerDependencies:
@@ -1562,7 +1562,7 @@ packages:
       '@types/json-schema': 7.0.15
       esbuild: 0.20.2
       esbuild-runner: 2.2.2(esbuild@0.20.2)
-      valibot: 0.30.0
+      valibot: 0.31.0
     dev: true
 
   /@gwhitney/detect-indent@7.0.1:
@@ -9340,6 +9340,9 @@ packages:
     resolution: {integrity: sha512-W+gxAq7aQ9dJIg/XLKGcRT0cvnStFAQHPaI0pvD0U2l6IVLueUAm3nwN7lkY62zZNmlvNx6jNtE4wlbS+CyqSg==}
     engines: {node: '>= 12.0.0'}
     hasBin: true
+    peerDependenciesMeta:
+      '@parcel/core':
+        optional: true
     dependencies:
       '@parcel/config-default': 2.12.0(@parcel/core@2.12.0)(typescript@5.4.5)
       '@parcel/core': 2.12.0
@@ -11649,8 +11652,8 @@ packages:
     resolution: {integrity: sha512-k57/5/kMwMjiVP0LUMpa+n4ihSemuXshz1ND4fftKw1bkHZYN/TnHcbjaEie3K7FwAceiOgugLZPjSaNxdygeg==}
     dev: false
 
-  /valibot@0.30.0:
-    resolution: {integrity: sha512-5POBdbSkM+3nvJ6ZlyQHsggisfRtyT4tVTo1EIIShs6qCdXJnyWU5TJ68vr8iTg5zpOLjXLRiBqNx+9zwZz/rA==}
+  /valibot@0.31.0:
+    resolution: {integrity: sha512-bleS8aVFpRGTUgbMoXzsRJhpxJGiZ3MG1nuNSORuDvio+sI1EyT1+lQHg+77Pfnlxz+25Uj5HiwdaklcDcYdiQ==}
     dev: true
 
   /validate-npm-package-license@3.0.4:

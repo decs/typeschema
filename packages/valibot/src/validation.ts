@@ -2,6 +2,7 @@ import type {AdapterResolver} from './resolver';
 import type {ValidationAdapter} from '@typeschema/core';
 
 import {memoize} from '@typeschema/core';
+import { getDotPath } from 'valibot';
 
 const importValidationModule = memoize(async () => {
   const {safeParseAsync} = await import('valibot');
@@ -21,12 +22,14 @@ export const validationAdapter: ValidationAdapter<
       };
     }
     return {
-      issues: result.issues.map(({message, path}) => ({
-        message,
-        path: path?.map(({type, key}) =>
-          type === 'map' || type === 'unknown' ? String(key) : key,
-        ),
-      })),
+      issues: result.issues.map((issue) => {
+        const path = getDotPath(issue);
+
+        return {
+          message: issue.message,
+          path: path?.split('.'),
+        };
+      }),
       success: false,
     };
   };
