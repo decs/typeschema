@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@gcornut/valibot-json-schema`](https://www.npmjs.com/package/@gcornut/valibot-json-schema): Required for serialization (`^0.0.27`)
+- [`@gcornut/valibot-json-schema`](https://www.npmjs.com/package/@gcornut/valibot-json-schema): Required for serialization (`^0.31.0`)
 - [`valibot`](https://www.npmjs.com/package/valibot): Required for inference and validation (`^0.31.0`)
 
 ## API

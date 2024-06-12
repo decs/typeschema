@@ -112,7 +112,7 @@
     "@typeschema/typebox": "workspace:*",
     "@sinclair/typebox": "^0.32.20",
     "@typeschema/valibot": "workspace:*",
-    "@gcornut/valibot-json-schema": "^0.0.27",
+    "@gcornut/valibot-json-schema": "^0.31.0",
     "valibot": "^0.31.0",
     "@typeschema/valita": "workspace:*",
     "@badrap/valita": "^0.3.8",
