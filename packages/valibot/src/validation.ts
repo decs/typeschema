@@ -17,7 +17,8 @@ export const validationAdapter: ValidationAdapter<
     const result = await safeParseAsync(schema, data);
     if (result.success) {
       return {
-        data: result.output,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: result.output as any,
         success: true,
       };
     }
