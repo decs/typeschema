@@ -1,5 +1,13 @@
 # @typeschema/main
 
+## 0.13.10
+
+### Patch Changes
+
+- ac97adb: Update to Valibot 0.31
+- Updated dependencies [ac97adb]
+  - @typeschema/valibot@0.13.5
+
 ## 0.13.9
 
 ### Patch Changes
