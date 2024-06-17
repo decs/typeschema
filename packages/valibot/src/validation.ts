@@ -4,28 +4,27 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
-  const {safeParseAsync} = await import('valibot');
-  return {safeParseAsync};
+  const {getDotPath, safeParseAsync} = await import('valibot');
+  return {getDotPath, safeParseAsync};
 });
 
 export const validationAdapter: ValidationAdapter<
   AdapterResolver
 > = async schema => {
-  const {safeParseAsync} = await importValidationModule();
+  const {getDotPath, safeParseAsync} = await importValidationModule();
   return async data => {
     const result = await safeParseAsync(schema, data);
     if (result.success) {
       return {
-        data: result.output,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: result.output as any,
         success: true,
       };
     }
     return {
-      issues: result.issues.map(({message, path}) => ({
-        message,
-        path: path?.map(({type, key}) =>
-          type === 'map' || type === 'unknown' ? String(key) : key,
-        ),
+      issues: result.issues.map(issue => ({
+        message: issue.message,
+        path: getDotPath(issue)?.split('.'),
       })),
       success: false,
     };

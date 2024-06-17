@@ -12,5 +12,5 @@ export const serializationAdapter: SerializationAdapter<
   AdapterResolver
 > = async schema => {
   const {toJSONSchema} = await importSerializationModule();
-  return toJSONSchema({schema});
+  return toJSONSchema({ignoreUnknownValidation: true, schema});
 };
