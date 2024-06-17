@@ -1,5 +1,11 @@
 # @typeschema/valibot
 
+## 0.13.5
+
+### Patch Changes
+
+- ac97adb: Update to Valibot 0.31
+
 ## 0.13.4
 
 ### Patch Changes
