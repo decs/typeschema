@@ -1,7 +1,6 @@
 import type {Resolver, SchemaFrom} from './resolver';
 
-export type IfDefined<TValue, TModule extends string = ''> = 0 extends 1 &
-  TValue
+export type IfDefined<TValue, TModule extends string = ''> = unknown extends TValue
   ? TModule extends ''
     ? never
     : `Cannot find module '${TModule}'`
