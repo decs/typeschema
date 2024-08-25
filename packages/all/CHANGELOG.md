@@ -12,7 +12,7 @@
 - Updated dependencies [14976b2]
   - @typeschema/core@0.14.0
   - @typeschema/deepkit@0.14.0
-  - @typeschema/main@1.0.0
+  - @typeschema/main@0.14.0
   - @typeschema/arktype@0.14.0
   - @typeschema/class-validator@0.2.0
   - @typeschema/effect@0.14.0
