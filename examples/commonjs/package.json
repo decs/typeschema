@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "//test": "tsup --config ../../tsup.config.ts --format cjs && node dist/index.js",
+    "upgrade:deps": "ncu -u",
     "sync:pnpm": "sync-dependencies-meta-injected"
   },
   "dependencies": {
     "@typeschema/all": "workspace:*",
-    "ow": "^0.28.2"
+    "ow": "^2.0.0"
   },
   "dependenciesMeta": {
     "@typeschema/all": {

@@ -11,14 +11,14 @@ import type {
 
 import {
   createAssert,
-  createToJSONSchema,
   createValidate,
   createWrap,
+  createToJSONSchema,
 } from '@typeschema/core';
 
 import {AdapterResolver} from './resolver';
-import {serializationAdapter} from './serialization';
 import {validationAdapter} from './validation';
+import {serializationAdapter} from './serialization';
 
 export type Schema = SchemaFrom<AdapterResolver>;
 export type Infer<TSchema extends Schema> = UnknownIfNever<
@@ -36,6 +36,6 @@ export const toJSONSchema = createToJSONSchema(serializationAdapter);
 
 export {
   AdapterResolver,
-  serializationAdapter,
   validationAdapter,
+  serializationAdapter,
 };

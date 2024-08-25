@@ -4,17 +4,23 @@ import type {ValidationAdapter} from '@typeschema/core';
 import {memoize} from '@typeschema/core';
 
 const importValidationModule = memoize(async () => {
-  const {isRight} = await import('effect/Either');
-  const {decodeEither} = await import('@effect/schema/Schema');
-  const {formatError} = await import('@effect/schema/TreeFormatter');
-  return {decodeEither, formatError, isRight};
+  const {
+    Effect: {runSync},
+    Either: {isRight},
+  } = await import('effect');
+  const {
+    Schema: {decodeUnknownEither},
+    TreeFormatter: {formatError},
+  } = await import('@effect/schema');
+  return {decodeUnknownEither, formatError, isRight, runSync};
 });
 
 export const validationAdapter: ValidationAdapter<
   AdapterResolver
 > = async schema => {
-  const {decodeEither, formatError, isRight} = await importValidationModule();
-  const parseSchema = decodeEither(schema);
+  const {decodeUnknownEither, formatError, isRight, runSync} =
+    await importValidationModule();
+  const parseSchema = decodeUnknownEither(schema);
   return async data => {
     const result = parseSchema(data);
     if (isRight(result)) {
@@ -24,7 +30,7 @@ export const validationAdapter: ValidationAdapter<
       };
     }
     return {
-      issues: [{message: formatError(result.left)}],
+      issues: [{message: runSync(formatError(result.left))}],
       success: false,
     };
   };

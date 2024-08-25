@@ -59,11 +59,11 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "fastest-validator": "^1.17.0"
+    "fastest-validator": "^1.19.0"
   },
   "//peerDependencies": "This field is manually maintained.",
   "peerDependencies": {
-    "fastest-validator": "^1.17.0"
+    "fastest-validator": "^1.19.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

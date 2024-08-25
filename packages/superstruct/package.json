@@ -59,14 +59,14 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "superstruct": "^1.0.4"
+    "superstruct": "^2.0.2"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "superstruct": "Required for inference and validation"
   },
   "peerDependencies": {
-    "superstruct": "^1.0.4"
+    "superstruct": "^2.0.2"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

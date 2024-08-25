@@ -34,7 +34,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`fastest-validator`](https://www.npmjs.com/package/fastest-validator):  (`^1.17.0`)
+- [`fastest-validator`](https://www.npmjs.com/package/fastest-validator):  (`^1.19.0`)
 
 ## API
 

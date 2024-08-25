@@ -8,7 +8,7 @@
     "tsup.config.ts",
     "vitest.config.ts"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["sync:pnpm"],
       "outputs": ["dist/**"]

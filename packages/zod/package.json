@@ -59,8 +59,8 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "zod": "^3.22.4",
-    "zod-to-json-schema": "^3.22.5"
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.2"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
@@ -68,8 +68,8 @@
     "zod-to-json-schema": "Required for serialization"
   },
   "peerDependencies": {
-    "zod": "^3.22.4",
-    "zod-to-json-schema": "^3.22.5"
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.2"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

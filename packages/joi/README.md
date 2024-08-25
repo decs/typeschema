@@ -35,8 +35,8 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`joi`](https://www.npmjs.com/package/joi): Required for validation (`^17.12.3`)
-- [`joi-to-json`](https://www.npmjs.com/package/joi-to-json): Required for serialization (`^4.2.1`)
+- [`joi`](https://www.npmjs.com/package/joi): Required for validation (`^17.13.3`)
+- [`joi-to-json`](https://www.npmjs.com/package/joi-to-json): Required for serialization (`^4.3.0`)
 
 ## API
 

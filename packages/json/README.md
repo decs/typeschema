@@ -39,8 +39,8 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`ajv`](https://www.npmjs.com/package/ajv): Required for validation and serialization (`^8.12.0`)
-- [`json-schema-to-ts`](https://www.npmjs.com/package/json-schema-to-ts): Required for inference (`^3.0.1`)
+- [`ajv`](https://www.npmjs.com/package/ajv): Required for validation and serialization (`^8.17.1`)
+- [`json-schema-to-ts`](https://www.npmjs.com/package/json-schema-to-ts): Required for inference (`^3.1.0`)
 
 ## API
 

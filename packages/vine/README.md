@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@vinejs/vine`](https://www.npmjs.com/package/@vinejs/vine): Required for inference and validation (`^2.0.0`)
+- [`@vinejs/vine`](https://www.npmjs.com/package/@vinejs/vine): Required for inference and validation (`^2.1.0`)
 
 ## API
 

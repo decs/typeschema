@@ -59,7 +59,7 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "fp-ts": "^2.16.5",
+    "fp-ts": "^2.16.9",
     "io-ts": "^2.2.21",
     "io-ts-types": "^0.5.19"
   },
@@ -69,7 +69,7 @@
     "io-ts": "Required for inference and validation"
   },
   "peerDependencies": {
-    "fp-ts": "^2.16.5",
+    "fp-ts": "^2.16.9",
     "io-ts": "^2.2.21"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",

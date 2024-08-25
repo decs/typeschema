@@ -5,7 +5,7 @@ import {memoizeWithKey} from './utils';
 
 export type ValidationIssue = {
   message: string;
-  path?: Array<string | number | symbol>;
+  path?: Array<PropertyKey>;
 };
 
 export type ValidationResult<TOutput> =

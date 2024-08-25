@@ -135,16 +135,6 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/superstruct" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/superstruct.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
-    <td align="left"><nobr><a href="https://gcanti.github.io/io-ts" rel="nofollow">io-ts</a></nobr></td>
-    <td align="left"><a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a></td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="center">🧐</td>
-    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/io-ts">@typeschema/io-ts</a></code></nobr></td>
-    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/io-ts" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/io-ts.svg?label=" alt="npm downloads"></a></td>
-  </tr>
-  <tr>
     <td align="left"><nobr><a href="https://effect.website" rel="nofollow">effect</a></nobr></td>
     <td align="left"><a href="https://github.com/effect-ts/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a></td>
     <td align="center">✅</td>
@@ -153,6 +143,16 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="center">✅</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/effect">@typeschema/effect</a></code></nobr></td>
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/effect" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/effect.svg?label=" alt="npm downloads"></a></td>
+  </tr>
+  <tr>
+    <td align="left"><nobr><a href="https://gcanti.github.io/io-ts" rel="nofollow">io-ts</a></nobr></td>
+    <td align="left"><a href="https://github.com/gcanti/io-ts" rel="nofollow"><img src="https://img.shields.io/github/stars/gcanti/io-ts?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/io-ts">@typeschema/io-ts</a></code></nobr></td>
+    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/io-ts" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/io-ts.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
     <td align="left"><nobr><a href="https://valibot.dev" rel="nofollow">valibot</a></nobr></td>

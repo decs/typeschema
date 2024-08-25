@@ -59,8 +59,8 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "ajv": "^8.12.0",
-    "json-schema-to-ts": "^3.0.1"
+    "ajv": "^8.17.1",
+    "json-schema-to-ts": "^3.1.0"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
@@ -68,8 +68,8 @@
     "json-schema-to-ts": "Required for inference"
   },
   "peerDependencies": {
-    "ajv": "^8.12.0",
-    "json-schema-to-ts": "^3.0.1"
+    "ajv": "^8.17.1",
+    "json-schema-to-ts": "^3.1.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

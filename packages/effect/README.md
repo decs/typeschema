@@ -35,8 +35,8 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@effect/schema`](https://www.npmjs.com/package/@effect/schema): Required for inference, validation, and serialization (`^0.64.20`)
-- [`effect`](https://www.npmjs.com/package/effect): Required for inference and validation (`^2.4.18`)
+- [`@effect/schema`](https://www.npmjs.com/package/@effect/schema): Required for inference, validation, and serialization (`^0.71.1`)
+- [`effect`](https://www.npmjs.com/package/effect): Required for inference and validation (`^3.6.5`)
 
 ## API
 

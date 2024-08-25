@@ -9,12 +9,12 @@ import {assert, validate, wrap} from '..';
 
 describe('arktype', () => {
   const schema = type({
-    age: ['number', '|>', (age: number) => `${age} years old`],
-    createdAt: ['string', '|>', (createdAt: string) => new Date(createdAt)],
-    email: 'email',
-    id: 'uuid',
+    age: type('number').pipe((age: number) => `${age} years old`),
+    createdAt: type('string').pipe((createdAt: string) => new Date(createdAt)),
+    email: 'string.email',
+    id: 'string.uuid',
     name: 'string',
-    updatedAt: ['string', '|>', (updatedAt: string) => new Date(updatedAt)],
+    updatedAt: type('string').pipe((updatedAt: string) => new Date(updatedAt)),
   });
 
   const data = {
@@ -40,22 +40,22 @@ describe('arktype', () => {
   });
 
   test('validate', async () => {
-    expect(await validate(schema, structuredClone(data))).toEqual({
+    expect(await validate(schema, data)).toEqual({
       data: outputData,
       success: true,
     });
-    expect(await validate(schema, structuredClone(outputData))).toEqual({
+    expect(await validate(schema, outputData)).toEqual({
       issues: [
         {
-          message: 'age must be a number (was string)',
+          message: 'age must be a number (was a string)',
           path: ['age'],
         },
         {
-          message: 'createdAt must be a string (was object)',
+          message: 'createdAt must be a string (was an object)',
           path: ['createdAt'],
         },
         {
-          message: 'updatedAt must be a string (was object)',
+          message: 'updatedAt must be a string (was an object)',
           path: ['updatedAt'],
         },
       ],
@@ -64,8 +64,8 @@ describe('arktype', () => {
   });
 
   test('assert', async () => {
-    expect(await assert(schema, structuredClone(data))).toEqual(outputData);
-    await expect(assert(schema, structuredClone(outputData))).rejects.toThrow();
+    expect(await assert(schema, data)).toEqual(outputData);
+    await expect(assert(schema, outputData)).rejects.toThrow();
   });
 
   test('wrap', async () => {

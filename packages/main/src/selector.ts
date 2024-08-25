@@ -39,6 +39,15 @@ function isClassValidatorSchema(
 }
 
 // prettier-ignore
+type IsEffectSchema<TSchema> =
+  TSchema extends {make: unknown} ? true : false;
+function isEffectSchema(
+  schema: SchemaFrom<AdapterResolver>,
+): schema is SchemaFrom<AdapterResolvers['effect']> {
+  return typeof schema === 'function' && 'make' in schema;
+}
+
+// prettier-ignore
 type IsJSONSchema<TSchema> =
   TSchema extends {type: unknown} ? true
   : TSchema extends {const: unknown} ? true
@@ -73,9 +82,10 @@ function notJSON<TSchema>(
 
 // prettier-ignore
 export type Select<TSchema> =
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   TSchema extends Function
     ? TSchema extends {assert: unknown} ? 'arktype'
+    : IsEffectSchema<TSchema> extends true ? 'effect'
     : IsClassValidatorSchema<TSchema> extends true ? 'classValidator'
     : 'function'
   : TSchema extends object
@@ -88,7 +98,6 @@ export type Select<TSchema> =
     : TSchema extends {_flags: unknown} ? 'joi'
     : TSchema extends {encode: unknown} ? 'ioTs'
     : TSchema extends {reflect: unknown} ? 'runtypes'
-    : TSchema extends {ast: unknown} ? 'effect'
     : TSchema extends {kind: unknown} ? 'deepkit'
     : TSchema extends {addValidator: unknown} ? 'ow'
     : TSchema extends {toTerminals: unknown} ? 'valita'
@@ -114,6 +123,7 @@ export const select: <
     switch (typeof schema) {
       case 'function':
         if ('assert' in schema) return is.arktype(schema);
+        if (isEffectSchema(schema)) return is.effect(schema);
         if (isClassValidatorSchema(schema)) return is.classValidator(schema);
         return is.function(schema);
       case 'object':
@@ -126,7 +136,6 @@ export const select: <
         if ('_flags' in schema) return is.joi(notJSON(schema));
         if ('encode' in schema) return is.ioTs(notJSON(schema));
         if ('reflect' in schema) return is.runtypes(notJSON(schema));
-        if ('ast' in schema) return is.effect(notJSON(schema));
         if ('kind' in schema) return is.deepkit(notJSON(schema));
         if ('addValidator' in schema) return is.ow(notJSON(schema));
         if ('toTerminals' in schema) return is.valita(notJSON(schema));

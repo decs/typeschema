@@ -59,8 +59,8 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "joi": "^17.12.3",
-    "joi-to-json": "^4.2.1"
+    "joi": "^17.13.3",
+    "joi-to-json": "^4.3.0"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
@@ -68,8 +68,8 @@
     "joi-to-json": "Required for serialization"
   },
   "peerDependencies": {
-    "joi": "^17.12.3",
-    "joi-to-json": "^4.2.1"
+    "joi": "^17.13.3",
+    "joi-to-json": "^4.3.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

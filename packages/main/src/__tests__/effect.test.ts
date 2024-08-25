@@ -4,7 +4,7 @@
 
 import type {Infer, InferIn} from '..';
 
-import * as S from '@effect/schema/Schema';
+import {Schema} from '@effect/schema';
 import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
 import {describe, expect, test} from 'vitest';
@@ -13,24 +13,25 @@ import {assert, toJSONSchema, validate, wrap} from '..';
 
 const readonly = <A extends Record<string, unknown>>(a: A): Readonly<A> => a;
 
-const DateFromString = S.DateFromString.pipe(
-  S.jsonSchema({
+const DateFromString = Schema.DateFromString.annotations({
+  jsonSchema: {
     description: 'an ISO-date string',
     format: 'date-time',
     title: 'ISOString',
     type: 'string',
-  }),
-);
+  },
+});
 
 describe('effect', () => {
-  const schema = S.struct({
-    age: S.number,
+  const schema = Schema.Struct({
+    age: Schema.Number,
     createdAt: DateFromString,
-    email: S.string,
-    id: S.string,
-    name: S.string,
+    email: Schema.String,
+    id: Schema.String,
+    name: Schema.String,
     updatedAt: DateFromString,
   });
+  console.log(typeof schema);
 
   const data = readonly({
     age: 123,
@@ -70,9 +71,9 @@ describe('effect', () => {
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
-          message: `{ age: number; email: string; id: string; name: string; createdAt: DateFromString; updatedAt: DateFromString }
-└─ [\"age\"]
-   └─ Expected a number, actual \"123\"`,
+          message: `{ readonly age: number; readonly email: string; readonly id: string; readonly name: string; readonly createdAt: DateFromString; readonly updatedAt: DateFromString }
+└─ ["age"]
+   └─ Expected number, actual "123"`,
         },
       ],
       success: false,
@@ -103,8 +104,6 @@ describe('effect', () => {
       additionalProperties: false,
       properties: {
         age: {
-          description: 'a number',
-          title: 'number',
           type: 'number',
         },
         createdAt: {
@@ -114,18 +113,12 @@ describe('effect', () => {
           type: 'string',
         },
         email: {
-          description: 'a string',
-          title: 'string',
           type: 'string',
         },
         id: {
-          description: 'a string',
-          title: 'string',
           type: 'string',
         },
         name: {
-          description: 'a string',
-          title: 'string',
           type: 'string',
         },
         updatedAt: {

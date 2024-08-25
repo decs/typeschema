@@ -35,7 +35,7 @@ const appRouter = t.router({
 Use it directly or through [`@typeschema/main`](https://github.com/decs/typeschema/tree/main/packages/main)
 
 ## Dependencies
-- [`@badrap/valita`](https://www.npmjs.com/package/@badrap/valita): Required for inference and validation (`^0.3.8`)
+- [`@badrap/valita`](https://www.npmjs.com/package/@badrap/valita): Required for inference and validation (`^0.3.9`)
 
 ## API
 

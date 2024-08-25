@@ -59,14 +59,14 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "arktype": "^1.0.29-alpha"
+    "arktype": "^2.0.0-rc.0"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "arktype": "Required for inference and validation"
   },
   "peerDependencies": {
-    "arktype": "^1.0.29-alpha"
+    "arktype": "^2.0.0-rc.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

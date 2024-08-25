@@ -59,14 +59,14 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@sinclair/typebox": "^0.32.20"
+    "@sinclair/typebox": "^0.33.7"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "@sinclair/typebox": "Required for inference, validation, and serialization"
   },
   "peerDependencies": {
-    "@sinclair/typebox": "^0.32.20"
+    "@sinclair/typebox": "^0.33.7"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {

@@ -6,7 +6,15 @@ import type {Infer, InferIn} from '..';
 
 import {initTRPC} from '@trpc/server';
 import {expectTypeOf} from 'expect-type';
-import {email, isoTimestamp, number, object, pipe, string, transform} from 'valibot';
+import {
+  email,
+  isoTimestamp,
+  number,
+  object,
+  pipe,
+  string,
+  transform,
+} from 'valibot';
 import {describe, expect, test} from 'vitest';
 
 import {assert, toJSONSchema, validate, wrap} from '..';
@@ -14,11 +22,19 @@ import {assert, toJSONSchema, validate, wrap} from '..';
 describe('valibot', () => {
   const schema = object({
     age: number(),
-    createdAt: pipe(string(), isoTimestamp(), transform((input) => new Date(input))),
+    createdAt: pipe(
+      string(),
+      isoTimestamp(),
+      transform(input => new Date(input)),
+    ),
     email: pipe(string(), email()),
     id: string(),
     name: string(),
-    updatedAt: pipe(string(), isoTimestamp(), transform((input) => new Date(input))),
+    updatedAt: pipe(
+      string(),
+      isoTimestamp(),
+      transform(input => new Date(input)),
+    ),
   });
 
   const data = {

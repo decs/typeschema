@@ -59,14 +59,14 @@
   },
   "//devDependencies": "This field is manually maintained.",
   "devDependencies": {
-    "@vinejs/vine": "^2.0.0"
+    "@vinejs/vine": "^2.1.0"
   },
   "//peerDependencies": {
     "//": "This field is manually maintained.",
     "@vinejs/vine": "Required for inference and validation"
   },
   "peerDependencies": {
-    "@vinejs/vine": "^2.0.0"
+    "@vinejs/vine": "^2.1.0"
   },
   "//peerDependenciesMeta": "This field is manually maintained.",
   "peerDependenciesMeta": {
