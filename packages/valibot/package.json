@@ -2,7 +2,7 @@
   "//": "This file is partially generated. Only some fields can be modified manually!",
   "name": "@typeschema/valibot",
   "//version": "This field is manually maintained.",
-  "version": "0.13.5",
+  "version": "0.14.0",
   "//description": "This field is manually maintained.",
   "description": "Reusable adapter for Valibot schemas",
   "keywords": [

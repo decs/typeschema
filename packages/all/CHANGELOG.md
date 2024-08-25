@@ -1,5 +1,37 @@
 # @typeschema/all
 
+## 0.14.0
+
+### Minor Changes
+
+- 14976b2: Upgrade deps
+
+### Patch Changes
+
+- Updated dependencies [2251f01]
+- Updated dependencies [14976b2]
+  - @typeschema/core@0.14.0
+  - @typeschema/deepkit@0.14.0
+  - @typeschema/main@1.0.0
+  - @typeschema/arktype@0.14.0
+  - @typeschema/class-validator@0.2.0
+  - @typeschema/effect@0.14.0
+  - @typeschema/fastest-validator@0.2.0
+  - @typeschema/function@0.14.0
+  - @typeschema/io-ts@0.14.0
+  - @typeschema/joi@0.14.0
+  - @typeschema/json@0.14.0
+  - @typeschema/ow@0.14.0
+  - @typeschema/runtypes@0.14.0
+  - @typeschema/superstruct@0.14.0
+  - @typeschema/suretype@0.2.0
+  - @typeschema/typebox@0.14.0
+  - @typeschema/valibot@0.14.0
+  - @typeschema/valita@0.2.0
+  - @typeschema/vine@0.2.0
+  - @typeschema/yup@0.14.0
+  - @typeschema/zod@0.14.0
+
 ## 0.13.10
 
 ### Patch Changes
