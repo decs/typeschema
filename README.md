@@ -283,7 +283,7 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
 - `assert(schema, data)`: Returns the validated data or throws an `AggregateError`
 
 ### Serialization
-- `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema
+- `toJSONSchema(schema)`: Converts the schema into the equivalent JSON schema (Requires the peer dev dependency @types/json-schema to be installed.)
 
 ## Acknowledgements
 
