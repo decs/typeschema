@@ -1,7 +1,9 @@
+/* eslint-disable prettier/prettier */
 import type {AdapterResolver} from './resolver';
-import type {ValidationAdapter} from '@typeschema/core';
+import type {ValidationAdapter, ValidationIssue} from '@typeschema/core';
 
 import {memoize} from '@typeschema/core';
+import { ValidationError } from "class-validator";
 
 const importValidationModule = memoize(async () => {
   const {validate} = await import('class-validator');
@@ -13,6 +15,22 @@ export const validationAdapter: ValidationAdapter<
 > = async schema => {
   const {validate} = await importValidationModule();
   return async data => {
+    function getIssues(error: ValidationError, parentPath = ""): ValidationIssue[] {
+      const currentPath = parentPath
+        ? Number.isInteger(+error.property) ? `${parentPath}[${error.property}]` : `${parentPath}.${error.property}`
+        : error.property;
+      const constraints = error.constraints ? Object.values(error.constraints) : [];
+      const childIssues = error.children ? error.children.flatMap(childError => getIssues(childError, currentPath)) : [];
+
+      return [
+          ...constraints.map((message) => ({
+              message: message,
+              path: [currentPath],
+          })),
+          ...childIssues
+      ];
+    }
+
     const errors = await validate(Object.assign(new schema(), data));
     if (errors.length === 0) {
       return {
@@ -22,10 +40,7 @@ export const validationAdapter: ValidationAdapter<
       };
     }
     return {
-      issues: errors.map(error => ({
-        message: error.toString(),
-        path: [error.property],
-      })),
+      issues: errors.flatMap(error => getIssues(error)),
       success: false,
     };
   };
