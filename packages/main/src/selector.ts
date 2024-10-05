@@ -1,13 +1,11 @@
 import type {AdapterResolvers} from './adapters';
 import type {AdapterResolver} from './resolver';
-import type {Kind} from '@sinclair/typebox';
 import type {IfDefined, SchemaFrom} from '@typeschema/core';
 import type {CoreValidator} from 'suretype';
 
 // prettier-ignore
 type IsTypeboxSchema<TSchema> =
-  [IfDefined<typeof Kind>] extends [never] ? false
-  : TSchema extends {[Kind]: unknown} ? true
+  TSchema extends {static: unknown, params: unknown[]} ? true
   : false;
 function isTypeboxSchema(
   schema: SchemaFrom<AdapterResolver>,
