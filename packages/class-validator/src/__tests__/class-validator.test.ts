@@ -6,8 +6,11 @@ import {
   IsEmail,
   IsInt,
   IsNotEmpty,
+  IsOptional,
+  IsString,
   IsUUID,
   Min,
+  ValidateNested,
 } from 'class-validator';
 import {expectTypeOf} from 'expect-type';
 import {describe, expect, test} from 'vitest';
@@ -15,6 +18,12 @@ import {describe, expect, test} from 'vitest';
 import {assert, validate, wrap} from '..';
 
 describe('class-validator', () => {
+  class NestedSchema {
+    @IsString()
+    @IsNotEmpty()
+    value!: string;
+  }
+
   class Schema {
     @IsInt()
     @Min(0)
@@ -34,6 +43,12 @@ describe('class-validator', () => {
 
     @IsDateString()
     updatedAt!: string;
+
+    @ValidateNested()
+    nested!: NestedSchema;
+    @IsOptional()
+    @ValidateNested()
+    nestedArray?: NestedSchema[];
   }
   const schema = Schema;
 
@@ -44,14 +59,26 @@ describe('class-validator', () => {
     id: 'c4a760a8-dbcf-4e14-9f39-645a8e933d74',
     name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
-  };
+  } as Schema;
+
   const badData = {
     age: '123',
     createdAt: '2021-01-01T00:00:00.000Z',
     email: 'john.doe@test.com',
     id: 'c4a760a8-dbcf-4e14-9f39-645a8e933d74',
     name: 'John Doe',
+    updatedAt: '2021-01-01T00:00:00.000Z'
+  };
+
+  const badNestedData = {
+    age: 123,
+    createdAt: '2021-01-01T00:00:00.000Z',
+    email: 'john.doe@test.com',
+    id: 'c4a760a8-dbcf-4e14-9f39-645a8e933d74',
+    name: 'John Doe',
     updatedAt: '2021-01-01T00:00:00.000Z',
+    nested: new NestedSchema(),
+    nestedArray: [new NestedSchema()],
   };
 
   test('infer', () => {
@@ -67,11 +94,35 @@ describe('class-validator', () => {
     expect(await validate(schema, badData)).toStrictEqual({
       issues: [
         {
-          message: `An instance of Schema has failed the validation:
- - property age has failed the following constraints: min, isInt 
-`,
+          message: 'age must not be less than 0',
           path: ['age'],
         },
+        {
+          message: 'age must be an integer number',
+          path: ['age'],
+        }
+      ],
+      success: false,
+    });
+
+    expect(await validate(schema, badNestedData)).toStrictEqual({
+      issues: [
+        {
+          message: 'value should not be empty',
+          path: ['nested.value'],
+        },
+        {
+          message: 'value must be a string',
+          path: ['nested.value'],
+        },
+        {
+          message: 'value should not be empty',
+          path: ['nestedArray[0].value'],
+        },
+        {
+          message: 'value must be a string',
+          path: ['nestedArray[0].value'],
+        }
       ],
       success: false,
     });
