@@ -125,16 +125,6 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/class-validator" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/class-validator.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
-    <td align="left"><nobr><a href="https://docs.superstructjs.org" rel="nofollow">superstruct</a></nobr></td>
-    <td align="left"><a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a></td>
-    <td align="center">✅</td>
-    <td align="center">🧐</td>
-    <td align="center">✅</td>
-    <td align="center">🧐</td>
-    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/superstruct">@typeschema/superstruct</a></code></nobr></td>
-    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/superstruct" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/superstruct.svg?label=" alt="npm downloads"></a></td>
-  </tr>
-  <tr>
     <td align="left"><nobr><a href="https://effect.website" rel="nofollow">effect</a></nobr></td>
     <td align="left"><a href="https://github.com/effect-ts/effect" rel="nofollow"><img src="https://img.shields.io/github/stars/effect-ts/effect?style=social" alt="GitHub stars"></a></td>
     <td align="center">✅</td>
@@ -143,6 +133,16 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="center">✅</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/effect">@typeschema/effect</a></code></nobr></td>
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/effect" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/effect.svg?label=" alt="npm downloads"></a></td>
+  </tr>
+  <tr>
+    <td align="left"><nobr><a href="https://docs.superstructjs.org" rel="nofollow">superstruct</a></nobr></td>
+    <td align="left"><a href="https://github.com/ianstormtaylor/superstruct" rel="nofollow"><img src="https://img.shields.io/github/stars/ianstormtaylor/superstruct?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/superstruct">@typeschema/superstruct</a></code></nobr></td>
+    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/superstruct" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/superstruct.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
     <td align="left"><nobr><a href="https://gcanti.github.io/io-ts" rel="nofollow">io-ts</a></nobr></td>
@@ -185,16 +185,6 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/function" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/function.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
-    <td align="left"><nobr><a href="https://sindresorhus.com/ow" rel="nofollow">ow</a></nobr></td>
-    <td align="left"><a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a></td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="center">✅</td>
-    <td align="center">🧐</td>
-    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/ow">@typeschema/ow</a></code></nobr></td>
-    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/ow" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/ow.svg?label=" alt="npm downloads"></a></td>
-  </tr>
-  <tr>
     <td align="left"><nobr><a href="https://arktype.io" rel="nofollow">arktype</a></nobr></td>
     <td align="left"><a href="https://github.com/arktypeio/arktype" rel="nofollow"><img src="https://img.shields.io/github/stars/arktypeio/arktype?style=social" alt="GitHub stars"></a></td>
     <td align="center">✅</td>
@@ -203,6 +193,16 @@ We value flexibility, which is why there are multiple ways of using TypeSchema:
     <td align="center">🧐</td>
     <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/arktype">@typeschema/arktype</a></code></nobr></td>
     <td align="right"><a href="https://www.npmjs.com/package/@typeschema/arktype" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/arktype.svg?label=" alt="npm downloads"></a></td>
+  </tr>
+  <tr>
+    <td align="left"><nobr><a href="https://sindresorhus.com/ow" rel="nofollow">ow</a></nobr></td>
+    <td align="left"><a href="https://github.com/sindresorhus/ow" rel="nofollow"><img src="https://img.shields.io/github/stars/sindresorhus/ow?style=social" alt="GitHub stars"></a></td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">✅</td>
+    <td align="center">🧐</td>
+    <td align="left"><nobr><code><a href="https://github.com/decs/typeschema/tree/main/packages/ow">@typeschema/ow</a></code></nobr></td>
+    <td align="right"><a href="https://www.npmjs.com/package/@typeschema/ow" rel="nofollow"><img src="https://img.shields.io/npm/dw/@typeschema/ow.svg?label=" alt="npm downloads"></a></td>
   </tr>
   <tr>
     <td align="left"><nobr><a href="https://deepkit.io" rel="nofollow">deepkit</a></nobr></td>

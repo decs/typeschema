@@ -44,11 +44,13 @@ describe('class-validator', () => {
     @IsDateString()
     updatedAt!: string;
 
-    @ValidateNested()
-    nested!: NestedSchema;
     @IsOptional()
     @ValidateNested()
-    nestedArray?: NestedSchema[];
+    nested?: NestedSchema;
+
+    @IsOptional()
+    @ValidateNested()
+    nestedArray?: Array<NestedSchema>;
   }
   const schema = Schema;
 
@@ -67,7 +69,7 @@ describe('class-validator', () => {
     email: 'john.doe@test.com',
     id: 'c4a760a8-dbcf-4e14-9f39-645a8e933d74',
     name: 'John Doe',
-    updatedAt: '2021-01-01T00:00:00.000Z'
+    updatedAt: '2021-01-01T00:00:00.000Z',
   };
 
   const badNestedData = {
@@ -100,7 +102,7 @@ describe('class-validator', () => {
         {
           message: 'age must be an integer number',
           path: ['age'],
-        }
+        },
       ],
       success: false,
     });
@@ -109,20 +111,20 @@ describe('class-validator', () => {
       issues: [
         {
           message: 'value should not be empty',
-          path: ['nested.value'],
+          path: ['nested', 'value'],
         },
         {
           message: 'value must be a string',
-          path: ['nested.value'],
+          path: ['nested', 'value'],
         },
         {
           message: 'value should not be empty',
-          path: ['nestedArray[0].value'],
+          path: ['nestedArray', 0, 'value'],
         },
         {
           message: 'value must be a string',
-          path: ['nestedArray[0].value'],
-        }
+          path: ['nestedArray', 0, 'value'],
+        },
       ],
       success: false,
     });
