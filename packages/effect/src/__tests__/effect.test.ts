@@ -27,7 +27,6 @@ describe('effect', () => {
     name: Schema.String,
     updatedAt: DateFromString,
   });
-  console.log(typeof schema);
 
   const data = readonly({
     age: 123,

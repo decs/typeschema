@@ -1,11 +1,10 @@
 import type {AdapterResolvers} from './adapters';
 import type {AdapterResolver} from './resolver';
-import type {IfDefined, SchemaFrom} from '@typeschema/core';
-import type {CoreValidator} from 'suretype';
+import type {SchemaFrom} from '@typeschema/core';
 
 // prettier-ignore
 type IsTypeboxSchema<TSchema> =
-  TSchema extends {static: unknown, params: unknown[]} ? true
+  TSchema extends {static: unknown, params: unknown} ? true
   : false;
 function isTypeboxSchema(
   schema: SchemaFrom<AdapterResolver>,
@@ -15,8 +14,7 @@ function isTypeboxSchema(
 
 // prettier-ignore
 type IsSuretypeSchema<TSchema> =
-  [IfDefined<CoreValidator<unknown>>] extends [never] ? false
-  : TSchema extends CoreValidator<unknown> ? true
+  TSchema extends {required: () => {constructor: unknown}} ? true
   : false;
 function isSuretypeSchema(
   schema: SchemaFrom<AdapterResolver>,
