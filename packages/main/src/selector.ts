@@ -14,7 +14,7 @@ function isTypeboxSchema(
 
 // prettier-ignore
 type IsSuretypeSchema<TSchema> =
-  TSchema extends {required: () => {constructor: unknown}} ? true
+  TSchema extends {required: () => object, nullable?: never} ? true
   : false;
 function isSuretypeSchema(
   schema: SchemaFrom<AdapterResolver>,
