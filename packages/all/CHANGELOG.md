@@ -1,5 +1,16 @@
 # @typeschema/all
 
+## 0.14.1
+
+### Patch Changes
+
+- d7e9ade: Improved error messages for class-validator
+- 1fa8097: Remove type dependencies on schema selector
+- Updated dependencies [d7e9ade]
+- Updated dependencies [1fa8097]
+  - @typeschema/class-validator@0.3.0
+  - @typeschema/main@1.0.0
+
 ## 0.14.0
 
 ### Minor Changes
