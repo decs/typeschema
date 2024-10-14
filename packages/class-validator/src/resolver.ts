@@ -12,11 +12,11 @@ export interface AdapterResolver extends Resolver {
   input: this['schema'] extends this['base']
     ? this['schema'] extends {prototype: unknown}
       ? Attributes<this['schema']['prototype']>
-      : never
-    : never;
+      : unknown
+    : unknown;
   output: this['schema'] extends this['base']
     ? this['schema'] extends {prototype: unknown}
       ? Attributes<this['schema']['prototype']>
-      : never
-    : never;
+      : unknown
+    : unknown;
 }

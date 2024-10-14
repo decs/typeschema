@@ -121,10 +121,7 @@ function getAdapters(adapterNames: Array<string>): {[key: string]: Adapter} {
         canInfer: ['input', 'output'].reduce(
           (result, type) => ({
             ...result,
-            [type]:
-              resolver?.includes(
-                `${type}: this['schema'] extends this['base'] ? unknown : never;`,
-              ) === false,
+            [type]: resolver?.includes(`${type}: unknown;`) === false,
           }),
           {},
         ),

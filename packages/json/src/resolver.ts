@@ -6,8 +6,8 @@ export interface AdapterResolver extends Resolver {
   base: IfDefined<SchemaObject, 'ajv'>;
   input: this['schema'] extends this['base']
     ? IfDefined<FromSchema<this['schema']>, 'json-schema-to-ts'>
-    : never;
+    : unknown;
   output: this['schema'] extends this['base']
     ? IfDefined<FromSchema<this['schema']>, 'json-schema-to-ts'>
-    : never;
+    : unknown;
 }

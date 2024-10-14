@@ -6,8 +6,8 @@ export interface AdapterResolver extends Resolver {
   base: IfDefined<BaseType<any, any, any>, '@vinejs/vine'>;
   input: this['schema'] extends this['base']
     ? this['schema'][typeof symbols.ITYPE]
-    : never;
+    : unknown;
   output: this['schema'] extends this['base']
     ? this['schema'][typeof symbols.OTYPE]
-    : never;
+    : unknown;
 }

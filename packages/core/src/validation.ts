@@ -1,5 +1,4 @@
 import type {OutputFrom, Resolver, SchemaFrom} from './resolver';
-import type {UnknownIfNever} from './utils';
 
 import {memoizeWithKey} from './utils';
 
@@ -17,9 +16,7 @@ export type ValidationAdapter<TResolver extends Resolver> = <
 >(
   schema: TSchema,
 ) => Promise<
-  (
-    data: unknown,
-  ) => Promise<ValidationResult<UnknownIfNever<OutputFrom<TResolver, TSchema>>>>
+  (data: unknown) => Promise<ValidationResult<OutputFrom<TResolver, TSchema>>>
 >;
 
 export type Validate<TResolver extends Resolver> = <
@@ -27,7 +24,7 @@ export type Validate<TResolver extends Resolver> = <
 >(
   schema: TSchema,
   data: unknown,
-) => Promise<ValidationResult<UnknownIfNever<OutputFrom<TResolver, TSchema>>>>;
+) => Promise<ValidationResult<OutputFrom<TResolver, TSchema>>>;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function createValidate<TResolver extends Resolver>(
@@ -47,7 +44,7 @@ export type Assert<TResolver extends Resolver> = <
 >(
   schema: TSchema,
   data: unknown,
-) => Promise<UnknownIfNever<OutputFrom<TResolver, TSchema>>>;
+) => Promise<OutputFrom<TResolver, TSchema>>;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function createAssert<TResolver extends Resolver>(

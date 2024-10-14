@@ -8,11 +8,11 @@ export interface AdapterResolver extends Resolver {
   input: this['schema'] extends this['base']
     ? keyof this['schema'] extends never
       ? Awaited<ReturnType<this['schema']>>
-      : never
-    : never;
+      : unknown
+    : unknown;
   output: this['schema'] extends this['base']
     ? keyof this['schema'] extends never
       ? Awaited<ReturnType<this['schema']>>
-      : never
-    : never;
+      : unknown
+    : unknown;
 }

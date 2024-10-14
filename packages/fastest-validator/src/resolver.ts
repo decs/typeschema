@@ -3,6 +3,6 @@ import type {ValidationSchema} from 'fastest-validator';
 
 export interface AdapterResolver extends Resolver {
   base: IfDefined<ValidationSchema, 'fastest-validator'>;
-  input: this['schema'] extends this['base'] ? unknown : never;
-  output: this['schema'] extends this['base'] ? unknown : never;
+  input: unknown;
+  output: unknown;
 }

@@ -4,13 +4,7 @@ export {
   SerializationAdapter,
   ToJSONSchema,
 } from './serialization';
-export {
-  IfDefined,
-  memoize,
-  memoizeWithKey,
-  UnknownIfNever,
-  unsupportedAdapter,
-} from './utils';
+export {IfDefined, memoize, memoizeWithKey, unsupportedAdapter} from './utils';
 export {
   Assert,
   createAssert,

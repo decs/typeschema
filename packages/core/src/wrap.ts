@@ -1,5 +1,4 @@
 import type {InputFrom, OutputFrom, Resolver, SchemaFrom} from './resolver';
-import type {UnknownIfNever} from './utils';
 import type {Assert, Validate, ValidationIssue} from './validation';
 
 export type TypeSchema<TOutput, TInput = TOutput> = {
@@ -16,10 +15,7 @@ export type Wrap<TResolver extends Resolver> = <
   TSchema extends SchemaFrom<TResolver>,
 >(
   schema: TSchema,
-) => TypeSchema<
-  UnknownIfNever<OutputFrom<TResolver, TSchema>>,
-  UnknownIfNever<InputFrom<TResolver, TSchema>>
->;
+) => TypeSchema<OutputFrom<TResolver, TSchema>, InputFrom<TResolver, TSchema>>;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function createWrap<TResolver extends Resolver>(

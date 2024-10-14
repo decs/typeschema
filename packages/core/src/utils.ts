@@ -1,12 +1,13 @@
 import type {Resolver, SchemaFrom} from './resolver';
 
-export type IfDefined<TValue, TModule extends string = ''> = unknown extends TValue
+export type IfDefined<
+  TValue,
+  TModule extends string = '',
+> = unknown extends TValue
   ? TModule extends ''
     ? never
     : `Cannot find module '${TModule}'`
   : TValue;
-
-export type UnknownIfNever<T> = [T] extends [never] ? unknown : T;
 
 /* @__NO_SIDE_EFFECTS__ */
 export function memoize<TValue>(

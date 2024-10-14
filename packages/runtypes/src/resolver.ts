@@ -3,6 +3,8 @@ import type {Runtype, Static} from 'runtypes';
 
 export interface AdapterResolver extends Resolver {
   base: IfDefined<Runtype, 'runtypes'>;
-  input: this['schema'] extends this['base'] ? Static<this['schema']> : never;
-  output: this['schema'] extends this['base'] ? Static<this['schema']> : never;
+  input: this['schema'] extends this['base'] ? Static<this['schema']> : unknown;
+  output: this['schema'] extends this['base']
+    ? Static<this['schema']>
+    : unknown;
 }

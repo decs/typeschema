@@ -1,5 +1,3 @@
-import type {IfDefined} from './utils';
-
 export interface Resolver<TSchema = unknown> {
   schema: TSchema;
   input: unknown;
@@ -7,16 +5,12 @@ export interface Resolver<TSchema = unknown> {
   base: unknown;
 }
 
-export type SchemaFrom<TResolver extends Resolver> = IfDefined<
-  TResolver['base']
->;
+export type SchemaFrom<TResolver extends Resolver> = TResolver['base'];
 
-export type InputFrom<TResolver extends Resolver, TSchema> =
-  TSchema extends SchemaFrom<TResolver>
-    ? IfDefined<(TResolver & {schema: TSchema})['input']>
-    : never;
+export type InputFrom<TResolver extends Resolver, TSchema> = (TResolver & {
+  schema: TSchema;
+})['input'];
 
-export type OutputFrom<TResolver extends Resolver, TSchema> =
-  TSchema extends SchemaFrom<TResolver>
-    ? IfDefined<(TResolver & {schema: TSchema})['output']>
-    : never;
+export type OutputFrom<TResolver extends Resolver, TSchema> = (TResolver & {
+  schema: TSchema;
+})['output'];

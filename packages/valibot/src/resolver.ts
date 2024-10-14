@@ -10,8 +10,8 @@ export interface AdapterResolver extends Resolver {
   base: IfDefined<GenericSchema | GenericSchemaAsync, 'valibot'>;
   input: this['schema'] extends this['base']
     ? InferInput<this['schema']>
-    : never;
+    : unknown;
   output: this['schema'] extends this['base']
     ? InferOutput<this['schema']>
-    : never;
+    : unknown;
 }

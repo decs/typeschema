@@ -5,6 +5,8 @@ export interface AdapterResolver extends Resolver {
   base: IfDefined<Type, 'arktype'>;
   input: this['schema'] extends this['base']
     ? this['schema']['inferIn']
-    : never;
-  output: this['schema'] extends this['base'] ? this['schema']['infer'] : never;
+    : unknown;
+  output: this['schema'] extends this['base']
+    ? this['schema']['infer']
+    : unknown;
 }

@@ -3,6 +3,8 @@ import type {CoreValidator, TypeOf} from 'suretype';
 
 export interface AdapterResolver extends Resolver {
   base: IfDefined<CoreValidator<unknown>, 'suretype'>;
-  input: this['schema'] extends this['base'] ? TypeOf<this['schema']> : never;
-  output: this['schema'] extends this['base'] ? TypeOf<this['schema']> : never;
+  input: this['schema'] extends this['base'] ? TypeOf<this['schema']> : unknown;
+  output: this['schema'] extends this['base']
+    ? TypeOf<this['schema']>
+    : unknown;
 }
